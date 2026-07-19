@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kristian-nietzold.co.uk/sitemap.xml
