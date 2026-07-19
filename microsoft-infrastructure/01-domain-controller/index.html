@@ -52,7 +52,7 @@
 <h3>2. Server Network Configuration</h3>
 <p>I configured DC1 with a static IP address and set DNS to point to the server itself.</p>
 <figure class="lab-figure">
-<img alt="Static IP and DNS configured on DC1" src="screenshots/01-01-static-ip-and-dns.png" width="977" height="1132"/>
+<a class="screenshot-link" href="screenshots/01-01-static-ip-and-dns.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Static IP and DNS configured on DC1 (opens in a new tab)" title="Open full-size screenshot"><img alt="Static IP and DNS configured on DC1" src="screenshots/01-01-static-ip-and-dns.png" width="977" height="1132"/></a>
 <figcaption><span class="figure-label">Figure 1</span>Static IP and DNS configured on DC1.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Active Directory relies on DNS. A domain controller needs stable addressing so clients can locate domain services.</div>
@@ -61,7 +61,7 @@
 <h3>3. AD DS Role Installation</h3>
 <p>I installed the Active Directory Domain Services role from Server Manager and added the required management tools.</p>
 <figure class="lab-figure">
-<img alt="AD DS role selected in Server Manager" src="screenshots/01-02-add-ad-ds-role.png" width="1916" height="1374"/>
+<a class="screenshot-link" href="screenshots/01-02-add-ad-ds-role.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: AD DS role selected in Server Manager (opens in a new tab)" title="Open full-size screenshot"><img alt="AD DS role selected in Server Manager" src="screenshots/01-02-add-ad-ds-role.png" width="1916" height="1374"/></a>
 <figcaption><span class="figure-label">Figure 2</span>AD DS role selected in Server Manager.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Installing AD DS adds the components required for promotion, but the server is not a domain controller until promoted.</div>
@@ -70,7 +70,7 @@
 <h3>4. New Forest Creation</h3>
 <p>I promoted DC1 and created a new forest using corp.nietz.co.uk as the root domain.</p>
 <figure class="lab-figure">
-<img alt="New forest configured as corp.nietz.co.uk" src="screenshots/01-03-new-forest-created.png" width="3767" height="1795"/>
+<a class="screenshot-link" href="screenshots/01-03-new-forest-created.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: New forest configured as corp.nietz.co.uk (opens in a new tab)" title="Open full-size screenshot"><img alt="New forest configured as corp.nietz.co.uk" src="screenshots/01-03-new-forest-created.png" width="3767" height="1795"/></a>
 <figcaption><span class="figure-label">Figure 3</span>New forest configured as corp.nietz.co.uk.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> The forest is the top-level Active Directory boundary for the on-premises identity environment.</div>
@@ -79,7 +79,7 @@
 <h3>5. Domain Controller Promotion</h3>
 <p>I reviewed the promotion settings, kept DNS Server and Global Catalog enabled, confirmed CORP as the NetBIOS name, and completed the promotion.</p>
 <figure class="lab-figure">
-<img alt="Promotion settings reviewed before installation" src="screenshots/01-04-promote-to-domain-controller.png" width="1863" height="1376"/>
+<a class="screenshot-link" href="screenshots/01-04-promote-to-domain-controller.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Promotion settings reviewed before installation (opens in a new tab)" title="Open full-size screenshot"><img alt="Promotion settings reviewed before installation" src="screenshots/01-04-promote-to-domain-controller.png" width="1863" height="1376"/></a>
 <figcaption><span class="figure-label">Figure 4</span>Promotion settings reviewed before installation.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Promotion creates the directory database, DNS zone, SYSVOL, NETLOGON, and the first domain controller services.</div>
@@ -88,7 +88,7 @@
 <h3>6. ADUC Validation</h3>
 <p>I opened Active Directory Users and Computers and confirmed that the corp.nietz.co.uk domain tree was visible.</p>
 <figure class="lab-figure">
-<img alt="ADUC showing the domain tree" src="screenshots/01-05-aduc-domain-visible.png" width="2296" height="617"/>
+<a class="screenshot-link" href="screenshots/01-05-aduc-domain-visible.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: ADUC showing the domain tree (opens in a new tab)" title="Open full-size screenshot"><img alt="ADUC showing the domain tree" src="screenshots/01-05-aduc-domain-visible.png" width="2296" height="617"/></a>
 <figcaption><span class="figure-label">Figure 5</span>ADUC showing the domain tree.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> ADUC confirms that the directory exists and can be browsed using a standard administration console.</div>
@@ -97,7 +97,7 @@
 <h3>7. PowerShell Validation</h3>
 <p>I validated the forest and domain configuration using administrative tools and confirmed that the Active Directory structure was functioning correctly.</p>
 <figure class="lab-figure">
-<img alt="PowerShell forest and domain validation" src="screenshots/01-06-powershell-domain-info.png" width="2360" height="691"/>
+<a class="screenshot-link" href="screenshots/01-06-powershell-domain-info.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: PowerShell forest and domain validation (opens in a new tab)" title="Open full-size screenshot"><img alt="PowerShell forest and domain validation" src="screenshots/01-06-powershell-domain-info.png" width="2360" height="691"/></a>
 <figcaption><span class="figure-label">Figure 6</span>PowerShell forest and domain validation.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> PowerShell provides consistent administrative validation of the domain, forest, and Active Directory configuration without relying only on graphical tools.</div>
@@ -106,7 +106,7 @@
 <h3>8. DNS Zone Validation</h3>
 <p>I opened DNS Manager and confirmed that the corp.nietz.co.uk forward lookup zone existed with the correct domain controller records.</p>
 <figure class="lab-figure">
-<img alt="DNS Manager showing the AD DNS zone" src="screenshots/01-07-dns-zone-visible.png" width="2216" height="844"/>
+<a class="screenshot-link" href="screenshots/01-07-dns-zone-visible.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: DNS Manager showing the AD DNS zone (opens in a new tab)" title="Open full-size screenshot"><img alt="DNS Manager showing the AD DNS zone" src="screenshots/01-07-dns-zone-visible.png" width="2216" height="844"/></a>
 <figcaption><span class="figure-label">Figure 7</span>DNS Manager showing the AD DNS zone.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> AD DS depends on DNS records so clients can locate domain controllers and services.</div>
@@ -115,7 +115,7 @@
 <h3>9. DNS and Domain Controller Discovery</h3>
 <p>I validated DNS resolution and domain controller discovery to confirm that clients could locate and communicate with DC1 successfully.</p>
 <figure class="lab-figure">
-<img alt="Command-line DNS and DC discovery validation" src="screenshots/01-08-nslookup-success.png" width="2335" height="941"/>
+<a class="screenshot-link" href="screenshots/01-08-nslookup-success.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Command-line DNS and DC discovery validation (opens in a new tab)" title="Open full-size screenshot"><img alt="Command-line DNS and DC discovery validation" src="screenshots/01-08-nslookup-success.png" width="2335" height="941"/></a>
 <figcaption><span class="figure-label">Figure 8</span>Command-line DNS and DC discovery validation.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Domain join and authentication depend on DNS and domain controller discovery.</div>
@@ -124,7 +124,7 @@
 <h3>10. Domain Controller Health Check</h3>
 <p>I validated domain controller health and confirmed that DNS, Active Directory, and Netlogon services were functioning correctly.</p>
 <figure class="lab-figure">
-<img alt="dcdiag DNS and services validation" src="screenshots/01-09-dcdiag-success.png" width="1883" height="1950"/>
+<a class="screenshot-link" href="screenshots/01-09-dcdiag-success.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: dcdiag DNS and services validation (opens in a new tab)" title="Open full-size screenshot"><img alt="dcdiag DNS and services validation" src="screenshots/01-09-dcdiag-success.png" width="1883" height="1950"/></a>
 <figcaption><span class="figure-label">Figure 9</span>dcdiag DNS and services validation.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> DCDIAG provides support-level evidence that DC1 is healthy after promotion.</div>

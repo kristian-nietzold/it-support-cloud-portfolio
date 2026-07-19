@@ -35,44 +35,44 @@ figure img,
 <h2>ServiceNow Ticket</h2>
 <p>The incident was logged as a single-user access issue and assigned to Chloe Bennett in the Service Desk. The category was set to <strong>Account / Access</strong>, the subcategory to <strong>Group Membership</strong>, the service to <strong>Windows Infrastructure</strong>, the service offering to <strong>Active Directory Domain Services</strong>, and the configuration item to <strong>Active Directory</strong>. Impact was set to <strong>3 - Low</strong>, urgency to <strong>2 - Medium</strong>, and priority to <strong>4 - Low</strong>.</p>
 <figure class="lab-figure">
-<img alt="ServiceNow incident TS-033 showing Account Access category, Group Membership subcategory, Windows Infrastructure service, Active Directory Domain Services offering, Active Directory configuration item, Chloe Bennett assigned and P4 priority" src="screenshots/TS-033-01-servicenow-incident-opened.png" width="3798" height="1247"/>
+<a class="screenshot-link" href="screenshots/TS-033-01-servicenow-incident-opened.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: ServiceNow incident TS-033 showing Account Access category, Group Membership subcategory, Windows Infrastructure service, Active Directory Domain Services offering, Active Directory configuration item, Chloe Bennett assigned and P4 priority (opens in a new tab)" title="Open full-size screenshot"><img alt="ServiceNow incident TS-033 showing Account Access category, Group Membership subcategory, Windows Infrastructure service, Active Directory Domain Services offering, Active Directory configuration item, Chloe Bennett assigned and P4 priority" src="screenshots/TS-033-01-servicenow-incident-opened.png" width="3798" height="1247"/></a>
 <figcaption><span class="figure-label">Figure 1</span>ServiceNow incident opened for Kate Jones with the Active Directory service classification, Chloe Bennett assigned and P4 Low priority.</figcaption>
 </figure>
 <h2>Investigation</h2>
 <p>I validated the user-side symptoms on CL1. The Sales mapped drive was not visible under Network locations, and the expected HQ printer was not listed in Printers &amp; scanners.</p>
 <figure class="lab-figure">
-<img alt="CL1 showing Kate Jones signed in with the Sales mapped drive missing" src="screenshots/TS-033-02-sales-drive-missing.png" width="2767" height="1280"/>
+<a class="screenshot-link" href="screenshots/TS-033-02-sales-drive-missing.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: CL1 showing Kate Jones signed in with the Sales mapped drive missing (opens in a new tab)" title="Open full-size screenshot"><img alt="CL1 showing Kate Jones signed in with the Sales mapped drive missing" src="screenshots/TS-033-02-sales-drive-missing.png" width="2767" height="1280"/></a>
 <figcaption><span class="figure-label">Figure 2</span>The Sales mapped drive was missing from This PC.</figcaption>
 </figure>
 <figure class="lab-figure">
-<img alt="CL1 Printers and scanners showing PRN-HQ-01 on FS1 missing" src="screenshots/TS-033-03-hq-printer-missing.png" width="2541" height="1131"/>
+<a class="screenshot-link" href="screenshots/TS-033-03-hq-printer-missing.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: CL1 Printers and scanners showing PRN-HQ-01 on FS1 missing (opens in a new tab)" title="Open full-size screenshot"><img alt="CL1 Printers and scanners showing PRN-HQ-01 on FS1 missing" src="screenshots/TS-033-03-hq-printer-missing.png" width="2541" height="1131"/></a>
 <figcaption><span class="figure-label">Figure 3</span>The expected HQ printer was missing from Printers &amp; scanners.</figcaption>
 </figure>
 <p>I then checked Kate Jones' Active Directory group membership. The Sales mapped drive and HQ printer were controlled through AD security groups, so the missing resource groups explained why the drive and printer were not applying at sign-in.</p>
 <figure class="lab-figure">
-<img alt="Kate Jones Active Directory member of tab showing only Domain Users before the fix" src="screenshots/TS-033-04-ad-membership-root-cause.png" width="969" height="1162"/>
+<a class="screenshot-link" href="screenshots/TS-033-04-ad-membership-root-cause.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Kate Jones Active Directory member of tab showing only Domain Users before the fix (opens in a new tab)" title="Open full-size screenshot"><img alt="Kate Jones Active Directory member of tab showing only Domain Users before the fix" src="screenshots/TS-033-04-ad-membership-root-cause.png" width="969" height="1162"/></a>
 <figcaption><span class="figure-label">Figure 4</span>Kate Jones was only a member of <code>Domain Users</code>, confirming the missing resource group membership.</figcaption>
 </figure>
 <h2>Fix Applied</h2>
 <p>I added Kate Jones to the required resource groups: <code>GG_SALES_RW</code> for the Sales mapped drive and <code>GG_PRN_HQ</code> for the HQ printer.</p>
 <figure class="lab-figure">
-<img alt="Kate Jones Active Directory member of tab showing GG_PRN_HQ and GG_SALES_RW added" src="screenshots/TS-033-05-kate-added-to-sales-and-printer-groups.png" width="986" height="1361"/>
+<a class="screenshot-link" href="screenshots/TS-033-05-kate-added-to-sales-and-printer-groups.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Kate Jones Active Directory member of tab showing GG_PRN_HQ and GG_SALES_RW added (opens in a new tab)" title="Open full-size screenshot"><img alt="Kate Jones Active Directory member of tab showing GG_PRN_HQ and GG_SALES_RW added" src="screenshots/TS-033-05-kate-added-to-sales-and-printer-groups.png" width="986" height="1361"/></a>
 <figcaption><span class="figure-label">Figure 5</span>Kate Jones was added to the required Sales drive and HQ printer security groups.</figcaption>
 </figure>
 <h2>Validation</h2>
 <p>After the group membership correction, the user signed out and back in to refresh the logon session and apply the updated group membership. The Sales Department mapped drive appeared as <code>S:</code>, and <code>PRN-HQ-01 on FS1</code> appeared in Printers &amp; scanners.</p>
 <figure class="lab-figure">
-<img alt="CL1 showing Sales Department mapped drive restored as S drive" src="screenshots/TS-033-06-sales-drive-restored-after-restart.png" width="1154" height="758"/>
+<a class="screenshot-link" href="screenshots/TS-033-06-sales-drive-restored-after-restart.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: CL1 showing Sales Department mapped drive restored as S drive (opens in a new tab)" title="Open full-size screenshot"><img alt="CL1 showing Sales Department mapped drive restored as S drive" src="screenshots/TS-033-06-sales-drive-restored-after-restart.png" width="1154" height="758"/></a>
 <figcaption><span class="figure-label">Figure 6</span>The Sales Department mapped drive was restored as <code>S:</code> after sign-out/sign-in refresh.</figcaption>
 </figure>
 <figure class="lab-figure">
-<img alt="CL1 Printers and scanners showing PRN-HQ-01 on FS1 restored for Kate Jones" src="screenshots/TS-033-07-hq-printer-restored.png" width="2471" height="1111"/>
+<a class="screenshot-link" href="screenshots/TS-033-07-hq-printer-restored.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: CL1 Printers and scanners showing PRN-HQ-01 on FS1 restored for Kate Jones (opens in a new tab)" title="Open full-size screenshot"><img alt="CL1 Printers and scanners showing PRN-HQ-01 on FS1 restored for Kate Jones" src="screenshots/TS-033-07-hq-printer-restored.png" width="2471" height="1111"/></a>
 <figcaption><span class="figure-label">Figure 7</span>The HQ printer was restored and visible in Kate Jones' Printers &amp; scanners list.</figcaption>
 </figure>
 <h2>Resolution</h2>
 <p>The ticket was resolved with the resolution code <strong>Solution provided</strong>. The resolution notes summarised the root cause, group membership change, logon refresh and validation outcome.</p>
 <figure class="lab-figure">
-<img alt="ServiceNow resolution information showing TS-033 resolved with Solution provided" src="screenshots/TS-033-08-resolution-note.png" width="3822" height="919"/>
+<a class="screenshot-link" href="screenshots/TS-033-08-resolution-note.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: ServiceNow resolution information showing TS-033 resolved with Solution provided (opens in a new tab)" title="Open full-size screenshot"><img alt="ServiceNow resolution information showing TS-033 resolved with Solution provided" src="screenshots/TS-033-08-resolution-note.png" width="3822" height="919"/></a>
 <figcaption><span class="figure-label">Figure 8</span>Resolution information showing <strong>Solution provided</strong>, Chloe Bennett as resolver, and final resolution notes covering the group membership fix and restored resources.</figcaption>
 </figure>
 <div class="summary">

@@ -47,7 +47,7 @@
 <h3>1. ServiceNow Dashboard</h3>
 <p>I created a dedicated ServiceNow dashboard for the troubleshooting ticket series. The dashboard provides a single workspace for first-line support queues, open incidents, unassigned incidents, high-priority work and recently resolved tickets.</p>
 <figure class="lab-figure">
-<img alt="Nietz Ltd Service Desk Dashboard in ServiceNow showing first-line incident queues" src="screenshots/SD-00-01-servicenow-dashboard.png" width="3799" height="1790"/>
+<a class="screenshot-link" href="screenshots/SD-00-01-servicenow-dashboard.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Nietz Ltd Service Desk Dashboard in ServiceNow showing first-line incident queues (opens in a new tab)" title="Open full-size screenshot"><img alt="Nietz Ltd Service Desk Dashboard in ServiceNow showing first-line incident queues" src="screenshots/SD-00-01-servicenow-dashboard.png" width="3799" height="1790"/></a>
 <figcaption><span class="figure-label">Figure 1</span>Nietz Ltd Service Desk Dashboard prepared for ServiceNow-based troubleshooting labs.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> A dedicated dashboard gives the Service Desk analyst a clean place to create, triage and manage the TS ticket queue without relying on default ServiceNow demo data.</div>
@@ -56,7 +56,7 @@
 <h3>2. ServiceNow Users</h3>
 <p>I created the ServiceNow users needed for the support workflow, including first-line analysts, an escalation/admin resolver, and business callers from HR, Finance, Sales and Management.</p>
 <figure class="lab-figure">
-<img alt="Filtered ServiceNow user list showing Nietz Ltd users with departments and active status" src="screenshots/SD-00-02-servicenow-users.png" width="3823" height="973"/>
+<a class="screenshot-link" href="screenshots/SD-00-02-servicenow-users.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Filtered ServiceNow user list showing Nietz Ltd users with departments and active status (opens in a new tab)" title="Open full-size screenshot"><img alt="Filtered ServiceNow user list showing Nietz Ltd users with departments and active status" src="screenshots/SD-00-02-servicenow-users.png" width="3823" height="973"/></a>
 <figcaption><span class="figure-label">Figure 2</span>Filtered ServiceNow user list showing active Nietz Ltd resolver and caller accounts.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> The ticket labs need realistic callers and resolvers so incident history can show who raised the ticket, who worked it, and when escalation was required.</div>
@@ -65,7 +65,7 @@
 <h3>3. Active Directory Service Desk Group</h3>
 <p>I created a dedicated Active Directory security group called <code>GG_ServiceDesk_L1</code> for delegated first-line support permissions. Chloe Bennett and Daniel Smith were added as the Service Desk analysts.</p>
 <figure class="lab-figure">
-<img alt="Active Directory group GG_ServiceDesk_L1 showing Chloe Bennett and Daniel Smith as members" src="screenshots/SD-00-03-ad-servicedesk-group-members.png" width="957" height="1130"/>
+<a class="screenshot-link" href="screenshots/SD-00-03-ad-servicedesk-group-members.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Active Directory group GG_ServiceDesk_L1 showing Chloe Bennett and Daniel Smith as members (opens in a new tab)" title="Open full-size screenshot"><img alt="Active Directory group GG_ServiceDesk_L1 showing Chloe Bennett and Daniel Smith as members" src="screenshots/SD-00-03-ad-servicedesk-group-members.png" width="957" height="1130"/></a>
 <figcaption><span class="figure-label">Figure 3</span>Service Desk delegation group with Chloe Bennett and Daniel Smith as members.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> I used a separate delegation group instead of a general IT resource group. This keeps file/share access separate from account-administration rights and supports least-privilege administration.</div>
@@ -74,7 +74,7 @@
 <h3>4. Password Reset Delegation</h3>
 <p>I delegated password reset, forced password change at next logon, and read-only user information permissions to <code>GG_ServiceDesk_L1</code> for normal business-user OUs.</p>
 <figure class="lab-figure">
-<img alt="Delegation of Control Wizard showing password reset and read user information permissions for GG_ServiceDesk_L1" src="screenshots/SD-00-04-ad-delegation-password-reset.png" width="1225" height="946"/>
+<a class="screenshot-link" href="screenshots/SD-00-04-ad-delegation-password-reset.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Delegation of Control Wizard showing password reset and read user information permissions for GG_ServiceDesk_L1 (opens in a new tab)" title="Open full-size screenshot"><img alt="Delegation of Control Wizard showing password reset and read user information permissions for GG_ServiceDesk_L1" src="screenshots/SD-00-04-ad-delegation-password-reset.png" width="1225" height="946"/></a>
 <figcaption><span class="figure-label">Figure 4</span>Password reset, force-password-change and read-user-information permissions delegated to the Service Desk group.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> These rights allow first-line analysts to handle common password reset tickets without requiring Domain Admin access.</div>
@@ -83,7 +83,7 @@
 <h3>5. Account Unlock Delegation</h3>
 <p>I also delegated account unlock capability by granting the Service Desk group permission to read and write the <code>lockoutTime</code> attribute on user objects in the normal business-user OUs.</p>
 <figure class="lab-figure">
-<img alt="Delegation of Control Wizard showing read lockoutTime and write lockoutTime permissions for GG_ServiceDesk_L1" src="screenshots/SD-00-05-ad-delegation-unlock-rights.png" width="1205" height="946"/>
+<a class="screenshot-link" href="screenshots/SD-00-05-ad-delegation-unlock-rights.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Delegation of Control Wizard showing read lockoutTime and write lockoutTime permissions for GG_ServiceDesk_L1 (opens in a new tab)" title="Open full-size screenshot"><img alt="Delegation of Control Wizard showing read lockoutTime and write lockoutTime permissions for GG_ServiceDesk_L1" src="screenshots/SD-00-05-ad-delegation-unlock-rights.png" width="1205" height="946"/></a>
 <figcaption><span class="figure-label">Figure 5</span>Account unlock rights delegated by allowing the Service Desk group to read and write the <code>lockoutTime</code> attribute.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Unlocking an account is not just the same as resetting a password. Clearing a lockout requires permission to modify the lockout state, so this delegation supports realistic L1 account lockout handling.</div>
@@ -92,7 +92,7 @@
 <h3>6. Incident Categories</h3>
 <p>I updated the ServiceNow incident category choices to better match a realistic Microsoft-focused Service Desk queue. The active categories now cover Microsoft 365, account/access, operating system, hardware, network, printing, application, security, request/admin and inquiry/help scenarios.</p>
 <figure class="lab-figure">
-<img alt="ServiceNow Choice List filtered to incident category records showing active Service Desk categories" src="screenshots/SD-00-06-choice-list-incident-categories.png" width="3808" height="1496"/>
+<a class="screenshot-link" href="screenshots/SD-00-06-choice-list-incident-categories.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: ServiceNow Choice List filtered to incident category records showing active Service Desk categories (opens in a new tab)" title="Open full-size screenshot"><img alt="ServiceNow Choice List filtered to incident category records showing active Service Desk categories" src="screenshots/SD-00-06-choice-list-incident-categories.png" width="3808" height="1496"/></a>
 <figcaption><span class="figure-label">Figure 6</span>ServiceNow Choice List showing the configured Incident categories, with old duplicate/default categories made inactive.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> The default lab categories were too limited for realistic troubleshooting evidence. Cleaning up the category list allows future tickets to be logged consistently and makes triage, reporting and escalation decisions easier to follow.</div>
@@ -101,7 +101,7 @@
 <h3>7. Microsoft 365 Subcategories</h3>
 <p>I configured Microsoft 365 subcategories for the most common cloud productivity support areas: Exchange Online, Outlook, Teams, SharePoint, OneDrive, Licensing, MFA, Entra ID and Microsoft Office Apps.</p>
 <figure class="lab-figure">
-<img alt="ServiceNow Choice List filtered to Microsoft 365 incident subcategories" src="screenshots/SD-00-07-choice-list-microsoft-365-subcategories.png" width="3804" height="1114"/>
+<a class="screenshot-link" href="screenshots/SD-00-07-choice-list-microsoft-365-subcategories.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: ServiceNow Choice List filtered to Microsoft 365 incident subcategories (opens in a new tab)" title="Open full-size screenshot"><img alt="ServiceNow Choice List filtered to Microsoft 365 incident subcategories" src="screenshots/SD-00-07-choice-list-microsoft-365-subcategories.png" width="3804" height="1114"/></a>
 <figcaption><span class="figure-label">Figure 7</span>Microsoft 365 incident subcategories configured in the ServiceNow Choice List.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> This prevents Microsoft 365 issues being forced into vague categories such as Software or Email. Future tickets such as SharePoint access, licensing, MFA, Outlook and mailbox issues can now be classified more accurately.</div>
@@ -110,7 +110,7 @@
 <h3>8. Cloud / Azure Subcategories</h3>
 <p>I added Cloud / Azure subcategories for common junior-support and escalation scenarios, including virtual machines, storage, networking, identity/RBAC, cost/subscription, backup/recovery and monitoring.</p>
 <figure class="lab-figure">
-<img alt="ServiceNow Choice List filtered to Cloud Azure incident subcategories" src="screenshots/SD-00-08-choice-list-cloud-azure-subcategories.png" width="3793" height="975"/>
+<a class="screenshot-link" href="screenshots/SD-00-08-choice-list-cloud-azure-subcategories.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: ServiceNow Choice List filtered to Cloud Azure incident subcategories (opens in a new tab)" title="Open full-size screenshot"><img alt="ServiceNow Choice List filtered to Cloud Azure incident subcategories" src="screenshots/SD-00-08-choice-list-cloud-azure-subcategories.png" width="3793" height="975"/></a>
 <figcaption><span class="figure-label">Figure 8</span>Cloud / Azure incident subcategories configured for Azure-related support and escalation tickets.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Azure tickets often need a different path from normal Microsoft 365 app support. These subcategories allow Azure VM, networking, identity/RBAC, subscription and monitoring issues to be classified cleanly.</div>
@@ -119,11 +119,11 @@
 <h3>9. Resolver Groups and Escalation Model</h3>
 <p>I created dedicated ServiceNow resolver groups so tickets can show realistic routing when first-line support reaches a permissions boundary or needs specialist investigation.</p>
 <figure class="lab-figure">
-<img alt="ServiceNow Groups list filtered to Service Desk and support resolver groups" src="screenshots/SD-00-09-servicenow-support-groups.png" width="3790" height="788"/>
+<a class="screenshot-link" href="screenshots/SD-00-09-servicenow-support-groups.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: ServiceNow Groups list filtered to Service Desk and support resolver groups (opens in a new tab)" title="Open full-size screenshot"><img alt="ServiceNow Groups list filtered to Service Desk and support resolver groups" src="screenshots/SD-00-09-servicenow-support-groups.png" width="3790" height="788"/></a>
 <figcaption><span class="figure-label">Figure 9</span>ServiceNow resolver groups created for first-line ownership and escalation routing.</figcaption>
 </figure>
 <figure class="lab-figure">
-<img alt="ServiceNow Group Members table showing Service Desk and support group memberships" src="screenshots/SD-00-10-servicenow-support-group-memberships.png" width="2540" height="726"/>
+<a class="screenshot-link" href="screenshots/SD-00-10-servicenow-support-group-memberships.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: ServiceNow Group Members table showing Service Desk and support group memberships (opens in a new tab)" title="Open full-size screenshot"><img alt="ServiceNow Group Members table showing Service Desk and support group memberships" src="screenshots/SD-00-10-servicenow-support-group-memberships.png" width="2540" height="726"/></a>
 <figcaption><span class="figure-label">Figure 10</span>ServiceNow group membership table showing first-line analysts and the senior lab escalation resolver.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Chloe Bennett and Daniel Smith represent first-line Service Desk analysts. Kristian Nietzold is used as the senior lab resolver/admin account for escalated fixes that require higher permissions or specialist investigation.</div>
@@ -136,7 +136,7 @@
   the Service Desk portfolio.
 </p>
 <figure class="lab-figure">
-<img alt="Nietz Ltd ServiceNow incident queue populated with fictional support tickets" src="../screenshots/TS-INDEX-01-service-desk-ticket-queue.png" width="3780" height="1678"/>
+<a class="screenshot-link" href="../screenshots/TS-INDEX-01-service-desk-ticket-queue.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Nietz Ltd ServiceNow incident queue populated with fictional support tickets (opens in a new tab)" title="Open full-size screenshot"><img alt="Nietz Ltd ServiceNow incident queue populated with fictional support tickets" src="../screenshots/TS-INDEX-01-service-desk-ticket-queue.png" width="3780" height="1678"/></a>
 <figcaption>
 <span class="figure-label">Queue validation</span>
     Populated ServiceNow incident queue showing realistic callers, priorities,

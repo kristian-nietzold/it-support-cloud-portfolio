@@ -46,7 +46,7 @@
 <h3>1. Organisational Unit Structure</h3>
 <p>I created the core OU structure for Nietz Ltd so users could be organised by function and managed consistently in later labs.</p>
 <figure class="lab-figure">
-<img alt="Active Directory Users and Computers showing the Nietz Ltd OU structure" src="screenshots/03-01-ou-structure.png" width="1882" height="1072"/>
+<a class="screenshot-link" href="screenshots/03-01-ou-structure.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Active Directory Users and Computers showing the Nietz Ltd OU structure (opens in a new tab)" title="Open full-size screenshot"><img alt="Active Directory Users and Computers showing the Nietz Ltd OU structure" src="screenshots/03-01-ou-structure.png" width="1882" height="1072"/></a>
 <figcaption><span class="figure-label">Figure 1</span>Nietz Ltd OU structure created in Active Directory.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> OUs provide administrative structure for users, groups, delegation, and future Group Policy targeting.</div>
@@ -55,7 +55,7 @@
 <h3>2. Alternative UPN Suffix</h3>
 <p>I added <code>nietz.co.uk</code> as an alternative UPN suffix so users can sign in with the same public domain that will be used for Microsoft 365.</p>
 <figure class="lab-figure">
-<img alt="Active Directory Domains and Trusts showing nietz.co.uk as an alternative UPN suffix" src="screenshots/03-02-upn-suffix.png" width="964" height="1111"/>
+<a class="screenshot-link" href="screenshots/03-02-upn-suffix.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Active Directory Domains and Trusts showing nietz.co.uk as an alternative UPN suffix (opens in a new tab)" title="Open full-size screenshot"><img alt="Active Directory Domains and Trusts showing nietz.co.uk as an alternative UPN suffix" src="screenshots/03-02-upn-suffix.png" width="964" height="1111"/></a>
 <figcaption><span class="figure-label">Figure 2</span>Alternative UPN suffix configured for <code>nietz.co.uk</code>.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> The AD domain remains <code>corp.nietz.co.uk</code>, but users sign in as <code>user@nietz.co.uk</code> to align with Microsoft 365 and future hybrid identity.</div>
@@ -64,7 +64,7 @@
 <h3>3. Administrative User</h3>
 <p>I created the daily administrator account <code>k.nietzold@nietz.co.uk</code> for routine administration tasks.</p>
 <figure class="lab-figure">
-<img alt="Active Directory showing the k.nietzold administrative user" src="screenshots/03-03-admin-user-created.png" width="1065" height="927"/>
+<a class="screenshot-link" href="screenshots/03-03-admin-user-created.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Active Directory showing the k.nietzold administrative user (opens in a new tab)" title="Open full-size screenshot"><img alt="Active Directory showing the k.nietzold administrative user" src="screenshots/03-03-admin-user-created.png" width="1065" height="927"/></a>
 <figcaption><span class="figure-label">Figure 3</span>Daily admin user created with the <code>@nietz.co.uk</code> UPN suffix.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> A separate daily admin account avoids using high-privilege or tenant-level admin identities for normal administration.</div>
@@ -73,7 +73,7 @@
 <h3>4. Department Users</h3>
 <p>I created the core operational users for Helpdesk, HR, Finance, Sales, and Management using <code>@nietz.co.uk</code> UPNs and department descriptions.</p>
 <figure class="lab-figure">
-<img alt="PowerShell output showing department users created with nietz.co.uk UPNs" src="screenshots/03-04-department-users-created.png" width="2949" height="821"/>
+<a class="screenshot-link" href="screenshots/03-04-department-users-created.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: PowerShell output showing department users created with nietz.co.uk UPNs (opens in a new tab)" title="Open full-size screenshot"><img alt="PowerShell output showing department users created with nietz.co.uk UPNs" src="screenshots/03-04-department-users-created.png" width="2949" height="821"/></a>
 <figcaption><span class="figure-label">Figure 4</span>Department users listed with Microsoft 365-aligned sign-in names.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Creating users with the public UPN suffix prepares the same identities for later Microsoft 365, Exchange Online, Entra ID, and hybrid identity work.</div>
@@ -82,7 +82,7 @@
 <h3>5. Security Groups</h3>
 <p>I created department access groups, a printer access group, and pilot targeting groups that can be reused by later labs.</p>
 <figure class="lab-figure">
-<img alt="Active Directory showing department and pilot security groups" src="screenshots/03-05-security-groups-created.png" width="2436" height="855"/>
+<a class="screenshot-link" href="screenshots/03-05-security-groups-created.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Active Directory showing department and pilot security groups (opens in a new tab)" title="Open full-size screenshot"><img alt="Active Directory showing department and pilot security groups" src="screenshots/03-05-security-groups-created.png" width="2436" height="855"/></a>
 <figcaption><span class="figure-label">Figure 5</span>Department, printer, and pilot security groups created in Active Directory.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Security groups allow access and future policy targeting to be assigned through groups rather than directly to individual users, which is easier to manage and audit.</div>
@@ -91,7 +91,7 @@
 <h3>6. Group Membership</h3>
 <p>I assigned users to the correct department groups and prepared selected pilot group memberships so later labs can reuse the same structure for file permissions, printer access, Microsoft 365, and Intune-related targeting.</p>
 <figure class="lab-figure">
-<img alt="Active Directory showing user membership in department groups" src="screenshots/03-06-group-membership.png" width="961" height="1113"/>
+<a class="screenshot-link" href="screenshots/03-06-group-membership.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Active Directory showing user membership in department groups (opens in a new tab)" title="Open full-size screenshot"><img alt="Active Directory showing user membership in department groups" src="screenshots/03-06-group-membership.png" width="961" height="1113"/></a>
 <figcaption><span class="figure-label">Figure 6</span>Users assigned to the IT read/write security group.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Group-based access control is the normal support model for shared folders, mapped drives, printers, and later policy targeting. In this lab, the groups were prepared; the actual file share and Intune policies are configured in later labs.</div>
@@ -100,7 +100,7 @@
 <h3>7. Password and Account Settings</h3>
 <p>I configured basic password and account settings for the new users and confirmed that account properties were set consistently.</p>
 <figure class="lab-figure">
-<img alt="Active Directory user account properties showing password and account settings" src="screenshots/03-07-password-account-settings.png" width="996" height="1325"/>
+<a class="screenshot-link" href="screenshots/03-07-password-account-settings.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Active Directory user account properties showing password and account settings (opens in a new tab)" title="Open full-size screenshot"><img alt="Active Directory user account properties showing password and account settings" src="screenshots/03-07-password-account-settings.png" width="996" height="1325"/></a>
 <figcaption><span class="figure-label">Figure 7</span>Password and account settings reviewed for the new user accounts.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Password and account settings are common helpdesk tasks and prepare the lab for later password reset, account unlock, and delegated administration scenarios.</div>
@@ -109,7 +109,7 @@
 <h3>8. Service Desk L1 Delegation Group</h3>
 <p>I included <code>GG_ServiceDesk_L1</code> as the first-line Service Desk delegation group and added Chloe Bennett and Daniel Smith as members.</p>
 <figure class="lab-figure">
-<img alt="Active Directory group membership showing Chloe Bennett and Daniel Smith in GG_ServiceDesk_L1" src="screenshots/03-08-service-desk-l1-membership.png" width="951" height="1181"/>
+<a class="screenshot-link" href="screenshots/03-08-service-desk-l1-membership.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Active Directory group membership showing Chloe Bennett and Daniel Smith in GG_ServiceDesk_L1 (opens in a new tab)" title="Open full-size screenshot"><img alt="Active Directory group membership showing Chloe Bennett and Daniel Smith in GG_ServiceDesk_L1" src="screenshots/03-08-service-desk-l1-membership.png" width="951" height="1181"/></a>
 <figcaption><span class="figure-label">Figure 8</span>Chloe Bennett and Daniel Smith added to the first-line Service Desk delegation group.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Delegating support tasks through a group is safer and easier to audit than giving individual users broad administrator rights.</div>
@@ -118,7 +118,7 @@
 <h3>9. Delegated Service Desk Permissions</h3>
 <p>I delegated controlled first-line AD support permissions to <code>GG_ServiceDesk_L1</code>: password reset, read user information, and modify group membership.</p>
 <figure class="lab-figure">
-<img alt="Delegation of Control Wizard showing password reset, read user information and modify group membership selected for GG_ServiceDesk_L1" src="screenshots/03-09-delegation-service-desk-l1-common-tasks.png" width="1188" height="933"/>
+<a class="screenshot-link" href="screenshots/03-09-delegation-service-desk-l1-common-tasks.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Delegation of Control Wizard showing password reset, read user information and modify group membership selected for GG_ServiceDesk_L1 (opens in a new tab)" title="Open full-size screenshot"><img alt="Delegation of Control Wizard showing password reset, read user information and modify group membership selected for GG_ServiceDesk_L1" src="screenshots/03-09-delegation-service-desk-l1-common-tasks.png" width="1188" height="933"/></a>
 <figcaption><span class="figure-label">Figure 9</span>Delegated common first-line support tasks to <code>GG_ServiceDesk_L1</code>.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> This gives Service Desk enough access for common account and standard access-group tickets without granting Domain Admin or Group Policy administration rights.</div>
@@ -127,7 +127,7 @@
 <h3>10. Delegated Password Reset Validation</h3>
 <p>I validated the delegation by opening the password reset workflow as Chloe Bennett using her delegated Service Desk permissions.</p>
 <figure class="lab-figure">
-<img alt="Reset Password dialog opened from Chloe Bennett's delegated Service Desk session" src="screenshots/03-10-chloe-password-reset-validation.png" width="913" height="611"/>
+<a class="screenshot-link" href="screenshots/03-10-chloe-password-reset-validation.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Reset Password dialog opened from Chloe Bennett's delegated Service Desk session (opens in a new tab)" title="Open full-size screenshot"><img alt="Reset Password dialog opened from Chloe Bennett's delegated Service Desk session" src="screenshots/03-10-chloe-password-reset-validation.png" width="913" height="611"/></a>
 <figcaption><span class="figure-label">Figure 10</span>Chloe Bennett able to access the delegated password reset workflow.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Validation confirms the support model works from the Service Desk account, not just from a domain administrator account.</div>

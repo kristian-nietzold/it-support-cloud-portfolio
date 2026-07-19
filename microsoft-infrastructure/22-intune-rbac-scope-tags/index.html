@@ -52,7 +52,7 @@
 <h3>1. Help Desk Operator Role Identified</h3>
 <p>I opened the built-in Microsoft Intune Help Desk Operator role and confirmed that it was available for assignment.</p>
 <figure class="lab-figure">
-<img alt="Microsoft Intune Help Desk Operator built-in role overview" src="screenshots/22-01-intune-help-desk-operator-overview.png" width="1305" height="666"/>
+<a class="screenshot-link" href="screenshots/22-01-intune-help-desk-operator-overview.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Microsoft Intune Help Desk Operator built-in role overview (opens in a new tab)" title="Open full-size screenshot"><img alt="Microsoft Intune Help Desk Operator built-in role overview" src="screenshots/22-01-intune-help-desk-operator-overview.png" width="1305" height="666"/></a>
 <figcaption><span class="figure-label">Figure 1</span>Built-in Help Desk Operator role selected in the Intune admin center.</figcaption>
 </figure>
 </div>
@@ -60,7 +60,7 @@
 <h3>2. Help Desk Operator Permissions Reviewed</h3>
 <p>I reviewed the role description and permission categories before assigning it. The screenshot shows an excerpt from the upper portion of the full permissions list; further permissions continue below the visible area.</p>
 <figure class="lab-figure">
-<img alt="Excerpt of Microsoft Intune Help Desk Operator permissions" src="screenshots/22-02-help-desk-operator-permissions-excerpt.png" width="1996" height="1681"/>
+<a class="screenshot-link" href="screenshots/22-02-help-desk-operator-permissions-excerpt.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Excerpt of Microsoft Intune Help Desk Operator permissions (opens in a new tab)" title="Open full-size screenshot"><img alt="Excerpt of Microsoft Intune Help Desk Operator permissions" src="screenshots/22-02-help-desk-operator-permissions-excerpt.png" width="1996" height="1681"/></a>
 <figcaption><span class="figure-label">Figure 2</span>Help Desk Operator description and an excerpt of its built-in permissions.</figcaption>
 </figure>
 <div class="callout"><strong>Role purpose:</strong> The built-in role is intended for user and device support, including permitted remote tasks and support of applications or policies.</div>
@@ -70,7 +70,7 @@
 <h3>3. Device Actions Disabled Before Intune RBAC</h3>
 <p>Before Chloe was added to the new Intune administrator group, I signed in as her and opened CL2. Her existing Microsoft Entra Helpdesk Administrator role allowed the device record to be viewed, but the Intune operational controls were unavailable.</p>
 <figure class="lab-figure">
-<img alt="Chloe Bennett viewing CL2 with Intune device actions disabled before the new RBAC assignment" src="screenshots/22-03-chloe-before-intune-rbac-actions-disabled.png" width="3707" height="1670"/>
+<a class="screenshot-link" href="screenshots/22-03-chloe-before-intune-rbac-actions-disabled.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Chloe Bennett viewing CL2 with Intune device actions disabled before the new RBAC assignment (opens in a new tab)" title="Open full-size screenshot"><img alt="Chloe Bennett viewing CL2 with Intune device actions disabled before the new RBAC assignment" src="screenshots/22-03-chloe-before-intune-rbac-actions-disabled.png" width="3707" height="1670"/></a>
 <figcaption><span class="figure-label">Figure 3</span>Read-only baseline: CL2 was visible, while remote device actions remained disabled.</figcaption>
 </figure>
 </div>
@@ -79,7 +79,7 @@
 <h3>4. Dedicated Intune Helpdesk Group Created</h3>
 <p>I created <code>GRP_Intune_Helpdesk_Operators</code> as an assigned cloud security group for Intune administrative delegation.</p>
 <figure class="lab-figure">
-<img alt="GRP Intune Helpdesk Operators security group listed in Microsoft Entra" src="screenshots/22-04-intune-helpdesk-operators-group-created.png" width="2824" height="943"/>
+<a class="screenshot-link" href="screenshots/22-04-intune-helpdesk-operators-group-created.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: GRP Intune Helpdesk Operators security group listed in Microsoft Entra (opens in a new tab)" title="Open full-size screenshot"><img alt="GRP Intune Helpdesk Operators security group listed in Microsoft Entra" src="screenshots/22-04-intune-helpdesk-operators-group-created.png" width="2824" height="943"/></a>
 <figcaption><span class="figure-label">Figure 4</span>Dedicated cloud security group created for Intune helpdesk operators.</figcaption>
 </figure>
 </div>
@@ -87,7 +87,7 @@
 <h3>5. Service Desk Members Added</h3>
 <p>I added Chloe Bennett and Daniel Smith as direct members. The group contains both a synchronised on-premises identity and a cloud-only identity.</p>
 <figure class="lab-figure">
-<img alt="Chloe Bennett and Daniel Smith listed as members of the Intune helpdesk operators group" src="screenshots/22-05-intune-helpdesk-operators-group-members.png" width="2614" height="1109"/>
+<a class="screenshot-link" href="screenshots/22-05-intune-helpdesk-operators-group-members.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Chloe Bennett and Daniel Smith listed as members of the Intune helpdesk operators group (opens in a new tab)" title="Open full-size screenshot"><img alt="Chloe Bennett and Daniel Smith listed as members of the Intune helpdesk operators group" src="screenshots/22-05-intune-helpdesk-operators-group-members.png" width="2614" height="1109"/></a>
 <figcaption><span class="figure-label">Figure 5</span>Chloe Bennett and Daniel Smith confirmed as direct Intune helpdesk group members.</figcaption>
 </figure>
 </div>
@@ -95,7 +95,7 @@
 <h3>6. Windows Pilot Scope Tag Reviewed</h3>
 <p>I configured the custom <code>ST-Windows-Pilot</code> scope tag and assigned it to <code>GRP_Intune_Windows_Pilot_Devices</code>. This connected the custom scope-tag context to the managed Windows pilot devices.</p>
 <figure class="lab-figure">
-<img alt="ST Windows Pilot scope tag review showing assignment to the Windows pilot device group" src="screenshots/22-06-windows-pilot-scope-tag-review.png" width="1766" height="1687"/>
+<a class="screenshot-link" href="screenshots/22-06-windows-pilot-scope-tag-review.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: ST Windows Pilot scope tag review showing assignment to the Windows pilot device group (opens in a new tab)" title="Open full-size screenshot"><img alt="ST Windows Pilot scope tag review showing assignment to the Windows pilot device group" src="screenshots/22-06-windows-pilot-scope-tag-review.png" width="1766" height="1687"/></a>
 <figcaption><span class="figure-label">Figure 6</span>Custom scope tag reviewed with the Windows pilot device group assignment.</figcaption>
 </figure>
 <div class="callout"><strong>Scope note:</strong> Scope tags filter Intune objects within the Intune RBAC assignment. They do not cancel access that a user receives independently through a Microsoft Entra role.</div>
@@ -104,7 +104,7 @@
 <h3>7. Custom Scope Tag Created</h3>
 <p>I created <code>ST-Windows-Pilot</code> alongside the built-in Default scope tag.</p>
 <figure class="lab-figure">
-<img alt="ST Windows Pilot custom scope tag listed in Microsoft Intune" src="screenshots/22-07-windows-pilot-scope-tag-created.png" width="2398" height="1062"/>
+<a class="screenshot-link" href="screenshots/22-07-windows-pilot-scope-tag-created.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: ST Windows Pilot custom scope tag listed in Microsoft Intune (opens in a new tab)" title="Open full-size screenshot"><img alt="ST Windows Pilot custom scope tag listed in Microsoft Intune" src="screenshots/22-07-windows-pilot-scope-tag-created.png" width="2398" height="1062"/></a>
 <figcaption><span class="figure-label">Figure 7</span>Custom Windows pilot scope tag created successfully.</figcaption>
 </figure>
 </div>
@@ -112,7 +112,7 @@
 <h3>8. Scoped Role Assignment Reviewed</h3>
 <p>I configured <code>RA-Intune-Helpdesk-Windows-Pilot</code> with the dedicated helpdesk group as the administrator group, the Windows pilot device group as the scope group and <code>ST-Windows-Pilot</code> as the scope tag.</p>
 <figure class="lab-figure">
-<img alt="Review of the Help Desk Operator role assignment with admin group scope group and scope tag" src="screenshots/22-08-help-desk-operator-role-assignment-review.png" width="1815" height="1683"/>
+<a class="screenshot-link" href="screenshots/22-08-help-desk-operator-role-assignment-review.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Review of the Help Desk Operator role assignment with admin group scope group and scope tag (opens in a new tab)" title="Open full-size screenshot"><img alt="Review of the Help Desk Operator role assignment with admin group scope group and scope tag" src="screenshots/22-08-help-desk-operator-role-assignment-review.png" width="1815" height="1683"/></a>
 <figcaption><span class="figure-label">Figure 8</span>Complete role-assignment relationship reviewed before creation.</figcaption>
 </figure>
 </div>
@@ -120,7 +120,7 @@
 <h3>9. Scoped Help Desk Operator Assignment Created</h3>
 <p>I created the role assignment and confirmed that its administrator group and Windows pilot scope group were active, with the custom scope tag attached.</p>
 <figure class="lab-figure">
-<img alt="Created Intune Help Desk Operator role assignment showing member group scope group and scope tag" src="screenshots/22-09-help-desk-operator-role-assignment-created.png" width="2477" height="1704"/>
+<a class="screenshot-link" href="screenshots/22-09-help-desk-operator-role-assignment-created.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Created Intune Help Desk Operator role assignment showing member group scope group and scope tag (opens in a new tab)" title="Open full-size screenshot"><img alt="Created Intune Help Desk Operator role assignment showing member group scope group and scope tag" src="screenshots/22-09-help-desk-operator-role-assignment-created.png" width="2477" height="1704"/></a>
 <figcaption><span class="figure-label">Figure 9</span>Scoped Help Desk Operator assignment created and active.</figcaption>
 </figure>
 </div>
@@ -129,7 +129,7 @@
 <h3>10. Scoped Intune Device Actions Enabled</h3>
 <p>After Chloe was added to <code>GRP_Intune_Helpdesk_Operators</code> and a fresh session was opened, I returned to CL2. The command bar and expanded actions menu now showed permitted device-management actions as enabled.</p>
 <figure class="lab-figure">
-<img alt="Chloe Bennett viewing CL2 with Intune Help Desk Operator actions enabled after the scoped RBAC assignment" src="screenshots/22-10-chloe-after-intune-rbac-actions-enabled.png" width="3745" height="1652"/>
+<a class="screenshot-link" href="screenshots/22-10-chloe-after-intune-rbac-actions-enabled.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Chloe Bennett viewing CL2 with Intune Help Desk Operator actions enabled after the scoped RBAC assignment (opens in a new tab)" title="Open full-size screenshot"><img alt="Chloe Bennett viewing CL2 with Intune Help Desk Operator actions enabled after the scoped RBAC assignment" src="screenshots/22-10-chloe-after-intune-rbac-actions-enabled.png" width="3745" height="1652"/></a>
 <figcaption><span class="figure-label">Figure 10</span>Post-change validation showing Intune operational actions enabled for Chloe on CL2.</figcaption>
 </figure>
 <div class="callout"><strong>Safe validation:</strong> The enabled controls were used as evidence of the permission change. No destructive action such as Wipe, Retire, Fresh Start or Autopilot Reset was submitted.</div>

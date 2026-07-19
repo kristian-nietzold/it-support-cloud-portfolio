@@ -49,7 +49,7 @@
 <h3>1. Intune Automatic Enrolment Scoped to Pilot Group</h3>
 <p>I configured Windows automatic MDM enrolment so that only selected pilot users were targeted. The MDM user scope was set to <code>Some</code>, with one selected group, and Windows Information Protection was left disabled for this lab.</p>
 <figure class="lab-figure">
-<img alt="Microsoft Intune automatic enrolment configured with MDM user scope set to Some and one group selected" src="screenshots/15-01-intune-mdm-auto-enrolment-scope.png" width="1771" height="1697"/>
+<a class="screenshot-link" href="screenshots/15-01-intune-mdm-auto-enrolment-scope.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Microsoft Intune automatic enrolment configured with MDM user scope set to Some and one group selected (opens in a new tab)" title="Open full-size screenshot"><img alt="Microsoft Intune automatic enrolment configured with MDM user scope set to Some and one group selected" src="screenshots/15-01-intune-mdm-auto-enrolment-scope.png" width="1771" height="1697"/></a>
 <figcaption><span class="figure-label">Figure 1</span>Intune automatic enrolment scoped to the pilot group.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> This keeps cloud device enrolment controlled instead of enabling Intune enrolment for every user in the tenant.</div>
@@ -58,7 +58,7 @@
 <h3>2. Pilot Group Membership Confirmed</h3>
 <p>I confirmed that <code>GRP_Intune_Pilot</code> contained Chloe Bennett before using her account to join the new Windows device.</p>
 <figure class="lab-figure">
-<img alt="GRP_Intune_Pilot group membership showing Chloe Bennett as a member" src="screenshots/15-02-grp-intune-pilot-chloe-member.png" width="2436" height="1014"/>
+<a class="screenshot-link" href="screenshots/15-02-grp-intune-pilot-chloe-member.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: GRP_Intune_Pilot group membership showing Chloe Bennett as a member (opens in a new tab)" title="Open full-size screenshot"><img alt="GRP_Intune_Pilot group membership showing Chloe Bennett as a member" src="screenshots/15-02-grp-intune-pilot-chloe-member.png" width="2436" height="1014"/></a>
 <figcaption><span class="figure-label">Figure 2</span>Chloe Bennett confirmed as a member of the Intune pilot group.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> The user must be in the scoped MDM enrolment group for automatic Intune enrolment to apply during work or school setup.</div>
@@ -67,7 +67,7 @@
 <h3>3. Chloe Bennett Licence Confirmed</h3>
 <p>I checked Chloe Bennett's Microsoft 365 licence assignment and confirmed that Microsoft 365 Business Premium was assigned.</p>
 <figure class="lab-figure">
-<img alt="Chloe Bennett Microsoft 365 admin center licence page showing Microsoft 365 Business Premium assigned" src="screenshots/15-03-chloe-intune-licence.png" width="2245" height="1591"/>
+<a class="screenshot-link" href="screenshots/15-03-chloe-intune-licence.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Chloe Bennett Microsoft 365 admin center licence page showing Microsoft 365 Business Premium assigned (opens in a new tab)" title="Open full-size screenshot"><img alt="Chloe Bennett Microsoft 365 admin center licence page showing Microsoft 365 Business Premium assigned" src="screenshots/15-03-chloe-intune-licence.png" width="2245" height="1591"/></a>
 <figcaption><span class="figure-label">Figure 3</span>Microsoft 365 Business Premium assigned to Chloe Bennett.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> The user requires an Intune-capable licence for device enrolment and management.</div>
@@ -76,7 +76,7 @@
 <h3>4. CL2 Entra Join State Validated Locally</h3>
 <p>After completing Windows setup as Chloe Bennett, I validated the local device join state using <code>dsregcmd /status</code>. The output confirmed that <code>CL2</code> was Microsoft Entra joined and not joined to the on-premises AD domain.</p>
 <figure class="lab-figure">
-<img alt="PowerShell showing whoami as corp c.bennett, hostname CL2, and dsregcmd status with AzureAdJoined YES and DomainJoined NO" src="screenshots/15-04-cl2-dsregcmd-azureadjoined.png" width="1375" height="694"/>
+<a class="screenshot-link" href="screenshots/15-04-cl2-dsregcmd-azureadjoined.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: PowerShell showing whoami as corp c.bennett, hostname CL2, and dsregcmd status with AzureAdJoined YES and DomainJoined NO (opens in a new tab)" title="Open full-size screenshot"><img alt="PowerShell showing whoami as corp c.bennett, hostname CL2, and dsregcmd status with AzureAdJoined YES and DomainJoined NO" src="screenshots/15-04-cl2-dsregcmd-azureadjoined.png" width="1375" height="694"/></a>
 <figcaption><span class="figure-label">Figure 4</span>CL2 validated as Entra joined and not domain joined.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> This proves that CL2 is a cloud-native endpoint rather than another traditional domain-joined client.</div>
@@ -85,7 +85,7 @@
 <h3>5. Entra Device Record Validated</h3>
 <p>I searched Microsoft Entra ID for <code>CL2</code> and confirmed that the device record showed Microsoft Entra joined status, Chloe Bennett as the owner, Microsoft Intune as the MDM provider, and a compliant state.</p>
 <figure class="lab-figure">
-<img alt="Microsoft Entra devices list showing CL2 as Microsoft Entra joined with owner Chloe Bennett, MDM Microsoft Intune and compliant Yes" src="screenshots/15-05-entra-cl2-device-record.png" width="2780" height="798"/>
+<a class="screenshot-link" href="screenshots/15-05-entra-cl2-device-record.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Microsoft Entra devices list showing CL2 as Microsoft Entra joined with owner Chloe Bennett, MDM Microsoft Intune and compliant Yes (opens in a new tab)" title="Open full-size screenshot"><img alt="Microsoft Entra devices list showing CL2 as Microsoft Entra joined with owner Chloe Bennett, MDM Microsoft Intune and compliant Yes" src="screenshots/15-05-entra-cl2-device-record.png" width="2780" height="798"/></a>
 <figcaption><span class="figure-label">Figure 5</span>CL2 device record confirmed in Microsoft Entra ID.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Entra validation links the local device join state to the tenant-side device object and confirms that Intune is the MDM authority.</div>
@@ -94,7 +94,7 @@
 <h3>6. Intune Managed Device List Validated</h3>
 <p>I reviewed the Windows devices list in Intune and confirmed that <code>CL2</code> was managed by Intune, corporate owned, compliant, assigned to <code>c.bennett@nietz.co.uk</code>, and recently checked in.</p>
 <figure class="lab-figure">
-<img alt="Microsoft Intune Windows devices list showing CL2 managed by Intune, corporate ownership, compliant status, primary user UPN and last check-in" src="screenshots/15-06-intune-cl2-managed-device.png" width="3289" height="892"/>
+<a class="screenshot-link" href="screenshots/15-06-intune-cl2-managed-device.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Microsoft Intune Windows devices list showing CL2 managed by Intune, corporate ownership, compliant status, primary user UPN and last check-in (opens in a new tab)" title="Open full-size screenshot"><img alt="Microsoft Intune Windows devices list showing CL2 managed by Intune, corporate ownership, compliant status, primary user UPN and last check-in" src="screenshots/15-06-intune-cl2-managed-device.png" width="3289" height="892"/></a>
 <figcaption><span class="figure-label">Figure 6</span>CL2 visible in Intune as a managed and compliant Windows device.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> This is the main Intune outcome for the lab: the cloud-joined device automatically enrolled and checked in successfully.</div>
@@ -103,7 +103,7 @@
 <h3>7. Intune Device Overview Validated</h3>
 <p>I opened the CL2 device record in Intune and confirmed the essential details: device name, corporate ownership, primary user, enrolled by user, compliance state, operating system, virtual machine model and last check-in time.</p>
 <figure class="lab-figure">
-<img alt="Intune CL2 device overview showing primary user Chloe Bennett, enrolled by Chloe Bennett, ownership corporate, compliance compliant and operating system Windows" src="screenshots/15-07-intune-cl2-device-overview.png" width="2842" height="887"/>
+<a class="screenshot-link" href="screenshots/15-07-intune-cl2-device-overview.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Intune CL2 device overview showing primary user Chloe Bennett, enrolled by Chloe Bennett, ownership corporate, compliance compliant and operating system Windows (opens in a new tab)" title="Open full-size screenshot"><img alt="Intune CL2 device overview showing primary user Chloe Bennett, enrolled by Chloe Bennett, ownership corporate, compliance compliant and operating system Windows" src="screenshots/15-07-intune-cl2-device-overview.png" width="2842" height="887"/></a>
 <figcaption><span class="figure-label">Figure 7</span>CL2 Intune overview confirmed primary user, enrolment and compliance details.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> The device overview provides a support-friendly view of the managed endpoint state that a helpdesk or endpoint administrator would use during investigation.</div>

@@ -52,7 +52,7 @@
 <h3>1. Exchange Administrator Role Assignment</h3>
 <p>I assigned the Exchange Administrator role to the daily admin account so Exchange Online mailbox administration could be performed without relying on the setup/global admin account for routine support work.</p>
 <figure class="lab-figure">
-<img alt="Exchange Administrator role assigned to Kristian Nietzold" src="screenshots/07-01-exchange-admin-role-assignment.png" width="2299" height="1519"/>
+<a class="screenshot-link" href="screenshots/07-01-exchange-admin-role-assignment.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Exchange Administrator role assigned to Kristian Nietzold (opens in a new tab)" title="Open full-size screenshot"><img alt="Exchange Administrator role assigned to Kristian Nietzold" src="screenshots/07-01-exchange-admin-role-assignment.png" width="2299" height="1519"/></a>
 <figcaption><span class="figure-label">Figure 1</span>Exchange Administrator role assigned to the daily admin account.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Delegated admin roles support least-privilege administration and reflect how routine Exchange tasks are normally separated from global tenant administration.</div>
@@ -61,7 +61,7 @@
 <h3>2. Exchange Admin Center Access</h3>
 <p>I opened the Exchange admin center and confirmed that the Nietz Ltd tenant showed Exchange Online administration areas including recipients, mail flow, roles, migration, organisation settings and troubleshooting.</p>
 <figure class="lab-figure">
-<img alt="Exchange admin center opened for Nietz Ltd" src="screenshots/07-02-exchange-admin-center.png" width="3815" height="1784"/>
+<a class="screenshot-link" href="screenshots/07-02-exchange-admin-center.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Exchange admin center opened for Nietz Ltd (opens in a new tab)" title="Open full-size screenshot"><img alt="Exchange admin center opened for Nietz Ltd" src="screenshots/07-02-exchange-admin-center.png" width="3815" height="1784"/></a>
 <figcaption><span class="figure-label">Figure 2</span>Exchange admin center opened with mailbox and mail-flow administration available.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Exchange admin center is used for mailbox administration, shared mailbox configuration, delegation, mail flow and message trace.</div>
@@ -70,7 +70,7 @@
 <h3>3. User Mailbox Validation</h3>
 <p>I confirmed that licensed Nietz Ltd users had Exchange Online user mailboxes provisioned with <code>@nietz.co.uk</code> addresses.</p>
 <figure class="lab-figure">
-<img alt="Exchange Online user mailboxes confirmed" src="screenshots/07-03-user-mailboxes-confirmed.png" width="2864" height="1671"/>
+<a class="screenshot-link" href="screenshots/07-03-user-mailboxes-confirmed.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Exchange Online user mailboxes confirmed (opens in a new tab)" title="Open full-size screenshot"><img alt="Exchange Online user mailboxes confirmed" src="screenshots/07-03-user-mailboxes-confirmed.png" width="2864" height="1671"/></a>
 <figcaption><span class="figure-label">Figure 3</span>User mailboxes confirmed for licensed <code>@nietz.co.uk</code> accounts.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Mailbox provisioning depends on licensing and must be confirmed before Outlook, shared mailbox and mail-flow tests are trusted.</div>
@@ -79,7 +79,7 @@
 <h3>4. Shared Mailboxes Created</h3>
 <p>I created the <code>support@nietz.co.uk</code> and <code>sales@nietz.co.uk</code> shared mailboxes. The Support mailbox also uses the <code>helpdesk</code> alias for a realistic service desk address.</p>
 <figure class="lab-figure">
-<img alt="Support and Sales shared mailboxes created" src="screenshots/07-04-shared-mailboxes-created.png" width="2082" height="1701"/>
+<a class="screenshot-link" href="screenshots/07-04-shared-mailboxes-created.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Support and Sales shared mailboxes created (opens in a new tab)" title="Open full-size screenshot"><img alt="Support and Sales shared mailboxes created" src="screenshots/07-04-shared-mailboxes-created.png" width="2082" height="1701"/></a>
 <figcaption><span class="figure-label">Figure 4</span>Support and Sales shared mailboxes created in Exchange Online, with the Support mailbox using the <code>helpdesk</code> alias.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Shared mailboxes allow teams to manage common addresses without assigning the mailbox to a single named user.</div>
@@ -88,7 +88,7 @@
 <h3>5. Support Mailbox Permissions</h3>
 <p>I configured the Support shared mailbox with Send As and Read and manage / Full Access permissions for Chloe Bennett and Daniel Smith.</p>
 <figure class="lab-figure">
-<img alt="Support mailbox delegation configured" src="screenshots/07-05-support-mailbox-permissions.png" width="1169" height="887"/>
+<a class="screenshot-link" href="screenshots/07-05-support-mailbox-permissions.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Support mailbox delegation configured (opens in a new tab)" title="Open full-size screenshot"><img alt="Support mailbox delegation configured" src="screenshots/07-05-support-mailbox-permissions.png" width="1169" height="887"/></a>
 <figcaption><span class="figure-label">Figure 5</span>Support mailbox delegation configured with Send As and Full Access permissions.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Full Access allows a user to open and manage a shared mailbox. Send As allows a user to send messages that appear to come from the shared mailbox address. These are separate permissions.</div>
@@ -97,7 +97,7 @@
 <h3>6. Sales Mailbox Permissions</h3>
 <p>I configured the Sales shared mailbox with Send As and Read and manage / Full Access permissions for Kate Jones and Sam Jackson.</p>
 <figure class="lab-figure">
-<img alt="Sales mailbox delegation configured" src="screenshots/07-06-sales-mailbox-permissions.png" width="1175" height="875"/>
+<a class="screenshot-link" href="screenshots/07-06-sales-mailbox-permissions.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Sales mailbox delegation configured (opens in a new tab)" title="Open full-size screenshot"><img alt="Sales mailbox delegation configured" src="screenshots/07-06-sales-mailbox-permissions.png" width="1175" height="875"/></a>
 <figcaption><span class="figure-label">Figure 6</span>Sales mailbox delegation configured with Send As and Full Access permissions.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Shared mailbox delegation is a common Microsoft 365 support task and is frequently checked when users cannot open a shared mailbox or cannot send as a shared address.</div>
@@ -106,7 +106,7 @@
 <h3>7. Internal Mail Flow Test to Support</h3>
 <p>I sent an internal test message from Emily Wilson to the Support shared mailbox and confirmed that the message arrived in the Support mailbox inbox.</p>
 <figure class="lab-figure">
-<img alt="Internal mail flow test to Support mailbox" src="screenshots/07-07-mail-flow-test.png" width="3641" height="820"/>
+<a class="screenshot-link" href="screenshots/07-07-mail-flow-test.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Internal mail flow test to Support mailbox (opens in a new tab)" title="Open full-size screenshot"><img alt="Internal mail flow test to Support mailbox" src="screenshots/07-07-mail-flow-test.png" width="3641" height="820"/></a>
 <figcaption><span class="figure-label">Figure 7</span>Support shared mailbox received an internal test message from Emily Wilson.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Testing internal delivery confirms that the shared mailbox can receive mail before moving on to Send As or external mail-flow scenarios.</div>
@@ -115,7 +115,7 @@
 <h3>8. Internal Message Trace Validation</h3>
 <p>I used Exchange Online message trace to confirm that the Lab 07 internal test message was received, processed and delivered to the Support shared mailbox.</p>
 <figure class="lab-figure">
-<img alt="Message trace confirmed delivery to Support" src="screenshots/07-08-message-trace-validation.png" width="1131" height="1684"/>
+<a class="screenshot-link" href="screenshots/07-08-message-trace-validation.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Message trace confirmed delivery to Support (opens in a new tab)" title="Open full-size screenshot"><img alt="Message trace confirmed delivery to Support" src="screenshots/07-08-message-trace-validation.png" width="1131" height="1684"/></a>
 <figcaption><span class="figure-label">Figure 8</span>Message trace confirmed the internal test message was delivered to the Support mailbox.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Message trace is a core Exchange Online support tool for investigating delayed, failed, blocked or misrouted mail.</div>
@@ -124,7 +124,7 @@
 <h3>9. Send As Support Test</h3>
 <p>I sent a message from the Support shared mailbox to Emily Wilson to validate that Send As worked from the user mailbox experience, not only from the admin permission screen.</p>
 <figure class="lab-figure">
-<img alt="Support shared mailbox Sent Items showing Send As test" src="screenshots/07-09-send-as-support-test.png" width="3671" height="812"/>
+<a class="screenshot-link" href="screenshots/07-09-send-as-support-test.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Support shared mailbox Sent Items showing Send As test (opens in a new tab)" title="Open full-size screenshot"><img alt="Support shared mailbox Sent Items showing Send As test" src="screenshots/07-09-send-as-support-test.png" width="3671" height="812"/></a>
 <figcaption><span class="figure-label">Figure 9</span>Support shared mailbox Sent Items showing the Send As validation message sent to Emily Wilson.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> This validates the practical user-side result of the Send As permission assigned earlier in the lab.</div>
@@ -133,7 +133,7 @@
 <h3>10. Send As Message Received</h3>
 <p>I confirmed that Emily Wilson received the test message and that the message appeared as coming from the Support shared mailbox.</p>
 <figure class="lab-figure">
-<img alt="Emily Wilson received message from Support shared mailbox" src="screenshots/07-10-send-as-message-received.png" width="3665" height="1040"/>
+<a class="screenshot-link" href="screenshots/07-10-send-as-message-received.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Emily Wilson received message from Support shared mailbox (opens in a new tab)" title="Open full-size screenshot"><img alt="Emily Wilson received message from Support shared mailbox" src="screenshots/07-10-send-as-message-received.png" width="3665" height="1040"/></a>
 <figcaption><span class="figure-label">Figure 10</span>Emily Wilson received the Send As validation message from the Support shared mailbox.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Received-message evidence confirms the user-facing result: the recipient sees the message as coming from the shared mailbox rather than the delegate user.</div>
@@ -142,7 +142,7 @@
 <h3>11. Send As Message Trace Validation</h3>
 <p>I used Exchange Online message trace to confirm that the Send As validation message from <code>support@nietz.co.uk</code> to <code>e.wilson@nietz.co.uk</code> was delivered.</p>
 <figure class="lab-figure">
-<img alt="Message trace confirmed Send As delivery" src="screenshots/07-11-message-trace-send-as-validation.png" width="1157" height="1312"/>
+<a class="screenshot-link" href="screenshots/07-11-message-trace-send-as-validation.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Message trace confirmed Send As delivery (opens in a new tab)" title="Open full-size screenshot"><img alt="Message trace confirmed Send As delivery" src="screenshots/07-11-message-trace-send-as-validation.png" width="1157" height="1312"/></a>
 <figcaption><span class="figure-label">Figure 11</span>Message trace confirmed the Send As validation message was delivered to Emily Wilson.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> This combines recipient-side Outlook evidence with administrator-side delivery validation.</div>

@@ -48,7 +48,7 @@
 <h3>1. Microsoft 365 Domain Verification</h3>
 <p>I added and verified <code>nietz.co.uk</code> in Microsoft 365 so users could be created with the same public sign-in domain used in the Active Directory UPN plan from Lab 03.</p>
 <figure class="lab-figure">
-<img alt="Microsoft 365 showing domain setup complete for nietz.co.uk" src="screenshots/05-01-domain-setup-complete.png" width="1452" height="678"/>
+<a class="screenshot-link" href="screenshots/05-01-domain-setup-complete.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Microsoft 365 showing domain setup complete for nietz.co.uk (opens in a new tab)" title="Open full-size screenshot"><img alt="Microsoft 365 showing domain setup complete for nietz.co.uk" src="screenshots/05-01-domain-setup-complete.png" width="1452" height="678"/></a>
 <figcaption><span class="figure-label">Figure 1</span>Microsoft 365 confirmed that <code>nietz.co.uk</code> was successfully set up.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Verifying the public domain is a core Microsoft 365 onboarding step. It allows users to sign in as <code>user@nietz.co.uk</code> instead of using the fallback <code>onmicrosoft.com</code> domain.</div>
@@ -57,7 +57,7 @@
 <h3>2. DNS Verification Record</h3>
 <p>I confirmed the Microsoft domain verification TXT record in Cloudflare for <code>nietz.co.uk</code>.</p>
 <figure class="lab-figure">
-<img alt="Cloudflare DNS showing the Microsoft verification TXT record for nietz.co.uk" src="screenshots/05-02-cloudflare-ms-verification-txt.png" width="2822" height="764"/>
+<a class="screenshot-link" href="screenshots/05-02-cloudflare-ms-verification-txt.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Cloudflare DNS showing the Microsoft verification TXT record for nietz.co.uk (opens in a new tab)" title="Open full-size screenshot"><img alt="Cloudflare DNS showing the Microsoft verification TXT record for nietz.co.uk" src="screenshots/05-02-cloudflare-ms-verification-txt.png" width="2822" height="764"/></a>
 <figcaption><span class="figure-label">Figure 2</span>Cloudflare DNS contained the Microsoft verification TXT record for <code>nietz.co.uk</code>.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> The TXT record proves domain ownership to Microsoft 365 without changing mail routing. MX records were deliberately left unchanged until the later Exchange and mail flow labs.</div>
@@ -66,7 +66,7 @@
 <h3>3. Cloud Users and Licence Assignment</h3>
 <p>I created the Microsoft 365 cloud users for the Nietz Ltd departments and assigned Office 365 E5 licences to the operational users and daily admin account.</p>
 <figure class="lab-figure">
-<img alt="Microsoft 365 active users showing nietz.co.uk users with Office 365 E5 licences" src="screenshots/05-03-active-users-created.png" width="2942" height="1563"/>
+<a class="screenshot-link" href="screenshots/05-03-active-users-created.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Microsoft 365 active users showing nietz.co.uk users with Office 365 E5 licences (opens in a new tab)" title="Open full-size screenshot"><img alt="Microsoft 365 active users showing nietz.co.uk users with Office 365 E5 licences" src="screenshots/05-03-active-users-created.png" width="2942" height="1563"/></a>
 <figcaption><span class="figure-label">Figure 3</span>Active users created with <code>@nietz.co.uk</code> sign-in names and Office 365 E5 licences.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> User and licence administration is a core Microsoft 365 support task. The unlicensed global admin account remains separated from the licensed daily admin and operational users.</div>
@@ -75,7 +75,7 @@
 <h3>4. Mailbox Provisioning</h3>
 <p>I confirmed in Exchange admin center that licensed users had Exchange Online user mailboxes provisioned.</p>
 <figure class="lab-figure">
-<img alt="Exchange admin center showing user mailboxes for nietz.co.uk users" src="screenshots/05-04-mailbox-provisioned.png" width="2960" height="1664"/>
+<a class="screenshot-link" href="screenshots/05-04-mailbox-provisioned.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Exchange admin center showing user mailboxes for nietz.co.uk users (opens in a new tab)" title="Open full-size screenshot"><img alt="Exchange admin center showing user mailboxes for nietz.co.uk users" src="screenshots/05-04-mailbox-provisioned.png" width="2960" height="1664"/></a>
 <figcaption><span class="figure-label">Figure 4</span>Exchange Online user mailboxes provisioned for the licensed Microsoft 365 users.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> A licence alone is not enough evidence of readiness. Mailbox visibility in Exchange admin center confirms that Exchange Online successfully provisioned user mailboxes.</div>
@@ -84,7 +84,7 @@
 <h3>5. Cloud Security Groups</h3>
 <p>I recreated the department and pilot security group model in Entra ID so cloud services can use the same group-based administration pattern prepared in the on-premises labs.</p>
 <figure class="lab-figure">
-<img alt="Entra ID groups showing department and pilot security groups for Nietz Ltd" src="screenshots/05-05-cloud-groups-created.png" width="1922" height="1910"/>
+<a class="screenshot-link" href="screenshots/05-05-cloud-groups-created.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Entra ID groups showing department and pilot security groups for Nietz Ltd (opens in a new tab)" title="Open full-size screenshot"><img alt="Entra ID groups showing department and pilot security groups for Nietz Ltd" src="screenshots/05-05-cloud-groups-created.png" width="1922" height="1910"/></a>
 <figcaption><span class="figure-label">Figure 5</span>Department and pilot security groups created as assigned security groups in Entra ID.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Group-based targeting prepares the environment for later Conditional Access, Intune, LAPS, Windows Hello for Business, update ring, Teams, SharePoint, and OneDrive labs.</div>
@@ -93,7 +93,7 @@
 <h3>6. User Sign-In Validation</h3>
 <p>I signed in as Chloe Bennett to confirm that a standard cloud user could access the Microsoft 365 account experience using the <code>@nietz.co.uk</code> sign-in name.</p>
 <figure class="lab-figure">
-<img alt="Microsoft 365 profile page showing Chloe Bennett signed in as c.bennett@nietz.co.uk" src="screenshots/05-06-user-sign-in-success.png" width="1177" height="627"/>
+<a class="screenshot-link" href="screenshots/05-06-user-sign-in-success.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Microsoft 365 profile page showing Chloe Bennett signed in as c.bennett@nietz.co.uk (opens in a new tab)" title="Open full-size screenshot"><img alt="Microsoft 365 profile page showing Chloe Bennett signed in as c.bennett@nietz.co.uk" src="screenshots/05-06-user-sign-in-success.png" width="1177" height="627"/></a>
 <figcaption><span class="figure-label">Figure 6</span>Chloe Bennett signed in successfully with the <code>c.bennett@nietz.co.uk</code> account.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> User-facing sign-in validation proves that the account is usable, not just present in the admin center.</div>
@@ -102,7 +102,7 @@
 <h3>7. Entra Sign-In Log Validation</h3>
 <p>I confirmed the successful Chloe Bennett sign-in in Entra ID sign-in events.</p>
 <figure class="lab-figure">
-<img alt="Entra sign-in events showing successful sign-ins for c.bennett@nietz.co.uk" src="screenshots/05-07-sign-in-log-success.png" width="2099" height="971"/>
+<a class="screenshot-link" href="screenshots/05-07-sign-in-log-success.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Entra sign-in events showing successful sign-ins for c.bennett@nietz.co.uk (opens in a new tab)" title="Open full-size screenshot"><img alt="Entra sign-in events showing successful sign-ins for c.bennett@nietz.co.uk" src="screenshots/05-07-sign-in-log-success.png" width="2099" height="971"/></a>
 <figcaption><span class="figure-label">Figure 7</span>Entra sign-in logs showing successful Microsoft 365 sign-ins for <code>c.bennett@nietz.co.uk</code>.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Sign-in logs are important support evidence because they show authentication outcomes, application access, timestamps, and user principal names from the cloud identity platform.</div>

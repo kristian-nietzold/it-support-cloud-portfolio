@@ -47,7 +47,7 @@
 <h3>1. Client DNS Configuration</h3>
 <p>I configured CL1 to use DC1 as its preferred DNS server so the workstation could resolve Active Directory records from the internal domain.</p>
 <figure class="lab-figure">
-<img alt="CL1 IPv4 settings showing preferred DNS server 192.168.10.10" src="screenshots/02-01-configure-dns.png" width="972" height="1122"/>
+<a class="screenshot-link" href="screenshots/02-01-configure-dns.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: CL1 IPv4 settings showing preferred DNS server 192.168.10.10 (opens in a new tab)" title="Open full-size screenshot"><img alt="CL1 IPv4 settings showing preferred DNS server 192.168.10.10" src="screenshots/02-01-configure-dns.png" width="972" height="1122"/></a>
 <figcaption><span class="figure-label">Figure 1</span>CL1 configured to use DC1 for DNS resolution.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Domain join depends on DNS. CL1 must query DC1, not router DNS or public DNS, to locate domain controllers and Active Directory service records.</div>
@@ -56,7 +56,7 @@
 <h3>2. Network Connectivity Validation</h3>
 <p>I confirmed that CL1 could reach DC1 across the lab network before attempting the domain join.</p>
 <figure class="lab-figure">
-<img alt="Successful ping replies from DC1 at 192.168.10.10" src="screenshots/02-02-ping-dc1.png" width="1333" height="720"/>
+<a class="screenshot-link" href="screenshots/02-02-ping-dc1.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Successful ping replies from DC1 at 192.168.10.10 (opens in a new tab)" title="Open full-size screenshot"><img alt="Successful ping replies from DC1 at 192.168.10.10" src="screenshots/02-02-ping-dc1.png" width="1333" height="720"/></a>
 <figcaption><span class="figure-label">Figure 2</span>Successful network connectivity test from CL1 to DC1.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Basic network reachability must work before authentication, domain join, Group Policy, or file services can operate reliably.</div>
@@ -65,7 +65,7 @@
 <h3>3. Domain Join</h3>
 <p>I joined CL1 to the <code>corp.nietz.co.uk</code> domain using domain credentials.</p>
 <figure class="lab-figure">
-<img alt="Computer Name Domain Changes dialog showing corp.nietz.co.uk" src="screenshots/02-03-domain-join-wizard.png" width="834" height="914"/>
+<a class="screenshot-link" href="screenshots/02-03-domain-join-wizard.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Computer Name Domain Changes dialog showing corp.nietz.co.uk (opens in a new tab)" title="Open full-size screenshot"><img alt="Computer Name Domain Changes dialog showing corp.nietz.co.uk" src="screenshots/02-03-domain-join-wizard.png" width="834" height="914"/></a>
 <figcaption><span class="figure-label">Figure 3</span>CL1 joined to the corp.nietz.co.uk domain.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Joining the domain registers the workstation in Active Directory and creates the secure trust relationship required for domain sign-in.</div>
@@ -74,7 +74,7 @@
 <h3>4. Domain Login</h3>
 <p>I restarted CL1 and confirmed that domain authentication worked by signing in with a domain account.</p>
 <figure class="lab-figure">
-<img alt="CL1 signed in with a domain account" src="screenshots/02-04-domain-login-success.png" width="1136" height="308"/>
+<a class="screenshot-link" href="screenshots/02-04-domain-login-success.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: CL1 signed in with a domain account (opens in a new tab)" title="Open full-size screenshot"><img alt="CL1 signed in with a domain account" src="screenshots/02-04-domain-login-success.png" width="1136" height="308"/></a>
 <figcaption><span class="figure-label">Figure 4</span>Successful domain sign-in on CL1.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> A successful domain login confirms that CL1 can authenticate against the domain controller after joining the domain.</div>
@@ -83,7 +83,7 @@
 <h3>5. Computer Object Validation</h3>
 <p>I confirmed in Active Directory Users and Computers that the CL1 computer object was created in the default Computers container.</p>
 <figure class="lab-figure">
-<img alt="CL1 computer object visible in Active Directory Users and Computers" src="screenshots/02-05-aduc-computer-object.png" width="1206" height="629"/>
+<a class="screenshot-link" href="screenshots/02-05-aduc-computer-object.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: CL1 computer object visible in Active Directory Users and Computers (opens in a new tab)" title="Open full-size screenshot"><img alt="CL1 computer object visible in Active Directory Users and Computers" src="screenshots/02-05-aduc-computer-object.png" width="1206" height="629"/></a>
 <figcaption><span class="figure-label">Figure 5</span>CL1 computer object visible in Active Directory.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> The computer object proves that the workstation was registered in Active Directory and is now managed as a domain member.</div>
@@ -92,7 +92,7 @@
 <h3>6. DNS and Domain Controller Discovery</h3>
 <p>I validated domain DNS resolution and domain controller discovery from CL1.</p>
 <figure class="lab-figure">
-<img alt="PowerShell on CL1 showing hostname, domain administrator context, nslookup resolution for corp.nietz.co.uk, and nltest discovery of DC1" src="screenshots/02-06-nslookup-nltest.png" width="3174" height="1078"/>
+<a class="screenshot-link" href="screenshots/02-06-nslookup-nltest.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: PowerShell on CL1 showing hostname, domain administrator context, nslookup resolution for corp.nietz.co.uk, and nltest discovery of DC1 (opens in a new tab)" title="Open full-size screenshot"><img alt="PowerShell on CL1 showing hostname, domain administrator context, nslookup resolution for corp.nietz.co.uk, and nltest discovery of DC1" src="screenshots/02-06-nslookup-nltest.png" width="3174" height="1078"/></a>
 <figcaption><span class="figure-label">Figure 6</span>CL1 resolving the domain through DC1 and discovering the domain controller successfully.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> DNS and domain controller discovery are required for logon, Group Policy, Kerberos, LDAP, and domain resource access.</div>
@@ -101,7 +101,7 @@
 <h3>7. Group Policy Validation</h3>
 <p>I confirmed that CL1 processed baseline domain Group Policy after the domain join.</p>
 <figure class="lab-figure">
-<img alt="gpresult showing baseline Group Policy processing on CL1" src="screenshots/02-07-gpresult-baseline.png" width="1749" height="1574"/>
+<a class="screenshot-link" href="screenshots/02-07-gpresult-baseline.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: gpresult showing baseline Group Policy processing on CL1 (opens in a new tab)" title="Open full-size screenshot"><img alt="gpresult showing baseline Group Policy processing on CL1" src="screenshots/02-07-gpresult-baseline.png" width="1749" height="1574"/></a>
 <figcaption><span class="figure-label">Figure 7</span>Baseline Group Policy processing confirmed on CL1.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Group Policy processing confirms that the workstation is receiving domain management settings and is ready for later policy-based configuration labs.</div>

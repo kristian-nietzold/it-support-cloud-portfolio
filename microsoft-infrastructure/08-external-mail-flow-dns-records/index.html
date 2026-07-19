@@ -46,7 +46,7 @@
 <h3>1. Domain Status Before Exchange DNS Connection</h3>
 <p>I reviewed the Microsoft 365 domain status for <code>nietz.co.uk</code> before connecting Exchange Online DNS services.</p>
 <figure class="lab-figure">
-<img alt="Microsoft 365 domain overview for nietz.co.uk before Exchange DNS services were selected" src="screenshots/08-01-m365-domain-dns-status-before.png" width="1441" height="1159"/>
+<a class="screenshot-link" href="screenshots/08-01-m365-domain-dns-status-before.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Microsoft 365 domain overview for nietz.co.uk before Exchange DNS services were selected (opens in a new tab)" title="Open full-size screenshot"><img alt="Microsoft 365 domain overview for nietz.co.uk before Exchange DNS services were selected" src="screenshots/08-01-m365-domain-dns-status-before.png" width="1441" height="1159"/></a>
 <figcaption><span class="figure-label">Figure 1</span>Microsoft 365 showed the domain as managed at Cloudflare with no services selected.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> This established the starting point before Exchange Online DNS records were connected to the public domain.</div>
@@ -55,7 +55,7 @@
 <h3>2. Required Exchange Online DNS Records</h3>
 <p>I reviewed the Microsoft 365 DNS requirements for Exchange Online and identified the required MX record, Autodiscover CNAME record and SPF TXT record.</p>
 <figure class="lab-figure">
-<img alt="Microsoft 365 required MX CNAME and TXT records for Exchange Online" src="screenshots/08-02-m365-dns-records-required.png" width="2397" height="1261"/>
+<a class="screenshot-link" href="screenshots/08-02-m365-dns-records-required.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Microsoft 365 required MX CNAME and TXT records for Exchange Online (opens in a new tab)" title="Open full-size screenshot"><img alt="Microsoft 365 required MX CNAME and TXT records for Exchange Online" src="screenshots/08-02-m365-dns-records-required.png" width="2397" height="1261"/></a>
 <figcaption><span class="figure-label">Figure 2</span>Microsoft 365 displayed the expected MX record, Autodiscover CNAME record and SPF TXT record for Exchange Online.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> These records control inbound mail routing, Outlook Autodiscover and SPF sender validation for the custom domain.</div>
@@ -64,7 +64,7 @@
 <h3>3. Exchange DNS Records Added in Cloudflare</h3>
 <p>I added the required Exchange Online MX record, Autodiscover CNAME record and SPF TXT record in Cloudflare and confirmed that the records were set to DNS only where appropriate.</p>
 <figure class="lab-figure">
-<img alt="Cloudflare DNS showing Exchange Online MX, Autodiscover CNAME and SPF TXT records" src="screenshots/08-03-cloudflare-exchange-dns-records.png" width="2803" height="896"/>
+<a class="screenshot-link" href="screenshots/08-03-cloudflare-exchange-dns-records.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Cloudflare DNS showing Exchange Online MX, Autodiscover CNAME and SPF TXT records (opens in a new tab)" title="Open full-size screenshot"><img alt="Cloudflare DNS showing Exchange Online MX, Autodiscover CNAME and SPF TXT records" src="screenshots/08-03-cloudflare-exchange-dns-records.png" width="2803" height="896"/></a>
 <figcaption><span class="figure-label">Figure 3</span>Cloudflare contained the Exchange Online MX record, Autodiscover CNAME record and SPF TXT record for nietz.co.uk.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Exchange Online mail flow depends on public DNS. The MX record routes inbound mail to Microsoft 365, the Autodiscover CNAME helps Outlook locate Exchange Online services, and the SPF TXT record authorises Microsoft 365 to send mail for the domain.</div>
@@ -73,7 +73,7 @@
 <h3>4. Microsoft 365 DNS Health Confirmed</h3>
 <p>I returned to Microsoft 365 and confirmed that the Exchange DNS records were detected successfully.</p>
 <figure class="lab-figure">
-<img alt="Microsoft 365 DNS records showing OK status for MX, SPF TXT and Autodiscover CNAME" src="screenshots/08-04-m365-exchange-dns-status-confirmed.png" width="3068" height="1420"/>
+<a class="screenshot-link" href="screenshots/08-04-m365-exchange-dns-status-confirmed.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Microsoft 365 DNS records showing OK status for MX, SPF TXT and Autodiscover CNAME (opens in a new tab)" title="Open full-size screenshot"><img alt="Microsoft 365 DNS records showing OK status for MX, SPF TXT and Autodiscover CNAME" src="screenshots/08-04-m365-exchange-dns-status-confirmed.png" width="3068" height="1420"/></a>
 <figcaption><span class="figure-label">Figure 4</span>Microsoft 365 confirmed the Exchange Online MX record, SPF TXT record and Autodiscover CNAME record as OK.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Microsoft 365 validation confirmed that the public DNS records were visible and matched the expected Exchange Online configuration.</div>
@@ -82,7 +82,7 @@
 <h3>5. DKIM Status Before Configuration</h3>
 <p>I reviewed the DKIM status in the Exchange admin center and confirmed that <code>nietz.co.uk</code> was not yet signing messages with DKIM because the required selector records were missing.</p>
 <figure class="lab-figure">
-<img alt="Exchange admin center showing DKIM disabled and CNAME missing for nietz.co.uk" src="screenshots/08-05-dkim-status-before.png" width="3029" height="887"/>
+<a class="screenshot-link" href="screenshots/08-05-dkim-status-before.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Exchange admin center showing DKIM disabled and CNAME missing for nietz.co.uk (opens in a new tab)" title="Open full-size screenshot"><img alt="Exchange admin center showing DKIM disabled and CNAME missing for nietz.co.uk" src="screenshots/08-05-dkim-status-before.png" width="3029" height="887"/></a>
 <figcaption><span class="figure-label">Figure 5</span>Exchange Online showed DKIM disabled with missing CNAME records.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> DKIM adds cryptographic signing to outbound mail so recipients can verify that messages were authorised by the sending domain and not modified in transit.</div>
@@ -91,7 +91,7 @@
 <h3>6. DKIM Selector Records Identified</h3>
 <p>I opened the DKIM configuration details for <code>nietz.co.uk</code> and recorded the required selector CNAME records.</p>
 <figure class="lab-figure">
-<img alt="Exchange admin center showing required selector1 and selector2 DKIM CNAME records" src="screenshots/08-06-dkim-records-required.png" width="1384" height="1700"/>
+<a class="screenshot-link" href="screenshots/08-06-dkim-records-required.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Exchange admin center showing required selector1 and selector2 DKIM CNAME records (opens in a new tab)" title="Open full-size screenshot"><img alt="Exchange admin center showing required selector1 and selector2 DKIM CNAME records" src="screenshots/08-06-dkim-records-required.png" width="1384" height="1700"/></a>
 <figcaption><span class="figure-label">Figure 6</span>Exchange Online provided the required selector1 and selector2 DKIM CNAME values.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Microsoft 365 requires two DKIM selector CNAME records so Exchange Online can publish and rotate signing keys for the domain.</div>
@@ -100,7 +100,7 @@
 <h3>7. DKIM CNAME Records Added in Cloudflare</h3>
 <p>I added the required DKIM selector CNAME records in Cloudflare and confirmed that both records were present.</p>
 <figure class="lab-figure">
-<img alt="Cloudflare DNS showing DKIM selector1 and selector2 CNAME records" src="screenshots/08-07-cloudflare-dkim-records.png" width="2810" height="811"/>
+<a class="screenshot-link" href="screenshots/08-07-cloudflare-dkim-records.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Cloudflare DNS showing DKIM selector1 and selector2 CNAME records (opens in a new tab)" title="Open full-size screenshot"><img alt="Cloudflare DNS showing DKIM selector1 and selector2 CNAME records" src="screenshots/08-07-cloudflare-dkim-records.png" width="2810" height="811"/></a>
 <figcaption><span class="figure-label">Figure 7</span>Cloudflare contained both DKIM selector CNAME records for nietz.co.uk.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> DKIM selector records allow recipient mail systems to locate the public keys used to validate Microsoft 365 DKIM signatures.</div>
@@ -109,7 +109,7 @@
 <h3>8. DKIM Enabled for the Domain</h3>
 <p>I enabled DKIM signing for <code>nietz.co.uk</code> after the CNAME records were available in public DNS.</p>
 <figure class="lab-figure">
-<img alt="Exchange admin center showing DKIM enabled for nietz.co.uk" src="screenshots/08-08-dkim-enabled-confirmed.png" width="1407" height="1695"/>
+<a class="screenshot-link" href="screenshots/08-08-dkim-enabled-confirmed.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Exchange admin center showing DKIM enabled for nietz.co.uk (opens in a new tab)" title="Open full-size screenshot"><img alt="Exchange admin center showing DKIM enabled for nietz.co.uk" src="screenshots/08-08-dkim-enabled-confirmed.png" width="1407" height="1695"/></a>
 <figcaption><span class="figure-label">Figure 8</span>Exchange Online confirmed DKIM signing was enabled for nietz.co.uk.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Enabling DKIM improves outbound email trust and works alongside SPF and DMARC to help receiving mail systems verify messages from the domain.</div>
@@ -118,7 +118,7 @@
 <h3>9. DMARC Record Published</h3>
 <p>I added a DMARC TXT record for <code>nietz.co.uk</code> in Cloudflare using monitoring mode, so DMARC reporting could be introduced without immediately rejecting mail.</p>
 <figure class="lab-figure">
-<img alt="Cloudflare DNS showing DMARC TXT record for nietz.co.uk" src="screenshots/08-09-cloudflare-dmarc-record.png" width="2816" height="772"/>
+<a class="screenshot-link" href="screenshots/08-09-cloudflare-dmarc-record.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Cloudflare DNS showing DMARC TXT record for nietz.co.uk (opens in a new tab)" title="Open full-size screenshot"><img alt="Cloudflare DNS showing DMARC TXT record for nietz.co.uk" src="screenshots/08-09-cloudflare-dmarc-record.png" width="2816" height="772"/></a>
 <figcaption><span class="figure-label">Figure 9</span>Cloudflare showed the DMARC TXT record for nietz.co.uk.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> DMARC helps domain owners monitor how receiving systems handle mail that fails SPF or DKIM checks. A monitoring policy is a safe first step before moving to stricter enforcement.</div>
@@ -127,7 +127,7 @@
 <h3>10. External Inbound Mail Received</h3>
 <p>I sent an external test message from Gmail to the Support shared mailbox and confirmed that Exchange Online delivered the message to <code>support@nietz.co.uk</code>.</p>
 <figure class="lab-figure">
-<img alt="Support shared mailbox showing external inbound mail received from Gmail" src="screenshots/08-10-external-inbound-mail-received.png" width="3629" height="822"/>
+<a class="screenshot-link" href="screenshots/08-10-external-inbound-mail-received.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Support shared mailbox showing external inbound mail received from Gmail (opens in a new tab)" title="Open full-size screenshot"><img alt="Support shared mailbox showing external inbound mail received from Gmail" src="screenshots/08-10-external-inbound-mail-received.png" width="3629" height="822"/></a>
 <figcaption><span class="figure-label">Figure 10</span>Support shared mailbox received external inbound mail from Gmail.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> This validated that the public MX record routed external mail for nietz.co.uk into Exchange Online successfully.</div>
@@ -136,7 +136,7 @@
 <h3>11. External Outbound Mail Sent from Support</h3>
 <p>I sent an outbound test message from the Support shared mailbox to an external Gmail address.</p>
 <figure class="lab-figure">
-<img alt="Support shared mailbox Sent Items showing external outbound mail sent to Gmail" src="screenshots/08-11-external-outbound-mail-sent.png" width="3686" height="782"/>
+<a class="screenshot-link" href="screenshots/08-11-external-outbound-mail-sent.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Support shared mailbox Sent Items showing external outbound mail sent to Gmail (opens in a new tab)" title="Open full-size screenshot"><img alt="Support shared mailbox Sent Items showing external outbound mail sent to Gmail" src="screenshots/08-11-external-outbound-mail-sent.png" width="3686" height="782"/></a>
 <figcaption><span class="figure-label">Figure 11</span>Support shared mailbox sent an external outbound mail test.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Outbound testing confirmed that the shared mailbox could send external mail through Exchange Online using the custom domain identity.</div>
@@ -145,7 +145,7 @@
 <h3>12. External Outbound Mail Received in Gmail</h3>
 <p>I confirmed that the external Gmail mailbox received the message sent from <code>support@nietz.co.uk</code>.</p>
 <figure class="lab-figure">
-<img alt="Gmail showing outbound test received from support@nietz.co.uk" src="screenshots/08-12-external-outbound-mail-received.png" width="2093" height="848"/>
+<a class="screenshot-link" href="screenshots/08-12-external-outbound-mail-received.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Gmail showing outbound test received from support@nietz.co.uk (opens in a new tab)" title="Open full-size screenshot"><img alt="Gmail showing outbound test received from support@nietz.co.uk" src="screenshots/08-12-external-outbound-mail-received.png" width="2093" height="848"/></a>
 <figcaption><span class="figure-label">Figure 12</span>Gmail received the outbound mail sent from the Support shared mailbox.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> This proved end-to-end outbound delivery from Exchange Online to an external recipient.</div>
@@ -154,7 +154,7 @@
 <h3>13. Message Trace Validation</h3>
 <p>I used Exchange Online message trace to confirm that the external inbound and outbound test messages were processed successfully.</p>
 <figure class="lab-figure">
-<img alt="Exchange Online message trace showing external inbound and outbound mail delivered" src="screenshots/08-13-message-trace-external-mail-delivered.png" width="2897" height="989"/>
+<a class="screenshot-link" href="screenshots/08-13-message-trace-external-mail-delivered.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Exchange Online message trace showing external inbound and outbound mail delivered (opens in a new tab)" title="Open full-size screenshot"><img alt="Exchange Online message trace showing external inbound and outbound mail delivered" src="screenshots/08-13-message-trace-external-mail-delivered.png" width="2897" height="989"/></a>
 <figcaption><span class="figure-label">Figure 13</span>Exchange Online message trace confirmed external mail delivery.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Message trace provides administrator-level evidence of mail flow status and is a common helpdesk and Microsoft 365 support tool for investigating delivery issues.</div>

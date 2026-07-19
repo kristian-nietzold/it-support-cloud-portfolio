@@ -38,11 +38,20 @@
 <hr />
 <h2>Domain Verification</h2>
 <p>Domain ownership was verified using a DNS record provided by Google Workspace.</p>
-<p><img src="screenshots/01-01-google-verification-code.png" alt="Google Workspace screen showing Google verification" width="1398" height="1464"/></p>
+<figure>
+    <a class="screenshot-link" href="screenshots/01-01-google-verification-code.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Google Workspace screen showing Google verification (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/01-01-google-verification-code.png" alt="Google Workspace screen showing Google verification" width="1398" height="1464"/></a>
+    <figcaption>Google Workspace screen showing Google verification</figcaption>
+  </figure>
 <p>A CNAME verification record was added in Cloudflare DNS using the values supplied by Google.</p>
-<p><img src="screenshots/01-02-cloudflare-cname-record.png" alt="Cloudflare DNS showing the CNAME domain-verification record for Google Workspace" width="2673" height="933"/></p>
+<figure>
+    <a class="screenshot-link" href="screenshots/01-02-cloudflare-cname-record.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Cloudflare DNS showing the CNAME domain-verification record for Google Workspace (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/01-02-cloudflare-cname-record.png" alt="Cloudflare DNS showing the CNAME domain-verification record for Google Workspace" width="2673" height="933"/></a>
+    <figcaption>Cloudflare DNS showing the CNAME domain-verification record for Google Workspace</figcaption>
+  </figure>
 <p>After DNS propagation, the domain was successfully verified in Google Admin Console.</p>
-<p><img src="screenshots/01-03-domain-verified.png" alt="Google Workspace screen showing Domain verified" width="2505" height="525"/></p>
+<figure>
+    <a class="screenshot-link" href="screenshots/01-03-domain-verified.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Google Workspace screen showing Domain verified (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/01-03-domain-verified.png" alt="Google Workspace screen showing Domain verified" width="2505" height="525"/></a>
+    <figcaption>Google Workspace screen showing Domain verified</figcaption>
+  </figure>
 <p>This process:</p>
 <ul>
 <li>Confirms ownership of the custom domain</li>
@@ -52,9 +61,15 @@
 <hr />
 <h2>Gmail Activation</h2>
 <p>Once the domain was verified, Gmail was enabled for users on the domain.</p>
-<p><img src="screenshots/01-04-gmail-activation-prompt.png" alt="Google Workspace screen showing Gmail activation prompt" width="1386" height="1122"/></p>
+<figure>
+    <a class="screenshot-link" href="screenshots/01-04-gmail-activation-prompt.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Google Workspace screen showing Gmail activation prompt (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/01-04-gmail-activation-prompt.png" alt="Google Workspace screen showing Gmail activation prompt" width="1386" height="1122"/></a>
+    <figcaption>Google Workspace screen showing Gmail activation prompt</figcaption>
+  </figure>
 <p>After activation, Gmail showed as enabled in the Admin console.</p>
-<p><img src="screenshots/01-05-gmail-activated.png" alt="Google Workspace screen showing Gmail activated" width="3432" height="1203"/></p>
+<figure>
+    <a class="screenshot-link" href="screenshots/01-05-gmail-activated.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Google Workspace screen showing Gmail activated (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/01-05-gmail-activated.png" alt="Google Workspace screen showing Gmail activated" width="3432" height="1203"/></a>
+    <figcaption>Google Workspace screen showing Gmail activated</figcaption>
+  </figure>
 <p>This step:</p>
 <ul>
 <li>Enables hosted email for the domain</li>
@@ -64,7 +79,10 @@
 <hr />
 <h2>MX Records (Mail Routing)</h2>
 <p>Mail routing was configured in Cloudflare by creating an MX record pointing to Google’s mail servers.</p>
-<p><img src="screenshots/01-06-mx-record-cloudflare.png" alt="Cloudflare DNS showing the MX record routing mail to Google Workspace" width="2670" height="1092"/></p>
+<figure>
+    <a class="screenshot-link" href="screenshots/01-06-mx-record-cloudflare.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Cloudflare DNS showing the MX record routing mail to Google Workspace (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/01-06-mx-record-cloudflare.png" alt="Cloudflare DNS showing the MX record routing mail to Google Workspace" width="2670" height="1092"/></a>
+    <figcaption>Cloudflare DNS showing the MX record routing mail to Google Workspace</figcaption>
+  </figure>
 <p>This ensures:</p>
 <ul>
 <li>Inbound email is routed to Google Workspace</li>
@@ -73,7 +91,10 @@
 <hr />
 <h2>SPF (Sender Policy Framework)</h2>
 <p>An SPF TXT record was configured in Cloudflare to define which mail servers are authorised to send email on behalf of the domain.</p>
-<p><img src="screenshots/01-07-spf-record.png" alt="Cloudflare DNS showing the SPF record authorising Google Workspace mail servers" width="3432" height="1203"/></p>
+<figure>
+    <a class="screenshot-link" href="screenshots/01-07-spf-record.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Cloudflare DNS showing the SPF record authorising Google Workspace mail servers (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/01-07-spf-record.png" alt="Cloudflare DNS showing the SPF record authorising Google Workspace mail servers" width="3432" height="1203"/></a>
+    <figcaption>Cloudflare DNS showing the SPF record authorising Google Workspace mail servers</figcaption>
+  </figure>
 <p>Configured value:</p>
 <p><code>v=spf1 include:_spf.google.com ~all</code></p>
 <p>This helps:</p>
@@ -85,11 +106,20 @@
 <hr />
 <h2>DKIM (DomainKeys Identified Mail)</h2>
 <p>A DKIM key was generated in the Google Admin console for the domain.</p>
-<p><img src="screenshots/01-08-dkim-generate-google.png" alt="Google Workspace screen showing DKIM record generation" width="3453" height="1482"/></p>
+<figure>
+    <a class="screenshot-link" href="screenshots/01-08-dkim-generate-google.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Google Workspace screen showing DKIM record generation (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/01-08-dkim-generate-google.png" alt="Google Workspace screen showing DKIM record generation" width="3453" height="1482"/></a>
+    <figcaption>Google Workspace screen showing DKIM record generation</figcaption>
+  </figure>
 <p>The DKIM TXT record was then added in Cloudflare DNS.</p>
-<p><img src="screenshots/01-09-dkim-txt-cloudflare.png" alt="Cloudflare DNS showing the DKIM TXT record for Google Workspace" width="3258" height="1521"/></p>
+<figure>
+    <a class="screenshot-link" href="screenshots/01-09-dkim-txt-cloudflare.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Cloudflare DNS showing the DKIM TXT record for Google Workspace (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/01-09-dkim-txt-cloudflare.png" alt="Cloudflare DNS showing the DKIM TXT record for Google Workspace" width="3258" height="1521"/></a>
+    <figcaption>Cloudflare DNS showing the DKIM TXT record for Google Workspace</figcaption>
+  </figure>
 <p>After propagation and activation, email authentication checks confirmed successful DKIM signing.</p>
-<p><img src="screenshots/01-10-email-authentication-pass.png" alt="Email authentication results showing SPF, DKIM and DMARC checks passing" width="3030" height="1257"/></p>
+<figure>
+    <a class="screenshot-link" href="screenshots/01-10-email-authentication-pass.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Email authentication results showing SPF, DKIM and DMARC checks passing (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/01-10-email-authentication-pass.png" alt="Email authentication results showing SPF, DKIM and DMARC checks passing" width="3030" height="1257"/></a>
+    <figcaption>Email authentication results showing SPF, DKIM and DMARC checks passing</figcaption>
+  </figure>
 <p>This provides:</p>
 <ul>
 <li>Cryptographic validation of outgoing mail</li>
@@ -99,7 +129,10 @@
 <hr />
 <h2>DMARC (Domain-based Message Authentication, Reporting and Conformance)</h2>
 <p>A DMARC TXT record was added to define how authentication failures should be handled and reported.</p>
-<p><img src="screenshots/01-11-dmarc-record.png" alt="Cloudflare DNS showing the DMARC policy record for the Google Workspace domain" width="2526" height="972"/></p>
+<figure>
+    <a class="screenshot-link" href="screenshots/01-11-dmarc-record.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Cloudflare DNS showing the DMARC policy record for the Google Workspace domain (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/01-11-dmarc-record.png" alt="Cloudflare DNS showing the DMARC policy record for the Google Workspace domain" width="2526" height="972"/></a>
+    <figcaption>Cloudflare DNS showing the DMARC policy record for the Google Workspace domain</figcaption>
+  </figure>
 <p>This provides:</p>
 <ul>
 <li>Visibility into SPF and DKIM alignment</li>

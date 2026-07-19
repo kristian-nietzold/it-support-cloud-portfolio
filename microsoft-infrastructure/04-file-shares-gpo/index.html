@@ -46,7 +46,7 @@
 <h3>1. Prepare FS1 for File Services</h3>
 <p>I prepared FS1 as a separate domain member server so file and print services were not hosted on the domain controller.</p>
 <figure class="lab-figure">
-<img alt="FS1 network and domain validation showing hostname, domain context, IP configuration and DNS resolution" src="screenshots/04-01-fs1-network-domain.png" width="1587" height="1501"/>
+<a class="screenshot-link" href="screenshots/04-01-fs1-network-domain.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: FS1 network and domain validation showing hostname, domain context, IP configuration and DNS resolution (opens in a new tab)" title="Open full-size screenshot"><img alt="FS1 network and domain validation showing hostname, domain context, IP configuration and DNS resolution" src="screenshots/04-01-fs1-network-domain.png" width="1587" height="1501"/></a>
 <figcaption><span class="figure-label">Figure 1</span>FS1 validated as a domain member server with internal network and DNS configuration.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Keeping file and print services on a member server creates a more realistic support environment than hosting every service directly on the domain controller.</div>
@@ -55,7 +55,7 @@
 <h3>2. Department Folder Structure</h3>
 <p>I created the department folder structure on FS1 for IT, HR, Finance, Sales, and Management.</p>
 <figure class="lab-figure">
-<img alt="PowerShell output showing the department folders created under D:\Shares\Departments" src="screenshots/04-02-share-folders-created.png" width="2033" height="829"/>
+<a class="screenshot-link" href="screenshots/04-02-share-folders-created.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: PowerShell output showing the department folders created under D:\Shares\Departments (opens in a new tab)" title="Open full-size screenshot"><img alt="PowerShell output showing the department folders created under D:\Shares\Departments" src="screenshots/04-02-share-folders-created.png" width="2033" height="829"/></a>
 <figcaption><span class="figure-label">Figure 2</span>Department folders created under the shared storage path on FS1.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> A clear folder layout makes access control, mapped drives, and support troubleshooting easier to document and validate.</div>
@@ -64,7 +64,7 @@
 <h3>3. NTFS Permissions</h3>
 <p>I assigned NTFS permissions using the department security groups created in Lab 03.</p>
 <figure class="lab-figure">
-<img alt="Advanced Security Settings for the HR folder showing GG_HR_RW with Modify permissions" src="screenshots/04-03-ntfs-permissions-configured.png" width="2018" height="1225"/>
+<a class="screenshot-link" href="screenshots/04-03-ntfs-permissions-configured.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Advanced Security Settings for the HR folder showing GG_HR_RW with Modify permissions (opens in a new tab)" title="Open full-size screenshot"><img alt="Advanced Security Settings for the HR folder showing GG_HR_RW with Modify permissions" src="screenshots/04-03-ntfs-permissions-configured.png" width="2018" height="1225"/></a>
 <figcaption><span class="figure-label">Figure 3</span>HR folder permissions assigned to the GG_HR_RW security group.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> NTFS permissions provide the real access control. Share permissions expose the folder over the network, but NTFS permissions determine what users can actually access.</div>
@@ -73,7 +73,7 @@
 <h3>4. SMB Shares</h3>
 <p>I created hidden SMB shares for the department folders so users could access resources through FS1.</p>
 <figure class="lab-figure">
-<img alt="Computer Management showing hidden SMB shares for the department folders on FS1" src="screenshots/04-04-smb-shares-created.png" width="2884" height="890"/>
+<a class="screenshot-link" href="screenshots/04-04-smb-shares-created.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Computer Management showing hidden SMB shares for the department folders on FS1 (opens in a new tab)" title="Open full-size screenshot"><img alt="Computer Management showing hidden SMB shares for the department folders on FS1" src="screenshots/04-04-smb-shares-created.png" width="2884" height="890"/></a>
 <figcaption><span class="figure-label">Figure 4</span>Hidden department SMB shares created on FS1.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> SMB shares expose department folders to clients, while NTFS permissions enforce the access model through Active Directory security groups.</div>
@@ -82,7 +82,7 @@
 <h3>5. Drive Mapping GPO</h3>
 <p>I created a Group Policy object to map department drives based on Active Directory group membership.</p>
 <figure class="lab-figure">
-<img alt="Group Policy Management Editor showing mapped drives for the department shares" src="screenshots/04-05-drive-map-gpo-created.png" width="2246" height="1401"/>
+<a class="screenshot-link" href="screenshots/04-05-drive-map-gpo-created.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Group Policy Management Editor showing mapped drives for the department shares (opens in a new tab)" title="Open full-size screenshot"><img alt="Group Policy Management Editor showing mapped drives for the department shares" src="screenshots/04-05-drive-map-gpo-created.png" width="2246" height="1401"/></a>
 <figcaption><span class="figure-label">Figure 5</span>Department drive mappings configured in Group Policy Preferences.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Mapped drives are a common helpdesk and MSP support area because users often report missing drives, incorrect mappings, or access denied errors.</div>
@@ -91,7 +91,7 @@
 <h3>6. Shared Printer Object</h3>
 <p>I staged and shared the PRN-HQ-01 printer object on FS1 for later printer deployment and support validation.</p>
 <figure class="lab-figure">
-<img alt="PRN-HQ-01 printer sharing properties showing the printer shared and listed in the directory" src="screenshots/04-06-printer-share-created.png" width="1110" height="1389"/>
+<a class="screenshot-link" href="screenshots/04-06-printer-share-created.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: PRN-HQ-01 printer sharing properties showing the printer shared and listed in the directory (opens in a new tab)" title="Open full-size screenshot"><img alt="PRN-HQ-01 printer sharing properties showing the printer shared and listed in the directory" src="screenshots/04-06-printer-share-created.png" width="1110" height="1389"/></a>
 <figcaption><span class="figure-label">Figure 6</span>PRN-HQ-01 staged as a shared printer on FS1.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Printer deployment remains a common endpoint support task in small business and MSP environments.</div>
@@ -100,7 +100,7 @@
 <h3>7. Client Policy Application</h3>
 <p>I confirmed on CL1 that the mapped drive policy was processed from the domain for the signed-in test user.</p>
 <figure class="lab-figure">
-<img alt="Command Prompt on CL1 showing the signed-in user and GPO_Map_Department_Drives applied" src="screenshots/04-07-cl1-gpupdate-gpresult.png" width="1852" height="599"/>
+<a class="screenshot-link" href="screenshots/04-07-cl1-gpupdate-gpresult.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Command Prompt on CL1 showing the signed-in user and GPO_Map_Department_Drives applied (opens in a new tab)" title="Open full-size screenshot"><img alt="Command Prompt on CL1 showing the signed-in user and GPO_Map_Department_Drives applied" src="screenshots/04-07-cl1-gpupdate-gpresult.png" width="1852" height="599"/></a>
 <figcaption><span class="figure-label">Figure 7</span>CL1 confirmed as receiving the mapped drive Group Policy.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Policy application must be validated on a client workstation, not only configured in Group Policy Management.</div>
@@ -109,7 +109,7 @@
 <h3>8. Mapped Drive Validation</h3>
 <p>I validated the end-user mapped drive experience on CL1 and confirmed that the expected department drive appeared for the signed-in HR user.</p>
 <figure class="lab-figure">
-<img alt="File Explorer on CL1 showing the HR Department mapped drive" src="screenshots/04-08-cl1-mapped-drives-visible.png" width="1924" height="838"/>
+<a class="screenshot-link" href="screenshots/04-08-cl1-mapped-drives-visible.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: File Explorer on CL1 showing the HR Department mapped drive (opens in a new tab)" title="Open full-size screenshot"><img alt="File Explorer on CL1 showing the HR Department mapped drive" src="screenshots/04-08-cl1-mapped-drives-visible.png" width="1924" height="838"/></a>
 <figcaption><span class="figure-label">Figure 8</span>HR Department mapped drive visible on CL1.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Helpdesk validation should confirm the user experience, not just the server-side configuration.</div>
@@ -118,7 +118,7 @@
 <h3>9. Access Control Validation</h3>
 <p>I tested authorised and unauthorised file share access to confirm the permission model worked correctly.</p>
 <figure class="lab-figure">
-<img alt="Command Prompt showing e.wilson can access HR but is denied access to Finance" src="screenshots/04-09-access-permission-validation.png" width="1321" height="913"/>
+<a class="screenshot-link" href="screenshots/04-09-access-permission-validation.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Command Prompt showing e.wilson can access HR but is denied access to Finance (opens in a new tab)" title="Open full-size screenshot"><img alt="Command Prompt showing e.wilson can access HR but is denied access to Finance" src="screenshots/04-09-access-permission-validation.png" width="1321" height="913"/></a>
 <figcaption><span class="figure-label">Figure 9</span>HR user access allowed to the HR share and denied to the Finance share.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Access validation is the most important proof for a file share lab because folder visibility alone does not prove permissions are correct.</div>

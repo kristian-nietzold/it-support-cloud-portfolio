@@ -51,7 +51,7 @@
 <h3>1. Conditional Access Starting Point</h3>
 <p>I confirmed the Conditional Access policies area before adding the new pilot policy. This provided a clean baseline for the user-created Conditional Access policy introduced in this lab.</p>
 <figure class="lab-figure">
-<img alt="Conditional Access policies page before CA001 was created" src="screenshots/18-01-conditional-access-policies-before.png" width="2196" height="1265"/>
+<a class="screenshot-link" href="screenshots/18-01-conditional-access-policies-before.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Conditional Access policies page before CA001 was created (opens in a new tab)" title="Open full-size screenshot"><img alt="Conditional Access policies page before CA001 was created" src="screenshots/18-01-conditional-access-policies-before.png" width="2196" height="1265"/></a>
 <figcaption><span class="figure-label">Figure 1</span>Conditional Access policies page before the new pilot policy was created.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Capturing the starting point made the later policy creation evidence clear and avoided confusing the new pilot policy with pre-existing rules.</div>
@@ -60,7 +60,7 @@
 <h3>2. Pilot Policy Summary</h3>
 <p>I created <code>CA001 - Require compliant device for pilot users</code> and assigned it to <code>GRP_Intune_Pilot</code>. The policy targeted all Microsoft cloud resources and stayed in Report-only mode for controlled evaluation.</p>
 <figure class="lab-figure">
-<img alt="CA001 policy summary showing pilot group, all resources and report-only state" src="screenshots/18-02-ca001-policy-summary-report-only.png" width="1249" height="1535"/>
+<a class="screenshot-link" href="screenshots/18-02-ca001-policy-summary-report-only.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: CA001 policy summary showing pilot group, all resources and report-only state (opens in a new tab)" title="Open full-size screenshot"><img alt="CA001 policy summary showing pilot group, all resources and report-only state" src="screenshots/18-02-ca001-policy-summary-report-only.png" width="1249" height="1535"/></a>
 <figcaption><span class="figure-label">Figure 2</span>CA001 configured for the Intune pilot group, all resources, one condition, one grant control and Report-only state.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Report-only mode allowed the policy impact to be measured through sign-in logs before enforcement was enabled.</div>
@@ -69,7 +69,7 @@
 <h3>3. Windows Platform Scope</h3>
 <p>I scoped the device platform condition to Windows only. This matched the current pilot estate, where both the compliant CL2 device and the unmanaged test device were Windows devices.</p>
 <figure class="lab-figure">
-<img alt="Device platforms condition configured for Windows only" src="screenshots/18-03-ca001-device-platforms-windows-pilot-scope.png" width="584" height="1058"/>
+<a class="screenshot-link" href="screenshots/18-03-ca001-device-platforms-windows-pilot-scope.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Device platforms condition configured for Windows only (opens in a new tab)" title="Open full-size screenshot"><img alt="Device platforms condition configured for Windows only" src="screenshots/18-03-ca001-device-platforms-windows-pilot-scope.png" width="584" height="1058"/></a>
 <figcaption><span class="figure-label">Figure 3</span>Device platform condition configured for Windows pilot sign-ins.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Platform scoping kept the pilot aligned to the Windows endpoint rollout and avoided mixing mobile or non-Windows access controls into this lab.</div>
@@ -78,7 +78,7 @@
 <h3>4. Compliant Device Grant Control</h3>
 <p>I configured the grant control to require the device to be marked as compliant. I did not combine this with MFA, hybrid join, approved client app, app protection, or risk controls in this pilot lab.</p>
 <figure class="lab-figure">
-<img alt="Grant control requiring device to be marked as compliant" src="screenshots/18-04-ca001-grant-require-compliant-device.png" width="588" height="1699"/>
+<a class="screenshot-link" href="screenshots/18-04-ca001-grant-require-compliant-device.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Grant control requiring device to be marked as compliant (opens in a new tab)" title="Open full-size screenshot"><img alt="Grant control requiring device to be marked as compliant" src="screenshots/18-04-ca001-grant-require-compliant-device.png" width="588" height="1699"/></a>
 <figcaption><span class="figure-label">Figure 4</span>Grant control configured to require an Intune-compliant device.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Using one grant control made the test result clear: access would depend on whether the device had a compliant state from Intune.</div>
@@ -87,7 +87,7 @@
 <h3>5. Report-only Policy Creation</h3>
 <p>I created the CA001 policy and confirmed it appeared in the Conditional Access policy list with a Report-only state.</p>
 <figure class="lab-figure">
-<img alt="CA001 policy listed as report-only" src="screenshots/18-05-ca001-policy-created-report-only.png" width="2526" height="1125"/>
+<a class="screenshot-link" href="screenshots/18-05-ca001-policy-created-report-only.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: CA001 policy listed as report-only (opens in a new tab)" title="Open full-size screenshot"><img alt="CA001 policy listed as report-only" src="screenshots/18-05-ca001-policy-created-report-only.png" width="2526" height="1125"/></a>
 <figcaption><span class="figure-label">Figure 5</span>CA001 created as a user-managed Conditional Access policy in Report-only mode.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> The policy was deliberately not enabled for enforcement. The lab validated expected impact without blocking access.</div>
@@ -97,7 +97,7 @@
 <h3>1. Compliant Device Sign-in</h3>
 <p>I signed in as Chloe Bennett from <code>CL2</code>, the cloud-native Microsoft Entra joined and Intune-compliant Windows pilot device.</p>
 <figure class="lab-figure">
-<img alt="Chloe Bennett signed in to My Apps from CL2" src="screenshots/18-06-chloe-cl2-compliant-device-signin.png" width="3742" height="1275"/>
+<a class="screenshot-link" href="screenshots/18-06-chloe-cl2-compliant-device-signin.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Chloe Bennett signed in to My Apps from CL2 (opens in a new tab)" title="Open full-size screenshot"><img alt="Chloe Bennett signed in to My Apps from CL2" src="screenshots/18-06-chloe-cl2-compliant-device-signin.png" width="3742" height="1275"/></a>
 <figcaption><span class="figure-label">Figure 6</span>Chloe Bennett signed in to the My Apps portal from the compliant CL2 device.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> This generated a real Chloe Bennett sign-in event that could be evaluated against the Report-only Conditional Access policy.</div>
@@ -106,7 +106,7 @@
 <h3>2. Compliant Device Report-only Success</h3>
 <p>I reviewed the Chloe Bennett sign-in event in Microsoft Entra sign-in logs and confirmed that CA001 evaluated successfully for the compliant CL2 device. The grant controls were satisfied.</p>
 <figure class="lab-figure">
-<img alt="Report-only success for Chloe Bennett sign-in from CL2" src="screenshots/18-07-cl2-report-only-compliant-device-success.png" width="1420" height="1723"/>
+<a class="screenshot-link" href="screenshots/18-07-cl2-report-only-compliant-device-success.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Report-only success for Chloe Bennett sign-in from CL2 (opens in a new tab)" title="Open full-size screenshot"><img alt="Report-only success for Chloe Bennett sign-in from CL2" src="screenshots/18-07-cl2-report-only-compliant-device-success.png" width="1420" height="1723"/></a>
 <figcaption><span class="figure-label">Figure 7</span>Report-only result showing CA001 success and satisfied grant controls for the compliant CL2 sign-in.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> The successful Report-only result proved that the Lab 17 compliance policy produced a usable access signal for Conditional Access.</div>
@@ -115,7 +115,7 @@
 <h3>3. Unmanaged Device Report-only Failure</h3>
 <p>I reviewed a Chloe Bennett sign-in from an unmanaged Windows home PC browser session and confirmed that CA001 would have failed access if the policy had been enforced. The device appeared as unknown and the compliant-device grant control was not satisfied.</p>
 <figure class="lab-figure">
-<img alt="Report-only failure for Chloe Bennett sign-in from unmanaged home PC" src="screenshots/18-08-home-pc-report-only-unmanaged-device-failure.png" width="1352" height="1702"/>
+<a class="screenshot-link" href="screenshots/18-08-home-pc-report-only-unmanaged-device-failure.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Report-only failure for Chloe Bennett sign-in from unmanaged home PC (opens in a new tab)" title="Open full-size screenshot"><img alt="Report-only failure for Chloe Bennett sign-in from unmanaged home PC" src="screenshots/18-08-home-pc-report-only-unmanaged-device-failure.png" width="1352" height="1702"/></a>
 <figcaption><span class="figure-label">Figure 8</span>Report-only result showing CA001 failure for the unmanaged Windows sign-in because the grant controls were not satisfied.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> This confirmed the intended policy behaviour: managed and compliant Windows devices would satisfy the policy, while unmanaged Windows browser sessions would not.</div>

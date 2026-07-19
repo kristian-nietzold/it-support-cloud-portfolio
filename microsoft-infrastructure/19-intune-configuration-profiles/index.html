@@ -48,7 +48,7 @@
 <h3>1. Confirmed the Intune Windows Device Inventory</h3>
 <p>I confirmed that both Windows pilot devices were visible in Intune, compliant, corporate-owned, and reporting their expected join types before creating the new configuration profile.</p>
 <figure class="lab-figure">
-<img alt="Intune Windows device inventory showing CL1 and CL2" src="screenshots/19-01-intune-windows-device-inventory.png" width="3349" height="690"/>
+<a class="screenshot-link" href="screenshots/19-01-intune-windows-device-inventory.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Intune Windows device inventory showing CL1 and CL2 (opens in a new tab)" title="Open full-size screenshot"><img alt="Intune Windows device inventory showing CL1 and CL2" src="screenshots/19-01-intune-windows-device-inventory.png" width="3349" height="690"/></a>
 <figcaption><span class="figure-label">Figure 1</span> Intune Windows device inventory showed CL1 and CL2 as compliant managed devices.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> This confirmed the pilot estate was ready for device-targeted configuration deployment.</div>
@@ -57,7 +57,7 @@
 <h3>2. Confirmed the Pilot Device Group</h3>
 <p>I validated that <code>GRP_Intune_Windows_Pilot_Devices</code> contained only <code>CL2</code>, keeping the first endpoint user experience policy limited to the cloud-native pilot device.</p>
 <figure class="lab-figure">
-<img alt="GRP Intune Windows Pilot Devices membership showing CL2" src="screenshots/19-02-intune-windows-pilot-device-group-members-cl2.png" width="2117" height="925"/>
+<a class="screenshot-link" href="screenshots/19-02-intune-windows-pilot-device-group-members-cl2.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: GRP Intune Windows Pilot Devices membership showing CL2 (opens in a new tab)" title="Open full-size screenshot"><img alt="GRP Intune Windows Pilot Devices membership showing CL2" src="screenshots/19-02-intune-windows-pilot-device-group-members-cl2.png" width="2117" height="925"/></a>
 <figcaption><span class="figure-label">Figure 2</span> The pilot device group contained CL2 as the single direct device member.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Using a device group kept the policy assignment predictable and avoided impacting the hybrid pilot device during this stage.</div>
@@ -66,7 +66,7 @@
 <h3>3. Created the Settings Catalog Profile</h3>
 <p>I created the Intune profile <code>WIN-CFG-01-Endpoint-User-Experience-Standards</code> using the Windows settings catalog profile type.</p>
 <figure class="lab-figure">
-<img alt="Intune settings catalog profile basics for endpoint user experience standards" src="screenshots/19-03-settings-catalog-profile-basics.png" width="1815" height="985"/>
+<a class="screenshot-link" href="screenshots/19-03-settings-catalog-profile-basics.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Intune settings catalog profile basics for endpoint user experience standards (opens in a new tab)" title="Open full-size screenshot"><img alt="Intune settings catalog profile basics for endpoint user experience standards" src="screenshots/19-03-settings-catalog-profile-basics.png" width="1815" height="985"/></a>
 <figcaption><span class="figure-label">Figure 3</span> Profile basics showed the configured name, description and Windows platform.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Settings catalog profiles provide granular Intune configuration for modern Windows management.</div>
@@ -75,7 +75,7 @@
 <h3>4. Configured Microsoft Edge Startup Behaviour</h3>
 <p>I configured Microsoft Edge to open a defined startup URL and set the URL to <code>https://www.microsoft365.com/apps</code>.</p>
 <figure class="lab-figure">
-<img alt="Microsoft Edge startup URL configured in Intune settings catalog" src="screenshots/19-04-edge-startup-url-configured.png" width="1777" height="1709"/>
+<a class="screenshot-link" href="screenshots/19-04-edge-startup-url-configured.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Microsoft Edge startup URL configured in Intune settings catalog (opens in a new tab)" title="Open full-size screenshot"><img alt="Microsoft Edge startup URL configured in Intune settings catalog" src="screenshots/19-04-edge-startup-url-configured.png" width="1777" height="1709"/></a>
 <figcaption><span class="figure-label">Figure 4</span> Microsoft Edge startup settings were configured to open the Microsoft 365 apps page.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> This creates a consistent start point for users and demonstrates device-based browser policy management through Intune.</div>
@@ -84,7 +84,7 @@
 <h3>5. Assigned the Profile to the Pilot Device Group</h3>
 <p>I assigned the profile to <code>GRP_Intune_Windows_Pilot_Devices</code>, with no filters and no excluded groups.</p>
 <figure class="lab-figure">
-<img alt="Intune configuration profile assigned to Windows pilot device group" src="screenshots/19-05-profile-assigned-to-windows-pilot-device-group.png" width="2869" height="1704"/>
+<a class="screenshot-link" href="screenshots/19-05-profile-assigned-to-windows-pilot-device-group.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Intune configuration profile assigned to Windows pilot device group (opens in a new tab)" title="Open full-size screenshot"><img alt="Intune configuration profile assigned to Windows pilot device group" src="screenshots/19-05-profile-assigned-to-windows-pilot-device-group.png" width="2869" height="1704"/></a>
 <figcaption><span class="figure-label">Figure 5</span> The configuration profile was assigned to the pilot device group containing one device.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> A narrow pilot assignment reduces rollout risk and matches a staged endpoint management approach.</div>
@@ -93,7 +93,7 @@
 <h3>6. Confirmed the Profile Was Created</h3>
 <p>I confirmed the new configuration profile appeared in the Intune configuration policy list with the expected platform, policy type and default scope tag.</p>
 <figure class="lab-figure">
-<img alt="Intune configuration profile created in policy list" src="screenshots/19-06-configuration-profile-created.png" width="3194" height="944"/>
+<a class="screenshot-link" href="screenshots/19-06-configuration-profile-created.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Intune configuration profile created in policy list (opens in a new tab)" title="Open full-size screenshot"><img alt="Intune configuration profile created in policy list" src="screenshots/19-06-configuration-profile-created.png" width="3194" height="944"/></a>
 <figcaption><span class="figure-label">Figure 6</span> The endpoint user experience standards profile appeared in the Intune policy list.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> The policy list provided portal-level evidence that the configuration profile was created successfully.</div>
@@ -103,7 +103,7 @@
 <h3>7. Synced CL2 with Intune</h3>
 <p>I manually synced <code>CL2</code> from Windows Settings and confirmed the device remained managed by Nietz Ltd after the configuration profile assignment.</p>
 <figure class="lab-figure">
-<img alt="CL2 Access work or school sync successful after Intune policy assignment" src="screenshots/19-07-cl2-manual-intune-sync-successful.png" width="1235" height="1347"/>
+<a class="screenshot-link" href="screenshots/19-07-cl2-manual-intune-sync-successful.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: CL2 Access work or school sync successful after Intune policy assignment (opens in a new tab)" title="Open full-size screenshot"><img alt="CL2 Access work or school sync successful after Intune policy assignment" src="screenshots/19-07-cl2-manual-intune-sync-successful.png" width="1235" height="1347"/></a>
 <figcaption><span class="figure-label">Figure 7</span> CL2 showed a successful Intune sync from the Access work or school management page.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Manual sync shortened the validation cycle and confirmed the device could receive management updates.</div>
@@ -112,7 +112,7 @@
 <h3>8. Confirmed Successful Deployment to CL2</h3>
 <p>I validated the Intune device assignment report and confirmed <code>CL2</code> reported a successful check-in for the profile.</p>
 <figure class="lab-figure">
-<img alt="Intune policy deployment succeeded for CL2" src="screenshots/19-08-policy-deployment-succeeded.png" width="3218" height="1029"/>
+<a class="screenshot-link" href="screenshots/19-08-policy-deployment-succeeded.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Intune policy deployment succeeded for CL2 (opens in a new tab)" title="Open full-size screenshot"><img alt="Intune policy deployment succeeded for CL2" src="screenshots/19-08-policy-deployment-succeeded.png" width="3218" height="1029"/></a>
 <figcaption><span class="figure-label">Figure 8</span> The profile deployment report showed CL2 with check-in status Success.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> This linked the policy assignment to the actual managed device rather than only showing a profile summary.</div>
@@ -121,7 +121,7 @@
 <h3>9. Validated Microsoft Edge Policy State</h3>
 <p>I confirmed the applied Edge policies from <code>edge://policy</code>, including <code>RestoreOnStartup</code> and <code>RestoreOnStartupURLs</code>, both applying to the device at mandatory level.</p>
 <figure class="lab-figure">
-<img alt="Edge policy page showing RestoreOnStartup and RestoreOnStartupURLs applied" src="screenshots/19-09-edge-policy-applied.png" width="2991" height="1224"/>
+<a class="screenshot-link" href="screenshots/19-09-edge-policy-applied.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Edge policy page showing RestoreOnStartup and RestoreOnStartupURLs applied (opens in a new tab)" title="Open full-size screenshot"><img alt="Edge policy page showing RestoreOnStartup and RestoreOnStartupURLs applied" src="screenshots/19-09-edge-policy-applied.png" width="2991" height="1224"/></a>
 <figcaption><span class="figure-label">Figure 9</span> Edge policy reporting showed the configured startup policy values applied successfully.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Browser-side policy validation confirmed the Intune setting was active on the endpoint.</div>
@@ -130,7 +130,7 @@
 <h3>10. Confirmed the User Experience</h3>
 <p>I opened Microsoft Edge on CL2 and confirmed the browser landed on the Microsoft 365 apps page for Chloe Bennett.</p>
 <figure class="lab-figure">
-<img alt="Microsoft Edge opening the Microsoft 365 apps page on CL2" src="screenshots/19-10-microsoft-365-apps-page-opened.png" width="3823" height="2026"/>
+<a class="screenshot-link" href="screenshots/19-10-microsoft-365-apps-page-opened.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Microsoft Edge opening the Microsoft 365 apps page on CL2 (opens in a new tab)" title="Open full-size screenshot"><img alt="Microsoft Edge opening the Microsoft 365 apps page on CL2" src="screenshots/19-10-microsoft-365-apps-page-opened.png" width="3823" height="2026"/></a>
 <figcaption><span class="figure-label">Figure 10</span> Microsoft Edge opened the Microsoft 365 apps page as configured by Intune.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> The final validation connected the admin-side policy to a visible endpoint user experience.</div>

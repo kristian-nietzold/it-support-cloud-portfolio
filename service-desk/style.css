@@ -215,6 +215,42 @@ figure img,
     background: white;
 }
 
+.screenshot-link {
+    position: relative;
+    display: block;
+    border-radius: 8px;
+    cursor: zoom-in;
+}
+
+.screenshot-link::after {
+    content: "Open full size";
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    padding: 6px 9px;
+    border-radius: 5px;
+    background: rgba(17, 24, 39, 0.88);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 140ms ease, transform 140ms ease;
+    pointer-events: none;
+}
+
+.screenshot-link:hover::after,
+.screenshot-link:focus-visible::after {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.screenshot-link:focus-visible {
+    outline: 3px solid #0b57d0;
+    outline-offset: 4px;
+}
+
 .skip-link {
     position: fixed;
     top: 12px;

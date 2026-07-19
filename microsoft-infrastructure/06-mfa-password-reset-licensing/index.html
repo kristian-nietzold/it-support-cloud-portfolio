@@ -47,7 +47,7 @@
 <h3>1. Office 365 E5 Licensing Baseline</h3>
 <p>I reviewed the Office 365 E5 licensing baseline before applying account security checks. This confirmed assigned licence usage and validated that the core Nietz Ltd user accounts, including Mia Taylor, were present with the correct <code>@nietz.co.uk</code> primary email format.</p>
 <figure class="lab-figure">
-<img alt="Office 365 E5 licensing baseline showing assigned users including Mia Taylor" src="screenshots/06-01-licensing-baseline-before-review.png" width="2938" height="1668"/>
+<a class="screenshot-link" href="screenshots/06-01-licensing-baseline-before-review.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Office 365 E5 licensing baseline showing assigned users including Mia Taylor (opens in a new tab)" title="Open full-size screenshot"><img alt="Office 365 E5 licensing baseline showing assigned users including Mia Taylor" src="screenshots/06-01-licensing-baseline-before-review.png" width="2938" height="1668"/></a>
 <figcaption><span class="figure-label">Figure 1</span>Office 365 E5 licensing baseline reviewed, showing assigned users and correct <code>@nietz.co.uk</code> email format.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Licensing baseline checks are important before troubleshooting or configuring Microsoft 365 services because licence state affects mailbox availability, Microsoft 365 apps, Teams, SharePoint, OneDrive, and later service testing.</div>
@@ -56,7 +56,7 @@
 <h3>2. User-Level Licence Assignment</h3>
 <p>I opened Chloe Bennett's user record and confirmed that the Office 365 E5 licence was assigned with the United Kingdom usage location set.</p>
 <figure class="lab-figure">
-<img alt="Chloe Bennett Licenses and apps page showing Office 365 E5 assigned" src="screenshots/06-02-licence-assignment-validation.png" width="1288" height="1678"/>
+<a class="screenshot-link" href="screenshots/06-02-licence-assignment-validation.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Chloe Bennett Licenses and apps page showing Office 365 E5 assigned (opens in a new tab)" title="Open full-size screenshot"><img alt="Chloe Bennett Licenses and apps page showing Office 365 E5 assigned" src="screenshots/06-02-licence-assignment-validation.png" width="1288" height="1678"/></a>
 <figcaption><span class="figure-label">Figure 2</span>Office 365 E5 licence assignment validated for Chloe Bennett.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> User-level licence checks are common Microsoft 365 support tasks because licence state affects mailbox availability, Microsoft 365 apps, Teams, SharePoint, OneDrive, and later service testing.</div>
@@ -65,7 +65,7 @@
 <h3>3. MFA Pilot Scope</h3>
 <p>I confirmed that <code>GRP_CA_Pilot</code> contained the controlled pilot users <code>c.bennett@nietz.co.uk</code> and <code>k.nietzold@nietz.co.uk</code>.</p>
 <figure class="lab-figure">
-<img alt="GRP_CA_Pilot showing Chloe Bennett and Kristian Nietzold as members" src="screenshots/06-03-mfa-pilot-scope.png" width="2897" height="1137"/>
+<a class="screenshot-link" href="screenshots/06-03-mfa-pilot-scope.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: GRP_CA_Pilot showing Chloe Bennett and Kristian Nietzold as members (opens in a new tab)" title="Open full-size screenshot"><img alt="GRP_CA_Pilot showing Chloe Bennett and Kristian Nietzold as members" src="screenshots/06-03-mfa-pilot-scope.png" width="2897" height="1137"/></a>
 <figcaption><span class="figure-label">Figure 3</span><code>GRP_CA_Pilot</code> confirmed with Chloe Bennett and Kristian Nietzold as pilot members.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Piloting identity controls against a small group reduces lockout risk and creates a safe foundation for later Conditional Access and Intune policy work.</div>
@@ -74,7 +74,7 @@
 <h3>4. Authentication Method Policies</h3>
 <p>I reviewed the Authentication methods policy page and confirmed which sign-in methods were enabled or disabled in the tenant.</p>
 <figure class="lab-figure">
-<img alt="Authentication methods policies showing enabled and disabled authentication methods" src="screenshots/06-04-authentication-methods-mfa.png" width="2296" height="1462"/>
+<a class="screenshot-link" href="screenshots/06-04-authentication-methods-mfa.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Authentication methods policies showing enabled and disabled authentication methods (opens in a new tab)" title="Open full-size screenshot"><img alt="Authentication methods policies showing enabled and disabled authentication methods" src="screenshots/06-04-authentication-methods-mfa.png" width="2296" height="1462"/></a>
 <figcaption><span class="figure-label">Figure 4</span>Authentication methods reviewed, including Microsoft Authenticator, Temporary Access Pass, Software OATH tokens, and Email OTP availability.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Authentication method visibility is important for MFA readiness and user support. This lab reviewed available methods only; it did not create or enforce Conditional Access policies.</div>
@@ -83,7 +83,7 @@
 <h3>5. Password Reset Readiness Review</h3>
 <p>I reviewed Self-Service Password Reset and confirmed that full SSPR rollout required Premium licensing or an eligible trial before it could be configured for the intended scope.</p>
 <figure class="lab-figure">
-<img alt="Self-Service Password Reset page showing Premium trial requirement" src="screenshots/06-05-password-reset-readiness-review.png" width="3070" height="1659"/>
+<a class="screenshot-link" href="screenshots/06-05-password-reset-readiness-review.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Self-Service Password Reset page showing Premium trial requirement (opens in a new tab)" title="Open full-size screenshot"><img alt="Self-Service Password Reset page showing Premium trial requirement" src="screenshots/06-05-password-reset-readiness-review.png" width="3070" height="1659"/></a>
 <figcaption><span class="figure-label">Figure 5</span>Self-Service Password Reset reviewed and deferred until Premium/Business Premium licensing is active.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Identifying licensing limitations is a realistic Microsoft 365 administration task. Full SSPR configuration will be revisited after the appropriate Business Premium or Entra Premium licensing is available.</div>
@@ -92,7 +92,7 @@
 <h3>6. User Security Information</h3>
 <p>I validated Chloe Bennett's user-side security information and confirmed that an authenticator app method was registered for sign-in.</p>
 <figure class="lab-figure">
-<img alt="Chloe Bennett Security info page showing password and authenticator app methods" src="screenshots/06-06-mfa-registration-status.png" width="2798" height="1389"/>
+<a class="screenshot-link" href="screenshots/06-06-mfa-registration-status.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Chloe Bennett Security info page showing password and authenticator app methods (opens in a new tab)" title="Open full-size screenshot"><img alt="Chloe Bennett Security info page showing password and authenticator app methods" src="screenshots/06-06-mfa-registration-status.png" width="2798" height="1389"/></a>
 <figcaption><span class="figure-label">Figure 6</span>Chloe Bennett's security information confirmed an authenticator app registered for sign-in.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Security info checks are directly relevant to helpdesk work because users often need support with changed phones, authenticator registration, missing methods, or repeated MFA prompts.</div>
@@ -101,7 +101,7 @@
 <h3>7. Entra Sign-In Log Validation</h3>
 <p>I filtered Entra sign-in events for Chloe Bennett and confirmed successful OfficeHome sign-ins after the licence and authentication readiness checks.</p>
 <figure class="lab-figure">
-<img alt="Entra sign-in events filtered to successful OfficeHome sign-ins for Chloe Bennett" src="screenshots/06-07-sign-in-log-validation.png" width="2809" height="1083"/>
+<a class="screenshot-link" href="screenshots/06-07-sign-in-log-validation.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Entra sign-in events filtered to successful OfficeHome sign-ins for Chloe Bennett (opens in a new tab)" title="Open full-size screenshot"><img alt="Entra sign-in events filtered to successful OfficeHome sign-ins for Chloe Bennett" src="screenshots/06-07-sign-in-log-validation.png" width="2809" height="1083"/></a>
 <figcaption><span class="figure-label">Figure 7</span>Entra sign-in events confirmed successful OfficeHome sign-ins for Chloe Bennett.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Sign-in logs provide admin-side evidence of successful user access and are a key tool for Microsoft 365 helpdesk and identity troubleshooting.</div>

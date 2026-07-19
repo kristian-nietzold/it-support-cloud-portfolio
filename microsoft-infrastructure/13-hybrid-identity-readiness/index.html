@@ -51,7 +51,7 @@
 <h3>1. Hybrid Pilot OU Structure Created</h3>
 <p>I created a dedicated <code>Hybrid Pilot</code> OU under the Nietz Ltd AD structure with separate child OUs for users, groups and devices.</p>
 <figure class="lab-figure">
-<img alt="Active Directory Users and Computers showing Hybrid Pilot OU with Groups, Users and Devices child OUs and descriptions" src="screenshots/13-01-ad-pilot-ou-structure.png" width="2627" height="1433"/>
+<a class="screenshot-link" href="screenshots/13-01-ad-pilot-ou-structure.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Active Directory Users and Computers showing Hybrid Pilot OU with Groups, Users and Devices child OUs and descriptions (opens in a new tab)" title="Open full-size screenshot"><img alt="Active Directory Users and Computers showing Hybrid Pilot OU with Groups, Users and Devices child OUs and descriptions" src="screenshots/13-01-ad-pilot-ou-structure.png" width="2627" height="1433"/></a>
 <figcaption><span class="figure-label">Figure 1</span><code>Nietz Ltd &gt; Hybrid Pilot</code> OU structure created with child OUs for pilot groups, users and devices.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> A dedicated pilot OU provides a clear future synchronization boundary without immediately placing the wider Active Directory estate in scope.</div>
@@ -60,7 +60,7 @@
 <h3>2. Public UPN Suffix Confirmed</h3>
 <p>I confirmed that <code>nietz.co.uk</code> is configured as an alternative UPN suffix in Active Directory Domains and Trusts.</p>
 <figure class="lab-figure">
-<img alt="Active Directory Domains and Trusts UPN Suffixes tab showing nietz.co.uk as an alternative UPN suffix" src="screenshots/13-02-upn-suffix-nietz-co-uk-confirmed.png" width="959" height="1118"/>
+<a class="screenshot-link" href="screenshots/13-02-upn-suffix-nietz-co-uk-confirmed.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Active Directory Domains and Trusts UPN Suffixes tab showing nietz.co.uk as an alternative UPN suffix (opens in a new tab)" title="Open full-size screenshot"><img alt="Active Directory Domains and Trusts UPN Suffixes tab showing nietz.co.uk as an alternative UPN suffix" src="screenshots/13-02-upn-suffix-nietz-co-uk-confirmed.png" width="959" height="1118"/></a>
 <figcaption><span class="figure-label">Figure 2</span><code>nietz.co.uk</code> confirmed as an alternate UPN suffix for user sign-in alignment.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Aligning on-premises UPNs with the Microsoft 365 domain helps users sign in with the same identity format across on-premises AD and Microsoft Entra ID.</div>
@@ -69,7 +69,7 @@
 <h3>3. Pilot User UPN Aligned</h3>
 <p>I checked Kate Jones' AD account properties and confirmed her user logon name uses the <code>@nietz.co.uk</code> UPN suffix.</p>
 <figure class="lab-figure">
-<img alt="Kate Jones Active Directory account properties showing user logon name k.jones with the nietz.co.uk UPN suffix" src="screenshots/13-03-pilot-user-upn-properties.png" width="1000" height="1389"/>
+<a class="screenshot-link" href="screenshots/13-03-pilot-user-upn-properties.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Kate Jones Active Directory account properties showing user logon name k.jones with the nietz.co.uk UPN suffix (opens in a new tab)" title="Open full-size screenshot"><img alt="Kate Jones Active Directory account properties showing user logon name k.jones with the nietz.co.uk UPN suffix" src="screenshots/13-03-pilot-user-upn-properties.png" width="1000" height="1389"/></a>
 <figcaption><span class="figure-label">Figure 3</span>Kate Jones configured with <code>k.jones@nietz.co.uk</code> as the AD user logon name.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Confirming UPN alignment before synchronization avoids confusing sign-in differences between AD usernames and cloud usernames.</div>
@@ -78,7 +78,7 @@
 <h3>4. Hybrid Pilot Security Groups Created</h3>
 <p>I created three Global Security groups inside the <code>Nietz Ltd\Hybrid Pilot\Groups</code> OU to represent approved user, device and support/admin validation candidates for later targeting and validation.</p>
 <figure class="lab-figure">
-<img alt="Active Directory Users and Computers showing GRP_HYB_Pilot_Users, GRP_HYB_Pilot_Admins and GRP_HYB_Pilot_Devices as global security groups" src="screenshots/13-04-pilot-groups-created.png" width="2614" height="1454"/>
+<a class="screenshot-link" href="screenshots/13-04-pilot-groups-created.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Active Directory Users and Computers showing GRP_HYB_Pilot_Users, GRP_HYB_Pilot_Admins and GRP_HYB_Pilot_Devices as global security groups (opens in a new tab)" title="Open full-size screenshot"><img alt="Active Directory Users and Computers showing GRP_HYB_Pilot_Users, GRP_HYB_Pilot_Admins and GRP_HYB_Pilot_Devices as global security groups" src="screenshots/13-04-pilot-groups-created.png" width="2614" height="1454"/></a>
 <figcaption><span class="figure-label">Figure 4</span>Hybrid pilot groups created as Global Security groups with clear descriptions.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Security groups make the pilot candidates easier to understand, audit and reuse for future access control, Conditional Access, Intune targeting or deployment targeting. The technical synchronization boundary for the next lab is the <code>Hybrid Pilot</code> OU.</div>
@@ -87,7 +87,7 @@
 <h3>5. Pilot User Group Membership Validated</h3>
 <p>I added Chloe Bennett and Kate Jones to <code>GRP_HYB_Pilot_Users</code> and confirmed the membership from the group properties. This recorded them as approved users for the hybrid identity pilot.</p>
 <figure class="lab-figure">
-<img alt="GRP_HYB_Pilot_Users members tab showing Chloe Bennett and Kate Jones as members" src="screenshots/13-05-pilot-users-group-membership.png" width="959" height="1178"/>
+<a class="screenshot-link" href="screenshots/13-05-pilot-users-group-membership.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: GRP_HYB_Pilot_Users members tab showing Chloe Bennett and Kate Jones as members (opens in a new tab)" title="Open full-size screenshot"><img alt="GRP_HYB_Pilot_Users members tab showing Chloe Bennett and Kate Jones as members" src="screenshots/13-05-pilot-users-group-membership.png" width="959" height="1178"/></a>
 <figcaption><span class="figure-label">Figure 5</span><code>GRP_HYB_Pilot_Users</code> membership showing Chloe Bennett and Kate Jones.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> At the readiness stage, the pilot group records which users are approved for the hybrid identity pilot. In the next lab, selected pilot objects are placed inside the <code>Hybrid Pilot</code> OU because OU filtering is used as the Entra Connect synchronization boundary.</div>
@@ -96,7 +96,7 @@
 <h3>6. Pilot Support/Admin Group Membership Validated</h3>
 <p>I added Chloe Bennett to <code>GRP_HYB_Pilot_Admins</code> as the pilot Service Desk support/admin validation user and confirmed the membership from the group properties.</p>
 <figure class="lab-figure">
-<img alt="GRP_HYB_Pilot_Admins members tab showing Chloe Bennett as a member" src="screenshots/13-06-pilot-admins-group-membership.png" width="952" height="1174"/>
+<a class="screenshot-link" href="screenshots/13-06-pilot-admins-group-membership.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: GRP_HYB_Pilot_Admins members tab showing Chloe Bennett as a member (opens in a new tab)" title="Open full-size screenshot"><img alt="GRP_HYB_Pilot_Admins members tab showing Chloe Bennett as a member" src="screenshots/13-06-pilot-admins-group-membership.png" width="952" height="1174"/></a>
 <figcaption><span class="figure-label">Figure 6</span><code>GRP_HYB_Pilot_Admins</code> membership showing Chloe Bennett as the pilot Service Desk support/admin validation user.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Keeping the support/admin validation group separate from the user pilot group supports clearer delegation and validation in later hybrid identity labs without implying broad infrastructure or tenant-wide administrator access.</div>

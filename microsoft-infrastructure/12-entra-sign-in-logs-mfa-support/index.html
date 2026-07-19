@@ -49,7 +49,7 @@
 <h3>1. Failed Kate Jones Sign-In Events Filtered</h3>
 <p>I filtered Entra sign-in events for Kate Jones and confirmed repeated failed interactive sign-ins to One Outlook Web.</p>
 <figure class="lab-figure">
-<img alt="Microsoft Entra sign-in events filtered to Kate Jones showing failed One Outlook Web sign-ins with error code 50126" src="screenshots/12-01-kate-failed-sign-in-log-filtered.png" width="3019" height="911"/>
+<a class="screenshot-link" href="screenshots/12-01-kate-failed-sign-in-log-filtered.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Microsoft Entra sign-in events filtered to Kate Jones showing failed One Outlook Web sign-ins with error code 50126 (opens in a new tab)" title="Open full-size screenshot"><img alt="Microsoft Entra sign-in events filtered to Kate Jones showing failed One Outlook Web sign-ins with error code 50126" src="screenshots/12-01-kate-failed-sign-in-log-filtered.png" width="3019" height="911"/></a>
 <figcaption><span class="figure-label">Figure 1</span>Kate Jones sign-in events filtered to show failed One Outlook Web sign-ins with error code <code>50126</code>.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Filtering sign-in logs by user and date reduces noise and gives first-line support a clear starting point before resetting passwords or escalating.</div>
@@ -58,7 +58,7 @@
 <h3>2. Sign-In Failure Detail Reviewed</h3>
 <p>I opened the failed sign-in event and reviewed the basic details. The failure reason showed that the credentials were not valid.</p>
 <figure class="lab-figure">
-<img alt="Activity Details Sign-ins page showing Kate Jones failure status, error code 50126 and invalid username or password reason" src="screenshots/12-02-kate-failed-sign-in-detail-error-visible.png" width="2063" height="1666"/>
+<a class="screenshot-link" href="screenshots/12-02-kate-failed-sign-in-detail-error-visible.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Activity Details Sign-ins page showing Kate Jones failure status, error code 50126 and invalid username or password reason (opens in a new tab)" title="Open full-size screenshot"><img alt="Activity Details Sign-ins page showing Kate Jones failure status, error code 50126 and invalid username or password reason" src="screenshots/12-02-kate-failed-sign-in-detail-error-visible.png" width="2063" height="1666"/></a>
 <figcaption><span class="figure-label">Figure 2</span>Failed sign-in detail showing status <code>Failure</code>, error code <code>50126</code>, and invalid username or password as the failure reason.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Error code <code>50126</code> supports a credential-focused recovery path rather than a Conditional Access, licensing or service availability escalation.</div>
@@ -67,7 +67,7 @@
 <h3>3. Successful Sign-In Confirmed After Recovery</h3>
 <p>After the account recovery action, I refreshed the sign-in logs and confirmed a successful Kate Jones sign-in above the earlier failed attempts.</p>
 <figure class="lab-figure">
-<img alt="Microsoft Entra sign-in events showing Kate Jones successful One Outlook Web sign-in above earlier failed attempts" src="screenshots/12-03-kate-sign-in-recovered-success-visible.png" width="2646" height="1036"/>
+<a class="screenshot-link" href="screenshots/12-03-kate-sign-in-recovered-success-visible.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Microsoft Entra sign-in events showing Kate Jones successful One Outlook Web sign-in above earlier failed attempts (opens in a new tab)" title="Open full-size screenshot"><img alt="Microsoft Entra sign-in events showing Kate Jones successful One Outlook Web sign-in above earlier failed attempts" src="screenshots/12-03-kate-sign-in-recovered-success-visible.png" width="2646" height="1036"/></a>
 <figcaption><span class="figure-label">Figure 3</span>Kate Jones sign-in log showing successful access after the earlier failed attempts.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> A successful follow-up sign-in validates the fix and gives the ticket a clean closure point.</div>
@@ -76,7 +76,7 @@
 <h3>4. SSPR Enabled for a Pilot Group</h3>
 <p>I enabled Self-Service Password Reset for the dedicated pilot group <code>GRP_SSPR_Pilot</code> rather than enabling it tenant-wide.</p>
 <figure class="lab-figure">
-<img alt="Password reset properties showing Self service password reset enabled for selected group GRP_SSPR_Pilot" src="screenshots/12-04-sspr-enabled-for-pilot-group.png" width="2485" height="1058"/>
+<a class="screenshot-link" href="screenshots/12-04-sspr-enabled-for-pilot-group.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Password reset properties showing Self service password reset enabled for selected group GRP_SSPR_Pilot (opens in a new tab)" title="Open full-size screenshot"><img alt="Password reset properties showing Self service password reset enabled for selected group GRP_SSPR_Pilot" src="screenshots/12-04-sspr-enabled-for-pilot-group.png" width="2485" height="1058"/></a>
 <figcaption><span class="figure-label">Figure 4</span>Self-Service Password Reset enabled for the selected pilot group <code>GRP_SSPR_Pilot</code>.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> A pilot group allows SSPR to be tested safely with selected users before wider rollout.</div>
@@ -85,7 +85,7 @@
 <h3>5. Authentication Methods Policy Reviewed</h3>
 <p>I reviewed the tenant authentication methods policy and confirmed Microsoft Authenticator, Temporary Access Pass, Software OATH tokens and Email OTP were enabled for all users, while SMS and voice call were not enabled.</p>
 <figure class="lab-figure">
-<img alt="Authentication method policies showing Microsoft Authenticator, Temporary Access Pass, Software OATH tokens and Email OTP enabled" src="screenshots/12-05-authentication-methods-policy.png" width="2218" height="1667"/>
+<a class="screenshot-link" href="screenshots/12-05-authentication-methods-policy.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Authentication method policies showing Microsoft Authenticator, Temporary Access Pass, Software OATH tokens and Email OTP enabled (opens in a new tab)" title="Open full-size screenshot"><img alt="Authentication method policies showing Microsoft Authenticator, Temporary Access Pass, Software OATH tokens and Email OTP enabled" src="screenshots/12-05-authentication-methods-policy.png" width="2218" height="1667"/></a>
 <figcaption><span class="figure-label">Figure 5</span>Authentication method policy showing supported methods available for authentication and password reset scenarios.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> SSPR scope and authentication method availability are separate controls: the group controls who can use SSPR, while the authentication methods policy controls what methods users can register and use.</div>
@@ -94,7 +94,7 @@
 <h3>6. SSPR Registration Policy Configured</h3>
 <p>I configured users in scope to register when signing in and set authentication information reconfirmation to 90 days.</p>
 <figure class="lab-figure">
-<img alt="Password reset registration policy showing users required to register when signing in and reconfirm authentication information after 90 days" src="screenshots/12-06-sspr-registration-policy.png" width="2559" height="1019"/>
+<a class="screenshot-link" href="screenshots/12-06-sspr-registration-policy.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Password reset registration policy showing users required to register when signing in and reconfirm authentication information after 90 days (opens in a new tab)" title="Open full-size screenshot"><img alt="Password reset registration policy showing users required to register when signing in and reconfirm authentication information after 90 days" src="screenshots/12-06-sspr-registration-policy.png" width="2559" height="1019"/></a>
 <figcaption><span class="figure-label">Figure 6</span>SSPR registration policy requiring user registration at sign-in and reconfirmation every 90 days.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Requiring registration at sign-in helps ensure pilot users are ready before they need to recover access under pressure.</div>
@@ -103,7 +103,7 @@
 <h3>7. SSPR Notification Policy Confirmed</h3>
 <p>I confirmed that users are notified on password resets and that admins are notified when other admins reset their password.</p>
 <figure class="lab-figure">
-<img alt="Password reset notifications showing user password reset notifications enabled and admin reset notifications enabled" src="screenshots/12-07-sspr-notification-policy.png" width="1819" height="704"/>
+<a class="screenshot-link" href="screenshots/12-07-sspr-notification-policy.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Password reset notifications showing user password reset notifications enabled and admin reset notifications enabled (opens in a new tab)" title="Open full-size screenshot"><img alt="Password reset notifications showing user password reset notifications enabled and admin reset notifications enabled" src="screenshots/12-07-sspr-notification-policy.png" width="1819" height="704"/></a>
 <figcaption><span class="figure-label">Figure 7</span>SSPR notification settings enabled for user password reset notifications and administrator reset visibility.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Reset notifications improve visibility and help users or administrators detect unexpected account recovery activity.</div>
@@ -112,7 +112,7 @@
 <h3>8. SSPR Audit Log Validated</h3>
 <p>I checked the SSPR audit log and confirmed successful <code>Update SSPR Settings</code> events for the configuration changes.</p>
 <figure class="lab-figure">
-<img alt="Password reset audit logs showing Self-service Password Management Update SSPR Settings events with success status" src="screenshots/12-08-sspr-audit-log-configuration-change.png" width="3069" height="1421"/>
+<a class="screenshot-link" href="screenshots/12-08-sspr-audit-log-configuration-change.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Password reset audit logs showing Self-service Password Management Update SSPR Settings events with success status (opens in a new tab)" title="Open full-size screenshot"><img alt="Password reset audit logs showing Self-service Password Management Update SSPR Settings events with success status" src="screenshots/12-08-sspr-audit-log-configuration-change.png" width="3069" height="1421"/></a>
 <figcaption><span class="figure-label">Figure 8</span>SSPR audit log showing successful policy management events for <code>Update SSPR Settings</code>.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Audit evidence proves the configuration change was recorded and can be reviewed later during support, governance or security checks.</div>
@@ -121,7 +121,7 @@
 <h3>9. Kate Jones Authentication Method Confirmed</h3>
 <p>I checked Kate Jones' authentication methods and confirmed Microsoft Authenticator was available as a usable method with Microsoft Authenticator notification as the default sign-in method.</p>
 <figure class="lab-figure">
-<img alt="Kate Jones authentication methods showing Microsoft Authenticator as a usable method and Microsoft Authenticator notification as default sign-in method" src="screenshots/12-09-kate-authentication-methods.png" width="2784" height="1672"/>
+<a class="screenshot-link" href="screenshots/12-09-kate-authentication-methods.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Kate Jones authentication methods showing Microsoft Authenticator as a usable method and Microsoft Authenticator notification as default sign-in method (opens in a new tab)" title="Open full-size screenshot"><img alt="Kate Jones authentication methods showing Microsoft Authenticator as a usable method and Microsoft Authenticator notification as default sign-in method" src="screenshots/12-09-kate-authentication-methods.png" width="2784" height="1672"/></a>
 <figcaption><span class="figure-label">Figure 9</span>Kate Jones authentication methods showing Microsoft Authenticator as a usable method.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> User-level method validation confirms the recovery and MFA readiness state for the affected account, not just the tenant-level policy.</div>

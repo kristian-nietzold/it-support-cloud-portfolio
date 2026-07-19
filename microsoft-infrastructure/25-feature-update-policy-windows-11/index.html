@@ -52,7 +52,7 @@
 <h3>1. Feature Update Readiness Reviewed</h3>
 <p>I reviewed the Autopatch update readiness checkup before creating the Windows 11 feature update policy.</p>
 <figure class="lab-figure">
-<img alt="Autopatch update readiness checkup showing two assessed devices and no failed feature update readiness checks" src="screenshots/25-01-feature-update-readiness-check-before-policy.png" width="2796" height="1735"/>
+<a class="screenshot-link" href="screenshots/25-01-feature-update-readiness-check-before-policy.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Autopatch update readiness checkup showing two assessed devices and no failed feature update readiness checks (opens in a new tab)" title="Open full-size screenshot"><img alt="Autopatch update readiness checkup showing two assessed devices and no failed feature update readiness checks" src="screenshots/25-01-feature-update-readiness-check-before-policy.png" width="2796" height="1735"/></a>
 <figcaption><span class="figure-label">Figure 1</span>Intune readiness checkup showed two assessed devices, no failed feature update readiness checks and no listed affected-device issues.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> The readiness view showed the target operating system version was already installed on the assessed devices, so this lab focused on feature update targeting and reporting rather than forcing an upgrade.</div>
@@ -61,7 +61,7 @@
 <h3>2. Windows Diagnostic Data Support Enabled</h3>
 <p>I enabled Windows diagnostic data support for Intune features that depend on detailed Windows Update reporting.</p>
 <figure class="lab-figure">
-<img alt="Windows data settings showing diagnostic data features enabled and license verification left disabled" src="screenshots/25-02-windows-diagnostic-data-enabled-for-update-reporting.png" width="1759" height="1704"/>
+<a class="screenshot-link" href="screenshots/25-02-windows-diagnostic-data-enabled-for-update-reporting.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Windows data settings showing diagnostic data features enabled and license verification left disabled (opens in a new tab)" title="Open full-size screenshot"><img alt="Windows data settings showing diagnostic data features enabled and license verification left disabled" src="screenshots/25-02-windows-diagnostic-data-enabled-for-update-reporting.png" width="1759" height="1704"/></a>
 <figcaption><span class="figure-label">Figure 2</span>Windows diagnostic data support enabled for Intune update reporting, with license verification left disabled in the Business Premium lab tenant.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Enabling diagnostic data support improves Intune update reporting visibility, while license verification was not enabled because the tenant did not use the listed Enterprise or Education entitlement in this lab.</div>
@@ -70,7 +70,7 @@
 <h3>3. Feature Updates Area Reviewed Before Creation</h3>
 <p>I opened the Feature updates area in Intune before creating the pilot feature update policy.</p>
 <figure class="lab-figure">
-<img alt="Intune Feature updates page before creating the Windows 11 feature update policy" src="screenshots/25-03-intune-feature-updates-before-windows-11-policy.png" width="3258" height="1187"/>
+<a class="screenshot-link" href="screenshots/25-03-intune-feature-updates-before-windows-11-policy.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Intune Feature updates page before creating the Windows 11 feature update policy (opens in a new tab)" title="Open full-size screenshot"><img alt="Intune Feature updates page before creating the Windows 11 feature update policy" src="screenshots/25-03-intune-feature-updates-before-windows-11-policy.png" width="3258" height="1187"/></a>
 <figcaption><span class="figure-label">Figure 3</span>Intune Feature updates page before creating the Windows 11 feature update policy for Nietz Ltd pilot devices.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> The empty Feature updates list established the starting state before the new policy was created.</div>
@@ -79,7 +79,7 @@
 <h3>4. Windows 11 Feature Update Policy Configured</h3>
 <p>I created <code>WIN-UPD-02-Feature-Update-Windows-11-Pilot</code>, selected Windows 11, version 25H2 and made the update available as a required update as soon as possible.</p>
 <figure class="lab-figure">
-<img alt="Feature update deployment settings showing Windows 11 version 25H2 selected as a required update" src="screenshots/25-04-feature-update-policy-settings-configured.png" width="1679" height="1728"/>
+<a class="screenshot-link" href="screenshots/25-04-feature-update-policy-settings-configured.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Feature update deployment settings showing Windows 11 version 25H2 selected as a required update (opens in a new tab)" title="Open full-size screenshot"><img alt="Feature update deployment settings showing Windows 11 version 25H2 selected as a required update" src="screenshots/25-04-feature-update-policy-settings-configured.png" width="1679" height="1728"/></a>
 <figcaption><span class="figure-label">Figure 4</span>Windows 11 version 25H2 selected as the required feature update for the Nietz Ltd pilot policy.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> A dedicated feature update policy controls the approved Windows release separately from the update ring that controls update timing, deferral and restart behaviour.</div>
@@ -88,7 +88,7 @@
 <h3>5. Pilot Device Group Assigned</h3>
 <p>I assigned the feature update policy to <code>GRP_Intune_Windows_Pilot_Devices</code> so the policy targeted the CL2 pilot device before any wider deployment.</p>
 <figure class="lab-figure">
-<img alt="Feature update policy assigned to GRP_Intune_Windows_Pilot_Devices" src="screenshots/25-05-feature-update-policy-assigned-to-pilot-devices.png" width="1711" height="1145"/>
+<a class="screenshot-link" href="screenshots/25-05-feature-update-policy-assigned-to-pilot-devices.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Feature update policy assigned to GRP_Intune_Windows_Pilot_Devices (opens in a new tab)" title="Open full-size screenshot"><img alt="Feature update policy assigned to GRP_Intune_Windows_Pilot_Devices" src="screenshots/25-05-feature-update-policy-assigned-to-pilot-devices.png" width="1711" height="1145"/></a>
 <figcaption><span class="figure-label">Figure 5</span>Windows 11 feature update policy assigned to the Intune Windows pilot device group containing CL2.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Device-based assignment kept the rollout scoped to the pilot endpoint rather than targeting all users or all devices.</div>
@@ -97,7 +97,7 @@
 <h3>6. Feature Update Policy Created</h3>
 <p>I confirmed that the feature update policy was created and visible in the Intune Feature updates list with the expected Windows 11 25H2 target, assignment status and deployment state.</p>
 <figure class="lab-figure">
-<img alt="Intune Feature updates list showing WIN-UPD-02-Feature-Update-Windows-11-Pilot created and assigned" src="screenshots/25-06-feature-update-policy-created.png" width="3319" height="1020"/>
+<a class="screenshot-link" href="screenshots/25-06-feature-update-policy-created.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Intune Feature updates list showing WIN-UPD-02-Feature-Update-Windows-11-Pilot created and assigned (opens in a new tab)" title="Open full-size screenshot"><img alt="Intune Feature updates list showing WIN-UPD-02-Feature-Update-Windows-11-Pilot created and assigned" src="screenshots/25-06-feature-update-policy-created.png" width="3319" height="1020"/></a>
 <figcaption><span class="figure-label">Figure 6</span>Feature update policy created in Intune, targeting Windows 11 version 25H2 and assigned to the Nietz Ltd pilot device group.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> The Feature updates list confirmed the policy existed, was assigned and had entered deployment reporting.</div>
@@ -106,7 +106,7 @@
 <h3>7. CL2 Manually Synced</h3>
 <p>I manually synced CL2 from the Windows work or school account settings after assigning the feature update policy.</p>
 <figure class="lab-figure">
-<img alt="CL2 work or school account settings showing successful sync after feature update policy assignment" src="screenshots/25-07-cl2-sync-after-feature-update-policy.png" width="2004" height="1891"/>
+<a class="screenshot-link" href="screenshots/25-07-cl2-sync-after-feature-update-policy.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: CL2 work or school account settings showing successful sync after feature update policy assignment (opens in a new tab)" title="Open full-size screenshot"><img alt="CL2 work or school account settings showing successful sync after feature update policy assignment" src="screenshots/25-07-cl2-sync-after-feature-update-policy.png" width="2004" height="1891"/></a>
 <figcaption><span class="figure-label">Figure 7</span>CL2 manually synced after the Windows 11 feature update policy was assigned to the Nietz Ltd pilot device group.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> Manual sync provided endpoint-side evidence that CL2 contacted the management service after the new update policy assignment.</div>
@@ -115,7 +115,7 @@
 <h3>8. Feature Update Reporting Reviewed</h3>
 <p>I reviewed Windows Update reporting for the new feature update policy after assignment and device sync.</p>
 <figure class="lab-figure">
-<img alt="Windows Update reporting showing the Windows 11 25H2 feature update policy in progress with no errors" src="screenshots/25-08-feature-update-policy-reporting-in-progress.png" width="3192" height="759"/>
+<a class="screenshot-link" href="screenshots/25-08-feature-update-policy-reporting-in-progress.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Windows Update reporting showing the Windows 11 25H2 feature update policy in progress with no errors (opens in a new tab)" title="Open full-size screenshot"><img alt="Windows Update reporting showing the Windows 11 25H2 feature update policy in progress with no errors" src="screenshots/25-08-feature-update-policy-reporting-in-progress.png" width="3192" height="759"/></a>
 <figcaption><span class="figure-label">Figure 8</span>Windows Update reporting showed the Windows 11 25H2 feature update policy in progress for one managed device, with no errors, rollback, cancellation or on-hold status reported.</figcaption>
 </figure>
 <div class="callout"><strong>Context:</strong> The report was captured as an in-progress deployment state, not a completed success state. This avoids claiming that the feature update completed when Intune had not yet reported success.</div>

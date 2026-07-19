@@ -39,7 +39,7 @@
   <p>The request was received by email from Mia Taylor and assigned to Chloe Bennett for Service Desk fulfilment. The description recorded the temporary role, the two-week access period, the required Microsoft 365 account and the approved Finance security group.</p>
 
   <figure class="lab-figure">
-    <img src="screenshots/TS-019-01-servicenow-incident-opened.png" alt="ServiceNow record INC0010025 opened for temporary Finance Assistant onboarding" width="3763" height="1350">
+    <a class="screenshot-link" href="screenshots/TS-019-01-servicenow-incident-opened.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: ServiceNow record INC0010025 opened for temporary Finance Assistant onboarding (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/TS-019-01-servicenow-incident-opened.png" alt="ServiceNow record INC0010025 opened for temporary Finance Assistant onboarding" width="3763" height="1350"></a>
     <figcaption><span class="figure-label">Figure 1</span>ServiceNow request opened for Tom Walker with the temporary role, required licence and approved Finance access documented.</figcaption>
   </figure>
 
@@ -47,7 +47,7 @@
   <p>Chloe checked whether the Service Desk account could create the new user through Microsoft Entra ID. The <strong>Create new user</strong> option was unavailable, confirming that the first-line account did not have unnecessary user-administration permissions.</p>
 
   <figure class="lab-figure">
-    <img src="screenshots/TS-019-02-chloe-user-creation-unavailable.png" alt="Microsoft Entra admin center showing that Chloe Bennett cannot create a new internal user" width="2798" height="1635">
+    <a class="screenshot-link" href="screenshots/TS-019-02-chloe-user-creation-unavailable.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Microsoft Entra admin center showing that Chloe Bennett cannot create a new internal user (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/TS-019-02-chloe-user-creation-unavailable.png" alt="Microsoft Entra admin center showing that Chloe Bennett cannot create a new internal user" width="2798" height="1635"></a>
     <figcaption><span class="figure-label">Figure 2</span>The Service Desk account could view users but could not create a new internal user, demonstrating the intended least-privilege boundary.</figcaption>
   </figure>
 
@@ -57,21 +57,21 @@
   <p>Kristian reviewed the authorised request and the details supplied by the Service Desk. Before creation, he confirmed Tom Walker's username as <code>t.walker@nietz.co.uk</code>, set the usage location to United Kingdom and selected the approved Office 365 E5 licence.</p>
 
   <figure class="lab-figure">
-    <img src="screenshots/TS-019-02-m365-user-review-before-finish.png" alt="Microsoft 365 admin center review page for Tom Walker with Office 365 E5 licence" width="1991" height="1691">
+    <a class="screenshot-link" href="screenshots/TS-019-02-m365-user-review-before-finish.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Microsoft 365 admin center review page for Tom Walker with Office 365 E5 licence (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/TS-019-02-m365-user-review-before-finish.png" alt="Microsoft 365 admin center review page for Tom Walker with Office 365 E5 licence" width="1991" height="1691"></a>
     <figcaption><span class="figure-label">Figure 3</span>The user's identity, sign-in name, usage location and product licence were reviewed before the account was created.</figcaption>
   </figure>
 
   <p>Using the administrator account, Kristian created the user and assigned the required Office 365 E5 licence. This completed the privileged provisioning action without granting Chloe broader user-administration rights.</p>
 
   <figure class="lab-figure">
-    <img src="screenshots/TS-019-03-m365-user-created-licence-assigned.png" alt="Microsoft 365 active users list showing Tom Walker with an Office 365 E5 licence" width="3038" height="862">
+    <a class="screenshot-link" href="screenshots/TS-019-03-m365-user-created-licence-assigned.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Microsoft 365 active users list showing Tom Walker with an Office 365 E5 licence (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/TS-019-03-m365-user-created-licence-assigned.png" alt="Microsoft 365 active users list showing Tom Walker with an Office 365 E5 licence" width="3038" height="862"></a>
     <figcaption><span class="figure-label">Figure 4</span>Tom Walker's account was created successfully and the required Office 365 E5 licence was assigned.</figcaption>
   </figure>
 
   <p>Kristian then added Tom to the <code>GG_FIN_RW</code> security group to provide the approved Finance read/write access. Group-based access was used instead of direct permissions so that departmental access could be administered consistently and removed cleanly during offboarding. The completed administration work was returned to Chloe for first-line validation and requester communication.</p>
 
   <figure class="lab-figure">
-    <img src="screenshots/TS-019-04-finance-access-added.png" alt="Microsoft Entra security group GG_FIN_RW showing Tom Walker as a member" width="1604" height="1594">
+    <a class="screenshot-link" href="screenshots/TS-019-04-finance-access-added.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Microsoft Entra security group GG_FIN_RW showing Tom Walker as a member (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/TS-019-04-finance-access-added.png" alt="Microsoft Entra security group GG_FIN_RW showing Tom Walker as a member" width="1604" height="1594"></a>
     <figcaption><span class="figure-label">Figure 5</span>Tom Walker was added to the approved Finance security group alongside the existing authorised members.</figcaption>
   </figure>
 
@@ -86,7 +86,7 @@
   <p>Following validation, the ticket was assigned back to Chloe Bennett. The onboarding work was complete, but the request was placed <strong>On Hold - Awaiting Change</strong> rather than resolved because the temporary account still required controlled offboarding at the end of the two-week cover period.</p>
 
   <figure class="lab-figure">
-    <img src="screenshots/TS-019-05-servicenow-account-prepared-on-hold.png" alt="ServiceNow request classified for user provisioning and placed on hold pending temporary worker offboarding" width="3776" height="1354">
+    <a class="screenshot-link" href="screenshots/TS-019-05-servicenow-account-prepared-on-hold.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: ServiceNow request classified for user provisioning and placed on hold pending temporary worker offboarding (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/TS-019-05-servicenow-account-prepared-on-hold.png" alt="ServiceNow request classified for user provisioning and placed on hold pending temporary worker offboarding" width="3776" height="1354"></a>
     <figcaption><span class="figure-label">Figure 6</span>The completed onboarding stage was documented and the request retained under Service Desk ownership for the planned offboarding action.</figcaption>
   </figure>
 
