@@ -29,21 +29,22 @@
 <h2>Objective</h2>
 <p>The objective was to prepare a controlled Active Directory scope for future Microsoft Entra synchronization without changing the whole domain. The pilot groups identify approved users, devices and support/admin validation users for the rollout, while the <code>Nietz Ltd &gt; Hybrid Pilot</code> OU provides the planned technical boundary for scoped Entra Connect synchronization.</p>
 <h2>Environment</h2>
-<table>
-<tr><th>Component</th><th>Value</th></tr>
-<tr><td>Company</td><td>Nietz Ltd</td></tr>
-<tr><td>Domain controller</td><td>DC1</td></tr>
-<tr><td>On-premises AD domain</td><td>corp.nietz.co.uk</td></tr>
-<tr><td>Microsoft 365 / Entra domain</td><td>nietz.co.uk</td></tr>
-<tr><td>Pilot OU</td><td>Nietz Ltd &gt; Hybrid Pilot</td></tr>
-<tr><td>Planned LDAP sync scope</td><td><code>OU=Hybrid Pilot,OU=Nietz Ltd,DC=corp,DC=nietz,DC=co,DC=uk</code></td></tr>
-<tr><td>Pilot user example</td><td>Kate Jones</td></tr>
-<tr><td>Pilot Service Desk support/admin validation user</td><td>Chloe Bennett</td></tr>
-<tr><td>User pilot group</td><td>GRP_HYB_Pilot_Users</td></tr>
-<tr><td>Device pilot group</td><td>GRP_HYB_Pilot_Devices</td></tr>
-<tr><td>Support/admin validation pilot group</td><td>GRP_HYB_Pilot_Admins</td></tr>
-<tr><td>Previous lab dependency</td><td>Lab 12: Entra Sign-In Logs, MFA and SSPR Support</td></tr>
-<tr><td>Next lab dependency</td><td>Lab 14: Hybrid Identity Sync Pilot</td></tr>
+<table tabindex="0">
+<caption class="visually-hidden">Environment</caption>
+<tr><th scope="col">Component</th><th scope="col">Value</th></tr>
+<tr><th scope="row">Company</th><td>Nietz Ltd</td></tr>
+<tr><th scope="row">Domain controller</th><td>DC1</td></tr>
+<tr><th scope="row">On-premises AD domain</th><td>corp.nietz.co.uk</td></tr>
+<tr><th scope="row">Microsoft 365 / Entra domain</th><td>nietz.co.uk</td></tr>
+<tr><th scope="row">Pilot OU</th><td>Nietz Ltd &gt; Hybrid Pilot</td></tr>
+<tr><th scope="row">Planned LDAP sync scope</th><td><code>OU=Hybrid Pilot,OU=Nietz Ltd,DC=corp,DC=nietz,DC=co,DC=uk</code></td></tr>
+<tr><th scope="row">Pilot user example</th><td>Kate Jones</td></tr>
+<tr><th scope="row">Pilot Service Desk support/admin validation user</th><td>Chloe Bennett</td></tr>
+<tr><th scope="row">User pilot group</th><td>GRP_HYB_Pilot_Users</td></tr>
+<tr><th scope="row">Device pilot group</th><td>GRP_HYB_Pilot_Devices</td></tr>
+<tr><th scope="row">Support/admin validation pilot group</th><td>GRP_HYB_Pilot_Admins</td></tr>
+<tr><th scope="row">Previous lab dependency</th><td>Lab 12: Entra Sign-In Logs, MFA and SSPR Support</td></tr>
+<tr><th scope="row">Next lab dependency</th><td>Lab 14: Hybrid Identity Sync Pilot</td></tr>
 </table>
 <h2>Configuration and Evidence</h2>
 <div class="section-block">

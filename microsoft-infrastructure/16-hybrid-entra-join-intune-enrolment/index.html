@@ -29,23 +29,24 @@
 <h2>Objective</h2>
 <p>The objective was to prove that an existing on-premises domain-joined Windows device can be brought under Microsoft Entra ID and Microsoft Intune management without rebuilding it as a cloud-native device.</p>
 <h2>Environment</h2>
-<table>
-<tr><th>Component</th><th>Value</th></tr>
-<tr><td>Company</td><td>Nietz Ltd</td></tr>
-<tr><td>On-premises AD domain</td><td><code>corp.nietz.co.uk</code></td></tr>
-<tr><td>Microsoft 365 / Entra domain</td><td><code>nietz.co.uk</code></td></tr>
-<tr><td>Domain controller</td><td><code>DC1</code></td></tr>
-<tr><td>Entra Connect server</td><td><code>SYNC1</code></td></tr>
-<tr><td>Client device</td><td><code>CL1</code></td></tr>
-<tr><td>Assigned user</td><td>Emily Wilson</td></tr>
-<tr><td>Assigned user UPN</td><td><code>e.wilson@nietz.co.uk</code></td></tr>
-<tr><td>Pilot device OU</td><td><code>OU=Devices,OU=Hybrid Pilot,OU=Nietz Ltd</code></td></tr>
-<tr><td>Intune pilot group</td><td><code>GRP_Intune_Pilot</code></td></tr>
-<tr><td>Intune auto-enrolment GPO</td><td><code>GPO_Intune_Auto_Enrollment_Hybrid_Pilot</code></td></tr>
-<tr><td>Final device join type</td><td>Microsoft Entra hybrid joined</td></tr>
-<tr><td>Management platform</td><td>Microsoft Intune</td></tr>
-<tr><td>Previous lab dependency</td><td>Lab 15: Cloud-Native Entra Join and Intune Auto-Enrolment</td></tr>
-<tr><td>Next lab dependency</td><td>Lab 17: Device Compliance Policy Pilot</td></tr>
+<table tabindex="0">
+<caption class="visually-hidden">Environment</caption>
+<tr><th scope="col">Component</th><th scope="col">Value</th></tr>
+<tr><th scope="row">Company</th><td>Nietz Ltd</td></tr>
+<tr><th scope="row">On-premises AD domain</th><td><code>corp.nietz.co.uk</code></td></tr>
+<tr><th scope="row">Microsoft 365 / Entra domain</th><td><code>nietz.co.uk</code></td></tr>
+<tr><th scope="row">Domain controller</th><td><code>DC1</code></td></tr>
+<tr><th scope="row">Entra Connect server</th><td><code>SYNC1</code></td></tr>
+<tr><th scope="row">Client device</th><td><code>CL1</code></td></tr>
+<tr><th scope="row">Assigned user</th><td>Emily Wilson</td></tr>
+<tr><th scope="row">Assigned user UPN</th><td><code>e.wilson@nietz.co.uk</code></td></tr>
+<tr><th scope="row">Pilot device OU</th><td><code>OU=Devices,OU=Hybrid Pilot,OU=Nietz Ltd</code></td></tr>
+<tr><th scope="row">Intune pilot group</th><td><code>GRP_Intune_Pilot</code></td></tr>
+<tr><th scope="row">Intune auto-enrolment GPO</th><td><code>GPO_Intune_Auto_Enrollment_Hybrid_Pilot</code></td></tr>
+<tr><th scope="row">Final device join type</th><td>Microsoft Entra hybrid joined</td></tr>
+<tr><th scope="row">Management platform</th><td>Microsoft Intune</td></tr>
+<tr><th scope="row">Previous lab dependency</th><td>Lab 15: Cloud-Native Entra Join and Intune Auto-Enrolment</td></tr>
+<tr><th scope="row">Next lab dependency</th><td>Lab 17: Device Compliance Policy Pilot</td></tr>
 </table>
 <h2>Configuration</h2>
 <div class="section-block">

@@ -29,18 +29,19 @@
 <p>I created <code>WIN-UPD-01-Windows-Update-Ring-Pilot</code> in the Intune Windows updates area. The update ring allowed Microsoft product updates, blocked driver updates, used a 3-day quality update deferral and a 30-day feature update deferral, and kept Windows Insider pre-release builds disabled.</p><p>I configured active hours from 8 AM to 6 PM, disabled the user option to pause updates, allowed users to check for updates, enabled default Windows Update notifications and applied deadline controls for quality and feature updates. The policy was assigned to <code>GRP_Intune_Windows_Pilot_Devices</code>, which contained the CL2 pilot device.</p><h2>Objective</h2>
 <p>The objective was to create a controlled Windows Update ring for Nietz Ltd pilot devices, configure sensible quality and feature update deferrals, block driver updates, protect user active hours, enable deadline controls and validate successful policy deployment to CL2.</p>
 <h2>Environment</h2>
-<table>
-<tr><th>Component</th><th>Value</th></tr>
-<tr><td>Company</td><td>Nietz Ltd</td></tr>
-<tr><td>Tenant admin</td><td>k.nietzold@nietz.co.uk</td></tr>
-<tr><td>Management platform</td><td>Microsoft Intune</td></tr>
-<tr><td>Policy type</td><td>Update ring for Windows 10 and later</td></tr>
-<tr><td>Update ring policy</td><td>WIN-UPD-01-Windows-Update-Ring-Pilot</td></tr>
-<tr><td>Assigned group</td><td>GRP_Intune_Windows_Pilot_Devices</td></tr>
-<tr><td>Pilot device</td><td>CL2</td></tr>
-<tr><td>Logged-in pilot user</td><td>c.bennett@nietz.co.uk</td></tr>
-<tr><td>Previous lab</td><td>Lab 23: Edge Security Baseline</td></tr>
-<tr><td>Next lab</td><td>Lab 25: Feature Update Policy Windows 11</td></tr>
+<table tabindex="0">
+<caption class="visually-hidden">Environment</caption>
+<tr><th scope="col">Component</th><th scope="col">Value</th></tr>
+<tr><th scope="row">Company</th><td>Nietz Ltd</td></tr>
+<tr><th scope="row">Tenant admin</th><td>k.nietzold@nietz.co.uk</td></tr>
+<tr><th scope="row">Management platform</th><td>Microsoft Intune</td></tr>
+<tr><th scope="row">Policy type</th><td>Update ring for Windows 10 and later</td></tr>
+<tr><th scope="row">Update ring policy</th><td>WIN-UPD-01-Windows-Update-Ring-Pilot</td></tr>
+<tr><th scope="row">Assigned group</th><td>GRP_Intune_Windows_Pilot_Devices</td></tr>
+<tr><th scope="row">Pilot device</th><td>CL2</td></tr>
+<tr><th scope="row">Logged-in pilot user</th><td>c.bennett@nietz.co.uk</td></tr>
+<tr><th scope="row">Previous lab</th><td>Lab 23: Edge Security Baseline</td></tr>
+<tr><th scope="row">Next lab</th><td>Lab 25: Feature Update Policy Windows 11</td></tr>
 </table>
 <h2>Configuration and Evidence</h2>
 <div class="section-block">

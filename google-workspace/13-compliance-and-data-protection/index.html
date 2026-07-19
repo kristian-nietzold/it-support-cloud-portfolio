@@ -19,7 +19,7 @@
       <a href="../../index.html">Home</a>
       <a href="../../microsoft-infrastructure/index.html">Microsoft Infrastructure</a>
       <a href="../../service-desk/index.html">Service Desk</a>
-      <span class="nav-disabled">Networking</span>
+<span class="nav-disabled" aria-disabled="true">Networking</span>
       <a href="../index.html">Google Workspace</a>
     </nav>
   </div>
@@ -46,7 +46,7 @@
 <hr />
 <h2>Drive Sharing Controls (Organisational Baseline)</h2>
 <p>Drive sharing settings were reviewed at the root organisational level to establish the default security posture.</p>
-<p><img src="screenshots/13-01-drive-sharing-settings-org-baseline.png" alt="Drive Sharing Org Baseline" width="3142" height="1276"/></p>
+<p><img src="screenshots/13-01-drive-sharing-settings-org-baseline.png" alt="Google Workspace screen showing Drive Sharing Org Baseline" width="3142" height="1276"/></p>
 <h3>Configuration</h3>
 <ul>
 <li>External sharing: <strong>Enabled</strong></li>
@@ -63,7 +63,7 @@
 <hr />
 <h2>Finance OU – Restricted Sharing Policy</h2>
 <p>Following audit findings, stricter controls were applied to the <strong>Finance organisational unit</strong>, where sensitive data is handled.</p>
-<p><img src="screenshots/13-02-drive-sharing-settings-finance-restricted.png" alt="Finance Restricted Sharing" width="2853" height="1312"/></p>
+<p><img src="screenshots/13-02-drive-sharing-settings-finance-restricted.png" alt="Google Workspace screen showing Finance Restricted Sharing" width="2853" height="1312"/></p>
 <h3>Configuration</h3>
 <ul>
 <li>External sharing: <strong>Disabled</strong></li>
@@ -79,7 +79,7 @@
 <hr />
 <h2>Detection – External Sharing Activity Rule</h2>
 <p>An activity-based rule was created to detect external sharing events in real time.</p>
-<p><img src="screenshots/13-03-drive-dlp-rule-conditions.png" alt="DLP Rule Conditions" width="3549" height="1665"/></p>
+<p><img src="screenshots/13-03-drive-dlp-rule-conditions.png" alt="Google Workspace screen showing DLP Rule Conditions" width="3549" height="1665"/></p>
 <h3>Rule Logic</h3>
 <p>Trigger when:</p>
 <ul>
@@ -94,7 +94,7 @@
 <hr />
 <h2>Alerting Configuration</h2>
 <p>The rule was configured to generate alerts and notify key stakeholders.</p>
-<p><img src="screenshots/13-04-drive-dlp-rule-actions.png" alt="DLP Rule Actions" width="2962" height="1782"/></p>
+<p><img src="screenshots/13-04-drive-dlp-rule-actions.png" alt="Google Workspace screen showing DLP Rule Actions" width="2962" height="1782"/></p>
 <h3>Configuration</h3>
 <ul>
 <li>Alert Centre: <strong>Enabled</strong></li>
@@ -114,7 +114,7 @@
 <hr />
 <h2>Rule Activation</h2>
 <p>The rule was enabled to enforce continuous monitoring.</p>
-<p><img src="screenshots/13-05-drive-dlp-rule-active.png" alt="DLP Rule Active" width="3503" height="1613"/></p>
+<p><img src="screenshots/13-05-drive-dlp-rule-active.png" alt="Google Workspace screen showing DLP Rule Active" width="3503" height="1613"/></p>
 <h3>Result</h3>
 <ul>
 <li>Real-time detection of external sharing events</li>
@@ -123,7 +123,7 @@
 <hr />
 <h2>Alert Validation (Test Scenario)</h2>
 <p>The configuration was validated by deliberately sharing a file externally.</p>
-<p><img src="screenshots/13-06-drive-dlp-alert-email.png" alt="DLP Alert Email" width="2751" height="1586"/></p>
+<p><img src="screenshots/13-06-drive-dlp-alert-email.png" alt="Google Workspace screen showing DLP Alert Email" width="2751" height="1586"/></p>
 <h3>Outcome</h3>
 <p>The alert captured:</p>
 <ul>

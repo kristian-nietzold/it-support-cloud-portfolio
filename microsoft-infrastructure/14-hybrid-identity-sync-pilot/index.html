@@ -29,22 +29,23 @@
 <h2>Objective</h2>
 <p>The objective was to perform a controlled Entra Connect pilot without placing the wider Active Directory estate in scope. The lab also needed to demonstrate realistic pilot governance: validation was completed, an identity issue was identified, and a ServiceNow incident was created before any wider rollout.</p>
 <h2>Environment</h2>
-<table>
-<tr><th>Component</th><th>Value</th></tr>
-<tr><td>Company</td><td>Nietz Ltd</td></tr>
-<tr><td>On-premises AD domain</td><td>corp.nietz.co.uk</td></tr>
-<tr><td>Microsoft 365 / Entra domain</td><td>nietz.co.uk</td></tr>
-<tr><td>Domain controller</td><td>DC1</td></tr>
-<tr><td>Domain controller IP address</td><td>192.168.10.10</td></tr>
-<tr><td>Synchronization server</td><td>SYNC1</td></tr>
-<tr><td>SYNC1 internal IP address</td><td>192.168.10.30</td></tr>
-<tr><td>SYNC1 DNS server</td><td>192.168.10.10</td></tr>
-<tr><td>Synchronization tool</td><td>Microsoft Entra Connect Sync</td></tr>
-<tr><td>Sign-in method</td><td>Password Hash Synchronization</td></tr>
-<tr><td>Synchronization scope</td><td><code>OU=Hybrid Pilot,OU=Nietz Ltd,DC=corp,DC=nietz,DC=co,DC=uk</code></td></tr>
-<tr><td>Pilot user validation</td><td>Kate Jones / k.jones@nietz.co.uk</td></tr>
-<tr><td>Pilot security groups</td><td>GRP_HYB_Pilot_Users, GRP_HYB_Pilot_Admins, GRP_HYB_Pilot_Devices</td></tr>
-<tr><td>ServiceNow incident</td><td>INC0010074 - Duplicate Chloe Bennett account identified after Microsoft Entra Connect pilot sync</td></tr>
+<table tabindex="0">
+<caption class="visually-hidden">Environment</caption>
+<tr><th scope="col">Component</th><th scope="col">Value</th></tr>
+<tr><th scope="row">Company</th><td>Nietz Ltd</td></tr>
+<tr><th scope="row">On-premises AD domain</th><td>corp.nietz.co.uk</td></tr>
+<tr><th scope="row">Microsoft 365 / Entra domain</th><td>nietz.co.uk</td></tr>
+<tr><th scope="row">Domain controller</th><td>DC1</td></tr>
+<tr><th scope="row">Domain controller IP address</th><td>192.168.10.10</td></tr>
+<tr><th scope="row">Synchronization server</th><td>SYNC1</td></tr>
+<tr><th scope="row">SYNC1 internal IP address</th><td>192.168.10.30</td></tr>
+<tr><th scope="row">SYNC1 DNS server</th><td>192.168.10.10</td></tr>
+<tr><th scope="row">Synchronization tool</th><td>Microsoft Entra Connect Sync</td></tr>
+<tr><th scope="row">Sign-in method</th><td>Password Hash Synchronization</td></tr>
+<tr><th scope="row">Synchronization scope</th><td><code>OU=Hybrid Pilot,OU=Nietz Ltd,DC=corp,DC=nietz,DC=co,DC=uk</code></td></tr>
+<tr><th scope="row">Pilot user validation</th><td>Kate Jones / k.jones@nietz.co.uk</td></tr>
+<tr><th scope="row">Pilot security groups</th><td>GRP_HYB_Pilot_Users, GRP_HYB_Pilot_Admins, GRP_HYB_Pilot_Devices</td></tr>
+<tr><th scope="row">ServiceNow incident</th><td>INC0010074 - Duplicate Chloe Bennett account identified after Microsoft Entra Connect pilot sync</td></tr>
 </table>
 <h2>Configuration and Evidence</h2>
 <div class="section-block">

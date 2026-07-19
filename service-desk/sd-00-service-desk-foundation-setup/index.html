@@ -29,17 +29,18 @@
 <h2>Objective</h2>
 <p>The objective was to create a safe support model where Service Desk analysts can work normal user-account incidents without using Domain Admin privileges. The model delegates routine first-line actions to a dedicated group while keeping IT/admin accounts, service accounts, groups and infrastructure objects outside the delegated scope. I also cleaned up the ServiceNow incident categories and subcategories, then added resolver groups so future tickets can show realistic first-line ownership, escalation and specialist routing.</p>
 <h2>Environment</h2>
-<table>
-<tr><th>Component</th><th>Value</th></tr>
-<tr><td>Company</td><td>Nietz Ltd</td></tr>
-<tr><td>AD Domain</td><td>corp.nietz.co.uk</td></tr>
-<tr><td>NetBIOS Name</td><td>CORP</td></tr>
-<tr><td>Domain Controller</td><td>DC1</td></tr>
-<tr><td>Domain Client</td><td>CL1</td></tr>
-<tr><td>ServiceNow Instance</td><td>dev397794.service-now.com</td></tr>
-<tr><td>ServiceNow Dashboard</td><td>Nietz Ltd Service Desk Dashboard</td></tr>
-<tr><td>ServiceNow Resolver Groups</td><td>Service Desk, Second Line Support, Infrastructure Support, Network Support, Security Support</td></tr>
-<tr><td>AD Delegation Group</td><td>GG_ServiceDesk_L1</td></tr>
+<table tabindex="0">
+<caption class="visually-hidden">Environment</caption>
+<tr><th scope="col">Component</th><th scope="col">Value</th></tr>
+<tr><th scope="row">Company</th><td>Nietz Ltd</td></tr>
+<tr><th scope="row">AD Domain</th><td>corp.nietz.co.uk</td></tr>
+<tr><th scope="row">NetBIOS Name</th><td>CORP</td></tr>
+<tr><th scope="row">Domain Controller</th><td>DC1</td></tr>
+<tr><th scope="row">Domain Client</th><td>CL1</td></tr>
+<tr><th scope="row">ServiceNow Instance</th><td>dev397794.service-now.com</td></tr>
+<tr><th scope="row">ServiceNow Dashboard</th><td>Nietz Ltd Service Desk Dashboard</td></tr>
+<tr><th scope="row">ServiceNow Resolver Groups</th><td>Service Desk, Second Line Support, Infrastructure Support, Network Support, Security Support</td></tr>
+<tr><th scope="row">AD Delegation Group</th><td>GG_ServiceDesk_L1</td></tr>
 </table>
 <h2>Configuration</h2>
 <div class="section-block">
@@ -145,54 +146,58 @@
 </figure>
 <h2>Complete Incident Classification Reference</h2>
 <p>The main screenshot shows the active Incident categories that were configured. I captured separate Microsoft 365 and Cloud / Azure subcategory screenshots because these areas are important for the troubleshooting ticket series. The remaining subcategories are documented below so the page still explains the full setup without needing a screenshot for every category.</p>
-<table>
-<tr><th>Category</th><th>Subcategories configured</th><th>Typical use</th></tr>
-<tr><td>Microsoft 365</td><td>Exchange Online, Outlook, Teams, SharePoint, OneDrive, Licensing, MFA, Entra ID, Microsoft Office Apps</td><td>Microsoft cloud productivity, mailbox, collaboration, identity and licensing issues.</td></tr>
-<tr><td>Cloud / Azure</td><td>Virtual Machines, Storage, Networking, Identity / RBAC, Cost / Subscription, Backup / Recovery, Monitoring</td><td>Azure resource, access, subscription, monitoring and cloud escalation scenarios.</td></tr>
-<tr><td>Account / Access</td><td>Password Reset, Account Locked, Active Directory, Group Membership, File Share Access, User Permissions, New Starter, Leaver, Account Disabled</td><td>AD account support, access troubleshooting, group membership and user lifecycle tasks.</td></tr>
-<tr><td>Operating System</td><td>Windows Login, Windows Profile, Windows Update, BitLocker, Performance, Blue Screen / Crash, Software Installation, Local Settings</td><td>Windows endpoint, sign-in, profile, update, encryption and local device issues.</td></tr>
-<tr><td>Hardware</td><td>Laptop, Desktop, Monitor, Docking Station, Keyboard / Mouse, Peripheral, Device Fault, Build / Replacement</td><td>Physical device faults, user equipment problems and device replacement/build requests.</td></tr>
-<tr><td>Network</td><td>DHCP, DNS, IP Address, VPN, Wireless, Internet Access, Network Drive, Connectivity, Remote Access</td><td>Connectivity, VPN, DNS/DHCP, mapped drive and remote access issues.</td></tr>
-<tr><td>Printing</td><td>Printer Access, Printer Mapping, Print Queue, Printer Driver, Default Printer, MFD / Scanner</td><td>Printer access, printer setup, stuck print jobs, drivers, default printer and scanner issues.</td></tr>
-<tr><td>Application</td><td>Business Application, Browser, PDF Reader, Finance Application, CRM, Line-of-Business App, Install / Update</td><td>Non-Microsoft-365 application faults, installs, updates and business app access issues.</td></tr>
-<tr><td>Security</td><td>Phishing, Malware, Suspicious Login, Compromised Account, Security Alert, MFA Risk, Data Loss</td><td>Security incidents, suspicious sign-ins, compromised accounts and user-reported risks.</td></tr>
-<tr><td>Request / Admin</td><td>Access Request, Software Request, Hardware Request, Change Request, Information Request, Procurement, General Admin</td><td>Requests where nothing is broken, such as access, software, hardware or information requests.</td></tr>
-<tr><td>Inquiry / Help</td><td>How To, General Question, Status Update, Known Issue, User Guidance, Other</td><td>General guidance, how-to support, known issue checks and ticket status queries.</td></tr>
+<table tabindex="0">
+<caption class="visually-hidden">Complete Incident Classification Reference</caption>
+<tr><th scope="col">Category</th><th scope="col">Subcategories configured</th><th scope="col">Typical use</th></tr>
+<tr><th scope="row">Microsoft 365</th><td>Exchange Online, Outlook, Teams, SharePoint, OneDrive, Licensing, MFA, Entra ID, Microsoft Office Apps</td><td>Microsoft cloud productivity, mailbox, collaboration, identity and licensing issues.</td></tr>
+<tr><th scope="row">Cloud / Azure</th><td>Virtual Machines, Storage, Networking, Identity / RBAC, Cost / Subscription, Backup / Recovery, Monitoring</td><td>Azure resource, access, subscription, monitoring and cloud escalation scenarios.</td></tr>
+<tr><th scope="row">Account / Access</th><td>Password Reset, Account Locked, Active Directory, Group Membership, File Share Access, User Permissions, New Starter, Leaver, Account Disabled</td><td>AD account support, access troubleshooting, group membership and user lifecycle tasks.</td></tr>
+<tr><th scope="row">Operating System</th><td>Windows Login, Windows Profile, Windows Update, BitLocker, Performance, Blue Screen / Crash, Software Installation, Local Settings</td><td>Windows endpoint, sign-in, profile, update, encryption and local device issues.</td></tr>
+<tr><th scope="row">Hardware</th><td>Laptop, Desktop, Monitor, Docking Station, Keyboard / Mouse, Peripheral, Device Fault, Build / Replacement</td><td>Physical device faults, user equipment problems and device replacement/build requests.</td></tr>
+<tr><th scope="row">Network</th><td>DHCP, DNS, IP Address, VPN, Wireless, Internet Access, Network Drive, Connectivity, Remote Access</td><td>Connectivity, VPN, DNS/DHCP, mapped drive and remote access issues.</td></tr>
+<tr><th scope="row">Printing</th><td>Printer Access, Printer Mapping, Print Queue, Printer Driver, Default Printer, MFD / Scanner</td><td>Printer access, printer setup, stuck print jobs, drivers, default printer and scanner issues.</td></tr>
+<tr><th scope="row">Application</th><td>Business Application, Browser, PDF Reader, Finance Application, CRM, Line-of-Business App, Install / Update</td><td>Non-Microsoft-365 application faults, installs, updates and business app access issues.</td></tr>
+<tr><th scope="row">Security</th><td>Phishing, Malware, Suspicious Login, Compromised Account, Security Alert, MFA Risk, Data Loss</td><td>Security incidents, suspicious sign-ins, compromised accounts and user-reported risks.</td></tr>
+<tr><th scope="row">Request / Admin</th><td>Access Request, Software Request, Hardware Request, Change Request, Information Request, Procurement, General Admin</td><td>Requests where nothing is broken, such as access, software, hardware or information requests.</td></tr>
+<tr><th scope="row">Inquiry / Help</th><td>How To, General Question, Status Update, Known Issue, User Guidance, Other</td><td>General guidance, how-to support, known issue checks and ticket status queries.</td></tr>
 </table>
 <h2>Service Desk Role Model</h2>
 <p>This table defines who is used in the ticket labs and what each account represents. The aim is to make later incidents easier to follow by separating callers, first-line resolvers and the senior lab escalation resolver. The role model distinguishes responsibilities within the simulated environment.</p>
-<table>
-<tr><th>User</th><th>Role</th><th>Purpose</th></tr>
-<tr><td>Chloe Bennett</td><td>Service Desk Analyst</td><td>Main first-line analyst for ticket handling and user support.</td></tr>
-<tr><td>Daniel Smith</td><td>IT Support Technician</td><td>Secondary first-line resolver for support tickets.</td></tr>
-<tr><td>Kristian Nietzold</td><td>Escalation Resolver / Lab Administrator</td><td>Senior lab resolver used for actions outside first-line permissions and for specialist escalation groups.</td></tr>
-<tr><td>Emily Wilson</td><td>HR Assistant</td><td>Business caller for HR/account support scenarios.</td></tr>
-<tr><td>Lee Johnson</td><td>Finance Assistant</td><td>Business caller for Finance access and VPN scenarios.</td></tr>
-<tr><td>Kate Jones and Sam Jackson</td><td>Sales users</td><td>Business callers for sales, Outlook, Teams and shared mailbox scenarios.</td></tr>
-<tr><td>James Brown and Mia Taylor</td><td>Management users</td><td>Business callers for management, onboarding, device and escalation scenarios.</td></tr>
+<table tabindex="0">
+<caption class="visually-hidden">Service Desk Role Model</caption>
+<tr><th scope="col">User</th><th scope="col">Role</th><th scope="col">Purpose</th></tr>
+<tr><th scope="row">Chloe Bennett</th><td>Service Desk Analyst</td><td>Main first-line analyst for ticket handling and user support.</td></tr>
+<tr><th scope="row">Daniel Smith</th><td>IT Support Technician</td><td>Secondary first-line resolver for support tickets.</td></tr>
+<tr><th scope="row">Kristian Nietzold</th><td>Escalation Resolver / Lab Administrator</td><td>Senior lab resolver used for actions outside first-line permissions and for specialist escalation groups.</td></tr>
+<tr><th scope="row">Emily Wilson</th><td>HR Assistant</td><td>Business caller for HR/account support scenarios.</td></tr>
+<tr><th scope="row">Lee Johnson</th><td>Finance Assistant</td><td>Business caller for Finance access and VPN scenarios.</td></tr>
+<tr><th scope="row">Kate Jones and Sam Jackson</th><td>Sales users</td><td>Business callers for sales, Outlook, Teams and shared mailbox scenarios.</td></tr>
+<tr><th scope="row">James Brown and Mia Taylor</th><td>Management users</td><td>Business callers for management, onboarding, device and escalation scenarios.</td></tr>
 </table>
 <h2>Resolver Group Routing</h2>
 <p>The ServiceNow resolver groups define where a ticket should be routed after first-line triage. This gives the ticket labs a simple but realistic escalation model without creating too many specialist teams too early.</p>
-<table>
-<tr><th>Assignment group</th><th>Members used in lab</th><th>Typical use</th></tr>
-<tr><td>Service Desk</td><td>Chloe Bennett, Daniel Smith</td><td>First-line ownership, triage, routine fixes, user updates and standard ticket resolution.</td></tr>
-<tr><td>Second Line Support</td><td>Kristian Nietzold</td><td>General escalation where first-line lacks permissions or deeper troubleshooting is required.</td></tr>
-<tr><td>Infrastructure Support</td><td>Kristian Nietzold</td><td>Active Directory, Group Policy, file shares, print services, Windows Server and core infrastructure issues.</td></tr>
-<tr><td>Network Support</td><td>Kristian Nietzold</td><td>Switching, routing, VLANs, wireless, VPN, firewall and site connectivity issues.</td></tr>
-<tr><td>Security Support</td><td>Kristian Nietzold</td><td>Phishing, suspicious sign-ins, compromised accounts, malware alerts and security-risk incidents.</td></tr>
+<table tabindex="0">
+<caption class="visually-hidden">Resolver Group Routing</caption>
+<tr><th scope="col">Assignment group</th><th scope="col">Members used in lab</th><th scope="col">Typical use</th></tr>
+<tr><th scope="row">Service Desk</th><td>Chloe Bennett, Daniel Smith</td><td>First-line ownership, triage, routine fixes, user updates and standard ticket resolution.</td></tr>
+<tr><th scope="row">Second Line Support</th><td>Kristian Nietzold</td><td>General escalation where first-line lacks permissions or deeper troubleshooting is required.</td></tr>
+<tr><th scope="row">Infrastructure Support</th><td>Kristian Nietzold</td><td>Active Directory, Group Policy, file shares, print services, Windows Server and core infrastructure issues.</td></tr>
+<tr><th scope="row">Network Support</th><td>Kristian Nietzold</td><td>Switching, routing, VLANs, wireless, VPN, firewall and site connectivity issues.</td></tr>
+<tr><th scope="row">Security Support</th><td>Kristian Nietzold</td><td>Phishing, suspicious sign-ins, compromised accounts, malware alerts and security-risk incidents.</td></tr>
 </table>
 <h2>Delegated Scope</h2>
 <p>The Service Desk delegation was applied only to normal business-user areas. Privileged areas such as IT/admin accounts, service accounts, groups and domain infrastructure were deliberately kept out of scope so first-line analysts can handle routine account issues without receiving unnecessary administrative access.</p>
-<table>
-<tr><th>Area</th><th>Delegated to Service Desk?</th><th>Reason</th></tr>
-<tr><td>HR OU</td><td>Yes</td><td>Normal business-user accounts.</td></tr>
-<tr><td>Finance OU</td><td>Yes</td><td>Normal business-user accounts.</td></tr>
-<tr><td>Sales OU</td><td>Yes</td><td>Normal business-user accounts.</td></tr>
-<tr><td>Management OU</td><td>Yes</td><td>Normal business-user accounts.</td></tr>
-<tr><td>IT / Helpdesk accounts</td><td>No / restricted</td><td>Contains support and admin-style accounts.</td></tr>
-<tr><td>Groups OU</td><td>No</td><td>Group membership changes require approval or escalation.</td></tr>
-<tr><td>Service accounts</td><td>No</td><td>Privileged or non-user accounts.</td></tr>
-<tr><td>Domain Controllers / infrastructure</td><td>No</td><td>Infrastructure-sensitive objects remain admin-only.</td></tr>
+<table tabindex="0">
+<caption class="visually-hidden">Delegated Scope</caption>
+<tr><th scope="col">Area</th><th scope="col">Delegated to Service Desk?</th><th scope="col">Reason</th></tr>
+<tr><th scope="row">HR OU</th><td>Yes</td><td>Normal business-user accounts.</td></tr>
+<tr><th scope="row">Finance OU</th><td>Yes</td><td>Normal business-user accounts.</td></tr>
+<tr><th scope="row">Sales OU</th><td>Yes</td><td>Normal business-user accounts.</td></tr>
+<tr><th scope="row">Management OU</th><td>Yes</td><td>Normal business-user accounts.</td></tr>
+<tr><th scope="row">IT / Helpdesk accounts</th><td>No / restricted</td><td>Contains support and admin-style accounts.</td></tr>
+<tr><th scope="row">Groups OU</th><td>No</td><td>Group membership changes require approval or escalation.</td></tr>
+<tr><th scope="row">Service accounts</th><td>No</td><td>Privileged or non-user accounts.</td></tr>
+<tr><th scope="row">Domain Controllers / infrastructure</th><td>No</td><td>Infrastructure-sensitive objects remain admin-only.</td></tr>
 </table>
 <h2>Validation</h2>
 <p>The setup was validated by confirming that the ServiceNow dashboard was available, the Nietz Ltd users were present and active, the Active Directory Service Desk delegation group contained the correct first-line analysts, the Delegation of Control Wizard applied the required password reset, read-user-information and account unlock permissions, the ServiceNow Choice List contained the updated incident categories and Microsoft 365 / Cloud Azure subcategories, and the ServiceNow resolver groups had the expected memberships.</p>

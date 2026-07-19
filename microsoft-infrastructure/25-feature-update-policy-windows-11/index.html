@@ -29,19 +29,20 @@
 <h2>Objective</h2>
 <p>The objective was to check Windows feature update readiness, enable Windows diagnostic data support for update reporting, create a Windows 11 feature update policy, assign it only to the Intune Windows pilot device group, sync CL2 and validate the deployment state through Windows Update reporting.</p>
 <h2>Environment</h2>
-<table>
-<tr><th>Component</th><th>Value</th></tr>
-<tr><td>Company</td><td>Nietz Ltd</td></tr>
-<tr><td>Tenant admin</td><td>k.nietzold@nietz.co.uk</td></tr>
-<tr><td>Management platform</td><td>Microsoft Intune</td></tr>
-<tr><td>Policy type</td><td>Feature update deployment</td></tr>
-<tr><td>Feature update policy</td><td>WIN-UPD-02-Feature-Update-Windows-11-Pilot</td></tr>
-<tr><td>Target feature update</td><td>Windows 11, version 25H2</td></tr>
-<tr><td>Assigned group</td><td>GRP_Intune_Windows_Pilot_Devices</td></tr>
-<tr><td>Pilot device</td><td>CL2</td></tr>
-<tr><td>Logged-in pilot user</td><td>c.bennett@nietz.co.uk</td></tr>
-<tr><td>Previous lab</td><td>Lab 24: Windows Update Ring Pilot</td></tr>
-<tr><td>Next planned lab</td><td>Lab 26: Quality Update Expedite and Reporting</td></tr>
+<table tabindex="0">
+<caption class="visually-hidden">Environment</caption>
+<tr><th scope="col">Component</th><th scope="col">Value</th></tr>
+<tr><th scope="row">Company</th><td>Nietz Ltd</td></tr>
+<tr><th scope="row">Tenant admin</th><td>k.nietzold@nietz.co.uk</td></tr>
+<tr><th scope="row">Management platform</th><td>Microsoft Intune</td></tr>
+<tr><th scope="row">Policy type</th><td>Feature update deployment</td></tr>
+<tr><th scope="row">Feature update policy</th><td>WIN-UPD-02-Feature-Update-Windows-11-Pilot</td></tr>
+<tr><th scope="row">Target feature update</th><td>Windows 11, version 25H2</td></tr>
+<tr><th scope="row">Assigned group</th><td>GRP_Intune_Windows_Pilot_Devices</td></tr>
+<tr><th scope="row">Pilot device</th><td>CL2</td></tr>
+<tr><th scope="row">Logged-in pilot user</th><td>c.bennett@nietz.co.uk</td></tr>
+<tr><th scope="row">Previous lab</th><td>Lab 24: Windows Update Ring Pilot</td></tr>
+<tr><th scope="row">Next planned lab</th><td>Lab 26: Quality Update Expedite and Reporting</td></tr>
 </table>
 <p>I first reviewed the Intune update readiness checkup to confirm the tenant had recent feature update readiness data. The readiness view showed two assessed devices, no failed feature update checkups and no listed affected-device issues, with the target operating system version already installed on the assessed devices.</p>
 <p>I then enabled Windows diagnostic data support for Intune update reporting while leaving Windows license verification disabled because the lab tenant is using Business Premium rather than one of the listed Enterprise, Education or Microsoft 365 E3/E5 entitlements. After confirming the Feature updates area had no existing policy, I created <code>WIN-UPD-02-Feature-Update-Windows-11-Pilot</code> and targeted Windows 11, version 25H2 as a required update.</p>
