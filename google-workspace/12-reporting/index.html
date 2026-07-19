@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Workspace 12 - Reporting and Monitoring</title>
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    .navbar nav .nav-disabled { color: #bdbdbd; margin-left: 24px; font-size: 16px; cursor: default; }
+    .content-modern img { max-width: 760px; width: 100%; display: block; margin: 24px auto 8px; border-radius: 8px; border: 1px solid #ddd; background: white; }
+  </style>
+</head>
+<body>
+<header class="navbar">
+  <div class="container">
+    <h1 class="logo"><a href="../../index.html">Kristian Nietzold</a></h1>
+    <nav>
+      <a href="../../index.html">Home</a>
+      <a href="../../microsoft-infrastructure/index.html">Microsoft Infrastructure</a>
+      <a href="../../service-desk/index.html">Service Desk</a>
+      <span class="nav-disabled">Networking</span>
+      <a href="../index.html">Google Workspace</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="hero">
+  <div class="container">
+    <h2>Google Workspace 12: Reporting and Monitoring</h2>
+    <p>Audit, reporting and investigation visibility.</p>
+  </div>
+</section>
+<section class="content-modern">
+  <div class="callout"><strong>Context:</strong> This Google Workspace lab extends the same SaaS administration environment across identity, access, collaboration and security controls.</div>
+  <h1>12 – Reporting &amp; Monitoring</h1>
+<h2>Overview</h2>
+<p>Used Google Workspace reporting and audit tools to:</p>
+<ul>
+<li><p>Monitor user authentication activity</p>
+</li>
+<li><p>Assess account security posture</p>
+</li>
+<li><p>Investigate email delivery</p>
+</li>
+<li><p>Track file activity and sharing behaviour</p>
+</li>
+<li><p>Identify potential data exposure risks</p>
+</li>
+</ul>
+<p>The focus is on <strong>real-world administrative visibility and investigation workflows</strong>.</p>
+<hr />
+<h2>User Activity Monitoring (Audit &amp; Investigation)</h2>
+<p>The Audit and Investigation tool was used to analyse user authentication activity.</p>
+<p><img src="screenshots/12-01-user-log-events.png" alt="User Log Events" width="3173" height="1587"/></p>
+<h3>Observations</h3>
+<ul>
+<li><p>Successful and failed login attempts are visible</p>
+</li>
+<li><p>2-Step Verification events are logged</p>
+</li>
+<li><p>Login types (password, re-authentication) are recorded</p>
+</li>
+<li><p>IP addresses allow location-based analysis</p>
+</li>
+</ul>
+<h3>Use Case</h3>
+<ul>
+<li><p>Detect suspicious login behaviour</p>
+</li>
+<li><p>Investigate failed login attempts</p>
+</li>
+<li><p>Validate enforcement of security policies (e.g. 2SV)</p>
+</li>
+</ul>
+<hr />
+<h2>Account Security Posture (User Reports)</h2>
+<p>User account security status was reviewed across the organisation.</p>
+<p><img src="screenshots/12-02-accounts-report.png" alt="User Reports – Accounts" width="3681" height="1519"/></p>
+<h3>Key Insights</h3>
+<ul>
+<li>2-Step Verification:</li>
+</ul>
+<p>  - Enforcement: <strong>Enabled</strong></p>
+<p>  - Enrolment: Mixed (some users not enrolled)</p>
+<ul>
+<li>Password compliance:</li>
+</ul>
+<p>  - Some users marked <strong>non-compliant</strong></p>
+<ul>
+<li>Account protection:</li>
+</ul>
+<p>  - All accounts show <strong>Protected</strong></p>
+<h3>Use Case</h3>
+<ul>
+<li><p>Identify users not enrolled in 2SV</p>
+</li>
+<li><p>Detect weak or non-compliant password configurations</p>
+</li>
+<li><p>Support security audits and compliance reviews</p>
+</li>
+</ul>
+<hr />
+<h2>Application &amp; Storage Usage</h2>
+<p>App usage reporting was analysed to understand user behaviour and storage consumption.</p>
+<p><img src="screenshots/12-03-apps-usage.png" alt="User Reports – Apps Usage" width="3691" height="1605"/></p>
+<h3>Observations</h3>
+<ul>
+<li>Per-user storage usage across:</li>
+</ul>
+<p>  - Gmail</p>
+<p>  - Google Drive</p>
+<p>  - Photos</p>
+<ul>
+<li><p>Clear visibility of highest usage accounts</p>
+</li>
+<li><p>Some users show minimal or no activity</p>
+</li>
+</ul>
+<h3>Use Case</h3>
+<ul>
+<li><p>Identify heavy storage users</p>
+</li>
+<li><p>Detect inactive accounts</p>
+</li>
+<li><p>Support capacity planning and licensing decisions</p>
+</li>
+</ul>
+<hr />
+<h2>Email Investigation (Email Log Search)</h2>
+<p>Email Log Search was used to trace a test email between users.</p>
+<p><img src="screenshots/12-04-email-log-search.png" alt="Email Log Search" width="2498" height="1638"/></p>
+<h3>Action Performed</h3>
+<ul>
+<li>Filtered by:</li>
+</ul>
+<p>  - Sender</p>
+<p>  - Recipient</p>
+<p>  - Date range</p>
+<ul>
+<li>Located specific test messages</li>
+</ul>
+<hr />
+<h2>Email Message Trace</h2>
+<p>Detailed message inspection was performed to validate delivery and routing.</p>
+<p><img src="screenshots/12-05-email-log-detail.png" alt="Email Log Details" width="3305" height="1465"/></p>
+<h3>Insights</h3>
+<ul>
+<li><p>Message successfully delivered (<strong>1/1 delivered</strong>)</p>
+</li>
+<li><p>Full message metadata available:</p>
+</li>
+</ul>
+<p>  - Message ID</p>
+<p>  - Timestamp</p>
+<p>  - Mail flow path</p>
+<ul>
+<li>Delivery pipeline confirms:</li>
+</ul>
+<p>  - SMTP receipt</p>
+<p>  - Internal processing</p>
+<p>  - Final mailbox delivery</p>
+<h3>Use Case</h3>
+<ul>
+<li><p>Troubleshoot email delivery issues</p>
+</li>
+<li><p>Verify whether messages were received</p>
+</li>
+<li><p>Analyse mail routing and delays</p>
+</li>
+</ul>
+<hr />
+<h2>Drive Activity Monitoring</h2>
+<p>Drive audit logs were reviewed to monitor file activity.</p>
+<p><img src="screenshots/12-06-drive-log-events-overview.png" alt="Drive Log Events Overview" width="3297" height="1549"/></p>
+<h3>Observations</h3>
+<ul>
+<li>File actions include:</li>
+</ul>
+<p>  - Creation</p>
+<p>  - Copying</p>
+<p>  - Movement</p>
+<p>  - Permission changes</p>
+<ul>
+<li>Visibility changes tracked (internal → external)</li>
+</ul>
+<h3>Use Case</h3>
+<ul>
+<li><p>Track file lifecycle events</p>
+</li>
+<li><p>Monitor user behaviour in Drive</p>
+</li>
+<li><p>Detect unusual activity</p>
+</li>
+</ul>
+<hr />
+<h2>External Sharing Investigation</h2>
+<p>Filtering was applied to identify files shared outside the organisation.</p>
+<p><img src="screenshots/12-07-drive-log-external-sharing-filtered.png" alt="External Sharing Filter" width="3157" height="1622"/></p>
+<h3>Findings</h3>
+<ul>
+<li><p>Files identified as <strong>shared externally</strong></p>
+</li>
+<li><p>Events include:</p>
+</li>
+</ul>
+<p>  - Permission changes</p>
+<p>  - File access</p>
+<p>  - File movement</p>
+<ul>
+<li>Actor (user) and timestamp clearly recorded</li>
+</ul>
+<h3>Security Impact</h3>
+<ul>
+<li><p>Highlights potential <strong>data leakage risks</strong></p>
+</li>
+<li><p>Enables rapid investigation of:</p>
+</li>
+</ul>
+<p>  - Who shared the file</p>
+<p>  - When it occurred</p>
+<p>  - What type of access was granted</p>
+<hr />
+<h2>Key Security Capabilities Demonstrated</h2>
+<ul>
+<li><p>Centralised audit logging across services</p>
+</li>
+<li><p>Correlation of identity, email, and file activity</p>
+</li>
+<li><p>Visibility into authentication and access behaviour</p>
+</li>
+<li><p>Ability to investigate incidents end-to-end</p>
+</li>
+</ul>
+<hr />
+<h2>Validation</h2>
+<p>The following confirms correct implementation:</p>
+<ul>
+<li><p>Login activity and 2SV events are logged in real time</p>
+</li>
+<li><p>Account security posture is visible across all users</p>
+</li>
+<li><p>Email delivery can be traced end-to-end</p>
+</li>
+<li><p>File activity and sharing behaviour are fully auditable</p>
+</li>
+<li><p>External sharing events can be isolated and investigated</p>
+</li>
+</ul>
+<hr />
+<h2>Real-World Considerations</h2>
+<ul>
+<li><p>Audit logs should be retained long-term for compliance</p>
+</li>
+<li><p>Alerts should be configured for high-risk actions (e.g. external sharing)</p>
+</li>
+<li><p>Integration with SIEM tools enhances threat detection</p>
+</li>
+<li><p>Regular reviews of reports help maintain security posture</p>
+</li>
+</ul>
+<hr />
+<h2>Summary</h2>
+<p>Evidence covered:</p>
+<ul>
+<li><p>Practical use of Google Workspace reporting tools</p>
+</li>
+<li><p>Real-world investigation workflows</p>
+</li>
+<li><p>Visibility across authentication, email, and file activity</p>
+</li>
+<li><p>Ability to detect and analyse potential security risks</p>
+</li>
+</ul>
+
+  <p>
+    <a href="../index.html" class="btn">&larr; Back to Google Workspace</a>
+  </p>
+</section>
+</main>
+</body>
+</html>

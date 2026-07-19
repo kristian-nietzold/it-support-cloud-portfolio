@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lab 03 - AD Users, Groups and Passwords</title>
+<link href="../../style.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../index.html">Home</a><a href="../index.html">Microsoft Infrastructure</a><a href="../../service-desk/index.html">Service Desk</a><a href="../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>Lab 03: AD Users, Groups and Passwords</h2>
+<p>Created the core Active Directory OU, user and group structure for Nietz Ltd; configured the public UPN suffix <code>nietz.co.uk</code>; and validated account administration, group membership and limited Service Desk delegation.</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Overview</h2>
+<p>In this lab, I extended the existing <code>corp.nietz.co.uk</code> domain by creating the organisational structure needed for department-based administration and future file share, Group Policy, Microsoft 365, and hybrid identity labs.</p>
+<p>This builds directly on Lab 01 and Lab 02: DC1 is already the domain controller, and CL1 is already joined to the domain.</p>
+<h2>Objective</h2>
+<p>The objective was to create a realistic Active Directory user and group baseline for Nietz Ltd, using <code>@nietz.co.uk</code> as the user sign-in suffix so the on-premises accounts align with future Microsoft 365 and Entra ID integration.</p>
+<h2>Environment</h2>
+<table>
+<tr><th>Component</th><th>Value</th></tr>
+<tr><td>Company</td><td>Nietz Ltd</td></tr>
+<tr><td>Domain Controller</td><td>DC1</td></tr>
+<tr><td>Domain Controller IP</td><td>192.168.10.10/24</td></tr>
+<tr><td>Client</td><td>CL1</td></tr>
+<tr><td>AD Domain</td><td>corp.nietz.co.uk</td></tr>
+<tr><td>NetBIOS Name</td><td>CORP</td></tr>
+<tr><td>Public / Tenant Domain</td><td>nietz.co.uk</td></tr>
+<tr><td>User UPN Suffix</td><td>nietz.co.uk</td></tr>
+</table>
+<h2>Configuration</h2>
+<div class="section-block">
+<h3>1. Organisational Unit Structure</h3>
+<p>I created the core OU structure for Nietz Ltd so users could be organised by function and managed consistently in later labs.</p>
+<figure class="lab-figure">
+<img alt="Active Directory Users and Computers showing the Nietz Ltd OU structure" src="screenshots/03-01-ou-structure.png" width="1882" height="1072"/>
+<figcaption><span class="figure-label">Figure 1</span>Nietz Ltd OU structure created in Active Directory.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> OUs provide administrative structure for users, groups, delegation, and future Group Policy targeting.</div>
+</div>
+<div class="section-block">
+<h3>2. Alternative UPN Suffix</h3>
+<p>I added <code>nietz.co.uk</code> as an alternative UPN suffix so users can sign in with the same public domain that will be used for Microsoft 365.</p>
+<figure class="lab-figure">
+<img alt="Active Directory Domains and Trusts showing nietz.co.uk as an alternative UPN suffix" src="screenshots/03-02-upn-suffix.png" width="964" height="1111"/>
+<figcaption><span class="figure-label">Figure 2</span>Alternative UPN suffix configured for <code>nietz.co.uk</code>.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The AD domain remains <code>corp.nietz.co.uk</code>, but users sign in as <code>user@nietz.co.uk</code> to align with Microsoft 365 and future hybrid identity.</div>
+</div>
+<div class="section-block">
+<h3>3. Administrative User</h3>
+<p>I created the daily administrator account <code>k.nietzold@nietz.co.uk</code> for routine administration tasks.</p>
+<figure class="lab-figure">
+<img alt="Active Directory showing the k.nietzold administrative user" src="screenshots/03-03-admin-user-created.png" width="1065" height="927"/>
+<figcaption><span class="figure-label">Figure 3</span>Daily admin user created with the <code>@nietz.co.uk</code> UPN suffix.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> A separate daily admin account avoids using high-privilege or tenant-level admin identities for normal administration.</div>
+</div>
+<div class="section-block">
+<h3>4. Department Users</h3>
+<p>I created the core operational users for Helpdesk, HR, Finance, Sales, and Management using <code>@nietz.co.uk</code> UPNs and department descriptions.</p>
+<figure class="lab-figure">
+<img alt="PowerShell output showing department users created with nietz.co.uk UPNs" src="screenshots/03-04-department-users-created.png" width="2949" height="821"/>
+<figcaption><span class="figure-label">Figure 4</span>Department users listed with Microsoft 365-aligned sign-in names.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Creating users with the public UPN suffix prepares the same identities for later Microsoft 365, Exchange Online, Entra ID, and hybrid identity work.</div>
+</div>
+<div class="section-block">
+<h3>5. Security Groups</h3>
+<p>I created department access groups, a printer access group, and pilot targeting groups that can be reused by later labs.</p>
+<figure class="lab-figure">
+<img alt="Active Directory showing department and pilot security groups" src="screenshots/03-05-security-groups-created.png" width="2436" height="855"/>
+<figcaption><span class="figure-label">Figure 5</span>Department, printer, and pilot security groups created in Active Directory.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Security groups allow access and future policy targeting to be assigned through groups rather than directly to individual users, which is easier to manage and audit.</div>
+</div>
+<div class="section-block">
+<h3>6. Group Membership</h3>
+<p>I assigned users to the correct department groups and prepared selected pilot group memberships so later labs can reuse the same structure for file permissions, printer access, Microsoft 365, and Intune-related targeting.</p>
+<figure class="lab-figure">
+<img alt="Active Directory showing user membership in department groups" src="screenshots/03-06-group-membership.png" width="961" height="1113"/>
+<figcaption><span class="figure-label">Figure 6</span>Users assigned to the IT read/write security group.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Group-based access control is the normal support model for shared folders, mapped drives, printers, and later policy targeting. In this lab, the groups were prepared; the actual file share and Intune policies are configured in later labs.</div>
+</div>
+<div class="section-block">
+<h3>7. Password and Account Settings</h3>
+<p>I configured basic password and account settings for the new users and confirmed that account properties were set consistently.</p>
+<figure class="lab-figure">
+<img alt="Active Directory user account properties showing password and account settings" src="screenshots/03-07-password-account-settings.png" width="996" height="1325"/>
+<figcaption><span class="figure-label">Figure 7</span>Password and account settings reviewed for the new user accounts.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Password and account settings are common helpdesk tasks and prepare the lab for later password reset, account unlock, and delegated administration scenarios.</div>
+</div>
+<div class="section-block">
+<h3>8. Service Desk L1 Delegation Group</h3>
+<p>I included <code>GG_ServiceDesk_L1</code> as the first-line Service Desk delegation group and added Chloe Bennett and Daniel Smith as members.</p>
+<figure class="lab-figure">
+<img alt="Active Directory group membership showing Chloe Bennett and Daniel Smith in GG_ServiceDesk_L1" src="screenshots/03-08-service-desk-l1-membership.png" width="951" height="1181"/>
+<figcaption><span class="figure-label">Figure 8</span>Chloe Bennett and Daniel Smith added to the first-line Service Desk delegation group.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Delegating support tasks through a group is safer and easier to audit than giving individual users broad administrator rights.</div>
+</div>
+<div class="section-block">
+<h3>9. Delegated Service Desk Permissions</h3>
+<p>I delegated controlled first-line AD support permissions to <code>GG_ServiceDesk_L1</code>: password reset, read user information, and modify group membership.</p>
+<figure class="lab-figure">
+<img alt="Delegation of Control Wizard showing password reset, read user information and modify group membership selected for GG_ServiceDesk_L1" src="screenshots/03-09-delegation-service-desk-l1-common-tasks.png" width="1188" height="933"/>
+<figcaption><span class="figure-label">Figure 9</span>Delegated common first-line support tasks to <code>GG_ServiceDesk_L1</code>.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This gives Service Desk enough access for common account and standard access-group tickets without granting Domain Admin or Group Policy administration rights.</div>
+</div>
+<div class="section-block">
+<h3>10. Delegated Password Reset Validation</h3>
+<p>I validated the delegation by opening the password reset workflow as Chloe Bennett using her delegated Service Desk permissions.</p>
+<figure class="lab-figure">
+<img alt="Reset Password dialog opened from Chloe Bennett's delegated Service Desk session" src="screenshots/03-10-chloe-password-reset-validation.png" width="913" height="611"/>
+<figcaption><span class="figure-label">Figure 10</span>Chloe Bennett able to access the delegated password reset workflow.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Validation confirms the support model works from the Service Desk account, not just from a domain administrator account.</div>
+</div>
+<h2>Validation</h2>
+<p>The lab was validated when the Nietz Ltd OU structure existed in Active Directory, <code>nietz.co.uk</code> was available as an alternative UPN suffix, users were created with <code>@nietz.co.uk</code> sign-in names, security groups were present, and group membership matched the intended department structure.</p>
+<p>Delegation was also validated by confirming that <code>GG_ServiceDesk_L1</code> contained the intended support users, that common first-line support tasks were delegated to the group, and that Chloe Bennett could access the password reset workflow using delegated permissions.</p>
+<h2>Key Technical Outcomes</h2>
+<p>This lab demonstrated how on-premises Active Directory can use an internal AD domain while still giving users a public, Microsoft 365-aligned UPN suffix for sign-in.</p>
+<p>It also established a group-based access and delegation model that future labs can reuse for file permissions, mapped drives, printer access, Microsoft 365 administration, Service Desk tickets, and controlled pilot testing before wider rollout.</p>
+<div class="summary">
+<h2>Summary</h2>
+<ul>
+<li>I created the Nietz Ltd OU structure in Active Directory.</li>
+<li>I configured <code>nietz.co.uk</code> as the alternative UPN suffix.</li>
+<li>I created the daily admin and operational user accounts using <code>@nietz.co.uk</code> sign-in names.</li>
+<li>I created department, printer, and pilot security groups.</li>
+<li>I assigned users to the correct groups for later permissions, printer access, Microsoft 365, and Intune-related labs.</li>
+<li>I created the <code>GG_ServiceDesk_L1</code> delegation group and added first-line support users.</li>
+<li>I delegated controlled first-line support permissions for password reset, user information review, and group membership updates.</li>
+<li>I validated users, groups, UPN suffixes, account settings, group membership, and delegated Service Desk password reset access using Active Directory administration tools.</li>
+</ul>
+</div><div class="page-navigation"><a class="btn" href="../02-domain-join/index.html">← Previous Lab</a><a class="btn" href="../index.html">Back to Microsoft Infrastructure</a><a class="btn" href="../04-file-shares-gpo/index.html">Next Lab →</a></div>
+</section>
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer>
+</body>
+</html>

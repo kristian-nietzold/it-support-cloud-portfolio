@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TS-006 - Shared mailbox not appearing in Outlook</title>
+<link href="../../../style.css" rel="stylesheet"/>
+<style id="ticket-image-aspect-ratio">
+figure img,
+.lab-figure img {
+  height: auto;
+}
+</style>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../../index.html">Home</a><a href="../../../microsoft-infrastructure/index.html">Microsoft Infrastructure</a><a href="../../index.html">Service Desk</a><a href="../../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>TS-006: Shared mailbox not appearing in Outlook</h2>
+<p>Restored access to the Sales shared mailbox after confirming that the affected user was missing the required Exchange Online Full Access permission.</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Scenario</h2>
+<p>Kate Jones reported that the Sales shared mailbox was not appearing in Outlook. When the mailbox was opened directly in Outlook on the web, access failed with an access denied error. I treated this as an Exchange Online shared mailbox delegation issue rather than a general Outlook client fault.</p>
+<div class="callout"><strong>Priority reasoning:</strong> Impact was set to <strong>3 - Low</strong> because one user was affected. Urgency was set to <strong>2 - Medium</strong> because the user was blocked from opening a departmental shared mailbox, but the issue was not tenant-wide. Under the priority matrix, Low impact plus Medium urgency gives <strong>4 - Low</strong>.</div>
+<h2>ServiceNow Ticket</h2>
+<p>The incident was logged as a Microsoft 365 Exchange Online issue and assigned to the Service Desk. The ticket was opened for Kate Jones with category <strong>Microsoft 365</strong>, subcategory <strong>Exchange Online</strong>, service <strong>Microsoft 365 Productivity</strong>, service offering <strong>Shared Mailbox Support</strong>, configuration item <strong>Exchange Online</strong>, impact <strong>3 - Low</strong>, urgency <strong>2 - Medium</strong>, and priority <strong>4 - Low</strong>.</p>
+<figure class="lab-figure">
+<img alt="ServiceNow incident TS-006 opened for Kate Jones with Microsoft 365 category, Exchange Online subcategory, Microsoft 365 Productivity service, Shared Mailbox Support offering, Exchange Online configuration item and P4 Low priority" src="screenshots/TS-006-01-ticket-opened.png" width="3784" height="1441"/>
+<figcaption><span class="figure-label">Figure 1</span>ServiceNow incident opened with the Microsoft 365 Productivity service, Shared Mailbox Support offering, and Exchange Online configuration item.</figcaption>
+</figure>
+<h2>Investigation</h2>
+<p>I reproduced the user-facing issue by attempting to open the Sales shared mailbox in Outlook on the web. The mailbox failed to open and returned an access denied error, confirming the problem was related to mailbox access rather than the mailbox being hidden from the interface only.</p>
+<figure class="lab-figure">
+<img alt="Outlook on the web access denied error when opening the Sales shared mailbox" src="screenshots/TS-006-02-shared-mailbox-access-denied.png" width="2932" height="1399"/>
+<figcaption><span class="figure-label">Figure 2</span>Outlook on the web returned an access denied error when the Sales shared mailbox was opened.</figcaption>
+</figure>
+<p>I then checked the Sales shared mailbox delegation settings in Exchange Online. The <strong>Read and manage / Full Access</strong> list showed Sam Jackson only, confirming that Kate Jones was not currently delegated access to the mailbox.</p>
+<figure class="lab-figure">
+<img alt="Exchange admin center showing Sales shared mailbox Full Access permission missing Kate Jones" src="screenshots/TS-006-03-full-access-missing-before.png" width="1293" height="784"/>
+<figcaption><span class="figure-label">Figure 3</span>Kate Jones was missing from the Full Access permission list for the Sales shared mailbox.</figcaption>
+</figure>
+<figure class="lab-figure">
+    <img src="screenshots/TS-006-04-chloe-escalation-work-note.png" alt="ServiceNow work note showing Chloe Bennett escalating the Exchange admin mailbox delegation change to Kristian Nietzold" width="3821" height="837">
+    <figcaption><span class="figure-label">Figure 4</span>Chloe Bennett prepared the first-line escalation note for the Exchange Online mailbox delegation change.</figcaption>
+  </figure>
+<p>Chloe Bennett completed the first-line checks, confirmed the missing mailbox delegation, prepared the escalation work note, and reassigned the ticket to Second Line Support because applying Full Access mailbox permissions requires Exchange administration access.</p>
+
+<h2>Fix Applied</h2>
+<p>Kristian Nietzold reviewed the Sales shared mailbox delegation in Exchange admin center and added Kate Jones to <strong>Read and manage / Full Access</strong>. This restored Kate's ability to open and manage the shared mailbox.</p>
+<figure class="lab-figure">
+<img alt="Exchange admin center showing Kate Jones added to Full Access for the Sales shared mailbox" src="screenshots/TS-006-05-full-access-added-by-kristian.png" width="1434" height="966"/>
+<figcaption><span class="figure-label">Figure 5</span>Kate Jones was added to the Full Access permission list for the Sales shared mailbox.</figcaption>
+</figure>
+<figure class="lab-figure">
+    <img src="screenshots/TS-006-06-kristian-admin-work-note.png" alt="ServiceNow work note showing Kristian Nietzold documenting the Exchange admin Full Access permission change and returning the ticket to Service Desk" width="3784" height="978">
+    <figcaption><span class="figure-label">Figure 6</span>Kristian Nietzold prepared the admin work note documenting the Full Access permission change.</figcaption>
+  </figure>
+<figure class="lab-figure">
+    <img src="screenshots/TS-006-07-user-updated.png" alt="ServiceNow customer-visible comment asking Kate Jones to retest Sales shared mailbox access" width="3802" height="1250">
+    <figcaption><span class="figure-label">Figure 7</span>The ticket history recorded the Second Line action and return to Chloe, with a customer-visible retest request prepared for Kate Jones.</figcaption>
+  </figure>
+<p>After applying the change, Kristian prepared a ServiceNow work note documenting the privileged Exchange admin action and returned the ticket to Service Desk for user retest and closure.</p>
+
+<h2>Validation</h2>
+<p>The ServiceNow activity history recorded Kristian's work note and reassignment back to Chloe. Chloe then prepared a customer-visible request asking Kate to restart Outlook or reopen Outlook on the web and confirm that the Sales mailbox was accessible.</p>
+
+<p>I validated the fix in Outlook on the web. The Sales shared mailbox opened successfully and the inbox was visible, confirming that the Full Access permission change had resolved the issue.</p>
+<figure class="lab-figure">
+<img alt="Outlook on the web showing the Sales shared mailbox inbox opened successfully" src="screenshots/TS-006-08-shared-mailbox-access-validated.png" width="1532" height="758"/>
+<figcaption><span class="figure-label">Figure 8</span>The Sales shared mailbox opened successfully in Outlook on the web after Kate Jones was granted Full Access.</figcaption>
+</figure>
+<h2>Resolution</h2>
+<p>The ticket was resolved using the resolution code <strong>Solution provided</strong>. The resolution notes summarised the cause, the Second Line Support action, and successful validation in Outlook on the web.</p>
+<figure class="lab-figure">
+<img alt="ServiceNow resolution information for TS-006 showing Solution provided and notes confirming Full Access was restored and retested" src="screenshots/TS-006-09-ticket-resolved.png" width="3801" height="904"/>
+<figcaption><span class="figure-label">Figure 9</span>Ticket resolved by Chloe Bennett after the Full Access permission was restored and mailbox access was successfully retested.</figcaption>
+</figure>
+<div class="summary">
+<h2>Summary</h2>
+<ul>
+<li>I logged a P4 Low Microsoft 365 &gt; Exchange Online incident for a single-user shared mailbox access issue.</li>
+<li>I reproduced the user-facing access denied error in Outlook on the web.</li>
+<li>I confirmed Kate Jones was missing from the Sales shared mailbox Full Access delegation list.</li>
+<li>Kept the privileged mailbox change with Second Line Support while Service Desk retained triage, communication and closure ownership.</li>
+<li>Kristian Nietzold applied the approved Exchange Online mailbox delegation change.</li>
+<li>Chloe Bennett prepared the user retest request, validated mailbox access, and resolved the ticket.</li>
+<li>The final ServiceNow resolution used <strong>Solution provided</strong> with concise cause, fix, and validation notes.</li>
+</ul>
+</div><div class="page-navigation"><a class="btn" href="../ts-002-mfa-new-phone/index.html">← Previous Ticket</a><a class="btn" href="../../index.html">Back to Service Desk</a><a class="btn" href="../ts-012-office-unlicensed-product/index.html">Next Ticket →</a></div>
+</section>
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer></body>
+</html>

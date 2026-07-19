@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lab 15 - Cloud-Native Entra Join and Intune Auto-Enrolment</title>
+<link href="../../style.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../index.html">Home</a><a href="../index.html">Microsoft Infrastructure</a><a href="../../service-desk/index.html">Service Desk</a><a href="../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>Lab 15: Cloud-Native Entra Join and Intune Auto-Enrolment</h2>
+<p>Configured a controlled Intune enrolment pilot, built CL2 as a cloud-native Windows device, joined it to Microsoft Entra ID and validated automatic Intune enrolment as a compliant corporate device.</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Overview</h2>
+<p>In this lab, I introduced the first cloud-native managed Windows endpoint for Nietz Ltd. Unlike the earlier domain-joined workstation, <code>CL2</code> was set up through the Windows work or school setup experience and joined directly to Microsoft Entra ID.</p>
+<p>The lab used a controlled pilot approach. Intune automatic enrolment was scoped to the existing <code>GRP_Intune_Pilot</code> group, Chloe Bennett was confirmed as a licensed pilot user, and the final device state was validated in both Microsoft Entra ID and Microsoft Intune.</p>
+<h2>Objective</h2>
+<p>The objective was to prove that a new Windows client can be cloud joined to Microsoft Entra ID and automatically enrolled into Intune under a pilot-controlled MDM enrolment scope, without joining the on-premises Active Directory domain.</p>
+<h2>Environment</h2>
+<table>
+<tr><th>Component</th><th>Value</th></tr>
+<tr><td>Company</td><td>Nietz Ltd</td></tr>
+<tr><td>Microsoft 365 / Entra domain</td><td><code>nietz.co.uk</code></td></tr>
+<tr><td>Client device</td><td><code>CL2</code></td></tr>
+<tr><td>Device platform</td><td>Windows virtual machine</td></tr>
+<tr><td>Device join type</td><td>Microsoft Entra joined</td></tr>
+<tr><td>On-premises domain join</td><td>Not domain joined</td></tr>
+<tr><td>Management platform</td><td>Microsoft Intune</td></tr>
+<tr><td>MDM enrolment scope</td><td><code>Some</code> users, scoped to <code>GRP_Intune_Pilot</code></td></tr>
+<tr><td>Pilot user</td><td>Chloe Bennett</td></tr>
+<tr><td>Pilot user UPN</td><td><code>c.bennett@nietz.co.uk</code></td></tr>
+<tr><td>User licence</td><td>Microsoft 365 Business Premium</td></tr>
+</table>
+<h2>Configuration</h2>
+<div class="section-block">
+<h3>1. Intune Automatic Enrolment Scoped to Pilot Group</h3>
+<p>I configured Windows automatic MDM enrolment so that only selected pilot users were targeted. The MDM user scope was set to <code>Some</code>, with one selected group, and Windows Information Protection was left disabled for this lab.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Intune automatic enrolment configured with MDM user scope set to Some and one group selected" src="screenshots/15-01-intune-mdm-auto-enrolment-scope.png" width="1771" height="1697"/>
+<figcaption><span class="figure-label">Figure 1</span>Intune automatic enrolment scoped to the pilot group.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This keeps cloud device enrolment controlled instead of enabling Intune enrolment for every user in the tenant.</div>
+</div>
+<div class="section-block">
+<h3>2. Pilot Group Membership Confirmed</h3>
+<p>I confirmed that <code>GRP_Intune_Pilot</code> contained Chloe Bennett before using her account to join the new Windows device.</p>
+<figure class="lab-figure">
+<img alt="GRP_Intune_Pilot group membership showing Chloe Bennett as a member" src="screenshots/15-02-grp-intune-pilot-chloe-member.png" width="2436" height="1014"/>
+<figcaption><span class="figure-label">Figure 2</span>Chloe Bennett confirmed as a member of the Intune pilot group.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The user must be in the scoped MDM enrolment group for automatic Intune enrolment to apply during work or school setup.</div>
+</div>
+<div class="section-block">
+<h3>3. Chloe Bennett Licence Confirmed</h3>
+<p>I checked Chloe Bennett's Microsoft 365 licence assignment and confirmed that Microsoft 365 Business Premium was assigned.</p>
+<figure class="lab-figure">
+<img alt="Chloe Bennett Microsoft 365 admin center licence page showing Microsoft 365 Business Premium assigned" src="screenshots/15-03-chloe-intune-licence.png" width="2245" height="1591"/>
+<figcaption><span class="figure-label">Figure 3</span>Microsoft 365 Business Premium assigned to Chloe Bennett.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The user requires an Intune-capable licence for device enrolment and management.</div>
+</div>
+<div class="section-block">
+<h3>4. CL2 Entra Join State Validated Locally</h3>
+<p>After completing Windows setup as Chloe Bennett, I validated the local device join state using <code>dsregcmd /status</code>. The output confirmed that <code>CL2</code> was Microsoft Entra joined and not joined to the on-premises AD domain.</p>
+<figure class="lab-figure">
+<img alt="PowerShell showing whoami as corp c.bennett, hostname CL2, and dsregcmd status with AzureAdJoined YES and DomainJoined NO" src="screenshots/15-04-cl2-dsregcmd-azureadjoined.png" width="1375" height="694"/>
+<figcaption><span class="figure-label">Figure 4</span>CL2 validated as Entra joined and not domain joined.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This proves that CL2 is a cloud-native endpoint rather than another traditional domain-joined client.</div>
+</div>
+<div class="section-block">
+<h3>5. Entra Device Record Validated</h3>
+<p>I searched Microsoft Entra ID for <code>CL2</code> and confirmed that the device record showed Microsoft Entra joined status, Chloe Bennett as the owner, Microsoft Intune as the MDM provider, and a compliant state.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Entra devices list showing CL2 as Microsoft Entra joined with owner Chloe Bennett, MDM Microsoft Intune and compliant Yes" src="screenshots/15-05-entra-cl2-device-record.png" width="2780" height="798"/>
+<figcaption><span class="figure-label">Figure 5</span>CL2 device record confirmed in Microsoft Entra ID.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Entra validation links the local device join state to the tenant-side device object and confirms that Intune is the MDM authority.</div>
+</div>
+<div class="section-block">
+<h3>6. Intune Managed Device List Validated</h3>
+<p>I reviewed the Windows devices list in Intune and confirmed that <code>CL2</code> was managed by Intune, corporate owned, compliant, assigned to <code>c.bennett@nietz.co.uk</code>, and recently checked in.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Intune Windows devices list showing CL2 managed by Intune, corporate ownership, compliant status, primary user UPN and last check-in" src="screenshots/15-06-intune-cl2-managed-device.png" width="3289" height="892"/>
+<figcaption><span class="figure-label">Figure 6</span>CL2 visible in Intune as a managed and compliant Windows device.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This is the main Intune outcome for the lab: the cloud-joined device automatically enrolled and checked in successfully.</div>
+</div>
+<div class="section-block">
+<h3>7. Intune Device Overview Validated</h3>
+<p>I opened the CL2 device record in Intune and confirmed the essential details: device name, corporate ownership, primary user, enrolled by user, compliance state, operating system, virtual machine model and last check-in time.</p>
+<figure class="lab-figure">
+<img alt="Intune CL2 device overview showing primary user Chloe Bennett, enrolled by Chloe Bennett, ownership corporate, compliance compliant and operating system Windows" src="screenshots/15-07-intune-cl2-device-overview.png" width="2842" height="887"/>
+<figcaption><span class="figure-label">Figure 7</span>CL2 Intune overview confirmed primary user, enrolment and compliance details.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The device overview provides a support-friendly view of the managed endpoint state that a helpdesk or endpoint administrator would use during investigation.</div>
+</div>
+<h2>Validation</h2>
+<p>The lab was validated when <code>GRP_Intune_Pilot</code> was selected as the MDM enrolment target, Chloe Bennett was confirmed as a licensed pilot user, <code>CL2</code> reported <code>AzureAdJoined : YES</code> and <code>DomainJoined : NO</code>, Microsoft Entra showed <code>CL2</code> with MDM set to Microsoft Intune, and Intune showed the device as managed, corporate owned, compliant and checked in.</p>
+<h2>Key Technical Outcomes</h2>
+<p>This lab demonstrated controlled Windows automatic enrolment, Intune pilot targeting, Entra joined device provisioning, Intune device management validation, user-to-device association, and endpoint compliance visibility.</p>
+<p>It also established a clean cloud-native device baseline that can be reused for later Intune configuration profile, compliance policy, Windows Hello for Business, update ring, LAPS and Autopilot labs.</p>
+<div class="summary">
+<h2>Summary</h2>
+<ul>
+<li>I configured Intune automatic enrolment for selected pilot users.</li>
+<li>I confirmed Chloe Bennett was a member of <code>GRP_Intune_Pilot</code>.</li>
+<li>I confirmed Chloe had Microsoft 365 Business Premium assigned.</li>
+<li>I completed Windows work or school setup on <code>CL2</code> as Chloe Bennett.</li>
+<li>I validated locally that <code>CL2</code> was Entra joined and not domain joined.</li>
+<li>I confirmed the tenant-side Entra device record showed Microsoft Intune as the MDM provider.</li>
+<li>I confirmed <code>CL2</code> was managed, corporate owned, compliant and checked in through Intune.</li>
+</ul>
+</div><div class="page-navigation"><a class="btn" href="../14-hybrid-identity-sync-pilot/index.html">← Previous Lab</a><a class="btn" href="../index.html">Back to Microsoft Infrastructure</a><a class="btn" href="../16-hybrid-entra-join-intune-enrolment/index.html">Next Lab →</a></div>
+</section>
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lab 02 - Domain Join and Authentication</title>
+<link href="../../style.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../index.html">Home</a><a href="../index.html">Microsoft Infrastructure</a><a href="../../service-desk/index.html">Service Desk</a><a href="../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>Lab 02: Domain Join and Authentication</h2>
+<p>Joined CL1 to the <code>corp.nietz.co.uk</code> Active Directory domain and validated DNS, domain-controller discovery, authentication, the computer object and baseline Group Policy processing.</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Overview</h2>
+<p>In this lab, I configured CL1 to use DC1 for internal DNS, joined the workstation to the <code>corp.nietz.co.uk</code> domain, and confirmed that domain authentication and Group Policy processing were working correctly.</p>
+<p>This builds directly on Lab 01, where DC1 was configured as the first domain controller for the environment.</p>
+<h2>Objective</h2>
+<p>The objective was to convert CL1 from a standalone Windows client into a managed domain workstation that can authenticate against Active Directory and receive domain policy.</p>
+<h2>Environment</h2>
+<table>
+<tr><th>Component</th><th>Value</th></tr>
+<tr><td>Company</td><td>Nietz Ltd</td></tr>
+<tr><td>Domain Controller</td><td>DC1</td></tr>
+<tr><td>Domain Controller IP</td><td>192.168.10.10/24</td></tr>
+<tr><td>Client</td><td>CL1</td></tr>
+<tr><td>CL1 Internal IP</td><td>192.168.10.100/24</td></tr>
+<tr><td>AD Domain</td><td>corp.nietz.co.uk</td></tr>
+<tr><td>NetBIOS Name</td><td>CORP</td></tr>
+<tr><td>Tenant/Public Domain</td><td>nietz.co.uk</td></tr>
+<tr><td>Domain Join Credential</td><td>CORP\Administrator or a delegated domain join account</td></tr>
+</table>
+<h2>Configuration</h2>
+<div class="section-block">
+<h3>1. Client DNS Configuration</h3>
+<p>I configured CL1 to use DC1 as its preferred DNS server so the workstation could resolve Active Directory records from the internal domain.</p>
+<figure class="lab-figure">
+<img alt="CL1 IPv4 settings showing preferred DNS server 192.168.10.10" src="screenshots/02-01-configure-dns.png" width="972" height="1122"/>
+<figcaption><span class="figure-label">Figure 1</span>CL1 configured to use DC1 for DNS resolution.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Domain join depends on DNS. CL1 must query DC1, not router DNS or public DNS, to locate domain controllers and Active Directory service records.</div>
+</div>
+<div class="section-block">
+<h3>2. Network Connectivity Validation</h3>
+<p>I confirmed that CL1 could reach DC1 across the lab network before attempting the domain join.</p>
+<figure class="lab-figure">
+<img alt="Successful ping replies from DC1 at 192.168.10.10" src="screenshots/02-02-ping-dc1.png" width="1333" height="720"/>
+<figcaption><span class="figure-label">Figure 2</span>Successful network connectivity test from CL1 to DC1.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Basic network reachability must work before authentication, domain join, Group Policy, or file services can operate reliably.</div>
+</div>
+<div class="section-block">
+<h3>3. Domain Join</h3>
+<p>I joined CL1 to the <code>corp.nietz.co.uk</code> domain using domain credentials.</p>
+<figure class="lab-figure">
+<img alt="Computer Name Domain Changes dialog showing corp.nietz.co.uk" src="screenshots/02-03-domain-join-wizard.png" width="834" height="914"/>
+<figcaption><span class="figure-label">Figure 3</span>CL1 joined to the corp.nietz.co.uk domain.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Joining the domain registers the workstation in Active Directory and creates the secure trust relationship required for domain sign-in.</div>
+</div>
+<div class="section-block">
+<h3>4. Domain Login</h3>
+<p>I restarted CL1 and confirmed that domain authentication worked by signing in with a domain account.</p>
+<figure class="lab-figure">
+<img alt="CL1 signed in with a domain account" src="screenshots/02-04-domain-login-success.png" width="1136" height="308"/>
+<figcaption><span class="figure-label">Figure 4</span>Successful domain sign-in on CL1.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> A successful domain login confirms that CL1 can authenticate against the domain controller after joining the domain.</div>
+</div>
+<div class="section-block">
+<h3>5. Computer Object Validation</h3>
+<p>I confirmed in Active Directory Users and Computers that the CL1 computer object was created in the default Computers container.</p>
+<figure class="lab-figure">
+<img alt="CL1 computer object visible in Active Directory Users and Computers" src="screenshots/02-05-aduc-computer-object.png" width="1206" height="629"/>
+<figcaption><span class="figure-label">Figure 5</span>CL1 computer object visible in Active Directory.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The computer object proves that the workstation was registered in Active Directory and is now managed as a domain member.</div>
+</div>
+<div class="section-block">
+<h3>6. DNS and Domain Controller Discovery</h3>
+<p>I validated domain DNS resolution and domain controller discovery from CL1.</p>
+<figure class="lab-figure">
+<img alt="PowerShell on CL1 showing hostname, domain administrator context, nslookup resolution for corp.nietz.co.uk, and nltest discovery of DC1" src="screenshots/02-06-nslookup-nltest.png" width="3174" height="1078"/>
+<figcaption><span class="figure-label">Figure 6</span>CL1 resolving the domain through DC1 and discovering the domain controller successfully.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> DNS and domain controller discovery are required for logon, Group Policy, Kerberos, LDAP, and domain resource access.</div>
+</div>
+<div class="section-block">
+<h3>7. Group Policy Validation</h3>
+<p>I confirmed that CL1 processed baseline domain Group Policy after the domain join.</p>
+<figure class="lab-figure">
+<img alt="gpresult showing baseline Group Policy processing on CL1" src="screenshots/02-07-gpresult-baseline.png" width="1749" height="1574"/>
+<figcaption><span class="figure-label">Figure 7</span>Baseline Group Policy processing confirmed on CL1.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Group Policy processing confirms that the workstation is receiving domain management settings and is ready for later policy-based configuration labs.</div>
+</div>
+<h2>Validation</h2>
+<p>The lab was validated when CL1 successfully joined <code>corp.nietz.co.uk</code>, allowed domain sign-in, appeared in Active Directory Users and Computers, resolved the domain through DC1, discovered DC1 as the domain controller, and processed baseline Group Policy.</p>
+<h2>Key Technical Outcomes</h2>
+<p>This lab demonstrated the relationship between workstation DNS configuration, domain controller discovery, secure channel creation, Active Directory computer objects, and Group Policy processing during a Windows domain join.</p>
+<p>It also reinforced that domain join failures are often caused by DNS or domain controller discovery problems rather than the domain join wizard itself.</p>
+<div class="summary">
+<h2>Summary</h2>
+<ul>
+<li>I configured CL1 to use DC1 as its preferred DNS server.</li>
+<li>I confirmed network connectivity from CL1 to DC1.</li>
+<li>I joined CL1 to the <code>corp.nietz.co.uk</code> domain.</li>
+<li>I confirmed the CL1 computer object appeared in Active Directory.</li>
+<li>I validated DNS resolution, domain controller discovery, domain login, and baseline Group Policy processing.</li>
+</ul>
+</div><div class="page-navigation"><a class="btn" href="../01-domain-controller/index.html">← Previous Lab</a><a class="btn" href="../index.html">Back to Microsoft Infrastructure</a><a class="btn" href="../03-ad-users-groups-passwords/index.html">Next Lab →</a></div>
+</section>
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>
+   Phase 3 - Entra ID and Hybrid Identity Support
+  </title>
+<link href="../../style.css" rel="stylesheet"/>
+<style>
+   .lab-grid {
+      display:grid;
+      gap:20px;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      margin:24px 0 42px;
+    }
+
+    .lab-card {
+      background:#fff;
+      border:1px solid #e2e8f0;
+      border-radius:14px;
+      padding:24px;
+      box-shadow:0 2px 6px rgba(15,23,42,.06);
+    }
+
+    .lab-card h3 {
+      margin:0 0 10px;
+      font-size:1.25rem;
+    }
+
+    .lab-card p {
+      font-size:1rem;
+      line-height:1.55;
+    }
+
+    .section-intro {
+      max-width:920px;
+      font-size:1.08rem;
+      line-height:1.65;
+    }
+.lab-topics {
+      margin:12px 0 18px;
+      padding-left:20px;
+      line-height:1.55;
+    }
+  </style>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo">
+<a href="../../index.html">
+      Kristian Nietzold
+     </a>
+</h1>
+<nav aria-label="Main navigation"><a href="../../index.html">Home</a><a href="../index.html">Microsoft Infrastructure</a><a href="../../service-desk/index.html">Service Desk</a><a href="../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>
+     Phase 3: Entra ID and Hybrid Identity Support
+    </h2>
+<p>
+     Identity support evidence covering Entra users and groups, delegated roles, sign-in investigation, MFA/SSPR support, hybrid identity readiness and a controlled Entra Connect sync pilot.
+    </p>
+</div>
+</section>
+<section class="content-modern">
+<h2>
+    Phase Summary
+   </h2>
+<p class="section-intro">
+    This phase moves the lab from general Microsoft 365 administration into modern identity support. It is designed to show realistic helpdesk and service desk work: delegated password support, sign-in investigation, MFA/SSPR configuration, hybrid identity preparation and controlled sync validation before any wider rollout.
+   </p>
+<div class="lab-grid">
+<div class="lab-card">
+<h3>
+      Lab 11: Entra ID Users, Groups and Roles
+     </h3>
+<p>
+      Configured cloud identity groups and delegated helpdesk administration using least privilege.
+     </p>
+<ul class="lab-topics">
+<li>
+       Entra security group review
+      </li>
+<li>
+       Helpdesk group membership
+      </li>
+<li>
+       Role assignment through a group
+      </li>
+<li>
+       Password reset capability validation
+      </li>
+</ul>
+<a class="btn" href="../11-entra-id-users-groups-roles/index.html">
+      Open Lab
+     </a>
+</div>
+<div class="lab-card">
+<h3>
+      Lab 12: Entra Sign-In Logs, MFA and SSPR Support
+     </h3>
+<p>
+      Investigated user sign-in failures and configured controlled MFA/SSPR support settings.
+     </p>
+<ul class="lab-topics">
+<li>
+       Failed sign-in log review
+      </li>
+<li>
+       Error detail analysis
+      </li>
+<li>
+       SSPR pilot scoping
+      </li>
+<li>
+       Authentication method validation
+      </li>
+</ul>
+<a class="btn" href="../12-entra-sign-in-logs-mfa-support/index.html">
+      Open Lab
+     </a>
+</div>
+<div class="lab-card">
+<h3>
+      Lab 13: Hybrid Identity Readiness
+     </h3>
+<p>
+      Prepared Active Directory for a controlled hybrid identity pilot without synchronizing the whole domain.
+     </p>
+<ul class="lab-topics">
+<li>
+       Hybrid Pilot OU structure
+      </li>
+<li>
+       Public UPN suffix validation
+      </li>
+<li>
+       Pilot user sign-in alignment
+      </li>
+<li>
+       User, device and support/admin validation groups
+      </li>
+</ul>
+<a class="btn" href="../13-hybrid-identity-readiness/index.html">
+      Open Lab
+     </a>
+</div>
+<div class="lab-card">
+<h3>
+      Lab 14: Hybrid Identity Sync Pilot
+     </h3>
+<p>
+      Deployed Microsoft Entra Connect Sync on a dedicated server and validated a scoped pilot sync.
+     </p>
+<ul class="lab-topics">
+<li>
+       SYNC1 dedicated sync server
+      </li>
+<li>
+       OU filtering to Hybrid Pilot
+      </li>
+<li>
+       Password Hash Synchronization
+      </li>
+<li>
+       Synced pilot user and groups validated in Entra ID
+      </li>
+</ul>
+<a class="btn" href="../14-hybrid-identity-sync-pilot/index.html">
+      Open Lab
+     </a>
+</div>
+</div>
+<p class="phase-navigation"><a class="btn" href="phase-2-microsoft-365-support.html">← Previous Phase</a> <a class="btn" href="../index.html">Microsoft Infrastructure</a> <a class="btn" href="phase-4-endpoint-management.html">Next Phase →</a></p></section>
+
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer></body>
+</html>

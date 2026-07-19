@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TS-002 - Replacement phone prevents MFA sign-in</title>
+<link href="../../../style.css" rel="stylesheet"/>
+<style id="ticket-image-aspect-ratio">
+figure img,
+.lab-figure img {
+  height: auto;
+}
+</style>
+
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../../index.html">Home</a><a href="../../../microsoft-infrastructure/index.html">Microsoft Infrastructure</a><a href="../../index.html">Service Desk</a><a href="../../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>TS-002: Replacement phone prevents MFA sign-in</h2>
+<p>Restored Microsoft 365 access after a replacement phone left the user unable to satisfy MFA. First-line triage established the permission boundary, the authentication-method change was escalated under least privilege, and access was validated after Microsoft Authenticator re-registration through Entra sign-in logs.</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Scenario</h2>
+<p>Kate Jones contacted the Service Desk after receiving a replacement phone. Her password was accepted, but sign-in required an authenticator-app code from the previous device, preventing access to Microsoft 365. The incident was treated as a single-user MFA issue with low impact but high urgency.</p>
+<h2>ServiceNow Ticket</h2>
+<figure class="lab-figure">
+<img alt="ServiceNow incident initially assigned to Chloe Bennett for Kate Jones' MFA issue" src="screenshots/TS-002-01-servicenow-incident-opened.png" width="3790" height="1234"/>
+<figcaption><span class="figure-label">Figure 1</span>Incident classified with the correct service, offering and configuration item, then assigned to first-line support.</figcaption>
+</figure>
+<h2>Investigation</h2>
+<p>Signing in as Kate reproduced the issue: Microsoft 365 requested a code from an authenticator app. This confirmed that the password was accepted and that the failure occurred at the MFA stage.</p>
+<figure class="lab-figure">
+<img alt="Microsoft sign-in prompt requesting an authenticator app code for Kate Jones" src="screenshots/TS-002-02-mfa-code-required-before-fix.png" width="1080" height="960"/>
+<figcaption><span class="figure-label">Figure 2</span>The sign-in flow reached MFA but required a code from the previous phone.</figcaption>
+</figure>
+<p>The Service Desk account could reach Kate's Entra authentication-methods page but could not view or manage the underlying methods. This established a clear permission boundary and justified escalation instead of granting broader identity-administration permissions to first line.</p>
+<figure class="lab-figure">
+<img alt="Entra authentication methods page showing that the Service Desk account cannot access the data" src="screenshots/TS-002-03-service-desk-no-access-to-authentication-methods.png" width="2738" height="1474"/>
+<figcaption><span class="figure-label">Figure 3</span>The first-line account reached its permitted boundary in Microsoft Entra ID.</figcaption>
+</figure>
+<figure class="lab-figure">
+    <img src="screenshots/TS-002-04-servicenow-escalation-work-note.png" alt="ServiceNow work note documenting escalation to Second Line Support" width="3790" height="1808">
+    <figcaption><span class="figure-label">Figure 4</span>The escalation reason was recorded before reassignment to Kristian Nietzold.</figcaption>
+  </figure>
+<p>Chloe documented the identity check, the successful password stage and the authentication-method permission limitation. The ticket was then reassigned to Second Line Support for the privileged MFA action.</p>
+
+<h2>Fix Applied</h2>
+<p>Second Line reviewed Kate's authentication methods and identified an existing <code>Software OATH token</code> with an OATH TOTP code as the default sign-in method. This matched the code challenge reproduced during investigation.</p>
+<figure class="lab-figure">
+<img alt="Kate Jones' Entra authentication methods showing a software OATH token before the fix" src="screenshots/TS-002-05-authentication-methods-before-fix.png" width="2717" height="1661"/>
+<figcaption><span class="figure-label">Figure 5</span>The obsolete software OATH method was confirmed before remediation.</figcaption>
+</figure>
+<figure class="lab-figure">
+    <img src="screenshots/TS-002-06-authentication-methods-reset-no-usable-methods.png" alt="Kate Jones' Entra authentication methods showing no usable methods after reset" width="2594" height="1699">
+    <figcaption><span class="figure-label">Figure 6</span>The previous MFA method was removed, ready for a clean registration.</figcaption>
+  </figure>
+<p>The old method was cleared and MFA re-registration was required. Entra then showed no usable authentication methods, confirming that the previous registration was no longer available for sign-in.</p>
+
+<p>Kate registered Microsoft Authenticator on the replacement phone. Entra showed Microsoft Authenticator as a usable notification method and as the default sign-in method.</p>
+<figure class="lab-figure">
+<img alt="Kate Jones' Entra authentication methods showing Microsoft Authenticator registered on the replacement phone" src="screenshots/TS-002-07-microsoft-authenticator-registered.png" width="3017" height="1690"/>
+<figcaption><span class="figure-label">Figure 7</span>Microsoft Authenticator notification was successfully registered on the replacement device.</figcaption>
+</figure>
+<h2>Validation</h2>
+<p>Entra sign-in logs showed earlier interrupted attempts followed by a successful interactive sign-in with sign-in error code <code>0</code>. This provided administrative evidence that access had been restored.</p>
+<figure class="lab-figure">
+<img alt="Kate Jones' Entra sign-in logs showing a successful sign-in after MFA remediation" src="screenshots/TS-002-08-successful-mfa-sign-in-log-admin.png" width="2830" height="1129"/>
+<figcaption><span class="figure-label">Figure 8</span>Entra sign-in logs confirmed a successful sign-in after the MFA registration sequence.</figcaption>
+</figure>
+<h2>Resolution</h2>
+<p>The incident was resolved by Kristian Nietzold using the code <code>Solution provided</code>. The resolution notes recorded removal of the previous method, Microsoft Authenticator re-registration, successful sign-in-log validation and user confirmation that access was restored.</p>
+<figure class="lab-figure">
+<img alt="ServiceNow resolution information documenting the MFA reset and successful validation" src="screenshots/TS-002-09-servicenow-resolution-information.png" width="3783" height="955"/>
+<figcaption><span class="figure-label">Figure 9</span>The final resolution captured the privileged action, validation evidence and restored access.</figcaption>
+</figure>
+<div class="summary">
+<h2>Summary</h2>
+<ul>
+<li>I classified a P3 Moderate incident using the correct category, service, service offering and configuration item.</li>
+<li>I reproduced the MFA code challenge and confirmed that the user's password was accepted.</li>
+<li>I demonstrated least-privilege troubleshooting by escalating when the Service Desk account could not manage Entra authentication methods.</li>
+<li>I documented the escalation in ServiceNow and transferred ownership to Second Line Support.</li>
+<li>I identified and cleared the obsolete software OATH method, then required MFA re-registration.</li>
+<li>I registered Microsoft Authenticator on the replacement phone and validated the result using Entra sign-in logs.</li>
+<li>I resolved the incident with a clear resolution code and clear resolution notes.</li>
+</ul>
+</div><div class="page-navigation"><a class="btn" href="../TS-001-forgotten-password-and-locked-account/index.html">← Previous Ticket</a><a class="btn" href="../../index.html">Back to Service Desk</a><a class="btn" href="../ts-006-shared-mailbox-not-appearing/index.html">Next Ticket →</a></div>
+</section>
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer></body>
+</html>

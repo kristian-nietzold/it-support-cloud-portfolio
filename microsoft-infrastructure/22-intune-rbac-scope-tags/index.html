@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lab 22 - Intune RBAC and Scope Tags</title>
+<link href="../../style.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../index.html">Home</a><a href="../index.html">Microsoft Infrastructure</a><a href="../../service-desk/index.html">Service Desk</a><a href="../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>Lab 22: Intune RBAC and Scope Tags</h2>
+<p>Delegated scoped Intune endpoint-support permissions to the Service Desk through the Help Desk Operator role, a dedicated administrator group, a Windows pilot scope group and a custom scope tag, then validated Chloe Bennett's access boundary.</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Overview</h2>
+<p>This lab extends the existing Service Desk permission model into Microsoft Intune. Chloe Bennett and Daniel Smith were already established as first-line analysts, but endpoint administration required a separate Intune role assignment rather than broad tenant administration.</p>
+<p>The built-in <strong>Help Desk Operator</strong> role was assigned to a dedicated security group. The assignment used <code>GRP_Intune_Windows_Pilot_Devices</code> as its scope group and <code>ST-Windows-Pilot</code> as its scope tag, limiting the new Intune operational permissions to the Windows pilot context.</p>
+<div class="callout"><strong>Permission interaction:</strong> Chloe already held the Microsoft Entra Helpdesk Administrator role from an earlier identity lab. That role allowed read-only Intune visibility. The before-and-after validation therefore tested whether operational device actions were disabled or enabled; it did not claim that the new scope tag removed separate read access granted by Microsoft Entra.</div>
+<h2>Objective</h2>
+<p>The objective was to implement least-privilege endpoint support by separating identity-helpdesk permissions from Intune device-management permissions. The lab also demonstrates how administrator groups, scope groups and scope tags combine within an Intune role assignment.</p>
+<h2>Environment</h2>
+<table>
+<tr><th>Component</th><th>Value</th></tr>
+<tr><td>Company</td><td>Nietz Ltd</td></tr>
+<tr><td>Tenant domain</td><td>nietz.co.uk</td></tr>
+<tr><td>Management platform</td><td>Microsoft Intune</td></tr>
+<tr><td>Built-in Intune role</td><td>Help Desk Operator</td></tr>
+<tr><td>Administrator group</td><td><code>GRP_Intune_Helpdesk_Operators</code></td></tr>
+<tr><td>Administrator group members</td><td>Chloe Bennett and Daniel Smith</td></tr>
+<tr><td>Scope group</td><td><code>GRP_Intune_Windows_Pilot_Devices</code></td></tr>
+<tr><td>Custom scope tag</td><td><code>ST-Windows-Pilot</code></td></tr>
+<tr><td>Role assignment</td><td><code>RA-Intune-Helpdesk-Windows-Pilot</code></td></tr>
+<tr><td>Validation account</td><td>Chloe Bennett — <code>c.bennett@nietz.co.uk</code></td></tr>
+<tr><td>Validation device</td><td>CL2</td></tr>
+<tr><td>Previous lab dependency</td><td>Lab 21: Intune Application Deployment and Microsoft 365 Apps</td></tr>
+<tr><td>Next lab</td><td>Lab 23: Edge Browser Security Baseline</td></tr>
+</table>
+<h2>Configuration and Evidence</h2>
+<div class="section-block">
+<h3>1. Help Desk Operator Role Identified</h3>
+<p>I opened the built-in Microsoft Intune Help Desk Operator role and confirmed that it was available for assignment.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Intune Help Desk Operator built-in role overview" src="screenshots/22-01-intune-help-desk-operator-overview.png" width="1305" height="666"/>
+<figcaption><span class="figure-label">Figure 1</span>Built-in Help Desk Operator role selected in the Intune admin center.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>2. Help Desk Operator Permissions Reviewed</h3>
+<p>I reviewed the role description and permission categories before assigning it. The screenshot shows an excerpt from the upper portion of the full permissions list; further permissions continue below the visible area.</p>
+<figure class="lab-figure">
+<img alt="Excerpt of Microsoft Intune Help Desk Operator permissions" src="screenshots/22-02-help-desk-operator-permissions-excerpt.png" width="1996" height="1681"/>
+<figcaption><span class="figure-label">Figure 2</span>Help Desk Operator description and an excerpt of its built-in permissions.</figcaption>
+</figure>
+<div class="callout"><strong>Role purpose:</strong> The built-in role is intended for user and device support, including permitted remote tasks and support of applications or policies.</div>
+</div>
+<h3>Baseline Permission Check</h3>
+<div class="section-block">
+<h3>3. Device Actions Disabled Before Intune RBAC</h3>
+<p>Before Chloe was added to the new Intune administrator group, I signed in as her and opened CL2. Her existing Microsoft Entra Helpdesk Administrator role allowed the device record to be viewed, but the Intune operational controls were unavailable.</p>
+<figure class="lab-figure">
+<img alt="Chloe Bennett viewing CL2 with Intune device actions disabled before the new RBAC assignment" src="screenshots/22-03-chloe-before-intune-rbac-actions-disabled.png" width="3707" height="1670"/>
+<figcaption><span class="figure-label">Figure 3</span>Read-only baseline: CL2 was visible, while remote device actions remained disabled.</figcaption>
+</figure>
+</div>
+<h3>Scoped RBAC Configuration</h3>
+<div class="section-block">
+<h3>4. Dedicated Intune Helpdesk Group Created</h3>
+<p>I created <code>GRP_Intune_Helpdesk_Operators</code> as an assigned cloud security group for Intune administrative delegation.</p>
+<figure class="lab-figure">
+<img alt="GRP Intune Helpdesk Operators security group listed in Microsoft Entra" src="screenshots/22-04-intune-helpdesk-operators-group-created.png" width="2824" height="943"/>
+<figcaption><span class="figure-label">Figure 4</span>Dedicated cloud security group created for Intune helpdesk operators.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>5. Service Desk Members Added</h3>
+<p>I added Chloe Bennett and Daniel Smith as direct members. The group contains both a synchronised on-premises identity and a cloud-only identity.</p>
+<figure class="lab-figure">
+<img alt="Chloe Bennett and Daniel Smith listed as members of the Intune helpdesk operators group" src="screenshots/22-05-intune-helpdesk-operators-group-members.png" width="2614" height="1109"/>
+<figcaption><span class="figure-label">Figure 5</span>Chloe Bennett and Daniel Smith confirmed as direct Intune helpdesk group members.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>6. Windows Pilot Scope Tag Reviewed</h3>
+<p>I configured the custom <code>ST-Windows-Pilot</code> scope tag and assigned it to <code>GRP_Intune_Windows_Pilot_Devices</code>. This connected the custom scope-tag context to the managed Windows pilot devices.</p>
+<figure class="lab-figure">
+<img alt="ST Windows Pilot scope tag review showing assignment to the Windows pilot device group" src="screenshots/22-06-windows-pilot-scope-tag-review.png" width="1766" height="1687"/>
+<figcaption><span class="figure-label">Figure 6</span>Custom scope tag reviewed with the Windows pilot device group assignment.</figcaption>
+</figure>
+<div class="callout"><strong>Scope note:</strong> Scope tags filter Intune objects within the Intune RBAC assignment. They do not cancel access that a user receives independently through a Microsoft Entra role.</div>
+</div>
+<div class="section-block">
+<h3>7. Custom Scope Tag Created</h3>
+<p>I created <code>ST-Windows-Pilot</code> alongside the built-in Default scope tag.</p>
+<figure class="lab-figure">
+<img alt="ST Windows Pilot custom scope tag listed in Microsoft Intune" src="screenshots/22-07-windows-pilot-scope-tag-created.png" width="2398" height="1062"/>
+<figcaption><span class="figure-label">Figure 7</span>Custom Windows pilot scope tag created successfully.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>8. Scoped Role Assignment Reviewed</h3>
+<p>I configured <code>RA-Intune-Helpdesk-Windows-Pilot</code> with the dedicated helpdesk group as the administrator group, the Windows pilot device group as the scope group and <code>ST-Windows-Pilot</code> as the scope tag.</p>
+<figure class="lab-figure">
+<img alt="Review of the Help Desk Operator role assignment with admin group scope group and scope tag" src="screenshots/22-08-help-desk-operator-role-assignment-review.png" width="1815" height="1683"/>
+<figcaption><span class="figure-label">Figure 8</span>Complete role-assignment relationship reviewed before creation.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>9. Scoped Help Desk Operator Assignment Created</h3>
+<p>I created the role assignment and confirmed that its administrator group and Windows pilot scope group were active, with the custom scope tag attached.</p>
+<figure class="lab-figure">
+<img alt="Created Intune Help Desk Operator role assignment showing member group scope group and scope tag" src="screenshots/22-09-help-desk-operator-role-assignment-created.png" width="2477" height="1704"/>
+<figcaption><span class="figure-label">Figure 9</span>Scoped Help Desk Operator assignment created and active.</figcaption>
+</figure>
+</div>
+<h2>Validation</h2>
+<div class="section-block">
+<h3>10. Scoped Intune Device Actions Enabled</h3>
+<p>After Chloe was added to <code>GRP_Intune_Helpdesk_Operators</code> and a fresh session was opened, I returned to CL2. The command bar and expanded actions menu now showed permitted device-management actions as enabled.</p>
+<figure class="lab-figure">
+<img alt="Chloe Bennett viewing CL2 with Intune Help Desk Operator actions enabled after the scoped RBAC assignment" src="screenshots/22-10-chloe-after-intune-rbac-actions-enabled.png" width="3745" height="1652"/>
+<figcaption><span class="figure-label">Figure 10</span>Post-change validation showing Intune operational actions enabled for Chloe on CL2.</figcaption>
+</figure>
+<div class="callout"><strong>Safe validation:</strong> The enabled controls were used as evidence of the permission change. No destructive action such as Wipe, Retire, Fresh Start or Autopilot Reset was submitted.</div>
+</div>
+<h3>Validation Result</h3>
+<p>The lab confirmed a clear before-and-after permission change. Chloe could already read the CL2 record through her existing Microsoft Entra Helpdesk Administrator role, but remote Intune actions were disabled before the new role assignment. After membership in the dedicated Intune administrator group, operational actions became available for the Windows pilot device through the scoped Help Desk Operator assignment.</p>
+<h2>Key Technical Outcomes</h2>
+<ul>
+<li>Reviewed the built-in Microsoft Intune Help Desk Operator role and its permission set.</li>
+<li>Created a dedicated security group for Intune helpdesk administration.</li>
+<li>Included both synchronised and cloud-only Service Desk identities in the delegated group.</li>
+<li>Created and assigned a custom Windows pilot scope tag.</li>
+<li>Used a Windows pilot device group as the Intune RBAC scope group.</li>
+<li>Combined the administrator group, scope group and scope tag in one role assignment.</li>
+<li>Validated the difference between read-only Entra access and operational Intune RBAC permissions.</li>
+<li>Demonstrated least-privilege endpoint support without granting full Intune Administrator access.</li>
+</ul>
+<div class="summary">
+<h2>Summary</h2>
+<ul>
+<li>I established the original read-only support baseline for Chloe Bennett.</li>
+<li>I created a dedicated Intune helpdesk group containing Chloe Bennett and Daniel Smith.</li>
+<li>I created <code>ST-Windows-Pilot</code> and linked it to the Windows pilot device group.</li>
+<li>I assigned the built-in Help Desk Operator role through a scoped Intune RBAC assignment.</li>
+<li>I confirmed that operational device actions became available on CL2 after the assignment.</li>
+<li>I retained the distinction between Microsoft Entra identity administration and Microsoft Intune endpoint administration.</li>
+</ul>
+</div><div class="page-navigation"><a class="btn" href="../21-intune-app-deployment/index.html">← Previous Lab</a><a class="btn" href="../index.html">Back to Microsoft Infrastructure</a><a class="btn" href="../23-edge-browser-security-baseline/index.html">Next Lab →</a></div>
+</section>
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer>
+</body>
+</html>

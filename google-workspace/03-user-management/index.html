@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Workspace 03 - User Management</title>
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    .navbar nav .nav-disabled { color: #bdbdbd; margin-left: 24px; font-size: 16px; cursor: default; }
+    .content-modern img { max-width: 760px; width: 100%; display: block; margin: 24px auto 8px; border-radius: 8px; border: 1px solid #ddd; background: white; }
+  </style>
+</head>
+<body>
+<header class="navbar">
+  <div class="container">
+    <h1 class="logo"><a href="../../index.html">Kristian Nietzold</a></h1>
+    <nav>
+      <a href="../../index.html">Home</a>
+      <a href="../../microsoft-infrastructure/index.html">Microsoft Infrastructure</a>
+      <a href="../../service-desk/index.html">Service Desk</a>
+      <span class="nav-disabled">Networking</span>
+      <a href="../index.html">Google Workspace</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="hero">
+  <div class="container">
+    <h2>Google Workspace 03: User Management</h2>
+    <p>User creation, department placement and account administration.</p>
+  </div>
+</section>
+<section class="content-modern">
+  <div class="callout"><strong>Context:</strong> This Google Workspace lab extends the same SaaS administration environment across identity, access, collaboration and security controls.</div>
+  <h1>03. User Management</h1>
+<p>Created and organised Google Workspace user accounts by department, with evidence of account administration and placement.</p>
+<p>Users were assigned to organisational units (OUs) based on department and role to enable structured access control and policy enforcement.</p>
+<hr />
+<h2>User Structure</h2>
+<p>Users were distributed across departments to support the organisation's access and policy model.</p>
+<p>| Name              | Email                   | Organisational Unit |</p>
+<p>|-------------------|-------------------------|---------------------|</p>
+<p>| Admin Account     | admin@nietz.co.uk       | IT/Admins           |</p>
+<p>| Kristian Nietzold | k.nietzold@nietz.co.uk  | IT/Admins           |</p>
+<p>| Chloe Bennett     | c.bennett@nietz.co.uk   | IT/Helpdesk         |</p>
+<p>| Daniel Smith      | d.smith@nietz.co.uk     | IT/Helpdesk         |</p>
+<p>| Emma Wilson       | e.wilson@nietz.co.uk    | HR                  |</p>
+<p>| Lee Johnson       | l.johnson@nietz.co.uk   | Finance             |</p>
+<p>| Kate Jones        | k.jones@nietz.co.uk     | Sales               |</p>
+<p>| Sarah Jackson     | s.jackson@nietz.co.uk   | Sales               |</p>
+<p>| James Brown       | j.brown@nietz.co.uk     | Management          |</p>
+<hr />
+<h2>All Users Overview (Full Organisation)</h2>
+<p><img src="screenshots/03-01-all-users-overview.png" alt="All Users Overview" width="2826" height="1335"/></p>
+<p>This view provides a complete overview of all users across the organisation, including all departments and organisational units.</p>
+<hr />
+<h2>Administrative Users (Privileged Accounts)</h2>
+<p><img src="screenshots/03-02-it-admins-users.png" alt="IT Admin Users" width="2865" height="1368"/></p>
+<p>Administrative users were placed in a dedicated OU to isolate privileged accounts and reduce security risk.</p>
+<p>This allows stricter policies and monitoring to be applied specifically to high-privilege users.</p>
+<hr />
+<h2>Helpdesk Users (Delegated Administration)</h2>
+<p><img src="screenshots/03-03-it-helpdesk-users.png" alt="IT Helpdesk Users" width="2799" height="1383"/></p>
+<p>Helpdesk users were grouped into a dedicated OU to support delegated administration.</p>
+<p>These users can be assigned limited admin roles without granting full administrative access.</p>
+<hr />
+<h2>Business Users (Department Example)</h2>
+<p><img src="screenshots/03-04-sales-users.png" alt="Sales Users" width="3060" height="1317"/></p>
+<p>The All Users view provides full coverage of departments such as HR, Finance, and Management.</p>
+<p>The Sales OU is shown here as a representative example of how standard users are grouped within departments.</p>
+<hr />
+<h2>Design Approach</h2>
+<p>This configuration ensures:</p>
+<ul>
+<li><p>Role-based access control (RBAC)</p>
+</li>
+<li><p>Separation of privileged and standard users</p>
+</li>
+<li><p>Delegated administration via Helpdesk OU</p>
+</li>
+<li><p>Consistent naming conventions</p>
+</li>
+<li><p>Scalable user management aligned to organisational structure</p>
+</li>
+</ul>
+<hr />
+<h2>Summary</h2>
+<p>Evidence covered:</p>
+<ul>
+<li><p>Creation of user accounts within Google Workspace</p>
+</li>
+<li><p>Assignment of users to organisational units</p>
+</li>
+<li><p>Implementation of role-based structure</p>
+</li>
+<li><p>Separation of administrative and standard users</p>
+</li>
+<li><p>Preparation for policy enforcement and access control</p>
+</li>
+</ul>
+<p>This provides a structured foundation for further configuration across the environment.</p>
+
+  <p>
+    <a href="../index.html" class="btn">&larr; Back to Google Workspace</a>
+  </p>
+</section>
+</main>
+</body>
+</html>

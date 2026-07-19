@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lab 13 - Hybrid Identity Readiness</title>
+<link href="../../style.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../index.html">Home</a><a href="../index.html">Microsoft Infrastructure</a><a href="../../service-desk/index.html">Service Desk</a><a href="../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>Lab 13: Hybrid Identity Readiness</h2>
+<p>Prepared Active Directory for a controlled Microsoft Entra hybrid identity pilot by creating a dedicated OU structure, confirming the public UPN suffix, aligning a pilot user's sign-in name and creating governance and targeting groups.</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Overview</h2>
+<p>In this lab, I prepared the Active Directory side of the hybrid identity build before introducing Microsoft Entra Connect or Cloud Sync. The earlier Microsoft 365 and Entra labs established the cloud tenant, user administration model, SSPR pilot and sign-in troubleshooting workflow. This lab created a clean on-premises pilot boundary that can be used safely in the next stage of the hybrid identity rollout.</p>
+<p>The work focused on readiness rather than synchronization. I created a dedicated <code>Hybrid Pilot</code> OU structure, confirmed that <code>nietz.co.uk</code> is available as an alternate UPN suffix, checked a pilot user's sign-in name, and created security groups to identify approved user, device and support/admin validation candidates. The <code>Nietz Ltd &gt; Hybrid Pilot</code> OU was documented as the planned technical synchronization boundary for the next lab.</p>
+<h2>Objective</h2>
+<p>The objective was to prepare a controlled Active Directory scope for future Microsoft Entra synchronization without changing the whole domain. The pilot groups identify approved users, devices and support/admin validation users for the rollout, while the <code>Nietz Ltd &gt; Hybrid Pilot</code> OU provides the planned technical boundary for scoped Entra Connect synchronization.</p>
+<h2>Environment</h2>
+<table>
+<tr><th>Component</th><th>Value</th></tr>
+<tr><td>Company</td><td>Nietz Ltd</td></tr>
+<tr><td>Domain controller</td><td>DC1</td></tr>
+<tr><td>On-premises AD domain</td><td>corp.nietz.co.uk</td></tr>
+<tr><td>Microsoft 365 / Entra domain</td><td>nietz.co.uk</td></tr>
+<tr><td>Pilot OU</td><td>Nietz Ltd &gt; Hybrid Pilot</td></tr>
+<tr><td>Planned LDAP sync scope</td><td><code>OU=Hybrid Pilot,OU=Nietz Ltd,DC=corp,DC=nietz,DC=co,DC=uk</code></td></tr>
+<tr><td>Pilot user example</td><td>Kate Jones</td></tr>
+<tr><td>Pilot Service Desk support/admin validation user</td><td>Chloe Bennett</td></tr>
+<tr><td>User pilot group</td><td>GRP_HYB_Pilot_Users</td></tr>
+<tr><td>Device pilot group</td><td>GRP_HYB_Pilot_Devices</td></tr>
+<tr><td>Support/admin validation pilot group</td><td>GRP_HYB_Pilot_Admins</td></tr>
+<tr><td>Previous lab dependency</td><td>Lab 12: Entra Sign-In Logs, MFA and SSPR Support</td></tr>
+<tr><td>Next lab dependency</td><td>Lab 14: Hybrid Identity Sync Pilot</td></tr>
+</table>
+<h2>Configuration and Evidence</h2>
+<div class="section-block">
+<h3>1. Hybrid Pilot OU Structure Created</h3>
+<p>I created a dedicated <code>Hybrid Pilot</code> OU under the Nietz Ltd AD structure with separate child OUs for users, groups and devices.</p>
+<figure class="lab-figure">
+<img alt="Active Directory Users and Computers showing Hybrid Pilot OU with Groups, Users and Devices child OUs and descriptions" src="screenshots/13-01-ad-pilot-ou-structure.png" width="2627" height="1433"/>
+<figcaption><span class="figure-label">Figure 1</span><code>Nietz Ltd &gt; Hybrid Pilot</code> OU structure created with child OUs for pilot groups, users and devices.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> A dedicated pilot OU provides a clear future synchronization boundary without immediately placing the wider Active Directory estate in scope.</div>
+</div>
+<div class="section-block">
+<h3>2. Public UPN Suffix Confirmed</h3>
+<p>I confirmed that <code>nietz.co.uk</code> is configured as an alternative UPN suffix in Active Directory Domains and Trusts.</p>
+<figure class="lab-figure">
+<img alt="Active Directory Domains and Trusts UPN Suffixes tab showing nietz.co.uk as an alternative UPN suffix" src="screenshots/13-02-upn-suffix-nietz-co-uk-confirmed.png" width="959" height="1118"/>
+<figcaption><span class="figure-label">Figure 2</span><code>nietz.co.uk</code> confirmed as an alternate UPN suffix for user sign-in alignment.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Aligning on-premises UPNs with the Microsoft 365 domain helps users sign in with the same identity format across on-premises AD and Microsoft Entra ID.</div>
+</div>
+<div class="section-block">
+<h3>3. Pilot User UPN Aligned</h3>
+<p>I checked Kate Jones' AD account properties and confirmed her user logon name uses the <code>@nietz.co.uk</code> UPN suffix.</p>
+<figure class="lab-figure">
+<img alt="Kate Jones Active Directory account properties showing user logon name k.jones with the nietz.co.uk UPN suffix" src="screenshots/13-03-pilot-user-upn-properties.png" width="1000" height="1389"/>
+<figcaption><span class="figure-label">Figure 3</span>Kate Jones configured with <code>k.jones@nietz.co.uk</code> as the AD user logon name.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Confirming UPN alignment before synchronization avoids confusing sign-in differences between AD usernames and cloud usernames.</div>
+</div>
+<div class="section-block">
+<h3>4. Hybrid Pilot Security Groups Created</h3>
+<p>I created three Global Security groups inside the <code>Nietz Ltd\Hybrid Pilot\Groups</code> OU to represent approved user, device and support/admin validation candidates for later targeting and validation.</p>
+<figure class="lab-figure">
+<img alt="Active Directory Users and Computers showing GRP_HYB_Pilot_Users, GRP_HYB_Pilot_Admins and GRP_HYB_Pilot_Devices as global security groups" src="screenshots/13-04-pilot-groups-created.png" width="2614" height="1454"/>
+<figcaption><span class="figure-label">Figure 4</span>Hybrid pilot groups created as Global Security groups with clear descriptions.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Security groups make the pilot candidates easier to understand, audit and reuse for future access control, Conditional Access, Intune targeting or deployment targeting. The technical synchronization boundary for the next lab is the <code>Hybrid Pilot</code> OU.</div>
+</div>
+<div class="section-block">
+<h3>5. Pilot User Group Membership Validated</h3>
+<p>I added Chloe Bennett and Kate Jones to <code>GRP_HYB_Pilot_Users</code> and confirmed the membership from the group properties. This recorded them as approved users for the hybrid identity pilot.</p>
+<figure class="lab-figure">
+<img alt="GRP_HYB_Pilot_Users members tab showing Chloe Bennett and Kate Jones as members" src="screenshots/13-05-pilot-users-group-membership.png" width="959" height="1178"/>
+<figcaption><span class="figure-label">Figure 5</span><code>GRP_HYB_Pilot_Users</code> membership showing Chloe Bennett and Kate Jones.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> At the readiness stage, the pilot group records which users are approved for the hybrid identity pilot. In the next lab, selected pilot objects are placed inside the <code>Hybrid Pilot</code> OU because OU filtering is used as the Entra Connect synchronization boundary.</div>
+</div>
+<div class="section-block">
+<h3>6. Pilot Support/Admin Group Membership Validated</h3>
+<p>I added Chloe Bennett to <code>GRP_HYB_Pilot_Admins</code> as the pilot Service Desk support/admin validation user and confirmed the membership from the group properties.</p>
+<figure class="lab-figure">
+<img alt="GRP_HYB_Pilot_Admins members tab showing Chloe Bennett as a member" src="screenshots/13-06-pilot-admins-group-membership.png" width="952" height="1174"/>
+<figcaption><span class="figure-label">Figure 6</span><code>GRP_HYB_Pilot_Admins</code> membership showing Chloe Bennett as the pilot Service Desk support/admin validation user.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Keeping the support/admin validation group separate from the user pilot group supports clearer delegation and validation in later hybrid identity labs without implying broad infrastructure or tenant-wide administrator access.</div>
+</div>
+<h2>Validation</h2>
+<p>The lab was validated when the <code>Hybrid Pilot</code> OU structure existed with dedicated <code>Groups</code>, <code>Users</code> and <code>Devices</code> child OUs, and the <code>nietz.co.uk</code> UPN suffix was confirmed in Active Directory Domains and Trusts.</p>
+<p>Readiness was further validated by confirming Kate Jones' UPN alignment, creating the three Global Security pilot groups, and confirming membership for the user and support/admin validation pilot groups. The groups identify approved pilot candidates, while the planned technical sync scope for the next lab is <code>OU=Hybrid Pilot,OU=Nietz Ltd,DC=corp,DC=nietz,DC=co,DC=uk</code>.</p>
+<h2>Key Technical Outcomes</h2>
+<p>This lab demonstrated Active Directory preparation for a controlled hybrid identity rollout, including OU design, UPN suffix validation, user sign-in alignment and pilot governance group creation.</p>
+<p>It also separated readiness work from synchronization work. The pilot groups document approved users, devices and support/admin validation users, while the next lab can introduce Entra Connect against the known <code>Hybrid Pilot</code> OU boundary.</p>
+<div class="summary">
+<h2>Summary</h2>
+<ul>
+<li>I created a dedicated <code>Hybrid Pilot</code> OU structure under the <code>Nietz Ltd</code> OU for future hybrid identity testing.</li>
+<li>I confirmed <code>nietz.co.uk</code> as an alternative UPN suffix in Active Directory.</li>
+<li>I validated Kate Jones' pilot user UPN as <code>k.jones@nietz.co.uk</code>.</li>
+<li>I created <code>GRP_HYB_Pilot_Users</code>, <code>GRP_HYB_Pilot_Devices</code> and <code>GRP_HYB_Pilot_Admins</code> as Global Security groups for pilot candidate tracking and future targeting.</li>
+<li>I added Kate Jones and Chloe Bennett to the pilot users group.</li>
+<li>I added Chloe Bennett to the pilot support/admin validation group.</li>
+<li>I documented that the pilot groups identify approved pilot users and devices, while the <code>Nietz Ltd &gt; Hybrid Pilot</code> OU is the planned technical synchronization boundary for Entra Connect.</li>
+</ul>
+</div><div class="page-navigation"><a class="btn" href="../12-entra-sign-in-logs-mfa-support/index.html">← Previous Lab</a><a class="btn" href="../index.html">Back to Microsoft Infrastructure</a><a class="btn" href="../14-hybrid-identity-sync-pilot/index.html">Next Lab →</a></div>
+</section>
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lab 23 - Microsoft Edge Security Baseline</title>
+<link href="../../style.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../index.html">Home</a><a href="../index.html">Microsoft Infrastructure</a><a href="../../service-desk/index.html">Service Desk</a><a href="../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>Lab 23: Microsoft Edge Security Baseline</h2>
+<p>Microsoft Intune · Endpoint Security · Microsoft Edge</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Overview</h2>
+<p>This lab documents the deployment and validation of a Microsoft Edge security baseline for a controlled Windows pilot device group using Microsoft Intune Endpoint Security.</p>
+<h2>Objective</h2>
+<p>Deploy an Edge security baseline through Intune Endpoint Security, assign it to the Windows pilot device group, force device check-in on CL2, and validate that Edge policies are applied locally.</p>
+<h2>Environment</h2>
+<table>
+<tr><td>Tenant</td><td>Nietz Ltd</td></tr>
+<tr><td>Platform</td><td>Windows / Microsoft Edge</td></tr>
+<tr><td>Policy</td><td>WIN-SEC-01-Edge-Security-Baseline</td></tr>
+<tr><td>Pilot Device</td><td>CL2 - Chloe Bennett</td></tr>
+<tr><td>Previous lab dependency</td><td>Lab 22</td></tr>
+<tr><td>Next lab dependency</td><td>Lab 24: Windows Update Ring Pilot</td></tr>
+</table>
+<h2>Configuration</h2>
+<div class="section-block">
+<h3>1. Review existing Microsoft Edge security baseline profiles</h3>
+<p>01 Edge baseline profiles before deployment The Microsoft Edge security baseline profiles page is reviewed before creating the new pilot baseline profile.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Edge security baseline profiles page before the new profile is created" src="screenshots/23-01-intune-security-baselines-before-edge-baseline.png" width="3204" height="888"/>
+<figcaption><span class="figure-label">Figure 1</span>01 Edge baseline profiles before deployment The Microsoft Edge security baseline profiles page is reviewed before creating the new pilot baseline profile.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>2. Configure the Edge security baseline profile details</h3>
+<p>02 Profile basics configured The profile is named WIN-SEC-01-Edge-Security-Baseline and documented as an Edge security baseline for Intune-managed pilot devices.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Edge security baseline profile basics with name and description" src="screenshots/23-02-edge-security-baseline-profile-basics.png" width="1981" height="1677"/>
+<figcaption><span class="figure-label">Figure 2</span>02 Profile basics configured The profile is named WIN-SEC-01-Edge-Security-Baseline and documented as an Edge security baseline for Intune-managed pilot devices.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>3. Configure browser hardening settings</h3>
+<p>03 Browser hardening settings configured IE mode reload options and HTTPS warning bypass are disabled, while dynamic code protection and Application Bound Encryption are enabled.</p>
+<figure class="lab-figure">
+<img alt="Browser hardening settings including IE mode, HTTPS warning bypass, dynamic code and Application Bound Encryption" src="screenshots/23-03-edge-security-baseline-settings-1a-browser-hardening-top.png" width="2086" height="1503"/>
+<figcaption><span class="figure-label">Figure 3</span>03 Browser hardening settings configured IE mode reload options and HTTPS warning bypass are disabled, while dynamic code protection and Application Bound Encryption are enabled.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>4. Configure additional browser isolation controls</h3>
+<p>04 Additional browser isolation controls Legacy extension point blocking and site isolation are enabled. SharedArrayBuffer unrestricted access and unsafe SwiftShader fallback are disabled.</p>
+<figure class="lab-figure">
+<img alt="Additional browser hardening settings including site isolation, SharedArrayBuffers and SwiftShader" src="screenshots/23-04-edge-security-baseline-settings-1b-browser-hardening-continued.png" width="2040" height="1152"/>
+<figcaption><span class="figure-label">Figure 4</span>04 Additional browser isolation controls Legacy extension point blocking and site isolation are enabled. SharedArrayBuffer unrestricted access and unsafe SwiftShader fallback are disabled.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>5. Block unmanaged browser extension installation</h3>
+<p>05 Extension installation blocklist configured The extension blocklist is enabled with the wildcard value, preventing unmanaged browser extensions from being installed on the pilot device.</p>
+<figure class="lab-figure">
+<img alt="Extension blocklist configured to prevent all extension installation" src="screenshots/23-05-edge-security-baseline-settings-2-extensions.png" width="1971" height="1005"/>
+<figcaption><span class="figure-label">Figure 5</span>05 Extension installation blocklist configured The extension blocklist is enabled with the wildcard value, preventing unmanaged browser extensions from being installed on the pilot device.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>6. Configure HTTP authentication and native messaging controls</h3>
+<p>06 HTTP authentication and native messaging controls Basic authentication over HTTP is disabled, supported authentication schemes are restricted to NTLM and Negotiate, and user-level native messaging hosts are disabled.</p>
+<figure class="lab-figure">
+<img alt="HTTP authentication and native messaging settings in the Edge security baseline" src="screenshots/23-06-edge-security-baseline-settings-3-http-authentication.png" width="1999" height="1162"/>
+<figcaption><span class="figure-label">Figure 6</span>06 HTTP authentication and native messaging controls Basic authentication over HTTP is disabled, supported authentication schemes are restricted to NTLM and Negotiate, and user-level native messaging hosts are disabled.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>7. Enable SmartScreen and website typo protection</h3>
+<p>07 SmartScreen and typo protection enabled Microsoft Defender SmartScreen, potentially unwanted app blocking, SmartScreen bypass prevention, and Edge website typo protection are enabled.</p>
+<figure class="lab-figure">
+<img alt="SmartScreen and typo protection settings enabled" src="screenshots/23-07-edge-security-baseline-settings-4-smartscreen-typo-protection.png" width="2059" height="1544"/>
+<figcaption><span class="figure-label">Figure 7</span>07 SmartScreen and typo protection enabled Microsoft Defender SmartScreen, potentially unwanted app blocking, SmartScreen bypass prevention, and Edge website typo protection are enabled.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>8. Assign the baseline to the Windows pilot device group</h3>
+<p>08 Assigned to the Windows pilot device group The baseline is assigned to GRP_Intune_Windows_Pilot_Devices, targeting the pilot device CL2 without excluded groups or filters.</p>
+<figure class="lab-figure">
+<img alt="Edge security baseline assigned to GRP_Intune_Windows_Pilot_Devices" src="screenshots/23-08-edge-security-baseline-assigned-to-pilot-devices.png" width="2810" height="1703"/>
+<figcaption><span class="figure-label">Figure 8</span>08 Assigned to the Windows pilot device group The baseline is assigned to GRP_Intune_Windows_Pilot_Devices, targeting the pilot device CL2 without excluded groups or filters.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>9. Review the baseline configuration before creation</h3>
+<p>09 Review and create summary The final review confirms the baseline name, platform, default scope tag, and assignment to the pilot Windows device group before creation.</p>
+<figure class="lab-figure">
+<img alt="Review and create page for the Edge security baseline profile" src="screenshots/23-09-edge-security-baseline-review-and-create.png" width="1908" height="1682"/>
+<figcaption><span class="figure-label">Figure 9</span>09 Review and create summary The final review confirms the baseline name, platform, default scope tag, and assignment to the pilot Windows device group before creation.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>10. Confirm the baseline profile was created</h3>
+<p>10 Profile created in Endpoint Security The new baseline profile appears in the Microsoft Edge security baseline profile list with Version 139 and assignment enabled.</p>
+<figure class="lab-figure">
+<img alt="Created Edge security baseline profile listed in Intune" src="screenshots/23-10-edge-security-baseline-profile-created.png" width="3187" height="1093"/>
+<figcaption><span class="figure-label">Figure 10</span>10 Profile created in Endpoint Security The new baseline profile appears in the Microsoft Edge security baseline profile list with Version 139 and assignment enabled.</figcaption>
+</figure>
+</div>
+<h2>Validation</h2>
+<div class="section-block">
+<h3>11. Sync the pilot device with Intune</h3>
+<p>11 CL2 manually synced after assignment CL2 is synced from Windows settings to request the latest Intune security policies and managed application settings.</p>
+<figure class="lab-figure">
+<img alt="CL2 access work or school sync successful after Edge security baseline assignment" src="screenshots/23-11-cl2-sync-after-edge-security-baseline.png" width="1319" height="1931"/>
+<figcaption><span class="figure-label">Figure 11</span>11 CL2 manually synced after assignment CL2 is synced from Windows settings to request the latest Intune security policies and managed application settings.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>12. Verify Edge policies on the pilot device</h3>
+<p>12 Edge policies applied locally on CL2 The edge://policy page shows active Microsoft Edge policies applied at device level with mandatory status and OK results. The page includes the new security baseline policies and existing Edge startup policy from the earlier configuration lab.</p>
+<figure class="lab-figure">
+<img alt="edge policy page showing Edge security baseline policies applied on CL2" src="screenshots/23-12-edge-policy-baseline-applied-cl2.png" width="2303" height="1915"/>
+<figcaption><span class="figure-label">Figure 12</span>12 Edge policies applied locally on CL2 The edge://policy page shows active Microsoft Edge policies applied at device level with mandatory status and OK results. The page includes the new security baseline policies and existing Edge startup policy from the earlier configuration lab.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>13. Validate that extension installation is blocked</h3>
+<p>13 Extension installation blocked by policy A Microsoft Power Automate extension installation attempt is blocked by administrator policy, validating the extension blocklist control.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Power Automate Edge extension blocked by admin policy" src="screenshots/23-13-edge-extension-install-blocked-by-policy.png" width="3182" height="1630"/>
+<figcaption><span class="figure-label">Figure 13</span>13 Extension installation blocked by policy A Microsoft Power Automate extension installation attempt is blocked by administrator policy, validating the extension blocklist control.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>14. Confirm successful deployment in Intune reporting</h3>
+<p>14 Deployment succeeded for CL2 Intune reporting confirms the Edge security baseline checked in successfully on CL2 for Chloe Bennett, with one succeeded device and no errors or conflicts.</p>
+<figure class="lab-figure">
+<img alt="Intune report showing Edge security baseline deployment succeeded on CL2" src="screenshots/23-14-edge-security-baseline-deployment-succeeded-cl2.png" width="3203" height="978"/>
+<figcaption><span class="figure-label">Figure 14</span>14 Deployment succeeded for CL2 Intune reporting confirms the Edge security baseline checked in successfully on CL2 for Chloe Bennett, with one succeeded device and no errors or conflicts.</figcaption>
+</figure>
+</div>
+<h2>Key Technical Outcomes</h2>
+<ul>
+<li>Created a Microsoft Edge security baseline profile in Endpoint Security.</li>
+<li>Assigned the profile to GRP_Intune_Windows_Pilot_Devices.</li>
+<li>Validated policy application on CL2 using Windows sync, Intune reporting, edge://policy, and a blocked extension test.</li>
+</ul>
+<h2>Summary</h2>
+<div class="summary"><ul><li>Created a Microsoft Edge security baseline in Intune Endpoint Security.</li><li>Assigned the baseline only to the Windows pilot device group.</li><li>Validated local policy application on CL2 through Edge policy reporting.</li><li>Confirmed successful deployment in Intune with no reported conflicts or errors.</li><li>Verified active enforcement by testing a blocked browser extension installation.</li></ul></div><div class="page-navigation"><a class="btn" href="../22-intune-rbac-scope-tags/index.html">← Previous Lab</a><a class="btn" href="../index.html">Back to Microsoft Infrastructure</a><a class="btn" href="../24-windows-update-ring-pilot/index.html">Next Lab →</a></div>
+</section>
+
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer>
+</body>
+</html>

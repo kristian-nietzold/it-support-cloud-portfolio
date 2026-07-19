@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lab 07 - Exchange Online and Internal Mail Flow</title>
+<link href="../../style.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../index.html">Home</a><a href="../index.html">Microsoft Infrastructure</a><a href="../../service-desk/index.html">Service Desk</a><a href="../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>Lab 07: Exchange Online and Internal Mail Flow</h2>
+<p>Configured Exchange Online for Nietz Ltd, including delegated administration, user and shared mailboxes, Full Access and Send As permissions, internal mail-flow testing and delivery confirmation through message trace.</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Overview</h2>
+<p>This lab continued the Microsoft 365 work completed in Labs 05 and 06. The existing <code>@nietz.co.uk</code> cloud user accounts and licensing baseline were used to validate Exchange Online mailbox readiness, shared mailbox administration, internal delivery, Send As behaviour, and message trace troubleshooting.</p>
+<p>The lab is deliberately scoped to Exchange Online administration and internal mail flow. It does not claim external inbound mail routing, public MX changes, SPF, DKIM, or DMARC validation. Those records and external tests are reserved for Lab 08: External Mail Flow and DNS Records.</p>
+<h2>Objective</h2>
+<p>The objective was to complete practical Exchange Online support tasks: assign the correct admin role, confirm mailbox provisioning, create shared mailboxes, configure mailbox delegation, validate internal delivery, test Send As from the support shared mailbox, and confirm delivery using Exchange Online message trace.</p>
+<h2>Environment</h2>
+<table>
+<tr><th>Component</th><th>Value</th></tr>
+<tr><td>Company</td><td>Nietz Ltd</td></tr>
+<tr><td>On-premises AD Domain</td><td>corp.nietz.co.uk</td></tr>
+<tr><td>Microsoft 365 / Tenant Domain</td><td>nietz.co.uk</td></tr>
+<tr><td>Exchange Platform</td><td>Exchange Online</td></tr>
+<tr><td>Setup Admin</td><td>admin@nietz.co.uk</td></tr>
+<tr><td>Daily Admin</td><td>k.nietzold@nietz.co.uk</td></tr>
+<tr><td>Support Shared Mailbox</td><td>support@nietz.co.uk</td></tr>
+<tr><td>Support Alias</td><td>helpdesk@nietz.co.uk</td></tr>
+<tr><td>Sales Shared Mailbox</td><td>sales@nietz.co.uk</td></tr>
+<tr><td>Support Delegates</td><td>c.bennett@nietz.co.uk, d.smith@nietz.co.uk</td></tr>
+<tr><td>Sales Delegates</td><td>k.jones@nietz.co.uk, s.jackson@nietz.co.uk</td></tr>
+<tr><td>Mail Flow Test Sender</td><td>e.wilson@nietz.co.uk</td></tr>
+<tr><td>Previous Lab Dependency</td><td>Lab 06: MFA, Password Reset and Licensing</td></tr>
+<tr><td>Next Lab</td><td>Lab 08: External Mail Flow and DNS Records</td></tr>
+</table>
+<h2>Configuration and Evidence</h2>
+<div class="section-block">
+<h3>1. Exchange Administrator Role Assignment</h3>
+<p>I assigned the Exchange Administrator role to the daily admin account so Exchange Online mailbox administration could be performed without relying on the setup/global admin account for routine support work.</p>
+<figure class="lab-figure">
+<img alt="Exchange Administrator role assigned to Kristian Nietzold" src="screenshots/07-01-exchange-admin-role-assignment.png" width="2299" height="1519"/>
+<figcaption><span class="figure-label">Figure 1</span>Exchange Administrator role assigned to the daily admin account.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Delegated admin roles support least-privilege administration and reflect how routine Exchange tasks are normally separated from global tenant administration.</div>
+</div>
+<div class="section-block">
+<h3>2. Exchange Admin Center Access</h3>
+<p>I opened the Exchange admin center and confirmed that the Nietz Ltd tenant showed Exchange Online administration areas including recipients, mail flow, roles, migration, organisation settings and troubleshooting.</p>
+<figure class="lab-figure">
+<img alt="Exchange admin center opened for Nietz Ltd" src="screenshots/07-02-exchange-admin-center.png" width="3815" height="1784"/>
+<figcaption><span class="figure-label">Figure 2</span>Exchange admin center opened with mailbox and mail-flow administration available.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Exchange admin center is used for mailbox administration, shared mailbox configuration, delegation, mail flow and message trace.</div>
+</div>
+<div class="section-block">
+<h3>3. User Mailbox Validation</h3>
+<p>I confirmed that licensed Nietz Ltd users had Exchange Online user mailboxes provisioned with <code>@nietz.co.uk</code> addresses.</p>
+<figure class="lab-figure">
+<img alt="Exchange Online user mailboxes confirmed" src="screenshots/07-03-user-mailboxes-confirmed.png" width="2864" height="1671"/>
+<figcaption><span class="figure-label">Figure 3</span>User mailboxes confirmed for licensed <code>@nietz.co.uk</code> accounts.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Mailbox provisioning depends on licensing and must be confirmed before Outlook, shared mailbox and mail-flow tests are trusted.</div>
+</div>
+<div class="section-block">
+<h3>4. Shared Mailboxes Created</h3>
+<p>I created the <code>support@nietz.co.uk</code> and <code>sales@nietz.co.uk</code> shared mailboxes. The Support mailbox also uses the <code>helpdesk</code> alias for a realistic service desk address.</p>
+<figure class="lab-figure">
+<img alt="Support and Sales shared mailboxes created" src="screenshots/07-04-shared-mailboxes-created.png" width="2082" height="1701"/>
+<figcaption><span class="figure-label">Figure 4</span>Support and Sales shared mailboxes created in Exchange Online, with the Support mailbox using the <code>helpdesk</code> alias.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Shared mailboxes allow teams to manage common addresses without assigning the mailbox to a single named user.</div>
+</div>
+<div class="section-block">
+<h3>5. Support Mailbox Permissions</h3>
+<p>I configured the Support shared mailbox with Send As and Read and manage / Full Access permissions for Chloe Bennett and Daniel Smith.</p>
+<figure class="lab-figure">
+<img alt="Support mailbox delegation configured" src="screenshots/07-05-support-mailbox-permissions.png" width="1169" height="887"/>
+<figcaption><span class="figure-label">Figure 5</span>Support mailbox delegation configured with Send As and Full Access permissions.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Full Access allows a user to open and manage a shared mailbox. Send As allows a user to send messages that appear to come from the shared mailbox address. These are separate permissions.</div>
+</div>
+<div class="section-block">
+<h3>6. Sales Mailbox Permissions</h3>
+<p>I configured the Sales shared mailbox with Send As and Read and manage / Full Access permissions for Kate Jones and Sam Jackson.</p>
+<figure class="lab-figure">
+<img alt="Sales mailbox delegation configured" src="screenshots/07-06-sales-mailbox-permissions.png" width="1175" height="875"/>
+<figcaption><span class="figure-label">Figure 6</span>Sales mailbox delegation configured with Send As and Full Access permissions.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Shared mailbox delegation is a common Microsoft 365 support task and is frequently checked when users cannot open a shared mailbox or cannot send as a shared address.</div>
+</div>
+<div class="section-block">
+<h3>7. Internal Mail Flow Test to Support</h3>
+<p>I sent an internal test message from Emily Wilson to the Support shared mailbox and confirmed that the message arrived in the Support mailbox inbox.</p>
+<figure class="lab-figure">
+<img alt="Internal mail flow test to Support mailbox" src="screenshots/07-07-mail-flow-test.png" width="3641" height="820"/>
+<figcaption><span class="figure-label">Figure 7</span>Support shared mailbox received an internal test message from Emily Wilson.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Testing internal delivery confirms that the shared mailbox can receive mail before moving on to Send As or external mail-flow scenarios.</div>
+</div>
+<div class="section-block">
+<h3>8. Internal Message Trace Validation</h3>
+<p>I used Exchange Online message trace to confirm that the Lab 07 internal test message was received, processed and delivered to the Support shared mailbox.</p>
+<figure class="lab-figure">
+<img alt="Message trace confirmed delivery to Support" src="screenshots/07-08-message-trace-validation.png" width="1131" height="1684"/>
+<figcaption><span class="figure-label">Figure 8</span>Message trace confirmed the internal test message was delivered to the Support mailbox.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Message trace is a core Exchange Online support tool for investigating delayed, failed, blocked or misrouted mail.</div>
+</div>
+<div class="section-block">
+<h3>9. Send As Support Test</h3>
+<p>I sent a message from the Support shared mailbox to Emily Wilson to validate that Send As worked from the user mailbox experience, not only from the admin permission screen.</p>
+<figure class="lab-figure">
+<img alt="Support shared mailbox Sent Items showing Send As test" src="screenshots/07-09-send-as-support-test.png" width="3671" height="812"/>
+<figcaption><span class="figure-label">Figure 9</span>Support shared mailbox Sent Items showing the Send As validation message sent to Emily Wilson.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This validates the practical user-side result of the Send As permission assigned earlier in the lab.</div>
+</div>
+<div class="section-block">
+<h3>10. Send As Message Received</h3>
+<p>I confirmed that Emily Wilson received the test message and that the message appeared as coming from the Support shared mailbox.</p>
+<figure class="lab-figure">
+<img alt="Emily Wilson received message from Support shared mailbox" src="screenshots/07-10-send-as-message-received.png" width="3665" height="1040"/>
+<figcaption><span class="figure-label">Figure 10</span>Emily Wilson received the Send As validation message from the Support shared mailbox.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Received-message evidence confirms the user-facing result: the recipient sees the message as coming from the shared mailbox rather than the delegate user.</div>
+</div>
+<div class="section-block">
+<h3>11. Send As Message Trace Validation</h3>
+<p>I used Exchange Online message trace to confirm that the Send As validation message from <code>support@nietz.co.uk</code> to <code>e.wilson@nietz.co.uk</code> was delivered.</p>
+<figure class="lab-figure">
+<img alt="Message trace confirmed Send As delivery" src="screenshots/07-11-message-trace-send-as-validation.png" width="1157" height="1312"/>
+<figcaption><span class="figure-label">Figure 11</span>Message trace confirmed the Send As validation message was delivered to Emily Wilson.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This combines recipient-side Outlook evidence with administrator-side delivery validation.</div>
+</div>
+<h2>Validation</h2>
+<p>The lab was validated when the Exchange Administrator role was assigned to the daily admin account, Exchange admin center opened with full admin navigation, user mailboxes were visible, Support and Sales existed as shared mailboxes, both shared mailboxes had Send As and Full Access permissions assigned, Support received an internal message, and message trace confirmed delivery.</p>
+<p>The lab was further validated when the Support shared mailbox sent a Send As test message to Emily Wilson, Emily received the message as coming from Support, and Exchange message trace confirmed the Send As delivery.</p>
+<p>No external inbound mail flow, public MX record change, SPF, DKIM, or DMARC validation is claimed in this lab.</p>
+<h2>Key Technical Outcomes</h2>
+<p>This lab demonstrated Exchange Online mailbox administration, shared mailbox creation, mailbox delegation, Send As permissions, internal mail-flow testing and message trace validation.</p>
+<p>The lab also reinforced that Full Access and Send As are separate permissions: a user may be able to open a shared mailbox but still be unable to send as that mailbox unless Send As has also been granted.</p>
+<div class="summary">
+<h2>Summary</h2>
+<ul>
+<li>I assigned Exchange Administrator permissions to the daily admin account.</li>
+<li>I confirmed Exchange admin center access for the Nietz Ltd tenant.</li>
+<li>I validated Exchange Online user mailboxes for licensed <code>@nietz.co.uk</code> accounts.</li>
+<li>I created Support and Sales shared mailboxes.</li>
+<li>I added the <code>helpdesk</code> alias to the Support shared mailbox.</li>
+<li>I assigned Full Access and Send As permissions for Support and Sales delegates.</li>
+<li>I tested internal mail delivery to the Support shared mailbox.</li>
+<li>I confirmed internal delivery using Exchange Online message trace.</li>
+<li>I tested Send As from the Support shared mailbox to Emily Wilson.</li>
+<li>I confirmed that the recipient saw the message as coming from Support.</li>
+<li>I confirmed Send As delivery using Exchange Online message trace.</li>
+<li>I left the environment ready for Lab 08: External Mail Flow and DNS Records.</li>
+</ul>
+</div><div class="page-navigation"><a class="btn" href="../06-mfa-password-reset-licensing/index.html">← Previous Lab</a><a class="btn" href="../index.html">Back to Microsoft Infrastructure</a><a class="btn" href="../08-external-mail-flow-dns-records/index.html">Next Lab →</a></div>
+</section>
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer>
+</body>
+</html>

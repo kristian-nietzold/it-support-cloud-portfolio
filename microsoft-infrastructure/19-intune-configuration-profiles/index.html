@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lab 19 - Intune Configuration Profile</title>
+<link href="../../style.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../index.html">Home</a><a href="../index.html">Microsoft Infrastructure</a><a href="../../service-desk/index.html">Service Desk</a><a href="../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>Lab 19: Intune Configuration Profile</h2>
+<p>Created and validated a Microsoft Intune settings-catalog profile to standardise the Microsoft Edge startup experience on the cloud-native Windows pilot device.</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Overview</h2>
+<p>This lab continued the Nietz Ltd Intune pilot by moving from device enrolment, compliance, and Conditional Access validation into Windows configuration management. I used Microsoft Intune to deploy a settings catalog profile that configures Microsoft Edge to open the Microsoft 365 apps page at startup on the pilot device group.</p>
+<p>The completed configuration targeted the cloud-native Windows pilot device <code>CL2</code>, assigned to Chloe Bennett. The final evidence confirms the policy was created, assigned to the correct device group, delivered successfully to CL2, visible in Edge policy state, and working in the browser.</p>
+<h2>Objective</h2>
+<p>The objective was to create a device-targeted Intune configuration profile that applies a standard Microsoft Edge startup URL for Nietz Ltd pilot devices, then validate the policy through Intune deployment status, Windows sync evidence, Edge policy reporting, and the final user experience.</p>
+<h2>Environment</h2>
+<table>
+<tr><th>Component</th><th>Value</th></tr>
+<tr><td>Company</td><td>Nietz Ltd</td></tr>
+<tr><td>Microsoft 365 / Entra domain</td><td><code>nietz.co.uk</code></td></tr>
+<tr><td>Management platform</td><td>Microsoft Intune</td></tr>
+<tr><td>Configuration profile</td><td><code>WIN-CFG-01-Endpoint-User-Experience-Standards</code></td></tr>
+<tr><td>Profile type</td><td>Windows 10 and later - Settings catalog</td></tr>
+<tr><td>Target group</td><td><code>GRP_Intune_Windows_Pilot_Devices</code></td></tr>
+<tr><td>Pilot device</td><td><code>CL2</code></td></tr>
+<tr><td>Primary user</td><td><code>c.bennett@nietz.co.uk</code></td></tr>
+<tr><td>Join type</td><td>Microsoft Entra joined</td></tr>
+<tr><td>Previous dependency</td><td>Lab 18: Conditional Access pilot validation</td></tr>
+</table>
+<h2>Configuration</h2>
+<div class="section-block">
+<h3>1. Confirmed the Intune Windows Device Inventory</h3>
+<p>I confirmed that both Windows pilot devices were visible in Intune, compliant, corporate-owned, and reporting their expected join types before creating the new configuration profile.</p>
+<figure class="lab-figure">
+<img alt="Intune Windows device inventory showing CL1 and CL2" src="screenshots/19-01-intune-windows-device-inventory.png" width="3349" height="690"/>
+<figcaption><span class="figure-label">Figure 1</span> Intune Windows device inventory showed CL1 and CL2 as compliant managed devices.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This confirmed the pilot estate was ready for device-targeted configuration deployment.</div>
+</div>
+<div class="section-block">
+<h3>2. Confirmed the Pilot Device Group</h3>
+<p>I validated that <code>GRP_Intune_Windows_Pilot_Devices</code> contained only <code>CL2</code>, keeping the first endpoint user experience policy limited to the cloud-native pilot device.</p>
+<figure class="lab-figure">
+<img alt="GRP Intune Windows Pilot Devices membership showing CL2" src="screenshots/19-02-intune-windows-pilot-device-group-members-cl2.png" width="2117" height="925"/>
+<figcaption><span class="figure-label">Figure 2</span> The pilot device group contained CL2 as the single direct device member.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Using a device group kept the policy assignment predictable and avoided impacting the hybrid pilot device during this stage.</div>
+</div>
+<div class="section-block">
+<h3>3. Created the Settings Catalog Profile</h3>
+<p>I created the Intune profile <code>WIN-CFG-01-Endpoint-User-Experience-Standards</code> using the Windows settings catalog profile type.</p>
+<figure class="lab-figure">
+<img alt="Intune settings catalog profile basics for endpoint user experience standards" src="screenshots/19-03-settings-catalog-profile-basics.png" width="1815" height="985"/>
+<figcaption><span class="figure-label">Figure 3</span> Profile basics showed the configured name, description and Windows platform.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Settings catalog profiles provide granular Intune configuration for modern Windows management.</div>
+</div>
+<div class="section-block">
+<h3>4. Configured Microsoft Edge Startup Behaviour</h3>
+<p>I configured Microsoft Edge to open a defined startup URL and set the URL to <code>https://www.microsoft365.com/apps</code>.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Edge startup URL configured in Intune settings catalog" src="screenshots/19-04-edge-startup-url-configured.png" width="1777" height="1709"/>
+<figcaption><span class="figure-label">Figure 4</span> Microsoft Edge startup settings were configured to open the Microsoft 365 apps page.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This creates a consistent start point for users and demonstrates device-based browser policy management through Intune.</div>
+</div>
+<div class="section-block">
+<h3>5. Assigned the Profile to the Pilot Device Group</h3>
+<p>I assigned the profile to <code>GRP_Intune_Windows_Pilot_Devices</code>, with no filters and no excluded groups.</p>
+<figure class="lab-figure">
+<img alt="Intune configuration profile assigned to Windows pilot device group" src="screenshots/19-05-profile-assigned-to-windows-pilot-device-group.png" width="2869" height="1704"/>
+<figcaption><span class="figure-label">Figure 5</span> The configuration profile was assigned to the pilot device group containing one device.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> A narrow pilot assignment reduces rollout risk and matches a staged endpoint management approach.</div>
+</div>
+<div class="section-block">
+<h3>6. Confirmed the Profile Was Created</h3>
+<p>I confirmed the new configuration profile appeared in the Intune configuration policy list with the expected platform, policy type and default scope tag.</p>
+<figure class="lab-figure">
+<img alt="Intune configuration profile created in policy list" src="screenshots/19-06-configuration-profile-created.png" width="3194" height="944"/>
+<figcaption><span class="figure-label">Figure 6</span> The endpoint user experience standards profile appeared in the Intune policy list.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The policy list provided portal-level evidence that the configuration profile was created successfully.</div>
+</div>
+<h2>Validation</h2>
+<div class="section-block">
+<h3>7. Synced CL2 with Intune</h3>
+<p>I manually synced <code>CL2</code> from Windows Settings and confirmed the device remained managed by Nietz Ltd after the configuration profile assignment.</p>
+<figure class="lab-figure">
+<img alt="CL2 Access work or school sync successful after Intune policy assignment" src="screenshots/19-07-cl2-manual-intune-sync-successful.png" width="1235" height="1347"/>
+<figcaption><span class="figure-label">Figure 7</span> CL2 showed a successful Intune sync from the Access work or school management page.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Manual sync shortened the validation cycle and confirmed the device could receive management updates.</div>
+</div>
+<div class="section-block">
+<h3>8. Confirmed Successful Deployment to CL2</h3>
+<p>I validated the Intune device assignment report and confirmed <code>CL2</code> reported a successful check-in for the profile.</p>
+<figure class="lab-figure">
+<img alt="Intune policy deployment succeeded for CL2" src="screenshots/19-08-policy-deployment-succeeded.png" width="3218" height="1029"/>
+<figcaption><span class="figure-label">Figure 8</span> The profile deployment report showed CL2 with check-in status Success.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This linked the policy assignment to the actual managed device rather than only showing a profile summary.</div>
+</div>
+<div class="section-block">
+<h3>9. Validated Microsoft Edge Policy State</h3>
+<p>I confirmed the applied Edge policies from <code>edge://policy</code>, including <code>RestoreOnStartup</code> and <code>RestoreOnStartupURLs</code>, both applying to the device at mandatory level.</p>
+<figure class="lab-figure">
+<img alt="Edge policy page showing RestoreOnStartup and RestoreOnStartupURLs applied" src="screenshots/19-09-edge-policy-applied.png" width="2991" height="1224"/>
+<figcaption><span class="figure-label">Figure 9</span> Edge policy reporting showed the configured startup policy values applied successfully.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Browser-side policy validation confirmed the Intune setting was active on the endpoint.</div>
+</div>
+<div class="section-block">
+<h3>10. Confirmed the User Experience</h3>
+<p>I opened Microsoft Edge on CL2 and confirmed the browser landed on the Microsoft 365 apps page for Chloe Bennett.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Edge opening the Microsoft 365 apps page on CL2" src="screenshots/19-10-microsoft-365-apps-page-opened.png" width="3823" height="2026"/>
+<figcaption><span class="figure-label">Figure 10</span> Microsoft Edge opened the Microsoft 365 apps page as configured by Intune.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The final validation connected the admin-side policy to a visible endpoint user experience.</div>
+</div>
+<h2>Key Technical Outcomes</h2>
+<p>The completed work covers Intune settings-catalog profile creation, device-group targeting, controlled pilot assignment, manual device sync, deployment validation, Edge policy verification and confirmation of the endpoint user experience.</p>
+<div class="summary">
+<h2>Summary</h2>
+<ul>
+<li>Confirmed CL1 and CL2 were visible as compliant Intune-managed Windows devices.</li>
+<li>Validated <code>GRP_Intune_Windows_Pilot_Devices</code> contained CL2 as the pilot target.</li>
+<li>Created <code>WIN-CFG-01-Endpoint-User-Experience-Standards</code> as a Windows settings catalog profile.</li>
+<li>Configured Microsoft Edge to open <code>https://www.microsoft365.com/apps</code> at startup.</li>
+<li>Assigned the profile to the pilot device group with no filters or exclusions.</li>
+<li>Synced CL2 and confirmed the Intune deployment completed successfully.</li>
+<li>Validated the applied Edge policy and confirmed the Microsoft 365 apps page opened on CL2.</li>
+</ul>
+</div><div class="page-navigation"><a class="btn" href="../18-conditional-access-admin-mfa-baseline/index.html">← Previous Lab</a><a class="btn" href="../index.html">Back to Microsoft Infrastructure</a><a class="btn" href="../20-intune-device-restrictions-baseline/index.html">Next Lab →</a></div>
+</section>
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer>
+</body>
+</html>

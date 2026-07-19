@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Workspace 11 - Devices</title>
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    .navbar nav .nav-disabled { color: #bdbdbd; margin-left: 24px; font-size: 16px; cursor: default; }
+    .content-modern img { max-width: 760px; width: 100%; display: block; margin: 24px auto 8px; border-radius: 8px; border: 1px solid #ddd; background: white; }
+  </style>
+</head>
+<body>
+<header class="navbar">
+  <div class="container">
+    <h1 class="logo"><a href="../../index.html">Kristian Nietzold</a></h1>
+    <nav>
+      <a href="../../index.html">Home</a>
+      <a href="../../microsoft-infrastructure/index.html">Microsoft Infrastructure</a>
+      <a href="../../service-desk/index.html">Service Desk</a>
+      <span class="nav-disabled">Networking</span>
+      <a href="../index.html">Google Workspace</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="hero">
+  <div class="container">
+    <h2>Google Workspace 11: Devices</h2>
+    <p>Basic device management and mobile security controls.</p>
+  </div>
+</section>
+<section class="content-modern">
+  <div class="callout"><strong>Context:</strong> This Google Workspace lab extends the same SaaS administration environment across identity, access, collaboration and security controls.</div>
+  <h1>11 – Devices</h1>
+<h2>Overview</h2>
+<p>Configured Google Workspace device management with a focus on:</p>
+<ul>
+<li><p>Enforcing security policies on mobile devices</p>
+</li>
+<li><p>Controlling access based on compliance requirements</p>
+</li>
+<li><p>Monitoring enrolled devices</p>
+</li>
+<li><p>Validating policy enforcement through real-world testing</p>
+</li>
+</ul>
+<p>The configuration uses <strong>Basic Mobile Device Management</strong>, suitable for small to medium environments while still enforcing essential security controls.</p>
+<hr />
+<h2>Device Management Configuration</h2>
+<p>Mobile device management was configured using Universal Settings.</p>
+<p><img src="screenshots/11-02-mobile-management-basic.png" alt="Mobile management (basic configuration)" width="3129" height="1564"/></p>
+<h3>Configuration</h3>
+<ul>
+<li><p>Management level: <strong>Basic (agentless)</strong></p>
+</li>
+<li><p>Scope: <strong>Organisation-wide (Nietz Ltd)</strong></p>
+</li>
+<li><p>Features enabled:</p>
+</li>
+</ul>
+<p>  - Account wipe capability</p>
+<p>  - Basic password enforcement</p>
+<p>  - Device approval tracking</p>
+<hr />
+<h2>Configuration Applied</h2>
+<p>The configuration was saved and applied across the organisation.</p>
+<p><img src="screenshots/11-03-mobile-management-saved.png" alt="Mobile management (applied settings)" width="3756" height="1719"/></p>
+<h3>Result</h3>
+<ul>
+<li><p>Mobile management is active for all users</p>
+</li>
+<li><p>Devices must comply with security requirements</p>
+</li>
+<li><p>Admin visibility into connected devices is enabled</p>
+</li>
+</ul>
+<hr />
+<h2>Policy Enforcement (2-Step Verification)</h2>
+<p>A sign-in attempt was made from a device that did not meet the organisation’s 2-Step Verification requirements.</p>
+<p><img src="screenshots/11-04-device-blocked-2sv.png" alt="Device blocked due to 2SV policy" width="541" height="1161"/></p>
+<h3>Result</h3>
+<ul>
+<li><p>Access was <strong>blocked automatically</strong></p>
+</li>
+<li><p>User was required to meet 2SV requirements before proceeding</p>
+</li>
+<li><p>Enforces identity-based security policies</p>
+</li>
+</ul>
+<hr />
+<h2>Device Enrolment</h2>
+<p>After meeting the required security controls, the device successfully connected and appeared in the Admin console.</p>
+<p><img src="screenshots/11-05-device-enrolled.png" alt="Device enrolled" width="2511" height="647"/></p>
+<h3>Observations</h3>
+<ul>
+<li><p>Device is linked to the user account</p>
+</li>
+<li><p>Device status: <strong>Approved</strong></p>
+</li>
+<li><p>Ownership: <strong>User-owned (BYOD scenario)</strong></p>
+</li>
+<li><p>Sync activity confirms active usage</p>
+</li>
+</ul>
+<hr />
+<h2>Device Inspection</h2>
+<p>Detailed device information was reviewed within the Admin console.</p>
+<p><img src="screenshots/11-06-device-details.png" alt="Device details" width="2717" height="1257"/></p>
+<h3>Available Information</h3>
+<ul>
+<li><p>Device ID and resource ID</p>
+</li>
+<li><p>Operating system (Android 14)</p>
+</li>
+<li><p>Ownership type (User-owned)</p>
+</li>
+<li><p>First sync and last sync timestamps</p>
+</li>
+<li><p>Management level applied</p>
+</li>
+</ul>
+<h3>Admin Actions Available</h3>
+<ul>
+<li><p>Block device access</p>
+</li>
+<li><p>Wipe account from device</p>
+</li>
+<li><p>Delete device from management</p>
+</li>
+<li><p>View audit information</p>
+</li>
+</ul>
+<hr />
+<h2>Devices Overview</h2>
+<p>The Devices dashboard provides a high-level view of all device categories.</p>
+<p><img src="screenshots/11-01-devices-overview.png" alt="Devices overview" width="2467" height="935"/></p>
+<h3>Insights</h3>
+<ul>
+<li><p>Separation of device types (mobile, endpoints, ChromeOS)</p>
+</li>
+<li><p>Visibility into managed vs unmanaged environments</p>
+</li>
+<li><p>Centralised control for device policies</p>
+</li>
+</ul>
+<hr />
+<h2>Key Security Decisions</h2>
+<ul>
+<li><p>Implemented <strong>Basic Mobile Device Management</strong> for simplicity and coverage</p>
+</li>
+<li><p>Enforced <strong>2-Step Verification integration</strong> for access control</p>
+</li>
+<li><p>Allowed <strong>BYOD (user-owned devices)</strong> with policy enforcement</p>
+</li>
+<li><p>Prioritised <strong>visibility and control without heavy device management overhead</strong></p>
+</li>
+</ul>
+<hr />
+<h2>Validation</h2>
+<p>The following behaviours confirm correct configuration:</p>
+<ul>
+<li><p>Devices are blocked if they do not meet security requirements</p>
+</li>
+<li><p>Devices successfully enrol once compliant</p>
+</li>
+<li><p>Admin console reflects real-time device status and activity</p>
+</li>
+<li><p>Device-level controls (wipe, block, audit) are available</p>
+</li>
+</ul>
+<hr />
+<h2>Real-World Considerations</h2>
+<ul>
+<li><p>Advanced management may be required for corporate-owned devices</p>
+</li>
+<li><p>BYOD environments require strong identity controls (e.g. 2SV)</p>
+</li>
+<li><p>Device lifecycle management should include onboarding and offboarding processes</p>
+</li>
+<li><p>Policies should be reviewed as device usage grows</p>
+</li>
+</ul>
+<hr />
+<h2>Summary</h2>
+<p>Evidence covered:</p>
+<ul>
+<li><p>Practical device management implementation</p>
+</li>
+<li><p>Integration between identity and device security</p>
+</li>
+<li><p>Real-world policy enforcement and validation</p>
+</li>
+<li><p>Administrative control over user devices in Google Workspace</p>
+</li>
+</ul>
+
+  <p>
+    <a href="../index.html" class="btn">&larr; Back to Google Workspace</a>
+  </p>
+</section>
+</main>
+</body>
+</html>

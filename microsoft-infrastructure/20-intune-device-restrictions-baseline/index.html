@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lab 20 - Intune Device Restrictions Baseline | Microsoft Infrastructure</title>
+<link href="../../style.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../index.html">Home</a><a href="../index.html">Microsoft Infrastructure</a><a href="../../service-desk/index.html">Service Desk</a><a href="../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>Lab 20: Intune Device Restrictions Baseline</h2>
+<p>Created a Windows device-restrictions profile, assigned it to a controlled Intune pilot group, synchronised CL2 and confirmed that every configured setting deployed successfully.</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Overview</h2>
+<p>This lab introduced a baseline Windows device restrictions policy for the Intune-managed pilot estate. The configuration focused on low-risk restrictions that reduce consumer-facing experiences and apply basic SmartScreen-related controls without blocking core device functionality.</p>
+<p>The policy was deployed only to a dedicated pilot device group containing CL2. This kept the rollout controlled and provided clear evidence of policy creation, assignment, device sync, deployment status and per-setting success.</p>
+<h2>Objective</h2>
+<p>The objective was to create <code>WIN-CFG-02-Device-Restrictions-Baseline</code>, assign it to <code>GRP_Intune_Windows_Pilot_Devices</code>, and validate successful deployment on the pilot device <code>CL2</code>.</p>
+<h2>Environment</h2>
+<table>
+<tr><th>Component</th><th>Value</th></tr>
+<tr><td>Company</td><td>Nietz Ltd</td></tr>
+<tr><td>Tenant / public domain</td><td><code>nietz.co.uk</code></td></tr>
+<tr><td>Intune profile</td><td><code>WIN-CFG-02-Device-Restrictions-Baseline</code></td></tr>
+<tr><td>Profile type</td><td>Windows 10 and later - Device restrictions</td></tr>
+<tr><td>Target group</td><td><code>GRP_Intune_Windows_Pilot_Devices</code></td></tr>
+<tr><td>Target device</td><td><code>CL2</code></td></tr>
+<tr><td>Primary user</td><td><code>c.bennett@nietz.co.uk</code></td></tr>
+<tr><td>Deployment method</td><td>Device-targeted Intune configuration profile</td></tr>
+<tr><td>Previous lab dependency</td><td>Lab 19: Intune Configuration Profiles</td></tr>
+</table>
+<h2>Configuration</h2>
+<div class="section-block">
+<h3>1. Confirmed the existing Intune configuration profile baseline</h3>
+<p>I confirmed the Windows configuration policies area before creating the new device restrictions profile. The only existing profile at the starting point was the Lab 19 endpoint user experience profile.</p>
+<figure class="lab-figure">
+<img alt="Intune Windows configuration policies list before the device restrictions profile was created" src="screenshots/20-01-intune-configuration-profiles-before-device-restrictions.png" width="3192" height="1018"/>
+<figcaption><span class="figure-label">Figure 1</span>The Windows configuration policy list showed the existing Lab 19 profile before the new device restrictions baseline was added.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Capturing the starting point made the new Lab 20 profile easy to identify after creation.</div>
+</div>
+<div class="section-block">
+<h3>2. Created the device restrictions profile</h3>
+<p>I created a Windows device restrictions profile using a clear naming convention and a description that explained the purpose of the pilot policy.</p>
+<figure class="lab-figure">
+<img alt="Intune device restrictions profile basics showing WIN-CFG-02-Device-Restrictions-Baseline" src="screenshots/20-02-device-restrictions-profile-basics.png" width="1768" height="1693"/>
+<figcaption><span class="figure-label">Figure 2</span>The profile was named <code>WIN-CFG-02-Device-Restrictions-Baseline</code> and created as a Windows 10 and later device restrictions profile.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The naming convention separates the device restrictions baseline from the previous endpoint user experience profile.</div>
+</div>
+<div class="section-block">
+<h3>3. Configured baseline restriction settings</h3>
+<p>I configured a limited set of safe device restriction settings. The profile required SmartScreen for Microsoft Edge Legacy, blocked malicious site access and unverified file downloads, and blocked selected Windows Spotlight and Ink workspace suggestions.</p>
+<figure class="lab-figure">
+<img alt="Configured Microsoft Defender SmartScreen and Windows Spotlight settings in Intune device restrictions" src="screenshots/20-03-device-restrictions-settings-configured.png" width="1729" height="1708"/>
+<figcaption><span class="figure-label">Figure 3</span>The configured settings included SmartScreen-related controls, Windows Spotlight blocking and Ink workspace app suggestion blocking.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Only a small set of non-disruptive settings was configured so later labs can cover Defender Antivirus, firewall, update rings and security baselines separately.</div>
+</div>
+<div class="section-block">
+<h3>4. Assigned the profile to the Windows pilot device group</h3>
+<p>I assigned the profile to <code>GRP_Intune_Windows_Pilot_Devices</code>, which contained one pilot device and no user members.</p>
+<figure class="lab-figure">
+<img alt="Device restrictions profile assigned to GRP_Intune_Windows_Pilot_Devices" src="screenshots/20-04-device-restrictions-assigned-to-pilot-devices.png" width="2543" height="1710"/>
+<figcaption><span class="figure-label">Figure 4</span>The profile was assigned to <code>GRP_Intune_Windows_Pilot_Devices</code> with one device member, no filters and no excluded groups.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Device-group assignment kept the rollout limited to CL2 and avoided applying the baseline across all Windows endpoints.</div>
+</div>
+<div class="section-block">
+<h3>5. Reviewed the final configuration before creation</h3>
+<p>I reviewed the profile summary before creating it. The review page confirmed the profile name, description, configured settings and assignment target.</p>
+<figure class="lab-figure">
+<img alt="Review and create summary for the Intune device restrictions baseline profile" src="screenshots/20-05-device-restrictions-review-and-create.png" width="1671" height="1730"/>
+<figcaption><span class="figure-label">Figure 5</span>The review page confirmed the SmartScreen, Windows Spotlight and pilot group assignment settings before creation.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The review step provides a clear audit point before committing the Intune profile.</div>
+</div>
+<h2>Validation</h2>
+<div class="section-block">
+<h3>6. Confirmed the profile was created in Intune</h3>
+<p>I returned to the Windows configuration policies list and confirmed the new device restrictions profile was visible alongside the existing Lab 19 profile.</p>
+<figure class="lab-figure">
+<img alt="Intune Windows configuration policies list showing the new device restrictions baseline profile" src="screenshots/20-06-device-restrictions-profile-created.png" width="3330" height="1369"/>
+<figcaption><span class="figure-label">Figure 6</span><code>WIN-CFG-02-Device-Restrictions-Baseline</code> appeared in the Intune policy list as a device restrictions profile.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The policy list confirms the profile was created and available for monitoring.</div>
+</div>
+<div class="section-block">
+<h3>7. Synced CL2 with Intune</h3>
+<p>I triggered a manual Intune sync from CL2 using the Windows work or school account management page. The device showed a successful sync with Nietz Ltd management.</p>
+<figure class="lab-figure">
+<img alt="CL2 Windows settings showing Managed by Nietz Ltd and a successful Intune sync" src="screenshots/20-07-cl2-sync-after-device-restrictions-policy.png" width="1233" height="1847"/>
+<figcaption><span class="figure-label">Figure 7</span>CL2 completed a successful sync after the device restrictions policy was created.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Manual sync reduces waiting time during policy validation and confirms the endpoint can check in with Intune.</div>
+</div>
+<div class="section-block">
+<h3>8. Confirmed successful deployment to CL2</h3>
+<p>I checked the device assignment status report and confirmed the profile deployed successfully to CL2 for Chloe Bennett with no errors, conflicts, not-applicable results or in-progress status.</p>
+<figure class="lab-figure">
+<img alt="Intune device restrictions profile deployment status showing CL2 success" src="screenshots/20-08-device-restrictions-deployment-succeeded-cl2.png" width="3241" height="1013"/>
+<figcaption><span class="figure-label">Figure 8</span>The profile deployment report showed CL2 with a check-in status of Success and one succeeded device.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Device assignment status confirms the policy reached the intended pilot endpoint.</div>
+</div>
+<div class="section-block">
+<h3>9. Verified per-setting success on CL2</h3>
+<p>I opened the CL2 profile settings report and confirmed each configured setting reported a succeeded state.</p>
+<figure class="lab-figure">
+<img alt="CL2 profile settings report showing all configured device restriction settings succeeded" src="screenshots/20-09-device-restrictions-per-setting-status-cl2.png" width="2366" height="1086"/>
+<figcaption><span class="figure-label">Figure 9</span>All five configured settings reported <strong>Succeeded</strong> for CL2, with the error code column blank.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Per-setting status provides stronger validation than summary counts because it confirms each individual configuration item applied successfully.</div>
+</div>
+<h2>Key Technical Outcomes</h2>
+<p>This lab demonstrated Intune device restrictions profile creation, controlled device-group assignment, manual endpoint sync, device deployment status validation and per-setting reporting for a pilot Windows endpoint.</p>
+<div class="summary">
+<h2>Summary</h2>
+<ul>
+<li>Confirmed the existing Windows configuration profile baseline before adding a new policy.</li>
+<li>Created <code>WIN-CFG-02-Device-Restrictions-Baseline</code> as a Windows device restrictions profile.</li>
+<li>Configured a small, safe set of SmartScreen, Windows Spotlight and Ink workspace restriction settings.</li>
+<li>Assigned the profile to <code>GRP_Intune_Windows_Pilot_Devices</code>.</li>
+<li>Synced CL2 with Intune after policy creation.</li>
+<li>Confirmed the policy deployed successfully to CL2.</li>
+<li>Verified all configured settings reported succeeded status for CL2.</li>
+</ul>
+</div><div class="page-navigation"><a class="btn" href="../19-intune-configuration-profiles/index.html">← Previous Lab</a><a class="btn" href="../index.html">Back to Microsoft Infrastructure</a><a class="btn" href="../21-intune-app-deployment/index.html">Next Lab →</a></div>
+</section>
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer>
+</body>
+</html>

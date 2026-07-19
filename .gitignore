@@ -1,0 +1,6 @@
+# Local archive and transfer files are not part of the published website.
+*.zip
+
+# Incomplete Microsoft labs: keep locally until reviewed for publication.
+/microsoft-infrastructure/32-defender-antivirus-policy/
+/microsoft-infrastructure/50-purview-compliance-manager-and-compliance-score/

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lab 10 - SharePoint and OneDrive File Collaboration</title>
+<link href="../../style.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../index.html">Home</a><a href="../index.html">Microsoft Infrastructure</a><a href="../../service-desk/index.html">Service Desk</a><a href="../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>Lab 10: SharePoint and OneDrive File Collaboration</h2>
+<p>Validated Microsoft 365 file collaboration by reviewing the SharePoint storage behind Teams, tightening site sharing, creating a standalone HR SharePoint site and testing OneDrive sharing between standard users.</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Overview</h2>
+<p>In this lab, I extended the Microsoft 365 collaboration work from Lab 09 into SharePoint and OneDrive. Lab 09 proved Teams channels, posts and Teams file access. This lab focused on the file-storage layer behind that collaboration and separated team-owned SharePoint storage from user-owned OneDrive storage.</p>
+<p>The build used two SharePoint patterns: a Teams-connected SharePoint site for the IT Helpdesk Team, and a separate HR Documents SharePoint site created directly for department documentation. I then validated OneDrive file creation and sharing from a standard user account.</p>
+<h2>Objective</h2>
+<p>The objective was to confirm that Teams files were stored in SharePoint, review SharePoint site settings from an administrative perspective, apply a more restrictive sharing model for a private helpdesk workspace, and validate OneDrive sharing between normal licensed users.</p>
+<h2>Environment</h2>
+<table>
+<tr><th>Component</th><th>Value</th></tr>
+<tr><td>Company</td><td>Nietz Ltd</td></tr>
+<tr><td>On-premises AD domain</td><td>corp.nietz.co.uk</td></tr>
+<tr><td>Microsoft 365 domain</td><td>nietz.co.uk</td></tr>
+<tr><td>Daily administrator</td><td>k.nietzold@nietz.co.uk</td></tr>
+<tr><td>Teams-connected SharePoint site</td><td>IT Helpdesk</td></tr>
+<tr><td>Standalone SharePoint site</td><td>HR Documents</td></tr>
+<tr><td>OneDrive source user</td><td>c.bennett@nietz.co.uk</td></tr>
+<tr><td>OneDrive recipient user</td><td>e.wilson@nietz.co.uk</td></tr>
+<tr><td>Previous lab dependency</td><td>Lab 09: Microsoft Teams Collaboration</td></tr>
+<tr><td>Next lab dependency</td><td>Lab 11: Entra ID Users, Groups and Roles</td></tr>
+</table>
+<h2>Configuration and Evidence</h2>
+<div class="section-block">
+<h3>1. Teams-Backed SharePoint Library Validated</h3>
+<p>I opened the SharePoint site behind the IT Helpdesk Team and confirmed that the Teams channel file was stored in the connected SharePoint document library.</p>
+<figure class="lab-figure">
+<img alt="IT Helpdesk SharePoint site showing the Tickets document library and Lab09 Teams test file" src="screenshots/10-01-it-helpdesk-sharepoint-site-opened.png" width="3679" height="1168"/>
+<figcaption><span class="figure-label">Figure 1</span>IT Helpdesk SharePoint site showing the Teams-backed Tickets document library and the Lab09 test file.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Teams channel files are stored in SharePoint. This evidence links the Teams user experience from Lab 09 to the underlying SharePoint document library.</div>
+</div>
+<div class="section-block">
+<h3>2. SharePoint-Connected Site Details Reviewed</h3>
+<p>I reviewed the IT Helpdesk Microsoft 365 group and connected site details, confirming the private team configuration and the corrected primary email address.</p>
+<figure class="lab-figure">
+<img alt="IT Helpdesk site and group details showing private team and primary email address" src="screenshots/10-02-sharepoint-admin-site-details.png" width="2286" height="1668"/>
+<figcaption><span class="figure-label">Figure 2</span>IT Helpdesk details reviewed with the site connected to a private Microsoft 365 Team.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The site details view confirms that the SharePoint site is connected to the IT Helpdesk Team and can be reviewed from an administrative perspective.</div>
+</div>
+<div class="section-block">
+<h3>3. External Sharing Restricted</h3>
+<p>I reviewed the IT Helpdesk site settings and restricted external file sharing so the private support workspace was limited to internal users.</p>
+<figure class="lab-figure">
+<img alt="IT Helpdesk settings showing private team and external file sharing restricted to people in the organisation" src="screenshots/10-03-sharepoint-site-sharing-settings.png" width="2280" height="1534"/>
+<figcaption><span class="figure-label">Figure 3</span>IT Helpdesk sharing settings saved with external file sharing restricted to people in the organisation.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> A private helpdesk workspace can contain ticket notes and support documentation, so validating the external sharing boundary is an important administration check.</div>
+</div>
+<div class="section-block">
+<h3>4. Member Access to SharePoint-Backed File Confirmed</h3>
+<p>I signed in as Chloe Bennett and confirmed that a standard Team member could open the SharePoint-backed Teams file from the IT Helpdesk Tickets location.</p>
+<figure class="lab-figure">
+<img alt="Chloe Bennett opening the Lab09 Teams test file with file properties showing IT Helpdesk Tickets location" src="screenshots/10-04-member-sharepoint-file-access.png" width="3785" height="1866"/>
+<figcaption><span class="figure-label">Figure 4</span>Standard user access confirmed for the IT Helpdesk file stored in the SharePoint-backed Tickets location.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This validates the user-side result of the Teams and SharePoint permission model rather than only showing the administrator view.</div>
+</div>
+<div class="section-block">
+<h3>5. Standalone HR SharePoint Site Created</h3>
+<p>I created a separate HR Documents SharePoint site using an employee onboarding template and validated the HR document library with an onboarding checklist workbook.</p>
+<figure class="lab-figure">
+<img alt="HR Documents SharePoint site showing onboarding navigation and HR onboarding checklist workbook" src="screenshots/10-05-standalone-sharepoint-site-library-created.png" width="3698" height="1192"/>
+<figcaption><span class="figure-label">Figure 5</span>Standalone HR Documents SharePoint site showing the onboarding document library and HR onboarding checklist.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This shows that SharePoint can be used directly for department document sites, not only as the storage layer behind Teams.</div>
+</div>
+<div class="section-block">
+<h3>6. OneDrive Test Workbook Created</h3>
+<p>I created an Excel asset tracker in Chloe Bennett's OneDrive to validate user-owned cloud storage separately from SharePoint team storage.</p>
+<figure class="lab-figure">
+<img alt="Chloe Bennett OneDrive showing Lab10 OneDrive Asset Tracker workbook in My Files" src="screenshots/10-06-onedrive-test-file-created.png" width="3789" height="1366"/>
+<figcaption><span class="figure-label">Figure 6</span>OneDrive asset tracker workbook created in Chloe Bennett's personal OneDrive.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> OneDrive is user-owned storage. The evidence also shows the difference between Chloe's personal OneDrive file and the IT Helpdesk SharePoint-backed file surfaced in OneDrive.</div>
+</div>
+<div class="section-block">
+<h3>7. OneDrive File Shared to Recipient</h3>
+<p>I shared Chloe Bennett's OneDrive asset tracker with Emily Wilson using view access.</p>
+<figure class="lab-figure">
+<img alt="OneDrive confirmation showing Emily Wilson invited to view the asset tracker workbook" src="screenshots/10-07-onedrive-file-shared-to-user.png" width="1183" height="689"/>
+<figcaption><span class="figure-label">Figure 7</span>OneDrive sharing confirmation showing Emily Wilson invited to view the asset tracker workbook.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> OneDrive sharing is a common support scenario involving links, permissions, recipient access and user-owned files.</div>
+</div>
+<div class="section-block">
+<h3>8. Recipient Sees Shared OneDrive File</h3>
+<p>I signed in as Emily Wilson and confirmed that the OneDrive file shared by Chloe appeared in the recipient's Microsoft 365 file experience.</p>
+<figure class="lab-figure">
+<img alt="Emily Wilson OneDrive showing Lab10 OneDrive Asset Tracker shared by Chloe Bennett" src="screenshots/10-08-recipient-onedrive-share-visible.png" width="3774" height="1266"/>
+<figcaption><span class="figure-label">Figure 8</span>Emily Wilson's OneDrive view showing the asset tracker shared by Chloe Bennett.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Recipient-side visibility confirms the sharing outcome from the user's perspective.</div>
+</div>
+<div class="section-block">
+<h3>9. HR SharePoint Workbook Opened by Member</h3>
+<p>I also validated that Emily Wilson could open the HR onboarding workbook from the standalone HR Documents SharePoint site.</p>
+<figure class="lab-figure">
+<img alt="Emily Wilson opening the HR onboarding checklist workbook in Excel for the web" src="screenshots/10-09-recipient-onedrive-file-opened.png" width="3792" height="964"/>
+<figcaption><span class="figure-label">Figure 9</span>Emily Wilson opened the HR onboarding checklist workbook from the HR Documents SharePoint site.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This reinforces that the HR Documents site works as a separate SharePoint collaboration area for department files.</div>
+</div>
+<h2>Validation</h2>
+<p>The lab was validated when the IT Helpdesk Teams file was visible in SharePoint, the connected site details were reviewed, external sharing was restricted for the private helpdesk workspace, a standard member could open the SharePoint-backed file, a standalone HR SharePoint site was created, and a OneDrive file was shared from Chloe Bennett to Emily Wilson.</p>
+<h2>Key Technical Outcomes</h2>
+<p>This lab demonstrated the practical difference between Teams-backed SharePoint storage, standalone SharePoint department sites and OneDrive personal storage.</p>
+<p>It also showed how Microsoft 365 collaboration depends on site membership, document libraries, sharing settings and recipient-side validation.</p>
+<div class="summary">
+<h2>Summary</h2>
+<ul>
+<li>I confirmed that the IT Helpdesk Teams file was stored in a SharePoint-backed document library.</li>
+<li>I reviewed the connected IT Helpdesk site and Microsoft 365 group details.</li>
+<li>I restricted external file sharing for the private helpdesk workspace.</li>
+<li>I validated member access to the SharePoint-backed Teams file.</li>
+<li>I created a standalone HR Documents SharePoint site for onboarding files.</li>
+<li>I created a OneDrive asset tracker as a standard user and shared it with another user.</li>
+<li>I validated recipient-side visibility for the shared OneDrive file.</li>
+</ul>
+</div><div class="page-navigation"><a class="btn" href="../09-teams-collaboration/index.html">← Previous Lab</a><a class="btn" href="../index.html">Back to Microsoft Infrastructure</a><a class="btn" href="../11-entra-id-users-groups-roles/index.html">Next Lab →</a></div>
+</section>
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer>
+</body>
+</html>

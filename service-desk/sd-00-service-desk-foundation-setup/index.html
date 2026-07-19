@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SD-00 - Service Desk Foundation Setup</title>
+<link href="../../style.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../index.html">Home</a><a href="../../microsoft-infrastructure/index.html">Microsoft Infrastructure</a><a href="../index.html">Service Desk</a><a href="../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>SD-00: Service Desk Foundation Setup</h2>
+<p>I prepared the ServiceNow and Active Directory support foundation for my troubleshooting ticket labs, including a Service Desk dashboard, realistic users, resolver accounts, resolver groups, delegated first-line account support permissions, and clear incident categories and subcategories for future tickets.</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Overview</h2>
+<p>In this setup lab, I created the operational layer needed for a realistic first-line Service Desk workflow. The aim was to keep infrastructure build evidence separate from support evidence, so the later TS ticket labs can focus on triage, investigation, escalation, validation and resolution.</p>
+<p>This lab prepares the environment for ServiceNow-based troubleshooting tickets covering Active Directory, Windows, Microsoft 365, Outlook, Teams, OneDrive, VPN, printer, file access, security, request/admin and escalation scenarios.</p>
+<h2>Objective</h2>
+<p>The objective was to create a safe support model where Service Desk analysts can work normal user-account incidents without using Domain Admin privileges. The model delegates routine first-line actions to a dedicated group while keeping IT/admin accounts, service accounts, groups and infrastructure objects outside the delegated scope. I also cleaned up the ServiceNow incident categories and subcategories, then added resolver groups so future tickets can show realistic first-line ownership, escalation and specialist routing.</p>
+<h2>Environment</h2>
+<table>
+<tr><th>Component</th><th>Value</th></tr>
+<tr><td>Company</td><td>Nietz Ltd</td></tr>
+<tr><td>AD Domain</td><td>corp.nietz.co.uk</td></tr>
+<tr><td>NetBIOS Name</td><td>CORP</td></tr>
+<tr><td>Domain Controller</td><td>DC1</td></tr>
+<tr><td>Domain Client</td><td>CL1</td></tr>
+<tr><td>ServiceNow Instance</td><td>dev397794.service-now.com</td></tr>
+<tr><td>ServiceNow Dashboard</td><td>Nietz Ltd Service Desk Dashboard</td></tr>
+<tr><td>ServiceNow Resolver Groups</td><td>Service Desk, Second Line Support, Infrastructure Support, Network Support, Security Support</td></tr>
+<tr><td>AD Delegation Group</td><td>GG_ServiceDesk_L1</td></tr>
+</table>
+<h2>Configuration</h2>
+<div class="section-block">
+<h3>1. ServiceNow Dashboard</h3>
+<p>I created a dedicated ServiceNow dashboard for the troubleshooting ticket series. The dashboard provides a single workspace for first-line support queues, open incidents, unassigned incidents, high-priority work and recently resolved tickets.</p>
+<figure class="lab-figure">
+<img alt="Nietz Ltd Service Desk Dashboard in ServiceNow showing first-line incident queues" src="screenshots/SD-00-01-servicenow-dashboard.png" width="3799" height="1790"/>
+<figcaption><span class="figure-label">Figure 1</span>Nietz Ltd Service Desk Dashboard prepared for ServiceNow-based troubleshooting labs.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> A dedicated dashboard gives the Service Desk analyst a clean place to create, triage and manage the TS ticket queue without relying on default ServiceNow demo data.</div>
+</div>
+<div class="section-block">
+<h3>2. ServiceNow Users</h3>
+<p>I created the ServiceNow users needed for the support workflow, including first-line analysts, an escalation/admin resolver, and business callers from HR, Finance, Sales and Management.</p>
+<figure class="lab-figure">
+<img alt="Filtered ServiceNow user list showing Nietz Ltd users with departments and active status" src="screenshots/SD-00-02-servicenow-users.png" width="3823" height="973"/>
+<figcaption><span class="figure-label">Figure 2</span>Filtered ServiceNow user list showing active Nietz Ltd resolver and caller accounts.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The ticket labs need realistic callers and resolvers so incident history can show who raised the ticket, who worked it, and when escalation was required.</div>
+</div>
+<div class="section-block">
+<h3>3. Active Directory Service Desk Group</h3>
+<p>I created a dedicated Active Directory security group called <code>GG_ServiceDesk_L1</code> for delegated first-line support permissions. Chloe Bennett and Daniel Smith were added as the Service Desk analysts.</p>
+<figure class="lab-figure">
+<img alt="Active Directory group GG_ServiceDesk_L1 showing Chloe Bennett and Daniel Smith as members" src="screenshots/SD-00-03-ad-servicedesk-group-members.png" width="957" height="1130"/>
+<figcaption><span class="figure-label">Figure 3</span>Service Desk delegation group with Chloe Bennett and Daniel Smith as members.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> I used a separate delegation group instead of a general IT resource group. This keeps file/share access separate from account-administration rights and supports least-privilege administration.</div>
+</div>
+<div class="section-block">
+<h3>4. Password Reset Delegation</h3>
+<p>I delegated password reset, forced password change at next logon, and read-only user information permissions to <code>GG_ServiceDesk_L1</code> for normal business-user OUs.</p>
+<figure class="lab-figure">
+<img alt="Delegation of Control Wizard showing password reset and read user information permissions for GG_ServiceDesk_L1" src="screenshots/SD-00-04-ad-delegation-password-reset.png" width="1225" height="946"/>
+<figcaption><span class="figure-label">Figure 4</span>Password reset, force-password-change and read-user-information permissions delegated to the Service Desk group.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> These rights allow first-line analysts to handle common password reset tickets without requiring Domain Admin access.</div>
+</div>
+<div class="section-block">
+<h3>5. Account Unlock Delegation</h3>
+<p>I also delegated account unlock capability by granting the Service Desk group permission to read and write the <code>lockoutTime</code> attribute on user objects in the normal business-user OUs.</p>
+<figure class="lab-figure">
+<img alt="Delegation of Control Wizard showing read lockoutTime and write lockoutTime permissions for GG_ServiceDesk_L1" src="screenshots/SD-00-05-ad-delegation-unlock-rights.png" width="1205" height="946"/>
+<figcaption><span class="figure-label">Figure 5</span>Account unlock rights delegated by allowing the Service Desk group to read and write the <code>lockoutTime</code> attribute.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Unlocking an account is not just the same as resetting a password. Clearing a lockout requires permission to modify the lockout state, so this delegation supports realistic L1 account lockout handling.</div>
+</div>
+<div class="section-block">
+<h3>6. Incident Categories</h3>
+<p>I updated the ServiceNow incident category choices to better match a realistic Microsoft-focused Service Desk queue. The active categories now cover Microsoft 365, account/access, operating system, hardware, network, printing, application, security, request/admin and inquiry/help scenarios.</p>
+<figure class="lab-figure">
+<img alt="ServiceNow Choice List filtered to incident category records showing active Service Desk categories" src="screenshots/SD-00-06-choice-list-incident-categories.png" width="3808" height="1496"/>
+<figcaption><span class="figure-label">Figure 6</span>ServiceNow Choice List showing the configured Incident categories, with old duplicate/default categories made inactive.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The default lab categories were too limited for realistic troubleshooting evidence. Cleaning up the category list allows future tickets to be logged consistently and makes triage, reporting and escalation decisions easier to follow.</div>
+</div>
+<div class="section-block">
+<h3>7. Microsoft 365 Subcategories</h3>
+<p>I configured Microsoft 365 subcategories for the most common cloud productivity support areas: Exchange Online, Outlook, Teams, SharePoint, OneDrive, Licensing, MFA, Entra ID and Microsoft Office Apps.</p>
+<figure class="lab-figure">
+<img alt="ServiceNow Choice List filtered to Microsoft 365 incident subcategories" src="screenshots/SD-00-07-choice-list-microsoft-365-subcategories.png" width="3804" height="1114"/>
+<figcaption><span class="figure-label">Figure 7</span>Microsoft 365 incident subcategories configured in the ServiceNow Choice List.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This prevents Microsoft 365 issues being forced into vague categories such as Software or Email. Future tickets such as SharePoint access, licensing, MFA, Outlook and mailbox issues can now be classified more accurately.</div>
+</div>
+<div class="section-block">
+<h3>8. Cloud / Azure Subcategories</h3>
+<p>I added Cloud / Azure subcategories for common junior-support and escalation scenarios, including virtual machines, storage, networking, identity/RBAC, cost/subscription, backup/recovery and monitoring.</p>
+<figure class="lab-figure">
+<img alt="ServiceNow Choice List filtered to Cloud Azure incident subcategories" src="screenshots/SD-00-08-choice-list-cloud-azure-subcategories.png" width="3793" height="975"/>
+<figcaption><span class="figure-label">Figure 8</span>Cloud / Azure incident subcategories configured for Azure-related support and escalation tickets.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Azure tickets often need a different path from normal Microsoft 365 app support. These subcategories allow Azure VM, networking, identity/RBAC, subscription and monitoring issues to be classified cleanly.</div>
+</div>
+<div class="section-block">
+<h3>9. Resolver Groups and Escalation Model</h3>
+<p>I created dedicated ServiceNow resolver groups so tickets can show realistic routing when first-line support reaches a permissions boundary or needs specialist investigation.</p>
+<figure class="lab-figure">
+<img alt="ServiceNow Groups list filtered to Service Desk and support resolver groups" src="screenshots/SD-00-09-servicenow-support-groups.png" width="3790" height="788"/>
+<figcaption><span class="figure-label">Figure 9</span>ServiceNow resolver groups created for first-line ownership and escalation routing.</figcaption>
+</figure>
+<figure class="lab-figure">
+<img alt="ServiceNow Group Members table showing Service Desk and support group memberships" src="screenshots/SD-00-10-servicenow-support-group-memberships.png" width="2540" height="726"/>
+<figcaption><span class="figure-label">Figure 10</span>ServiceNow group membership table showing first-line analysts and the senior lab escalation resolver.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Chloe Bennett and Daniel Smith represent first-line Service Desk analysts. Kristian Nietzold is used as the senior lab resolver/admin account for escalated fixes that require higher permissions or specialist investigation.</div>
+</div>
+<h2>Populated ServiceNow Queue</h2>
+<p>
+  After the Service Desk foundation was configured, the incident queue was
+  populated with realistic Microsoft support scenarios. This validates the
+  caller, resolver, priority, assignment and ticket-state model used across
+  the Service Desk portfolio.
+</p>
+<figure class="lab-figure">
+<img alt="Nietz Ltd ServiceNow incident queue populated with fictional support tickets" src="../screenshots/TS-INDEX-01-service-desk-ticket-queue.png" width="3780" height="1678"/>
+<figcaption>
+<span class="figure-label">Queue validation</span>
+    Populated ServiceNow incident queue showing realistic callers, priorities,
+    assignment flow and ticket states. All company and user records shown are
+    fictional lab data.
+  </figcaption>
+</figure>
+<h2>Complete Incident Classification Reference</h2>
+<p>The main screenshot shows the active Incident categories that were configured. I captured separate Microsoft 365 and Cloud / Azure subcategory screenshots because these areas are important for the troubleshooting ticket series. The remaining subcategories are documented below so the page still explains the full setup without needing a screenshot for every category.</p>
+<table>
+<tr><th>Category</th><th>Subcategories configured</th><th>Typical use</th></tr>
+<tr><td>Microsoft 365</td><td>Exchange Online, Outlook, Teams, SharePoint, OneDrive, Licensing, MFA, Entra ID, Microsoft Office Apps</td><td>Microsoft cloud productivity, mailbox, collaboration, identity and licensing issues.</td></tr>
+<tr><td>Cloud / Azure</td><td>Virtual Machines, Storage, Networking, Identity / RBAC, Cost / Subscription, Backup / Recovery, Monitoring</td><td>Azure resource, access, subscription, monitoring and cloud escalation scenarios.</td></tr>
+<tr><td>Account / Access</td><td>Password Reset, Account Locked, Active Directory, Group Membership, File Share Access, User Permissions, New Starter, Leaver, Account Disabled</td><td>AD account support, access troubleshooting, group membership and user lifecycle tasks.</td></tr>
+<tr><td>Operating System</td><td>Windows Login, Windows Profile, Windows Update, BitLocker, Performance, Blue Screen / Crash, Software Installation, Local Settings</td><td>Windows endpoint, sign-in, profile, update, encryption and local device issues.</td></tr>
+<tr><td>Hardware</td><td>Laptop, Desktop, Monitor, Docking Station, Keyboard / Mouse, Peripheral, Device Fault, Build / Replacement</td><td>Physical device faults, user equipment problems and device replacement/build requests.</td></tr>
+<tr><td>Network</td><td>DHCP, DNS, IP Address, VPN, Wireless, Internet Access, Network Drive, Connectivity, Remote Access</td><td>Connectivity, VPN, DNS/DHCP, mapped drive and remote access issues.</td></tr>
+<tr><td>Printing</td><td>Printer Access, Printer Mapping, Print Queue, Printer Driver, Default Printer, MFD / Scanner</td><td>Printer access, printer setup, stuck print jobs, drivers, default printer and scanner issues.</td></tr>
+<tr><td>Application</td><td>Business Application, Browser, PDF Reader, Finance Application, CRM, Line-of-Business App, Install / Update</td><td>Non-Microsoft-365 application faults, installs, updates and business app access issues.</td></tr>
+<tr><td>Security</td><td>Phishing, Malware, Suspicious Login, Compromised Account, Security Alert, MFA Risk, Data Loss</td><td>Security incidents, suspicious sign-ins, compromised accounts and user-reported risks.</td></tr>
+<tr><td>Request / Admin</td><td>Access Request, Software Request, Hardware Request, Change Request, Information Request, Procurement, General Admin</td><td>Requests where nothing is broken, such as access, software, hardware or information requests.</td></tr>
+<tr><td>Inquiry / Help</td><td>How To, General Question, Status Update, Known Issue, User Guidance, Other</td><td>General guidance, how-to support, known issue checks and ticket status queries.</td></tr>
+</table>
+<h2>Service Desk Role Model</h2>
+<p>This table defines who is used in the ticket labs and what each account represents. The aim is to make later incidents easier to follow by separating callers, first-line resolvers and the senior lab escalation resolver. The role model distinguishes responsibilities within the simulated environment.</p>
+<table>
+<tr><th>User</th><th>Role</th><th>Purpose</th></tr>
+<tr><td>Chloe Bennett</td><td>Service Desk Analyst</td><td>Main first-line analyst for ticket handling and user support.</td></tr>
+<tr><td>Daniel Smith</td><td>IT Support Technician</td><td>Secondary first-line resolver for support tickets.</td></tr>
+<tr><td>Kristian Nietzold</td><td>Escalation Resolver / Lab Administrator</td><td>Senior lab resolver used for actions outside first-line permissions and for specialist escalation groups.</td></tr>
+<tr><td>Emily Wilson</td><td>HR Assistant</td><td>Business caller for HR/account support scenarios.</td></tr>
+<tr><td>Lee Johnson</td><td>Finance Assistant</td><td>Business caller for Finance access and VPN scenarios.</td></tr>
+<tr><td>Kate Jones and Sam Jackson</td><td>Sales users</td><td>Business callers for sales, Outlook, Teams and shared mailbox scenarios.</td></tr>
+<tr><td>James Brown and Mia Taylor</td><td>Management users</td><td>Business callers for management, onboarding, device and escalation scenarios.</td></tr>
+</table>
+<h2>Resolver Group Routing</h2>
+<p>The ServiceNow resolver groups define where a ticket should be routed after first-line triage. This gives the ticket labs a simple but realistic escalation model without creating too many specialist teams too early.</p>
+<table>
+<tr><th>Assignment group</th><th>Members used in lab</th><th>Typical use</th></tr>
+<tr><td>Service Desk</td><td>Chloe Bennett, Daniel Smith</td><td>First-line ownership, triage, routine fixes, user updates and standard ticket resolution.</td></tr>
+<tr><td>Second Line Support</td><td>Kristian Nietzold</td><td>General escalation where first-line lacks permissions or deeper troubleshooting is required.</td></tr>
+<tr><td>Infrastructure Support</td><td>Kristian Nietzold</td><td>Active Directory, Group Policy, file shares, print services, Windows Server and core infrastructure issues.</td></tr>
+<tr><td>Network Support</td><td>Kristian Nietzold</td><td>Switching, routing, VLANs, wireless, VPN, firewall and site connectivity issues.</td></tr>
+<tr><td>Security Support</td><td>Kristian Nietzold</td><td>Phishing, suspicious sign-ins, compromised accounts, malware alerts and security-risk incidents.</td></tr>
+</table>
+<h2>Delegated Scope</h2>
+<p>The Service Desk delegation was applied only to normal business-user areas. Privileged areas such as IT/admin accounts, service accounts, groups and domain infrastructure were deliberately kept out of scope so first-line analysts can handle routine account issues without receiving unnecessary administrative access.</p>
+<table>
+<tr><th>Area</th><th>Delegated to Service Desk?</th><th>Reason</th></tr>
+<tr><td>HR OU</td><td>Yes</td><td>Normal business-user accounts.</td></tr>
+<tr><td>Finance OU</td><td>Yes</td><td>Normal business-user accounts.</td></tr>
+<tr><td>Sales OU</td><td>Yes</td><td>Normal business-user accounts.</td></tr>
+<tr><td>Management OU</td><td>Yes</td><td>Normal business-user accounts.</td></tr>
+<tr><td>IT / Helpdesk accounts</td><td>No / restricted</td><td>Contains support and admin-style accounts.</td></tr>
+<tr><td>Groups OU</td><td>No</td><td>Group membership changes require approval or escalation.</td></tr>
+<tr><td>Service accounts</td><td>No</td><td>Privileged or non-user accounts.</td></tr>
+<tr><td>Domain Controllers / infrastructure</td><td>No</td><td>Infrastructure-sensitive objects remain admin-only.</td></tr>
+</table>
+<h2>Validation</h2>
+<p>The setup was validated by confirming that the ServiceNow dashboard was available, the Nietz Ltd users were present and active, the Active Directory Service Desk delegation group contained the correct first-line analysts, the Delegation of Control Wizard applied the required password reset, read-user-information and account unlock permissions, the ServiceNow Choice List contained the updated incident categories and Microsoft 365 / Cloud Azure subcategories, and the ServiceNow resolver groups had the expected memberships.</p>
+<h2>Key Technical Outcomes</h2>
+<p>This lab demonstrated how to prepare a realistic support operating layer on top of a Microsoft lab environment. It showed the difference between resource-access groups and delegated administration groups, created a safer model where first-line analysts can support normal users without broad domain administrator permissions, and configured ServiceNow so incidents can be categorised consistently across Microsoft 365, access, Windows, network, printing, application, security and request workflows.</p>
+<p>The setup also creates a clear escalation boundary: Chloe and Daniel can handle routine first-line account support, while higher-risk or higher-permission actions can be escalated to Kristian as the senior lab resolver through Second Line, Infrastructure, Network or Security Support queues.</p>
+<div class="summary">
+<h2>Summary</h2>
+<ul>
+<li>I created a clean ServiceNow dashboard for the troubleshooting ticket series.</li>
+<li>I created ServiceNow caller and resolver users for realistic ticket workflows.</li>
+<li>I configured realistic Incident categories and Microsoft 365 / Cloud Azure subcategories in the ServiceNow Choice List.</li>
+<li>I created ServiceNow resolver groups for Service Desk, Second Line, Infrastructure, Network and Security escalation paths.</li>
+<li>I mapped Chloe and Daniel to Service Desk and Kristian to the specialist escalation groups.</li>
+<li>I made old duplicate/default categories inactive where they no longer fit the Service Desk model.</li>
+<li>I created <code>GG_ServiceDesk_L1</code> as a dedicated AD Service Desk delegation group.</li>
+<li>I added Chloe Bennett and Daniel Smith as first-line Service Desk members.</li>
+<li>I delegated password reset, force password change, read user information and account unlock rights to normal business-user OUs.</li>
+<li>I deliberately excluded privileged areas such as IT/admin accounts, service accounts, groups and domain controller objects.</li>
+</ul>
+</div><div class="page-navigation"><a class="btn" href="../index.html">Back to Service Desk</a><a class="btn" href="../tickets/TS-001-forgotten-password-and-locked-account/index.html">Next Ticket →</a></div>
+</section>
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer></body>
+</html>

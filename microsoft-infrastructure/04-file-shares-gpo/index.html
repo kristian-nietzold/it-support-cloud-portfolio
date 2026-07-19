@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lab 04 - File Shares and GPO</title>
+<link href="../../style.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../index.html">Home</a><a href="../index.html">Microsoft Infrastructure</a><a href="../../service-desk/index.html">Service Desk</a><a href="../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>Lab 04: File Shares and GPO</h2>
+<p>Introduced FS1 as the dedicated file and print server for Nietz Ltd, configured department shares with group-based permissions, delivered mapped drives through Group Policy and validated access from CL1.</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Overview</h2>
+<p>In this lab, I extended the existing <code>corp.nietz.co.uk</code> environment by adding FS1 as a dedicated file and print server, creating department share folders, assigning permissions to the Active Directory groups prepared in Lab 03, and using Group Policy to deliver mapped drives to users.</p>
+<p>This builds directly on the earlier domain controller, domain join, and Active Directory user/group administration labs.</p>
+<h2>Objective</h2>
+<p>The objective was to create a realistic file share and Group Policy baseline for Nietz Ltd, using department security groups to control access and validating the final user experience from a domain-joined workstation.</p>
+<h2>Environment</h2>
+<table>
+<tr><th>Component</th><th>Value</th></tr>
+<tr><td>Company</td><td>Nietz Ltd</td></tr>
+<tr><td>Domain Controller</td><td>DC1 - 192.168.10.10/24</td></tr>
+<tr><td>File Server</td><td>FS1 - 192.168.10.20/24</td></tr>
+<tr><td>Client</td><td>CL1 - 192.168.10.100/24</td></tr>
+<tr><td>AD Domain</td><td>corp.nietz.co.uk</td></tr>
+<tr><td>NetBIOS Name</td><td>CORP</td></tr>
+<tr><td>Public / Tenant Domain</td><td>nietz.co.uk</td></tr>
+<tr><td>Primary Groups Used</td><td>GG_IT_RW, GG_HR_RW, GG_FIN_RW, GG_SALES_RW, GG_MGMT_RW, GG_PRN_HQ</td></tr>
+</table>
+<h2>Configuration</h2>
+<div class="section-block">
+<h3>1. Prepare FS1 for File Services</h3>
+<p>I prepared FS1 as a separate domain member server so file and print services were not hosted on the domain controller.</p>
+<figure class="lab-figure">
+<img alt="FS1 network and domain validation showing hostname, domain context, IP configuration and DNS resolution" src="screenshots/04-01-fs1-network-domain.png" width="1587" height="1501"/>
+<figcaption><span class="figure-label">Figure 1</span>FS1 validated as a domain member server with internal network and DNS configuration.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Keeping file and print services on a member server creates a more realistic support environment than hosting every service directly on the domain controller.</div>
+</div>
+<div class="section-block">
+<h3>2. Department Folder Structure</h3>
+<p>I created the department folder structure on FS1 for IT, HR, Finance, Sales, and Management.</p>
+<figure class="lab-figure">
+<img alt="PowerShell output showing the department folders created under D:\Shares\Departments" src="screenshots/04-02-share-folders-created.png" width="2033" height="829"/>
+<figcaption><span class="figure-label">Figure 2</span>Department folders created under the shared storage path on FS1.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> A clear folder layout makes access control, mapped drives, and support troubleshooting easier to document and validate.</div>
+</div>
+<div class="section-block">
+<h3>3. NTFS Permissions</h3>
+<p>I assigned NTFS permissions using the department security groups created in Lab 03.</p>
+<figure class="lab-figure">
+<img alt="Advanced Security Settings for the HR folder showing GG_HR_RW with Modify permissions" src="screenshots/04-03-ntfs-permissions-configured.png" width="2018" height="1225"/>
+<figcaption><span class="figure-label">Figure 3</span>HR folder permissions assigned to the GG_HR_RW security group.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> NTFS permissions provide the real access control. Share permissions expose the folder over the network, but NTFS permissions determine what users can actually access.</div>
+</div>
+<div class="section-block">
+<h3>4. SMB Shares</h3>
+<p>I created hidden SMB shares for the department folders so users could access resources through FS1.</p>
+<figure class="lab-figure">
+<img alt="Computer Management showing hidden SMB shares for the department folders on FS1" src="screenshots/04-04-smb-shares-created.png" width="2884" height="890"/>
+<figcaption><span class="figure-label">Figure 4</span>Hidden department SMB shares created on FS1.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> SMB shares expose department folders to clients, while NTFS permissions enforce the access model through Active Directory security groups.</div>
+</div>
+<div class="section-block">
+<h3>5. Drive Mapping GPO</h3>
+<p>I created a Group Policy object to map department drives based on Active Directory group membership.</p>
+<figure class="lab-figure">
+<img alt="Group Policy Management Editor showing mapped drives for the department shares" src="screenshots/04-05-drive-map-gpo-created.png" width="2246" height="1401"/>
+<figcaption><span class="figure-label">Figure 5</span>Department drive mappings configured in Group Policy Preferences.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Mapped drives are a common helpdesk and MSP support area because users often report missing drives, incorrect mappings, or access denied errors.</div>
+</div>
+<div class="section-block">
+<h3>6. Shared Printer Object</h3>
+<p>I staged and shared the PRN-HQ-01 printer object on FS1 for later printer deployment and support validation.</p>
+<figure class="lab-figure">
+<img alt="PRN-HQ-01 printer sharing properties showing the printer shared and listed in the directory" src="screenshots/04-06-printer-share-created.png" width="1110" height="1389"/>
+<figcaption><span class="figure-label">Figure 6</span>PRN-HQ-01 staged as a shared printer on FS1.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Printer deployment remains a common endpoint support task in small business and MSP environments.</div>
+</div>
+<div class="section-block">
+<h3>7. Client Policy Application</h3>
+<p>I confirmed on CL1 that the mapped drive policy was processed from the domain for the signed-in test user.</p>
+<figure class="lab-figure">
+<img alt="Command Prompt on CL1 showing the signed-in user and GPO_Map_Department_Drives applied" src="screenshots/04-07-cl1-gpupdate-gpresult.png" width="1852" height="599"/>
+<figcaption><span class="figure-label">Figure 7</span>CL1 confirmed as receiving the mapped drive Group Policy.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Policy application must be validated on a client workstation, not only configured in Group Policy Management.</div>
+</div>
+<div class="section-block">
+<h3>8. Mapped Drive Validation</h3>
+<p>I validated the end-user mapped drive experience on CL1 and confirmed that the expected department drive appeared for the signed-in HR user.</p>
+<figure class="lab-figure">
+<img alt="File Explorer on CL1 showing the HR Department mapped drive" src="screenshots/04-08-cl1-mapped-drives-visible.png" width="1924" height="838"/>
+<figcaption><span class="figure-label">Figure 8</span>HR Department mapped drive visible on CL1.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Helpdesk validation should confirm the user experience, not just the server-side configuration.</div>
+</div>
+<div class="section-block">
+<h3>9. Access Control Validation</h3>
+<p>I tested authorised and unauthorised file share access to confirm the permission model worked correctly.</p>
+<figure class="lab-figure">
+<img alt="Command Prompt showing e.wilson can access HR but is denied access to Finance" src="screenshots/04-09-access-permission-validation.png" width="1321" height="913"/>
+<figcaption><span class="figure-label">Figure 9</span>HR user access allowed to the HR share and denied to the Finance share.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Access validation is the most important proof for a file share lab because folder visibility alone does not prove permissions are correct.</div>
+</div>
+<h2>Validation</h2>
+<p>The lab was validated when FS1 was confirmed as a domain-joined file server, department folders and SMB shares existed, NTFS permissions were assigned to the correct Active Directory groups, mapped drives were delivered by Group Policy, and CL1 showed the expected user access.</p>
+<p>Access testing confirmed that the HR test user could open the HR department share and was blocked from the unrelated Finance share.</p>
+<h2>Key Technical Outcomes</h2>
+<p>This lab demonstrated how Active Directory groups, NTFS permissions, SMB shares, and Group Policy work together to provide controlled access to shared company resources.</p>
+<p>It also showed why file share validation should include both server-side configuration and client-side user testing.</p>
+<div class="summary">
+<h2>Summary</h2>
+<ul>
+<li>I introduced FS1 as a dedicated file and print server.</li>
+<li>I created department folders and hidden SMB shares.</li>
+<li>I assigned NTFS and share access using AD security groups.</li>
+<li>I created mapped drive Group Policy for department access.</li>
+<li>I staged and shared the PRN-HQ-01 printer object.</li>
+<li>I validated mapped drives and access control from CL1.</li>
+</ul>
+</div><div class="page-navigation"><a class="btn" href="../03-ad-users-groups-passwords/index.html">← Previous Lab</a><a class="btn" href="../index.html">Back to Microsoft Infrastructure</a><a class="btn" href="../05-microsoft-365-user-admin/index.html">Next Lab →</a></div>
+</section>
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer>
+</body>
+</html>

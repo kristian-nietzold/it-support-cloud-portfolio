@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TS-012 - Word and Outlook showing Unlicensed Product</title>
+<link href="../../../style.css" rel="stylesheet"/>
+<style id="ticket-image-aspect-ratio">
+figure img,
+.lab-figure img {
+  height: auto;
+}
+</style>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../../index.html">Home</a><a href="../../../microsoft-infrastructure/index.html">Microsoft Infrastructure</a><a href="../../index.html">Service Desk</a><a href="../../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>TS-012: Word and Outlook showing Unlicensed Product</h2>
+<p>Resolved an “Unlicensed Product” activation fault affecting Word and Outlook. The user already held an Office 365 E5 licence, but the Microsoft 365 Apps for Enterprise service plan was disabled.</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Scenario</h2>
+<p>Mia Taylor reported that Word and Outlook were showing “Unlicensed Product”. I treated this as a Microsoft 365 licensing incident rather than a general software fault because the symptom affected Office desktop activation while the user account and mailbox remained available.</p>
+<div class="callout"><strong>Priority reasoning:</strong> Impact was set to <strong>3 - Low</strong> because only one user was affected. Urgency was set to <strong>2 - Medium</strong> because the user’s Microsoft 365 desktop apps were degraded, but this was not a wider outage and web-based workarounds may be available. Using the configured priority matrix, Low impact plus Medium urgency gives <strong>4 - Low</strong>.</div>
+<h2>ServiceNow Ticket</h2>
+<p>The incident was logged as a single-user Microsoft 365 licensing issue and assigned to Chloe Bennett in the Service Desk. The category was set to <strong>Microsoft 365</strong>, the subcategory to <strong>Licensing</strong>, the service to <strong>Microsoft 365 Productivity</strong>, the service offering to <strong>Microsoft 365 Licensing</strong>, and the configuration item to <strong>Microsoft 365 Apps for Enterprise</strong>.</p>
+<figure class="lab-figure">
+<img alt="ServiceNow incident TS-012 showing Microsoft 365 category, Licensing subcategory, Microsoft 365 Productivity service, Microsoft 365 Licensing offering, Microsoft 365 Apps for Enterprise configuration item and Chloe Bennett assigned" src="screenshots/TS-012-01-servicenow-incident-opened.png" width="3799" height="1221"/>
+<figcaption><span class="figure-label">Figure 1</span>ServiceNow incident opened for Mia Taylor with the Microsoft 365 licensing classification, related service records, P4 priority and Chloe Bennett assigned.</figcaption>
+</figure>
+<h2>Investigation</h2>
+<p>Chloe checked Mia Taylor in the Microsoft 365 admin center under <code>Users &gt; Active users &gt; Mia Taylor &gt; Licenses and apps</code>. Office 365 E5 was already assigned, but <strong>Microsoft 365 Apps for Enterprise</strong> was disabled. This matched the reported Word and Outlook desktop activation issue.</p>
+<figure class="lab-figure">
+<img alt="Mia Taylor Microsoft 365 Apps for Enterprise service plan disabled under Office 365 E5" src="screenshots/TS-012-02-mia-taylor-m365-license-before-fix.png" width="1866" height="505"/>
+<figcaption><span class="figure-label">Figure 2</span>Microsoft 365 Apps for Enterprise was disabled for Mia Taylor under the existing Office 365 E5 licence.</figcaption>
+</figure>
+<div class="callout"><strong>Root cause:</strong> The Office 365 E5 licence was present, but the Microsoft 365 Apps for Enterprise service plan was disabled. This prevented normal Office desktop activation without indicating that the entire licence was missing.</div>
+<h2>Fix Applied</h2>
+<p>Using delegated <strong>License Administrator</strong> access, Chloe enabled <strong>Microsoft 365 Apps for Enterprise</strong> for Mia Taylor and saved the change. This restored the service-plan entitlement required by Word, Excel, PowerPoint and Outlook desktop.</p>
+<figure class="lab-figure">
+<img alt="Mia Taylor Microsoft 365 Apps for Enterprise service plan enabled under Office 365 E5" src="screenshots/TS-012-03-mia-taylor-m365-license-after-fix.png" width="1846" height="496"/>
+<figcaption><span class="figure-label">Figure 3</span>Microsoft 365 Apps for Enterprise was enabled for Mia Taylor under the existing Office 365 E5 licence.</figcaption>
+</figure>
+<h2>Validation</h2>
+<p>Chloe confirmed that the Microsoft 365 Apps for Enterprise service plan remained enabled after the change. Mia was advised to restart Word and Outlook, or sign out and back in, if activation did not refresh immediately.</p>
+<h2>Resolution</h2>
+<p>The incident was resolved with the code <strong>Solution provided</strong>. The resolution notes recorded the existing Office 365 E5 licence, the disabled service plan, the delegated licence change, the successful validation and the user guidance.</p>
+<figure class="lab-figure">
+<img alt="ServiceNow incident resolution information showing Chloe Bennett as resolver and notes documenting the disabled Microsoft 365 Apps for Enterprise service plan and delegated licence fix" src="screenshots/TS-012-04-servicenow-incident-resolved.png" width="3818" height="975"/>
+<figcaption><span class="figure-label">Figure 4</span>Chloe Bennett resolved the incident with corrected notes documenting the existing licence, disabled service plan, delegated License Administrator action and user guidance.</figcaption>
+</figure>
+<div class="summary">
+<h2>Summary</h2>
+<ul>
+<li>I classified a single-user Office activation issue as <strong>Microsoft 365 &gt; Licensing</strong> and linked it to the appropriate service, offering and configuration item.</li>
+<li>I confirmed that Office 365 E5 was already assigned but <code>Microsoft 365 Apps for Enterprise</code> was disabled.</li>
+<li>Chloe used delegated <strong>License Administrator</strong> access to enable the approved service plan.</li>
+<li>I distinguished a disabled service plan from a completely missing Microsoft 365 licence.</li>
+<li>I validated the entitlement change and recorded the outcome in ServiceNow with the resolution code <strong>Solution provided</strong>.</li>
+<li>The user was advised to restart Office applications or sign out and back in if activation did not update immediately.</li>
+</ul>
+</div><div class="page-navigation"><a class="btn" href="../ts-006-shared-mailbox-not-appearing/index.html">← Previous Ticket</a><a class="btn" href="../../index.html">Back to Service Desk</a><a class="btn" href="../ts-022-shared-mailbox-cannot-send-from/index.html">Next Ticket →</a></div>
+</section>
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer></body>
+</html>

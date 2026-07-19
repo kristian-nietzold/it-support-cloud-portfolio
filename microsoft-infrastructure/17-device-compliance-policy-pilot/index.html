@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lab 17 - Device Compliance Policy Pilot</title>
+<link href="../../style.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../index.html">Home</a><a href="../index.html">Microsoft Infrastructure</a><a href="../../service-desk/index.html">Service Desk</a><a href="../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>Lab 17: Device Compliance Policy Pilot</h2>
+<p>Created a pilot Windows compliance policy in Microsoft Intune, required Windows 11 or later and validated that both hybrid-joined CL1 and cloud-native CL2 evaluated as compliant.</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Overview</h2>
+<p>In this lab, I moved from device enrolment validation to compliance policy control. Labs 15 and 16 proved that Nietz Ltd could manage both a cloud-native Microsoft Entra joined device and a hybrid Microsoft Entra joined device through Intune. This lab added a dedicated Windows compliance policy so pilot devices were no longer relying only on the default device compliance policy state.</p>
+<p>The policy was assigned to <code>GRP_Intune_Pilot</code> and configured with a minimum OS version of <code>10.0.22000.0</code>. This requires Windows 11 or later for the pilot device estate while leaving stronger checks such as BitLocker, Secure Boot, Defender Antivirus, firewall and attack surface reduction for later endpoint hardening labs.</p>
+<h2>Objective</h2>
+<p>The objective was to create a controlled Windows compliance policy for Intune-managed pilot devices, assign it to the existing Intune pilot group, and validate that both CL1 and CL2 reported compliant against the custom policy.</p>
+<h2>Environment</h2>
+<table>
+<tr><th>Component</th><th>Value</th></tr>
+<tr><td>Company</td><td>Nietz Ltd</td></tr>
+<tr><td>Microsoft 365 / Entra domain</td><td><code>nietz.co.uk</code></td></tr>
+<tr><td>Management platform</td><td>Microsoft Intune</td></tr>
+<tr><td>Compliance policy name</td><td><code>CP_Windows_Pilot_Minimum_Baseline</code></td></tr>
+<tr><td>Policy platform</td><td>Windows 10 and later</td></tr>
+<tr><td>Policy profile type</td><td>Windows 10/11 compliance policy</td></tr>
+<tr><td>Minimum OS version</td><td><code>10.0.22000.0</code></td></tr>
+<tr><td>Assignment group</td><td><code>GRP_Intune_Pilot</code></td></tr>
+<tr><td>CL1 assigned user</td><td>Emily Wilson - <code>e.wilson@nietz.co.uk</code></td></tr>
+<tr><td>CL1 join type</td><td>Microsoft Entra hybrid joined</td></tr>
+<tr><td>CL2 assigned user</td><td>Chloe Bennett - <code>c.bennett@nietz.co.uk</code></td></tr>
+<tr><td>CL2 join type</td><td>Microsoft Entra joined</td></tr>
+<tr><td>Previous lab dependency</td><td>Lab 16: Hybrid Entra Join and Intune Enrolment</td></tr>
+<tr><td>Next lab dependency</td><td>Lab 18: Conditional Access Admin MFA Baseline</td></tr>
+</table>
+<h2>Configuration</h2>
+<div class="section-block">
+<h3>1. CL1 Compliance Policy Gap Identified</h3>
+<p>I reviewed the default device compliance policy detail page for CL1 and confirmed that the device was active and enrolled, but did not yet have a custom compliance policy assigned.</p>
+<figure class="lab-figure">
+<img alt="Intune CL1 default device compliance policy showing Has a compliance policy assigned error 65001 not applicable" src="screenshots/17-01-cl1-before-no-custom-compliance-policy.png" width="2486" height="823"/>
+<figcaption><span class="figure-label">Figure 1</span>CL1 showing no custom compliance policy assigned before the pilot policy was created.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The default compliance policy confirmed that CL1 was enrolled and active, but also identified the follow-up requirement to assign a real Windows compliance policy.</div>
+</div>
+<div class="section-block">
+<h3>2. Windows Compliance Policy Basics Configured</h3>
+<p>I created a new Windows 10/11 compliance policy and named it <code>CP_Windows_Pilot_Minimum_Baseline</code>.</p>
+<figure class="lab-figure">
+<img alt="Intune compliance policy basics page showing CP_Windows_Pilot_Minimum_Baseline name, description, Windows 10 and later platform and Windows 10/11 compliance policy profile type" src="screenshots/17-02-windows-compliance-policy-basic-details.png" width="1663" height="1018"/>
+<figcaption><span class="figure-label">Figure 2</span>New Windows compliance policy basics configured.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The description records that this is a pilot minimum baseline. Stronger endpoint security checks are deliberately separated into later hardening labs.</div>
+</div>
+<div class="section-block">
+<h3>3. Windows 11 Minimum OS Requirement Configured</h3>
+<p>In the Device Properties section, I set the minimum OS version to <code>10.0.22000.0</code> and left the other compliance checks unconfigured.</p>
+<figure class="lab-figure">
+<img alt="Intune compliance settings page showing minimum OS version set to 10.0.22000.0 and other OS fields not configured" src="screenshots/17-03-windows-compliance-policy-minimum-os-settings.png" width="1980" height="1682"/>
+<figcaption><span class="figure-label">Figure 3</span>Minimum OS version set to Windows 11 or later.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Windows 11 starts at build <code>10.0.22000.0</code>, so this setting allows current Windows 11 pilot devices to pass while allowing a Windows 10 test device to be identified as noncompliant in a later validation lab.</div>
+</div>
+<div class="section-block">
+<h3>4. Compliance Policy Assigned to the Intune Pilot Group</h3>
+<p>I assigned the compliance policy to <code>GRP_Intune_Pilot</code>, the same controlled pilot group used for the Intune enrolment rollout.</p>
+<figure class="lab-figure">
+<img alt="Intune assignments page showing GRP_Intune_Pilot included as an active group with three user members and no excluded groups" src="screenshots/17-04-compliance-policy-assigned-to-grp-intune-pilot.png" width="2836" height="1360"/>
+<figcaption><span class="figure-label">Figure 4</span>Compliance policy assigned to <code>GRP_Intune_Pilot</code>.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This is a user group assignment. The policy applies to the Intune-enrolled Windows devices used by the pilot users.</div>
+</div>
+<div class="section-block">
+<h3>5. Compliance Policy Reviewed Before Creation</h3>
+<p>I reviewed the final configuration before creating the policy, confirming the policy name, platform, minimum OS version, noncompliance action and included group.</p>
+<figure class="lab-figure">
+<img alt="Intune review and create page showing compliance policy name, minimum OS version 10.0.22000.0, mark device noncompliant immediately and GRP_Intune_Pilot assignment" src="screenshots/17-05-compliance-policy-review-and-create.png" width="1430" height="1742"/>
+<figcaption><span class="figure-label">Figure 5</span>Review and create page confirming the Windows pilot compliance policy settings.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The default noncompliance action was kept as marking the device noncompliant immediately. User notification workflows are handled separately in a later compliance lab.</div>
+</div>
+<div class="section-block">
+<h3>6. CL1 Compliance Evaluation Confirmed</h3>
+<p>After the policy was created and CL1 checked in, I opened the CL1 device compliance page and confirmed that the custom policy evaluated successfully.</p>
+<figure class="lab-figure">
+<img alt="Intune CL1 device compliance page showing CP_Windows_Pilot_Minimum_Baseline minimum OS version state compliant" src="screenshots/17-06-cl1-compliance-policy-compliant.png" width="1752" height="743"/>
+<figcaption><span class="figure-label">Figure 6</span>CL1 compliant against the custom pilot compliance policy.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> CL1 is the hybrid Microsoft Entra joined device from Lab 16. This validates that the custom compliance policy applied successfully to the hybrid endpoint.</div>
+</div>
+<div class="section-block">
+<h3>7. CL2 Compliance Evaluation Confirmed</h3>
+<p>I repeated the validation on CL2 and confirmed that the same custom policy also evaluated successfully on the cloud-native Entra joined device.</p>
+<figure class="lab-figure">
+<img alt="Intune CL2 device compliance page showing CP_Windows_Pilot_Minimum_Baseline minimum OS version state compliant" src="screenshots/17-07-cl2-compliance-policy-compliant.png" width="1766" height="713"/>
+<figcaption><span class="figure-label">Figure 7</span>CL2 compliant against the custom pilot compliance policy.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> CL2 is the cloud-native Microsoft Entra joined device from Lab 15. This proves the same compliance baseline works across both cloud-native and hybrid joined pilot endpoints.</div>
+</div>
+<div class="section-block">
+<h3>8. Pilot Windows Devices Confirmed Compliant in Intune</h3>
+<p>I reviewed the Intune all devices view and confirmed that both pilot Windows devices were Intune managed, corporate owned and compliant, with the expected primary users and join types.</p>
+<figure class="lab-figure">
+<img alt="Intune all devices view showing CL1 and CL2 managed by Intune, corporate owned, compliant, Windows OS, primary user UPNs and join types" src="screenshots/17-08-intune-devices-compliant-overview.png" width="3254" height="930"/>
+<figcaption><span class="figure-label">Figure 8</span>CL1 and CL2 shown as compliant Intune-managed corporate Windows devices.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This final overview confirms that both endpoint paths are now covered by the pilot compliance baseline: CL1 as Microsoft Entra hybrid joined and CL2 as Microsoft Entra joined.</div>
+</div>
+<h2>Validation</h2>
+<p>The lab was validated when CL1 initially showed that no custom compliance policy was assigned, <code>CP_Windows_Pilot_Minimum_Baseline</code> was created with a minimum OS version of <code>10.0.22000.0</code>, the policy was assigned to <code>GRP_Intune_Pilot</code>, and both CL1 and CL2 reported the custom policy setting as compliant.</p>
+<p>The final Intune device view confirmed that CL1 and CL2 were both managed by Intune, corporate owned, compliant and associated with their expected primary users and join types.</p>
+<h2>Key Technical Outcomes</h2>
+<p>This lab demonstrated custom Intune compliance policy creation, Windows minimum OS enforcement, pilot group assignment, user-targeted compliance policy rollout, and compliance validation for both hybrid joined and cloud-native Microsoft Entra joined endpoints.</p>
+<p>The final result is a clean compliance baseline that can be reused by later Conditional Access labs without mixing compliance policy creation, endpoint hardening and access enforcement into the same change.</p>
+<div class="summary">
+<h2>Summary</h2>
+<ul>
+<li>I identified that CL1 did not yet have a custom compliance policy assigned.</li>
+<li>I created <code>CP_Windows_Pilot_Minimum_Baseline</code> as a Windows 10/11 compliance policy.</li>
+<li>I configured a minimum OS version of <code>10.0.22000.0</code> to require Windows 11 or later.</li>
+<li>I assigned the policy to <code>GRP_Intune_Pilot</code>.</li>
+<li>I confirmed CL1 was compliant against the custom policy.</li>
+<li>I confirmed CL2 was compliant against the custom policy.</li>
+<li>I confirmed both pilot devices were compliant, corporate owned and Intune managed in the device overview.</li>
+</ul>
+</div><div class="page-navigation"><a class="btn" href="../16-hybrid-entra-join-intune-enrolment/index.html">← Previous Lab</a><a class="btn" href="../index.html">Back to Microsoft Infrastructure</a><a class="btn" href="../18-conditional-access-admin-mfa-baseline/index.html">Next Lab →</a></div>
+</section>
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer>
+</body>
+</html>

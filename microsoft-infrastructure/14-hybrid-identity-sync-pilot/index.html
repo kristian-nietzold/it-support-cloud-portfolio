@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lab 14 - Hybrid Identity Sync Pilot</title>
+<link href="../../style.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../index.html">Home</a><a href="../index.html">Microsoft Infrastructure</a><a href="../../service-desk/index.html">Service Desk</a><a href="../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>Lab 14: Hybrid Identity Sync Pilot</h2>
+<p>Deployed Microsoft Entra Connect Sync on a dedicated member server, scoped synchronisation to the Hybrid Pilot OU, validated pilot users and groups in Microsoft Entra ID and raised a ServiceNow incident for a duplicate identity discovered during validation.</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Overview</h2>
+<p>This lab extended the hybrid identity readiness work from Lab 13 by introducing a dedicated synchronization server, <code>SYNC1</code>, and configuring Microsoft Entra Connect Sync against a controlled Active Directory pilot scope.</p>
+<p>The implementation used OU filtering rather than synchronizing the full domain. Only the <code>Hybrid Pilot</code> OU and its <code>Devices</code>, <code>Groups</code> and <code>Users</code> child OUs were selected. Synchronization was then validated in Microsoft Entra ID by confirming that a pilot user and the hybrid pilot security groups appeared with on-premises source data.</p>
+<h2>Objective</h2>
+<p>The objective was to perform a controlled Entra Connect pilot without placing the wider Active Directory estate in scope. The lab also needed to demonstrate realistic pilot governance: validation was completed, an identity issue was identified, and a ServiceNow incident was created before any wider rollout.</p>
+<h2>Environment</h2>
+<table>
+<tr><th>Component</th><th>Value</th></tr>
+<tr><td>Company</td><td>Nietz Ltd</td></tr>
+<tr><td>On-premises AD domain</td><td>corp.nietz.co.uk</td></tr>
+<tr><td>Microsoft 365 / Entra domain</td><td>nietz.co.uk</td></tr>
+<tr><td>Domain controller</td><td>DC1</td></tr>
+<tr><td>Domain controller IP address</td><td>192.168.10.10</td></tr>
+<tr><td>Synchronization server</td><td>SYNC1</td></tr>
+<tr><td>SYNC1 internal IP address</td><td>192.168.10.30</td></tr>
+<tr><td>SYNC1 DNS server</td><td>192.168.10.10</td></tr>
+<tr><td>Synchronization tool</td><td>Microsoft Entra Connect Sync</td></tr>
+<tr><td>Sign-in method</td><td>Password Hash Synchronization</td></tr>
+<tr><td>Synchronization scope</td><td><code>OU=Hybrid Pilot,OU=Nietz Ltd,DC=corp,DC=nietz,DC=co,DC=uk</code></td></tr>
+<tr><td>Pilot user validation</td><td>Kate Jones / k.jones@nietz.co.uk</td></tr>
+<tr><td>Pilot security groups</td><td>GRP_HYB_Pilot_Users, GRP_HYB_Pilot_Admins, GRP_HYB_Pilot_Devices</td></tr>
+<tr><td>ServiceNow incident</td><td>INC0010074 - Duplicate Chloe Bennett account identified after Microsoft Entra Connect pilot sync</td></tr>
+</table>
+<h2>Configuration and Evidence</h2>
+<div class="section-block">
+<h3>1. Dedicated Sync Server Prepared</h3>
+<p>I built a dedicated member server named <code>SYNC1</code> for the Entra Connect pilot rather than installing the sync service on the domain controller.</p>
+<figure class="lab-figure">
+<img alt="Windows Server About page showing the computer name SYNC1" src="screenshots/14-01-sync1-server-name.png" width="1710" height="340"/>
+<figcaption><span class="figure-label">Figure 1</span><code>SYNC1</code> confirmed as the dedicated server for the Entra Connect pilot.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Using a member server keeps the sync workload separate from the domain controller and better matches a production-style deployment pattern.</div>
+</div>
+<div class="section-block">
+<h3>2. Internal Static IP and DNS Configured</h3>
+<p>I configured the internal adapter on <code>SYNC1</code> with a static address and pointed DNS to the domain controller.</p>
+<figure class="lab-figure">
+<img alt="IPv4 properties showing SYNC1 configured with IP 192.168.10.30 and DNS 192.168.10.10" src="screenshots/14-02-sync1-internal-static-ip-dns.png" width="974" height="1006"/>
+<figcaption><span class="figure-label">Figure 2</span><code>SYNC1</code> internal adapter configured with <code>192.168.10.30</code> and DNS server <code>192.168.10.10</code>.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The sync server must reliably resolve AD domain services before Entra Connect can discover and bind to the on-premises forest.</div>
+</div>
+<div class="section-block">
+<h3>3. Network and Domain Controller Discovery Validated</h3>
+<p>I validated that <code>SYNC1</code> could resolve and contact <code>DC1</code>, and that domain controller discovery worked for <code>corp.nietz.co.uk</code>.</p>
+<figure class="lab-figure">
+<img alt="PowerShell output showing SYNC1 hostname, successful pings to DC1, nslookup for dc1.corp.nietz.co.uk and nltest domain controller discovery" src="screenshots/14-03-sync1-network-validation.png" width="3157" height="1946"/>
+<figcaption><span class="figure-label">Figure 3</span>Connectivity, DNS resolution and <code>nltest /dsgetdc</code> validation completed successfully from <code>SYNC1</code>.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This confirmed the server could locate the domain controller before the Entra Connect installation was started.</div>
+</div>
+<div class="section-block">
+<h3>4. Domain Join Validated</h3>
+<p>I signed in with a domain account and confirmed that <code>SYNC1</code> was joined to <code>corp.nietz.co.uk</code>.</p>
+<figure class="lab-figure">
+<img alt="PowerShell output showing SYNC1, corp k.nietzold, computer domain corp.nietz.co.uk and nltest domain controller discovery" src="screenshots/14-04-sync1-domain-joined-validation.png" width="3111" height="859"/>
+<figcaption><span class="figure-label">Figure 4</span><code>SYNC1</code> validated as a domain-joined member server using a domain account.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Domain membership allowed the server to authenticate to Active Directory and use domain-based administrative credentials during setup.</div>
+</div>
+<div class="section-block">
+<h3>5. SYNC1 Moved into the Hybrid Pilot Device OU</h3>
+<p>I moved the <code>SYNC1</code> computer object into the <code>Nietz Ltd\Hybrid Pilot\Devices</code> OU and added a clear description to document its purpose.</p>
+<figure class="lab-figure">
+<img alt="Active Directory Users and Computers showing SYNC1 inside Nietz Ltd Hybrid Pilot Devices with Entra Connect Sync description" src="screenshots/14-05-sync1-hybrid-pilot-device-ou.png" width="3078" height="1426"/>
+<figcaption><span class="figure-label">Figure 5</span><code>SYNC1</code> placed in the <code>Hybrid Pilot\Devices</code> OU with a synchronization server description.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Placing the sync server in the pilot device OU kept the server object aligned with the controlled hybrid identity scope.</div>
+</div>
+<div class="section-block">
+<h3>6. Pilot Device Group Membership Confirmed</h3>
+<p>I added <code>SYNC1</code> to the <code>GRP_HYB_Pilot_Devices</code> security group and confirmed the membership from the group properties.</p>
+<figure class="lab-figure">
+<img alt="GRP_HYB_Pilot_Devices properties showing SYNC1 as a member" src="screenshots/14-06-sync1-pilot-device-group-membership.png" width="959" height="1153"/>
+<figcaption><span class="figure-label">Figure 6</span><code>SYNC1</code> confirmed as a member of <code>GRP_HYB_Pilot_Devices</code>.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This keeps the pilot device inventory auditable and separates device scope from the user and support/admin validation pilot groups.</div>
+</div>
+<div class="section-block">
+<h3>7. Entra Connect Sync Setup Started</h3>
+<p>I launched the Microsoft Entra Connect Sync setup wizard on <code>SYNC1</code>.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Entra Connect Sync setup wizard welcome page" src="screenshots/14-07-entra-connect-setup-welcome.png" width="1107" height="859"/>
+<figcaption><span class="figure-label">Figure 7</span>Microsoft Entra Connect Sync setup wizard started on the dedicated sync server.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The wizard was run from <code>SYNC1</code> after confirming the dedicated pilot server design and prerequisite checks.</div>
+</div>
+<div class="section-block">
+<h3>8. Active Directory Forest Connected</h3>
+<p>I connected the on-premises Active Directory forest, <code>corp.nietz.co.uk</code>, to the Entra Connect configuration.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Entra Connect Sync showing corp.nietz.co.uk as a configured Active Directory directory with a green check" src="screenshots/14-08-entra-connect-ad-directory-connected.png" width="2155" height="1533"/>
+<figcaption><span class="figure-label">Figure 8</span><code>corp.nietz.co.uk</code> connected successfully as an Active Directory directory.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The green check confirms that Entra Connect accepted the AD forest connection and could proceed to sign-in and filtering configuration.</div>
+</div>
+<div class="section-block">
+<h3>9. Entra Sign-In Domain Mapping Reviewed</h3>
+<p>I reviewed the UPN suffix mapping. The internal AD suffix <code>corp.nietz.co.uk</code> was not added to Entra ID, while the public suffix <code>nietz.co.uk</code> was verified.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Entra sign-in configuration showing corp.nietz.co.uk not added and nietz.co.uk verified" src="screenshots/14-09-entra-connect-upn-suffix-validation.png" width="2166" height="1528"/>
+<figcaption><span class="figure-label">Figure 9</span>UPN suffix validation showing <code>nietz.co.uk</code> as verified and <code>corp.nietz.co.uk</code> as not added.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The pilot users were prepared with the public <code>@nietz.co.uk</code> UPN suffix, so the internal AD namespace did not need to be added as a public Entra domain.</div>
+</div>
+<div class="section-block">
+<h3>10. OU Filtering Scoped to the Hybrid Pilot OU</h3>
+<p>I configured domain and OU filtering so that only the <code>Nietz Ltd\Hybrid Pilot</code> OU and its child OUs were selected for synchronization.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Entra Connect Sync Domain and OU filtering showing selected Hybrid Pilot OU with Devices, Groups and Users child OUs" src="screenshots/14-10-entra-connect-ou-filtering-hybrid-pilot.png" width="2184" height="1529"/>
+<figcaption><span class="figure-label">Figure 10</span>OU filtering scoped to <code>Hybrid Pilot</code>, including <code>Devices</code>, <code>Groups</code> and <code>Users</code>.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> OU filtering was the main pilot control. It prevented the wider domain from synchronizing during the first Entra Connect test.</div>
+</div>
+<div class="section-block">
+<h3>11. User Identity Matching Settings Reviewed</h3>
+<p>I kept the default setting that users are represented only once across all directories and allowed Entra Connect to manage the source anchor.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Entra Connect Sync uniquely identifying users page with default options selected" src="screenshots/14-11-entra-connect-identifying-users.png" width="2180" height="1525"/>
+<figcaption><span class="figure-label">Figure 11</span>User identity matching and source anchor settings reviewed during setup.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The lab uses a single on-premises AD forest, so the default identity matching model is appropriate for the pilot.</div>
+</div>
+<div class="section-block">
+<h3>12. User and Device Filtering Reviewed</h3>
+<p>I left user and device filtering set to synchronize all users and devices because the pilot scope was already controlled by OU filtering.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Entra Connect Sync filter users and devices page showing synchronize all users and devices selected" src="screenshots/14-12-entra-connect-filtering-options.png" width="2181" height="1532"/>
+<figcaption><span class="figure-label">Figure 12</span>User and device filtering left at all users and devices, relying on OU filtering for pilot scoping.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> In this build, OU filtering is the authoritative boundary. Adding group filtering as well would have made the pilot harder to interpret.</div>
+</div>
+<div class="section-block">
+<h3>13. Optional Features Reviewed</h3>
+<p>I enabled Password Hash Synchronization and left additional optional features such as Exchange hybrid, writeback and directory extensions disabled.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Entra Connect Sync optional features page with password hash synchronization selected" src="screenshots/14-13-entra-connect-optional-features.png" width="2178" height="1534"/>
+<figcaption><span class="figure-label">Figure 13</span>Password Hash Synchronization selected as the required sign-in feature for the pilot.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The goal was an initial identity sync pilot, not Exchange hybrid, group writeback, device writeback or advanced directory extension work.</div>
+</div>
+<div class="section-block">
+<h3>14. Configuration Reviewed Before Commit</h3>
+<p>I reviewed the final configuration before committing changes. The option to start synchronization immediately after configuration was left unchecked.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Entra Connect Sync ready to configure page showing synchronization process will not start automatically" src="screenshots/14-14-entra-connect-ready-to-configure.png" width="2180" height="1491"/>
+<figcaption><span class="figure-label">Figure 14</span>Ready to configure page reviewed with automatic synchronization start left unchecked.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Leaving automatic sync disabled allowed a final review before manually enabling the scheduler and starting the initial synchronization cycle.</div>
+</div>
+<div class="section-block">
+<h3>15. Entra Connect Configuration Completed</h3>
+<p>The wizard completed successfully and warned that synchronization remained disabled until explicitly enabled.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Entra Connect Sync configuration complete page showing configuration succeeded and synchronization disabled warning" src="screenshots/14-15-entra-connect-configuration-complete.png" width="2177" height="1482"/>
+<figcaption><span class="figure-label">Figure 15</span>Microsoft Entra Connect Sync configuration completed successfully with synchronization still disabled.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This confirmed the configuration was installed successfully while preserving control over the first synchronization cycle.</div>
+</div>
+<div class="section-block">
+<h3>16. Pilot Users Moved into the Sync OU</h3>
+<p>I moved the selected pilot users into the <code>Nietz Ltd\Hybrid Pilot\Users</code> OU so they were inside the OU filtering scope before the first sync cycle.</p>
+<figure class="lab-figure">
+<img alt="Active Directory Users and Computers showing Chloe Bennett and Kate Jones inside the Hybrid Pilot Users OU" src="screenshots/14-16-ad-pilot-users-in-sync-ou.png" width="3093" height="1434"/>
+<figcaption><span class="figure-label">Figure 16</span>Chloe Bennett and Kate Jones placed inside the <code>Hybrid Pilot\Users</code> OU.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> OU filtering only synchronizes objects inside the selected OU scope, so moving pilot users into this OU made the test deliberately limited and auditable.</div>
+</div>
+<div class="section-block">
+<h3>17. Pilot User Group Membership Checked</h3>
+<p>I checked the AD group membership for Kate Jones and Chloe Bennett to confirm they were still in the expected pilot groups before the initial sync.</p>
+<figure class="lab-figure">
+<img alt="PowerShell output showing group memberships for K.Jones and C.Bennett including GRP_HYB pilot groups" src="screenshots/14-17-pilot-users-group-membership-after-ou-move.png" width="2489" height="1207"/>
+<figcaption><span class="figure-label">Figure 17</span>Pilot user memberships checked with <code>Get-ADPrincipalGroupMembership</code>.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This validation confirmed the pilot users still had the intended security group memberships after being moved into the synchronization OU.</div>
+</div>
+<div class="section-block">
+<h3>18. Initial Synchronization Started</h3>
+<p>I imported the ADSync PowerShell module, enabled the scheduler, confirmed the scheduler state and started an initial sync cycle.</p>
+<figure class="lab-figure">
+<img alt="PowerShell output importing ADSync module, enabling ADSync scheduler, showing scheduler settings and starting initial sync cycle with success result" src="screenshots/14-18-adsync-initial-sync-started.png" width="2518" height="1354"/>
+<figcaption><span class="figure-label">Figure 18</span>ADSync scheduler enabled and <code>Start-ADSyncSyncCycle -PolicyType Initial</code> completed successfully.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The manual initial sync confirmed the configuration could be started deliberately after the setup review.</div>
+</div>
+<div class="section-block">
+<h3>19. Pilot User Validated in Microsoft Entra ID</h3>
+<p>I validated that Kate Jones appeared in Microsoft Entra ID with on-premises sync enabled and on-premises attributes populated.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Entra admin center Users All users showing Kate Jones with on-premises sync enabled, SAM account k.jones and domain corp.nietz.co.uk" src="screenshots/14-19-entra-synced-pilot-user.png" width="2779" height="768"/>
+<figcaption><span class="figure-label">Figure 19</span>Kate Jones synchronized to Microsoft Entra ID with on-premises sync enabled.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This was the primary pilot user validation. The row shows <code>k.jones@nietz.co.uk</code>, on-premises sync enabled, SAM account <code>k.jones</code> and domain <code>corp.nietz.co.uk</code>.</div>
+</div>
+<div class="section-block">
+<h3>20. Pilot Groups Validated in Microsoft Entra ID</h3>
+<p>I searched for the <code>GRP_HYB</code> groups in Microsoft Entra ID and confirmed all three pilot groups were present with source <code>Windows Server AD</code>.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Entra admin center Groups All groups showing GRP_HYB_Pilot_Devices, GRP_HYB_Pilot_Admins and GRP_HYB_Pilot_Users with source Windows Server AD" src="screenshots/14-20-entra-synced-pilot-groups.png" width="2368" height="889"/>
+<figcaption><span class="figure-label">Figure 20</span>Hybrid pilot security groups synchronized into Microsoft Entra ID from Windows Server AD.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Group source data confirms the groups were synchronized from on-premises AD rather than being manually created as cloud-only groups.</div>
+</div>
+<div class="section-block">
+<h3>21. Pilot Issue Raised in ServiceNow</h3>
+<p>During validation, a duplicate Chloe Bennett identity was identified. I treated this as a pilot finding, paused wider rollout, and raised a ServiceNow incident for follow-up investigation.</p>
+<figure class="lab-figure">
+<img alt="ServiceNow incident INC0010074 for duplicate Chloe Bennett account identified after Microsoft Entra Connect pilot sync" src="screenshots/14-21-servicenow-chloe-identity-cleanup-ticket-created.png" width="3824" height="1422"/>
+<figcaption><span class="figure-label">Figure 21</span>ServiceNow incident <code>INC0010074</code> created for the duplicate Chloe Bennett identity found during pilot validation.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This keeps the lab realistic. The sync pilot succeeded for Kate Jones and the pilot groups, but a duplicate identity was found and documented for a separate troubleshooting workflow before wider rollout.</div>
+</div>
+<h2>Validation</h2>
+<p>The technical validation was successful. <code>SYNC1</code> was domain joined, could resolve and contact <code>DC1</code>, and was placed into the Hybrid Pilot device scope. Microsoft Entra Connect Sync was installed on <code>SYNC1</code>, connected to <code>corp.nietz.co.uk</code>, and configured with OU filtering limited to the Hybrid Pilot OU.</p>
+<p>After the initial sync, Kate Jones appeared in Microsoft Entra ID with on-premises sync enabled, and the three <code>GRP_HYB</code> pilot security groups appeared with source <code>Windows Server AD</code>. A duplicate Chloe Bennett identity was identified during validation and documented in ServiceNow as <code>INC0010074</code> for separate remediation.</p>
+<h2>Key Technical Outcomes</h2>
+<p>This lab demonstrated a controlled Entra Connect deployment using a dedicated sync server, AD-based pilot scoping, Password Hash Synchronization, OU filtering, manual initial sync control and Entra-side validation.</p>
+<p>It also demonstrated pilot governance. The rollout was not treated as finished simply because the first sync succeeded. A discovered identity issue was recorded as an incident so it can be investigated before expanding synchronization scope.</p>
+<div class="summary">
+<h2>Summary</h2>
+<ul>
+<li>I created and prepared <code>SYNC1</code> as a dedicated Microsoft Entra Connect Sync member server.</li>
+<li>I configured the internal adapter with <code>192.168.10.30</code> and DNS server <code>192.168.10.10</code>.</li>
+<li>I validated DNS, domain controller discovery and domain membership from <code>SYNC1</code>.</li>
+<li>I moved <code>SYNC1</code> into the <code>Hybrid Pilot\Devices</code> OU and added it to <code>GRP_HYB_Pilot_Devices</code>.</li>
+<li>I installed and configured Microsoft Entra Connect Sync with Password Hash Synchronization.</li>
+<li>I scoped synchronization to <code>Nietz Ltd\Hybrid Pilot</code> using OU filtering.</li>
+<li>I moved Kate Jones and Chloe Bennett into the <code>Hybrid Pilot\Users</code> OU for the controlled pilot sync.</li>
+<li>I manually enabled the scheduler and started an initial synchronization cycle.</li>
+<li>I validated Kate Jones and the three hybrid pilot groups in Microsoft Entra ID.</li>
+<li>I raised ServiceNow incident <code>INC0010074</code> for a duplicate Chloe Bennett identity discovered during validation.</li>
+</ul>
+</div><div class="page-navigation"><a class="btn" href="../13-hybrid-identity-readiness/index.html">← Previous Lab</a><a class="btn" href="../index.html">Back to Microsoft Infrastructure</a><a class="btn" href="../15-cloud-native-entra-join-intune-enrolment/index.html">Next Lab →</a></div>
+</section>
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer>
+</body>
+</html>

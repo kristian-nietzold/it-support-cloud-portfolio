@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TS-023 - Supplier email quarantined as phishing</title>
+  <link rel="stylesheet" href="../../../style.css">
+</head>
+<body>
+<header class="navbar">
+  <div class="container">
+    <h1 class="logo"><a href="../../../index.html">Kristian Nietzold</a></h1>
+    <nav>
+      <a href="../../../index.html">Home</a>
+      <a href="../../../microsoft-infrastructure/index.html">Microsoft Infrastructure</a>
+      <a href="../../index.html">Service Desk</a>
+      <a href="../../../networking/index.html">Networking</a>
+      <a href="../../../google-workspace/index.html">Google Workspace</a>
+    </nav>
+  </div>
+</header>
+<main>
+
+<section class="hero">
+  <div class="container">
+    <h2>TS-023: Supplier email quarantined as phishing</h2>
+    <p>Reviewed and released an expected supplier email that Microsoft 365 had quarantined as high-confidence phishing, completing sender-authentication and message-detail checks before delivery.</p>
+  </div>
+</section>
+
+<section class="content-modern">
+  <h2>Scenario</h2>
+  <p>Sam Jackson reported that an expected supplier email had not arrived in his mailbox. Because the missing message related to an external supplier and was suspected to have been filtered, I treated the ticket as a security and phishing review issue rather than a normal Outlook delivery fault.</p>
+
+  <div class="callout"><strong>Priority reasoning:</strong> Impact was set to <strong>3 - Low</strong> because only one user was affected. Urgency was set to <strong>2 - Medium</strong> because the user could continue working, but same-day review of the missing supplier email was useful. Under the priority matrix, Low impact plus Medium urgency gives <strong>4 - Low</strong>.</div>
+
+  <h2>ServiceNow Ticket</h2>
+  <p>The incident was logged as a single-user security issue and assigned to the Service Desk. I set the category to <strong>Security</strong>, the subcategory to <strong>Phishing</strong>, impact to <strong>3 - Low</strong>, urgency to <strong>2 - Medium</strong>, and priority to <strong>4 - Low</strong>.</p>
+
+  <figure class="lab-figure">
+    <img src="screenshots/TS-023-01-ticket-opened.png" alt="ServiceNow incident TS-023 opened for Sam Jackson as a Security phishing ticket with Low impact, Medium urgency and P4 priority" width="3814" height="960">
+    <figcaption><span class="figure-label">Figure 1</span>ServiceNow incident opened for Sam Jackson with the Security category, Phishing subcategory, Low impact, Medium urgency and P4 Low priority.</figcaption>
+  </figure>
+
+  <h2>Investigation</h2>
+  <p>To safely generate a quarantined message in the lab without using real phishing content, I created a temporary Exchange Online mail flow rule. The rule matched a controlled test subject and set the spam confidence level to <strong>9</strong>, causing the test supplier email to be handled by the anti-spam policy.</p>
+
+  <figure class="lab-figure">
+    <img src="screenshots/TS-023-02-mail-flow-rule-created.png" alt="Exchange Online mail flow rule LAB-TS-023-Quarantine-Test enabled and configured to set SCL to 9 for the test subject" width="3823" height="960">
+    <figcaption><span class="figure-label">Figure 2</span>Temporary mail flow rule created for the lab test. The rule matched the controlled subject and set the spam confidence level to 9.</figcaption>
+  </figure>
+
+  <p>I then checked the Microsoft Defender quarantine queue. The expected test email was present in quarantine for <code>s.jackson@nietz.co.uk</code>, with the release status showing <strong>Needs review</strong>.</p>
+
+  <figure class="lab-figure">
+    <img src="screenshots/TS-023-03-quarantine-search.png" alt="Microsoft Defender quarantine page showing the TS-023 test email quarantined for Sam Jackson with release status Needs review" width="2845" height="860">
+    <figcaption><span class="figure-label">Figure 3</span>Microsoft Defender quarantine showed the supplier test email quarantined for Sam Jackson and awaiting review.</figcaption>
+  </figure>
+
+  <p>I opened the quarantined message details and reviewed the classification and delivery information. The message was classified as <strong>High Confidence Phish</strong>, blocked by the anti-spam policy, and remained in quarantine.</p>
+
+  <figure class="lab-figure">
+    <img src="screenshots/TS-023-04a-message-quarantine-details.png" alt="Quarantine details showing High Confidence Phish, anti-spam policy, blocked delivery action and quarantine location" width="1163" height="1688">
+    <figcaption><span class="figure-label">Figure 4</span>Message details showed High Confidence Phish, anti-spam policy handling, blocked delivery action and quarantine as the delivery location.</figcaption>
+  </figure>
+
+  <p>Before releasing the email, I reviewed sender and authentication details. The message showed inbound delivery from the external sender, with SPF, DKIM, DMARC and composite authentication passing. The lab message contained no URLs or attachments.</p>
+
+  <figure class="lab-figure">
+    <img src="screenshots/TS-023-04b-message-sender-authentication.png" alt="Email details showing sender, recipient, inbound directionality and authentication results passing SPF DKIM DMARC and composite authentication" width="1153" height="1660">
+    <figcaption><span class="figure-label">Figure 5</span>Sender and authentication details were reviewed before release. SPF, DKIM, DMARC and composite authentication passed.</figcaption>
+  </figure>
+
+  <h2>Fix Applied</h2>
+  <p>After reviewing the message details and confirming the message was expected for the user, I released the quarantined email to Sam Jackson's mailbox.</p>
+
+  <figure class="lab-figure">
+    <img src="screenshots/TS-023-05-message-released.png" alt="Microsoft Defender quarantine showing the message release status changed to Released and released by Chloe Bennett" width="2980" height="774">
+    <figcaption><span class="figure-label">Figure 6</span>The quarantined email was released to Sam Jackson. The quarantine queue showed the release status as Released and the action recorded against Chloe Bennett.</figcaption>
+  </figure>
+
+  <h2>Validation</h2>
+  <p>I updated the user through the ServiceNow incident, advising that the expected supplier email had been released and asking the user to confirm it was visible in Outlook.</p>
+
+  <figure class="lab-figure">
+    <img src="screenshots/TS-023-06-user-updated.png" alt="ServiceNow customer-visible comment advising Sam Jackson that the supplier email was released to his mailbox" width="3801" height="603">
+    <figcaption><span class="figure-label">Figure 7</span>Customer-visible update added to the ticket, advising Sam Jackson that the supplier email had been released to his mailbox.</figcaption>
+  </figure>
+
+  <h2>Resolution</h2>
+  <p>The ticket was resolved with the resolution code <strong>Solution provided</strong>. The resolution notes summarised the quarantine finding, message review, authentication check, absence of URLs or attachments in the test message, release action and user update.</p>
+
+  <figure class="lab-figure">
+    <img src="screenshots/TS-023-07-ticket-resolved.png" alt="ServiceNow resolution information for TS-023 showing Solution provided and resolution notes for the quarantine release" width="3800" height="821">
+    <figcaption><span class="figure-label">Figure 8</span>Ticket resolved with Solution provided as the resolution code and Chloe Bennett recorded as the resolver.</figcaption>
+  </figure>
+
+  <p>After completing the test, I disabled the temporary mail flow rule so future messages with the lab subject would not continue to be forced into quarantine.</p>
+
+  <figure class="lab-figure">
+    <img src="screenshots/TS-023-08-test-rule-disabled.png" alt="Exchange Online mail flow rules page showing LAB-TS-023-Quarantine-Test disabled after the lab" width="3000" height="859">
+    <figcaption><span class="figure-label">Figure 9</span>Temporary lab mail flow rule disabled after testing to prevent future emails being incorrectly quarantined.</figcaption>
+  </figure>
+
+  <div class="summary">
+    <h2>Summary</h2>
+    <ul>
+      <li>Resolved a P4 Low security incident for a single user missing an expected supplier email.</li>
+      <li>I classified the ticket as <strong>Security &gt; Phishing</strong> because the message was suspected to have been filtered as malicious.</li>
+      <li>I used a controlled lab mail flow rule to safely generate a quarantined test message without sending real phishing content.</li>
+      <li>I located the message in Microsoft Defender quarantine and confirmed it was marked as <strong>High Confidence Phish</strong>.</li>
+      <li>I reviewed delivery details, sender information and authentication results before taking action.</li>
+      <li>I confirmed the test message had no URLs or attachments before release.</li>
+      <li>I released the quarantined email to Sam Jackson's mailbox and updated the user through ServiceNow.</li>
+      <li>I resolved the ticket in ServiceNow using the code <strong>Solution provided</strong>.</li>
+      <li>I disabled the temporary test rule after the lab to avoid future unintended quarantine actions.</li>
+    </ul>
+  </div>
+
+  <p>
+    <a href="../../index.html" class="btn">&larr; Back to Service Desk</a>
+  </p>
+</section>
+</main>
+</body>
+</html>

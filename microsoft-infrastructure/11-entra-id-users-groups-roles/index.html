@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lab 11 - Entra ID Users, Groups and Roles</title>
+<link href="../../style.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../index.html">Home</a><a href="../index.html">Microsoft Infrastructure</a><a href="../../service-desk/index.html">Service Desk</a><a href="../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>Lab 11: Entra ID Users, Groups and Roles</h2>
+<p>Configured group-based Microsoft Entra role delegation for first-line support using separate Helpdesk Administrator and License Administrator security groups, then validated the permitted actions and least-privilege boundary as Chloe Bennett.</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Overview</h2>
+<p>In this lab, I extended the Microsoft 365 identity baseline from Labs 05 and 06 into delegated Microsoft Entra administration. The earlier labs created and validated the cloud users, licences, authentication readiness and sign-in evidence. This lab focused on granting first-line support access through separate role-assignable cloud security groups.</p>
+<p><code>CLOUD_Helpdesk_UserAdmins</code> provides delegated password-reset capability through the built-in <code>Helpdesk Administrator</code> role. <code>CLOUD_Helpdesk_LicenseAdmins</code> provides approved licence and service-plan administration through the built-in <code>License Administrator</code> role. Chloe Bennett and Daniel Smith receive both permissions through group membership rather than direct user-level role assignments.</p>
+<h2>Objective</h2>
+<p>The objective was to implement a least-privilege Entra support model in which first-line analysts can reset passwords for standard users and manage approved Microsoft 365 licence assignments without receiving broad Global Administrator, User Administrator or Exchange Administrator access.</p>
+<h2>Environment</h2>
+<table>
+<tr><th>Component</th><th>Value</th></tr>
+<tr><td>Company</td><td>Nietz Ltd</td></tr>
+<tr><td>On-premises AD domain</td><td>corp.nietz.co.uk</td></tr>
+<tr><td>Microsoft 365 / Entra domain</td><td>nietz.co.uk</td></tr>
+<tr><td>Daily administrator</td><td>k.nietzold@nietz.co.uk</td></tr>
+<tr><td>Delegated user-administration group</td><td>CLOUD_Helpdesk_UserAdmins</td></tr>
+<tr><td>Delegated licence-administration group</td><td>CLOUD_Helpdesk_LicenseAdmins</td></tr>
+<tr><td>Group source</td><td>Cloud</td></tr>
+<tr><td>Group type</td><td>Security</td></tr>
+<tr><td>Membership type</td><td>Assigned</td></tr>
+<tr><td>Delegated roles</td><td>Helpdesk Administrator; License Administrator</td></tr>
+<tr><td>Delegated support users</td><td>c.bennett@nietz.co.uk, d.smith@nietz.co.uk</td></tr>
+<tr><td>Standard validation user</td><td>k.jones@nietz.co.uk</td></tr>
+<tr><td>Privileged boundary user</td><td>k.nietzold@nietz.co.uk</td></tr>
+<tr><td>Previous lab dependency</td><td>Lab 10: SharePoint and OneDrive File Collaboration</td></tr>
+<tr><td>Next lab dependency</td><td>Lab 12: Entra Sign-In Logs and MFA Support</td></tr>
+</table>
+<h2>Configuration and Evidence</h2>
+<div class="section-block">
+<h3>1. Helpdesk Administration Group Created</h3>
+<p>I created <code>CLOUD_Helpdesk_UserAdmins</code> as an assigned, cloud-only security group for delegated Entra helpdesk administration.</p>
+<figure class="lab-figure">
+<img alt="CLOUD_Helpdesk_UserAdmins overview showing a cloud security group with assigned membership and two direct members" src="screenshots/11-01-helpdesk-security-group-overview.png" width="1733" height="1414"/>
+<figcaption><span class="figure-label">Figure 1</span><code>CLOUD_Helpdesk_UserAdmins</code> created as a cloud security group with assigned membership and two direct users.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> A dedicated group keeps password-reset delegation separate from department access groups, collaboration groups and other administrative roles.</div>
+</div>
+<div class="section-block">
+<h3>2. Licence Administration Group Created</h3>
+<p>I created <code>CLOUD_Helpdesk_LicenseAdmins</code> as a separate assigned, cloud-only security group for delegated Microsoft 365 licence administration.</p>
+<figure class="lab-figure">
+<img alt="CLOUD_Helpdesk_LicenseAdmins overview showing a cloud security group with assigned membership and two direct members" src="screenshots/11-02-license-admin-group-overview.png" width="2869" height="1691"/>
+<figcaption><span class="figure-label">Figure 2</span><code>CLOUD_Helpdesk_LicenseAdmins</code> created as a separate cloud security group for approved licence administration.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Using a separate group prevents unrelated administrative permissions from being bundled into the password-reset role group.</div>
+</div>
+<div class="section-block">
+<h3>3. Helpdesk Group Membership Confirmed</h3>
+<p>I added Chloe Bennett and Daniel Smith to the delegated helpdesk group so the Helpdesk Administrator role can be managed through group membership.</p>
+<figure class="lab-figure">
+<img alt="CLOUD_Helpdesk_UserAdmins direct members showing Chloe Bennett and Daniel Smith" src="screenshots/11-03-helpdesk-group-membership.png" width="1982" height="931"/>
+<figcaption><span class="figure-label">Figure 3</span>Chloe Bennett and Daniel Smith confirmed as direct members of the delegated helpdesk group.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Group-based delegation makes it easier to add or remove first-line analysts without editing role assignments individually.</div>
+</div>
+<div class="section-block">
+<h3>4. Licence Administration Group Membership Confirmed</h3>
+<p>I added Chloe Bennett and Daniel Smith to the delegated licence-administration group.</p>
+<figure class="lab-figure">
+<img alt="CLOUD_Helpdesk_LicenseAdmins direct members showing Chloe Bennett and Daniel Smith" src="screenshots/11-04-license-admin-group-membership.png" width="2547" height="1040"/>
+<figcaption><span class="figure-label">Figure 4</span>Chloe Bennett and Daniel Smith confirmed as direct members of the delegated licence-administration group.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Membership of the licence group can be managed independently from password-reset delegation.</div>
+</div>
+<div class="section-block">
+<h3>5. Helpdesk Administrator Role Assigned to Group</h3>
+<p>I assigned the built-in <code>Helpdesk Administrator</code> role to <code>CLOUD_Helpdesk_UserAdmins</code> at directory scope.</p>
+<figure class="lab-figure">
+<img alt="Helpdesk Administrator role assignments showing CLOUD_Helpdesk_UserAdmins assigned as a group at directory scope" src="screenshots/11-05-helpdesk-admin-role-assigned-to-group.png" width="3090" height="949"/>
+<figcaption><span class="figure-label">Figure 5</span>Helpdesk Administrator role assignment showing <code>CLOUD_Helpdesk_UserAdmins</code> assigned as a group at directory scope.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Assigning the role to the group rather than directly to Chloe or Daniel keeps the delegation model consistent and auditable.</div>
+</div>
+<div class="section-block">
+<h3>6. License Administrator Role Assigned to Group</h3>
+<p>I assigned the built-in <code>License Administrator</code> role to <code>CLOUD_Helpdesk_LicenseAdmins</code> at directory scope.</p>
+<figure class="lab-figure">
+<img alt="License Administrator role assignments showing CLOUD_Helpdesk_LicenseAdmins assigned as a group at directory scope" src="screenshots/11-06-license-admin-role-assigned-to-group.png" width="3155" height="940"/>
+<figcaption><span class="figure-label">Figure 6</span>License Administrator role assignment showing <code>CLOUD_Helpdesk_LicenseAdmins</code> assigned as a group at directory scope.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The licence role supports approved product and service-plan changes without granting broad user, messaging or tenant administration.</div>
+</div>
+<div class="section-block">
+<h3>7. Helpdesk Group-Side Role Confirmed</h3>
+<p>I checked the assigned roles view for <code>CLOUD_Helpdesk_UserAdmins</code> and confirmed that the group carries the built-in Helpdesk Administrator role.</p>
+<figure class="lab-figure">
+<img alt="Assigned roles view showing Helpdesk Administrator associated with CLOUD_Helpdesk_UserAdmins at directory scope" src="screenshots/11-07-helpdesk-group-role-visible.png" width="2268" height="469"/>
+<figcaption><span class="figure-label">Figure 7</span>Group-side assigned roles view confirming the built-in Helpdesk Administrator role at directory scope.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This confirms the assignment from the group side as well as from the role assignment page.</div>
+</div>
+<div class="section-block">
+<h3>8. Licence Group-Side Role Confirmed</h3>
+<p>I checked the assigned roles view for <code>CLOUD_Helpdesk_LicenseAdmins</code> and confirmed that the group carries the built-in License Administrator role.</p>
+<figure class="lab-figure">
+<img alt="Assigned roles view showing License Administrator associated with CLOUD_Helpdesk_LicenseAdmins at directory scope" src="screenshots/11-08-license-admin-group-role-visible.png" width="3162" height="769"/>
+<figcaption><span class="figure-label">Figure 8</span>Group-side assigned roles view confirming the built-in License Administrator role at directory scope.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The group-side view provides a second verification path for the licence role assignment.</div>
+</div>
+<div class="section-block">
+<h3>9. Delegated Password Reset Validated</h3>
+<p>I signed in as Chloe Bennett and confirmed that she could open the password-reset action for a standard user account.</p>
+<figure class="lab-figure">
+<img alt="Chloe Bennett signed into the Entra admin center with the reset password action visible for Kate Jones" src="screenshots/11-09-chloe-password-reset-action-visible.png" width="3129" height="1566"/>
+<figcaption><span class="figure-label">Figure 9</span>Chloe Bennett, signed in with delegated helpdesk access, can open the password-reset action for Kate Jones.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> User-side validation proves that the delegated role works from the perspective of a first-line support analyst.</div>
+</div>
+<div class="section-block">
+<h3>10. Delegated Licence Management Validated</h3>
+<p>I signed in as Chloe Bennett and confirmed that she could access editable licence controls for a standard user through the delegated License Administrator role.</p>
+<figure class="lab-figure">
+<img alt="Chloe Bennett session showing editable licences and apps controls for Kate Jones with Save changes available" src="screenshots/11-10-chloe-license-management-visible.png" width="1840" height="1821"/>
+<figcaption><span class="figure-label">Figure 10</span>Chloe Bennett can access editable licence controls for Kate Jones, with the option to save approved changes.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Service Desk analysts can apply approved standard licence and service-plan changes, while purchasing decisions and exceptional or unclear requests remain subject to approval or escalation.</div>
+</div>
+<div class="section-block">
+<h3>11. Privileged Password-Reset Boundary Confirmed</h3>
+<p>I tested the delegated boundary by opening the password-reset action against the daily administrator account. The reset was blocked because Chloe did not have sufficient privilege to reset that administrative account.</p>
+<figure class="lab-figure">
+<img alt="Chloe Bennett signed into the Entra admin center with password reset blocked for Kristian Nietzold due to insufficient privilege" src="screenshots/11-11-helpdesk-least-privilege-boundary.png" width="3127" height="1564"/>
+<figcaption><span class="figure-label">Figure 11</span>Chloe Bennett's delegated access was blocked from resetting the daily administrator account.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The boundary confirms that first-line password-reset capability does not provide unrestricted tenant administration.</div>
+</div>
+<h2>Validation</h2>
+<p>The helpdesk delegation was validated when <code>CLOUD_Helpdesk_UserAdmins</code> existed as an assigned cloud security group, Chloe Bennett and Daniel Smith were confirmed as direct members, and the built-in <code>Helpdesk Administrator</code> role was visible from both the role and group assignment views.</p>
+<p>The licence delegation was validated when <code>CLOUD_Helpdesk_LicenseAdmins</code> existed as a separate assigned cloud security group, the same support users were confirmed as direct members, and the built-in <code>License Administrator</code> role was visible from both assignment views.</p>
+<p>Operational access was validated by signing in as Chloe Bennett, confirming password-reset access for a standard user, confirming editable licence controls for a standard user, and verifying that the same delegated access did not allow reset of the daily administrator account.</p>
+<h2>Key Technical Outcomes</h2>
+<p>This lab demonstrated group-based Microsoft Entra role delegation through separate role-assignable cloud security groups for password support and Microsoft 365 licence administration.</p>
+<p>It also demonstrated separation of duties by keeping licence permissions independent from helpdesk password-reset permissions and by validating the boundary protecting an administrative account.</p>
+<div class="summary">
+<h2>Summary</h2>
+<ul>
+<li>I created separate cloud security groups for delegated password support and licence administration.</li>
+<li>I added Chloe Bennett and Daniel Smith as direct members of both delegated role groups.</li>
+<li>I assigned the built-in <code>Helpdesk Administrator</code> and <code>License Administrator</code> roles through their respective groups.</li>
+<li>I confirmed both role assignments from the role-side and group-side administrative views.</li>
+<li>I validated delegated password-reset and licence-management access as Chloe Bennett.</li>
+<li>I confirmed that Chloe's delegated access did not permit reset of the daily administrator account.</li>
+</ul>
+</div><div class="page-navigation"><a class="btn" href="../10-sharepoint-onedrive-file-collaboration/index.html">← Previous Lab</a><a class="btn" href="../index.html">Back to Microsoft Infrastructure</a><a class="btn" href="../12-entra-sign-in-logs-mfa-support/index.html">Next Lab →</a></div>
+</section>
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer>
+</body>
+</html>

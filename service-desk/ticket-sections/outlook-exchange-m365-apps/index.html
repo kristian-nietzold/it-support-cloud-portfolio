@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Outlook, Exchange and Microsoft 365 Apps - Service Desk Tickets</title>
+<link href="../../../style.css" rel="stylesheet"/>
+<style>
+    .navbar nav .nav-disabled {
+      color: #bdbdbd;
+      margin-left: 24px;
+      font-size: 16px;
+      cursor: default;
+    }
+    .category-grid {
+      display: grid;
+      gap: 22px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      margin-top: 24px;
+      margin-bottom: 34px;
+    }
+    .category-card,
+    .evidence-card,
+    .ticket-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 22px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .category-card h3,
+    .evidence-card h3,
+    .ticket-card h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 21px;
+      line-height: 1.3;
+    }
+    .category-card p,
+    .category-card li,
+    .evidence-card p,
+    .evidence-card li,
+    .ticket-card p,
+    .ticket-card li {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .category-card ul,
+    .evidence-card ul,
+    .ticket-card ul {
+      padding-left: 20px;
+    }
+    .status {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #f1f5f9;
+      color: #334155;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .status-complete { background: #e8f5e9; color: #1f5f2e; }
+    .status-planned { background: #f1f5f9; color: #334155; }
+    .status-ready { background: #fff7ed; color: #9a3412; }
+    .status-live { background: #e0f2fe; color: #075985; }
+    .ticket-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      margin-bottom: 28px;
+    }
+    .ticket-table th,
+    .ticket-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #e5e7eb;
+      vertical-align: top;
+      text-align: left;
+    }
+    .ticket-table th {
+      background: #f8fafc;
+      font-weight: 700;
+    }
+    .ticket-table td:first-child {
+      white-space: nowrap;
+      font-weight: 700;
+    }
+    .ticket-table .action-cell {
+      white-space: nowrap;
+    }
+    .ticket-table .btn {
+      padding: 7px 12px;
+      font-size: 14px;
+      display: inline-block;
+    }
+    .no-action {
+      color: #64748b;
+      font-weight: 600;
+    }
+    .small-note {
+      font-size: 15px;
+      color: #475569;
+    }
+    @media (max-width: 760px) {
+      .ticket-table,
+      .ticket-table thead,
+      .ticket-table tbody,
+      .ticket-table th,
+      .ticket-table td,
+      .ticket-table tr {
+        display: block;
+      }
+      .ticket-table thead {
+        display: none;
+      }
+      .ticket-table tr {
+        border-bottom: 1px solid #e5e7eb;
+        padding: 12px 0;
+      }
+      .ticket-table td {
+        border-bottom: 0;
+        padding: 4px 0;
+      }
+      .ticket-table .action-cell {
+        margin-top: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../../index.html">Home</a><a href="../../../microsoft-infrastructure/index.html">Microsoft Infrastructure</a><a href="../../index.html">Service Desk</a><a href="../../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>Outlook, Exchange and Microsoft 365 Apps</h2>
+<p>Outlook client issues, Exchange Online permissions, shared mailbox access, licensing and Office app faults.</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Ticket List</h2>
+<table class="ticket-table">
+<thead>
+<tr><th>Ticket</th><th>Scenario</th><th>ServiceNow category</th><th>Status</th><th>Action</th></tr>
+</thead>
+<tbody>
+</tbody>
+<tr>
+<td>TS-005</td>
+<td>Outlook stuck on Loading Profile</td>
+<td>Microsoft 365 &gt; Outlook</td>
+<td>Planned</td>
+<td class="action-cell">—</td>
+</tr><tr>
+<td>TS-006</td>
+<td>Shared mailbox not appearing in Outlook</td>
+<td>Microsoft 365 &gt; Exchange Online</td>
+<td>Available</td>
+<td class="action-cell"><a class="btn" href="../../tickets/ts-006-shared-mailbox-not-appearing/index.html">View Ticket</a></td>
+</tr><tr>
+<td>TS-011</td>
+<td>Outlook keeps asking for password</td>
+<td>Microsoft 365 &gt; Outlook</td>
+<td>Planned</td>
+<td class="action-cell">—</td>
+</tr><tr>
+<td>TS-012</td>
+<td>Word and Outlook showing Unlicensed Product</td>
+<td>Microsoft 365 &gt; Licensing</td>
+<td>Available</td>
+<td class="action-cell"><a class="btn" href="../../tickets/ts-012-office-unlicensed-product/index.html">View Ticket</a></td>
+</tr><tr>
+<td>TS-022</td>
+<td>Shared mailbox opens but cannot send from it</td>
+<td>Microsoft 365 &gt; Exchange Online</td>
+<td>Available</td>
+<td class="action-cell"><a class="btn" href="../../tickets/ts-022-shared-mailbox-cannot-send-from/index.html">View Ticket</a></td>
+</tr><tr>
+<td>TS-027</td>
+<td>Shared calendar missing or user cannot edit it</td>
+<td>Microsoft 365 &gt; Exchange Online</td>
+<td>Planned</td>
+<td class="action-cell">—</td>
+</tr></table>
+<div class="callout">
+<strong>Evidence standard:</strong> Completed ticket pages include the user report, impact and priority, initial checks, screenshots, work notes, fix or escalation decision, validation and resolution wording.
+  </div>
+<p><a class="btn" href="../../index.html">← Service Desk</a></p>
+<div class="page-navigation"><a class="btn" href="../identity-mfa-user-lifecycle/index.html">← Previous Section</a><a class="btn" href="../../index.html">Back to Service Desk</a><a class="btn" href="../teams-onedrive-sharepoint/index.html">Next Section →</a></div></section>
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer></body>
+</html>

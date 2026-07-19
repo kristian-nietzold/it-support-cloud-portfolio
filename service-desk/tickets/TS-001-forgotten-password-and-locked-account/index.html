@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TS-001 - Forgotten password and locked account</title>
+<link href="../../../style.css" rel="stylesheet"/>
+<style id="ticket-image-aspect-ratio">
+figure img,
+.lab-figure img {
+  height: auto;
+}
+</style>
+
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../../index.html">Home</a><a href="../../../microsoft-infrastructure/index.html">Microsoft Infrastructure</a><a href="../../index.html">Service Desk</a><a href="../../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>TS-001: Forgotten password and locked account</h2>
+<p>Resolved a first-line identity incident for an HR user who had forgotten her password and locked her Active Directory account after repeated sign-in attempts. The recovery followed the approved identity-verification process, used delegated password-reset and account-unlock permissions, and required a password change before access was validated.</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Scenario</h2>
+<p>Emily Wilson reported that she had forgotten her password and could not sign in. After several unsuccessful attempts, her Active Directory account became locked. Although the domain lockout would eventually expire, Emily still did not know the correct password, so the Service Desk needed to verify her identity, reset the password and restore access.</p>
+<div class="callout"><strong>Priority reasoning:</strong> Impact was set to <strong>3 - Low</strong> because only one user was affected. Urgency was set to <strong>1 - High</strong> because the user could not sign in and was unable to continue working. Under the priority matrix, Low impact plus High urgency gives <strong>3 - Moderate</strong>.</div>
+<h2>ServiceNow Ticket</h2>
+<figure class="lab-figure">
+<img alt="ServiceNow incident for Emily Wilson showing Account Access category, Account Locked subcategory, Identity and Access Management service, Account Lockout Support offering, Active Directory configuration item, Low impact, High urgency and P3 priority" src="screenshots/TS-001-01-ticket-opened.png" width="3776" height="1212"/>
+<figcaption><span class="figure-label">Figure 1</span>ServiceNow incident opened for Emily Wilson with the correct service, service offering, configuration item, assignment details and P3 Moderate priority.</figcaption>
+</figure>
+<h2>Investigation</h2>
+<p>I checked Emily Wilson's account in Active Directory Users and Computers. The Account tab confirmed that the account was currently locked on the domain controller, matching the user's report of repeated unsuccessful sign-in attempts.</p>
+<figure class="lab-figure">
+<img alt="Emily Wilson Active Directory account showing that the account is currently locked out" src="screenshots/TS-001-02-account-locked-out-confirmed.png" width="986" height="1168"/>
+<figcaption><span class="figure-label">Figure 2</span>Active Directory confirmed that Emily Wilson's account was locked.</figcaption>
+</figure>
+<div class="callout"><strong>Cause confirmed:</strong> Emily had forgotten her password and repeated unsuccessful sign-in attempts caused the account to reach the domain lockout threshold.</div>
+<h2>Fix Applied</h2>
+<p>After verifying the caller's identity, I used Chloe Bennett's delegated Service Desk permissions to reset Emily's password. I selected <strong>User must change password at next logon</strong> and <strong>Unlock the user's account</strong>, restoring access without using Domain Admin rights.</p>
+<figure class="lab-figure">
+<img alt="Reset Password dialog showing user must change password at next logon and unlock the user's account selected" src="screenshots/TS-001-03-password-reset-and-unlock.png" width="938" height="632"/>
+<figcaption><span class="figure-label">Figure 3</span>A temporary password was set, password change at next sign-in was required, and the locked account was unlocked using the delegated Service Desk workflow.</figcaption>
+</figure>
+<h2>Validation</h2>
+<p>Emily signed into the domain-joined Windows client with the temporary password, changed it when prompted and reached the desktop successfully. I then confirmed the signed-in identity, workstation name and domain logon server in PowerShell.</p>
+<figure class="lab-figure">
+<img alt="PowerShell showing corp e.wilson signed in on CL1 with logon server DC1" src="screenshots/TS-001-04-sign-in-validated.png" width="1141" height="401"/>
+<figcaption><span class="figure-label">Figure 4</span>Successful domain sign-in validated on <code>CL1</code> as <code>CORP\e.wilson</code>, authenticated through <code>DC1</code>.</figcaption>
+</figure>
+<h2>Resolution</h2>
+<p>The incident was resolved with the resolution code <strong>Solution provided</strong>. The resolution notes recorded the identity check, locked-account confirmation, delegated password reset and unlock, forced password change and successful domain sign-in validation.</p>
+<figure class="lab-figure">
+<img alt="ServiceNow incident resolution information showing Solution provided, resolved by Chloe Bennett and detailed resolution notes" src="screenshots/TS-001-05-ticket-resolved.png" width="3810" height="998"/>
+<figcaption><span class="figure-label">Figure 5</span>Ticket resolved by Chloe Bennett with clear notes covering the investigation, delegated recovery action and successful validation.</figcaption>
+</figure>
+<div class="summary">
+<h2>Summary</h2>
+<ul>
+<li>Resolved a P3 Moderate identity incident for a single user with a forgotten password and locked account.</li>
+<li>I confirmed the locked account state in Active Directory.</li>
+<li>I reset the password, required a password change at next sign-in and unlocked the account using delegated Service Desk permissions.</li>
+<li>I validated successful domain sign-in on <code>CL1</code> as <code>CORP\e.wilson</code>, authenticated through <code>DC1</code>.</li>
+<li>I resolved the incident in ServiceNow using the code <strong>Solution provided</strong> with clear resolution notes.</li>
+<li>The workflow restored access while maintaining least privilege and avoiding the use of Domain Admin credentials.</li>
+</ul>
+</div><div class="page-navigation"><a class="btn" href="../../sd-00-service-desk-foundation-setup/index.html">← Previous Ticket</a><a class="btn" href="../../index.html">Back to Service Desk</a><a class="btn" href="../ts-002-mfa-new-phone/index.html">Next Ticket →</a></div>
+</section>
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer></body>
+</html>

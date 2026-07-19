@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Workspace 06 - Security and Authentication</title>
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    .navbar nav .nav-disabled { color: #bdbdbd; margin-left: 24px; font-size: 16px; cursor: default; }
+    .content-modern img { max-width: 760px; width: 100%; display: block; margin: 24px auto 8px; border-radius: 8px; border: 1px solid #ddd; background: white; }
+  </style>
+</head>
+<body>
+<header class="navbar">
+  <div class="container">
+    <h1 class="logo"><a href="../../index.html">Kristian Nietzold</a></h1>
+    <nav>
+      <a href="../../index.html">Home</a>
+      <a href="../../microsoft-infrastructure/index.html">Microsoft Infrastructure</a>
+      <a href="../../service-desk/index.html">Service Desk</a>
+      <span class="nav-disabled">Networking</span>
+      <a href="../index.html">Google Workspace</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="hero">
+  <div class="container">
+    <h2>Google Workspace 06: Security and Authentication</h2>
+    <p>2-Step Verification and authentication/security controls.</p>
+  </div>
+</section>
+<section class="content-modern">
+  <div class="callout"><strong>Context:</strong> This Google Workspace lab extends the same SaaS administration environment across identity, access, collaboration and security controls.</div>
+  <h1>06. Security &amp; Authentication</h1>
+<p>Implemented core Google Workspace identity and access security controls, including 2-Step Verification.</p>
+<p>The objective is to strengthen account security, reduce unauthorised access risk, and align with modern authentication best practices.</p>
+<hr />
+<h3>2-Step Verification (2SV)</h3>
+<p>2-Step Verification was enabled and enforced to provide an additional authentication layer.</p>
+<p><img src="screenshots/06-01-2sv-settings.png" alt="2-Step Verification settings" width="3094" height="1607"/></p>
+<p>Configuration includes:</p>
+<ul>
+<li><p>Enforcement: <strong>Enabled</strong></p>
+</li>
+<li><p>Methods: <strong>Any except SMS/phone where possible</strong></p>
+</li>
+<li><p>Trusted devices: <strong>Allowed</strong></p>
+</li>
+<li><p>Enrolment period: <strong>1 day</strong></p>
+</li>
+</ul>
+<p>This configuration:</p>
+<ul>
+<li><p>Protects against credential theft and phishing</p>
+</li>
+<li><p>Reduces reliance on passwords alone</p>
+</li>
+<li><p>Balances security with usability</p>
+</li>
+</ul>
+<hr />
+<h3>Password Policy</h3>
+<p>A secure password policy was configured to enforce strong credential standards.</p>
+<p><img src="screenshots/06-02-password-policy.png" alt="Password policy" width="3680" height="1901"/></p>
+<p>Configuration includes:</p>
+<ul>
+<li><p>Minimum length: <strong>12 characters</strong></p>
+</li>
+<li><p>Strong password enforcement: <strong>Enabled</strong></p>
+</li>
+<li><p>Password reuse: <strong>Disabled</strong></p>
+</li>
+<li><p>Password expiry: <strong>Disabled</strong></p>
+</li>
+<li><p>Enforce at next sign-in: <strong>Disabled</strong></p>
+</li>
+</ul>
+<p>This configuration:</p>
+<ul>
+<li><p>Improves resistance to brute-force attacks</p>
+</li>
+<li><p>Prevents reuse of compromised passwords</p>
+</li>
+<li><p>Avoids outdated practices such as forced expiry</p>
+</li>
+<li><p>Minimises disruption while maintaining strong security</p>
+</li>
+</ul>
+<hr />
+<h3>Summary</h3>
+<p>Evidence covered:</p>
+<ul>
+<li><p>Implementation of modern authentication controls</p>
+</li>
+<li><p>Enforcement of strong credential policies</p>
+</li>
+<li><p>Consideration of usability alongside security</p>
+</li>
+<li><p>Application of industry best practices</p>
+</li>
+</ul>
+<p>These controls provide a strong foundation for securing user accounts within Google Workspace.</p>
+
+  <p>
+    <a href="../index.html" class="btn">&larr; Back to Google Workspace</a>
+  </p>
+</section>
+</main>
+</body>
+</html>

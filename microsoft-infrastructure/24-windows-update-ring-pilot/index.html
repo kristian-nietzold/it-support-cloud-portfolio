@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lab 24 - Windows Update Ring Pilot</title>
+<link href="../../style.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../index.html">Home</a><a href="../index.html">Microsoft Infrastructure</a><a href="../../service-desk/index.html">Service Desk</a><a href="../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>Lab 24: Windows Update Ring Pilot</h2>
+<p>Configured a Windows Update ring for the Intune pilot device group with controlled deferrals, active hours, restart deadlines and device-based targeting ahead of wider rollout.</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Overview</h2>
+<p>This lab continued the MD-102 endpoint-management build by adding Windows Update for Business policy control through Microsoft Intune. The policy was created as a pilot update ring and assigned only to the existing Intune Windows pilot device group.</p>
+<p>The lab focused on safe update governance rather than forcing an operating system update during the build. The final validation used Intune device check-in reporting to confirm that the update ring applied successfully to the CL2 pilot device.</p>
+<p>I created <code>WIN-UPD-01-Windows-Update-Ring-Pilot</code> in the Intune Windows updates area. The update ring allowed Microsoft product updates, blocked driver updates, used a 3-day quality update deferral and a 30-day feature update deferral, and kept Windows Insider pre-release builds disabled.</p><p>I configured active hours from 8 AM to 6 PM, disabled the user option to pause updates, allowed users to check for updates, enabled default Windows Update notifications and applied deadline controls for quality and feature updates. The policy was assigned to <code>GRP_Intune_Windows_Pilot_Devices</code>, which contained the CL2 pilot device.</p><h2>Objective</h2>
+<p>The objective was to create a controlled Windows Update ring for Nietz Ltd pilot devices, configure sensible quality and feature update deferrals, block driver updates, protect user active hours, enable deadline controls and validate successful policy deployment to CL2.</p>
+<h2>Environment</h2>
+<table>
+<tr><th>Component</th><th>Value</th></tr>
+<tr><td>Company</td><td>Nietz Ltd</td></tr>
+<tr><td>Tenant admin</td><td>k.nietzold@nietz.co.uk</td></tr>
+<tr><td>Management platform</td><td>Microsoft Intune</td></tr>
+<tr><td>Policy type</td><td>Update ring for Windows 10 and later</td></tr>
+<tr><td>Update ring policy</td><td>WIN-UPD-01-Windows-Update-Ring-Pilot</td></tr>
+<tr><td>Assigned group</td><td>GRP_Intune_Windows_Pilot_Devices</td></tr>
+<tr><td>Pilot device</td><td>CL2</td></tr>
+<tr><td>Logged-in pilot user</td><td>c.bennett@nietz.co.uk</td></tr>
+<tr><td>Previous lab</td><td>Lab 23: Edge Security Baseline</td></tr>
+<tr><td>Next lab</td><td>Lab 25: Feature Update Policy Windows 11</td></tr>
+</table>
+<h2>Configuration and Evidence</h2>
+<div class="section-block">
+<h3>1. Update Rings Area Reviewed Before Creation</h3>
+<p>I opened the Windows Update rings area in Intune before creating the pilot update ring.</p>
+<figure class="lab-figure">
+<img alt="Intune Windows Update rings page before the pilot update ring was created" src="screenshots/24-01-intune-windows-update-rings-before-pilot-ring.png" width="3263" height="1692"/>
+<figcaption><span class="figure-label">Figure 1</span>Intune Windows Update rings page before creating the Nietz Ltd pilot update ring policy.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The empty update rings list established the starting state before the new policy was created.</div>
+</div>
+<div class="section-block">
+<h3>2. Pilot Update Ring Basics Configured</h3>
+<p>I named the update ring <code>WIN-UPD-01-Windows-Update-Ring-Pilot</code> and added a description explaining its pilot scope and update-management purpose.</p>
+<figure class="lab-figure">
+<img alt="Windows Update ring basics showing policy name and description" src="screenshots/24-02-windows-update-ring-basics.png" width="1814" height="1704"/>
+<figcaption><span class="figure-label">Figure 2</span>Windows Update ring basics configured with the pilot policy name and description.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Clear naming separates the update ring from security baselines, configuration profiles and future production rollout rings.</div>
+</div>
+<div class="section-block">
+<h3>3. Update Settings Configured</h3>
+<p>I configured the update settings to allow Microsoft product updates, block Windows driver updates, defer quality updates for 3 days and defer feature updates for 30 days.</p>
+<figure class="lab-figure">
+<img alt="Windows Update ring update settings showing Microsoft product updates, driver blocking and update deferrals" src="screenshots/24-03-windows-update-ring-update-settings-configured.png" width="1835" height="1320"/>
+<figcaption><span class="figure-label">Figure 3</span>Update settings configured with driver updates blocked, quality updates deferred for 3 days and feature updates deferred for 30 days.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This configuration provides a safer pilot rollout by delaying feature updates, reducing driver-change risk and avoiding pre-release builds.</div>
+</div>
+<div class="section-block">
+<h3>4. User Experience and Deadline Settings Configured</h3>
+<p>I configured user experience settings to install updates during maintenance time, protect business active hours, disable update pausing and apply deadline controls for quality and feature updates.</p>
+<figure class="lab-figure">
+<img alt="Windows Update ring user experience settings showing active hours, pause option, check option and deadline controls" src="screenshots/24-04-windows-update-ring-user-experience-settings-configured.png" width="2284" height="1662"/>
+<figcaption><span class="figure-label">Figure 4</span>User experience settings configured with active hours, update deadlines, grace period and automatic reboot before deadline.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Active hours and deadline settings balance user disruption control with the need to keep managed devices updated.</div>
+</div>
+<div class="section-block">
+<h3>5. Pilot Device Group Assigned</h3>
+<p>I assigned the update ring to <code>GRP_Intune_Windows_Pilot_Devices</code> so the policy targeted the CL2 pilot device before any wider deployment.</p>
+<figure class="lab-figure">
+<img alt="Windows Update ring assigned to GRP_Intune_Windows_Pilot_Devices" src="screenshots/24-05-windows-update-ring-assigned-to-pilot-devices.png" width="3123" height="1684"/>
+<figcaption><span class="figure-label">Figure 5</span>Windows Update ring assigned to the Intune Windows pilot device group containing the CL2 test device.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Device-based assignment keeps the rollout tied to the pilot endpoint rather than relying on a user assignment.</div>
+</div>
+<div class="section-block">
+<h3>6. Update Ring Created</h3>
+<p>I confirmed that the update ring was created and visible in the Intune Windows updates list with the expected quality and feature deferral values.</p>
+<figure class="lab-figure">
+<img alt="Intune Windows Update rings list showing WIN-UPD-01-Windows-Update-Ring-Pilot created" src="screenshots/24-06-windows-update-ring-profile-created.png" width="3209" height="1153"/>
+<figcaption><span class="figure-label">Figure 6</span>The pilot Windows Update ring appeared in Intune with 3-day quality deferral and 30-day feature deferral settings.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The policy list confirms the profile exists after creation and is available for deployment reporting.</div>
+</div>
+<div class="section-block">
+<h3>7. CL2 Manually Synced</h3>
+<p>I manually synced CL2 from the Windows work or school account settings after assigning the update ring.</p>
+<figure class="lab-figure">
+<img alt="CL2 work or school account settings showing successful sync after update ring assignment" src="screenshots/24-07-cl2-sync-after-windows-update-ring-policy.png" width="1383" height="1930"/>
+<figcaption><span class="figure-label">Figure 7</span>CL2 manually synced after the Windows Update ring policy was assigned to the Nietz Ltd pilot device group.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Manual sync speeds up policy check-in and provides endpoint-side evidence that the device contacted the management service.</div>
+</div>
+<div class="section-block">
+<h3>8. Deployment Status Confirmed</h3>
+<p>I reviewed Intune deployment reporting and confirmed that the update ring check-in status succeeded for CL2 with Chloe Bennett signed in.</p>
+<figure class="lab-figure">
+<img alt="Intune update ring reporting showing CL2 with Success check-in status" src="screenshots/24-08-windows-update-ring-deployment-succeeded-cl2.png" width="3220" height="975"/>
+<figcaption><span class="figure-label">Figure 8</span>Intune reporting confirmed the Windows Update ring applied successfully to CL2 with Chloe Bennett as the logged-in user.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Deployment reporting was used as the validation point instead of forcing a live Windows update installation on the pilot device.</div>
+</div>
+<h2>Validation</h2>
+<p>The lab was validated when the update ring existed in Intune, showed the intended deferral settings, was assigned only to the Windows pilot device group, CL2 was manually synced, and Intune reporting showed one successful check-in for CL2 with no errors, conflicts or in-progress devices.</p>
+<h2>Key Technical Outcomes</h2>
+<p>Nietz Ltd now has a controlled pilot Windows Update ring for Intune-managed Windows devices. The configuration can be used to test update behaviour on CL2 before creating broader deployment rings for additional devices.</p>
+<div class="summary">
+<h2>Summary</h2>
+<ul>
+<li>Created <code>WIN-UPD-01-Windows-Update-Ring-Pilot</code> in Microsoft Intune.</li>
+<li>Allowed Microsoft product updates and blocked Windows driver updates.</li>
+<li>Configured a 3-day quality update deferral and 30-day feature update deferral.</li>
+<li>Configured active hours, user update options, notifications and update deadline controls.</li>
+<li>Assigned the policy only to <code>GRP_Intune_Windows_Pilot_Devices</code>.</li>
+<li>Manually synced CL2 after assignment.</li>
+<li>Confirmed successful Intune check-in status for CL2.</li>
+</ul>
+</div><div class="page-navigation"><a class="btn" href="../23-edge-browser-security-baseline/index.html">← Previous Lab</a><a class="btn" href="../index.html">Back to Microsoft Infrastructure</a><a class="btn" href="../25-feature-update-policy-windows-11/index.html">Next Lab →</a></div>
+</section>
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer>
+</body>
+</html>

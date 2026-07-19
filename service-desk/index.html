@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Service Desk Portfolio – Kristian Nietzold</title>
+<meta content="ServiceNow-based IT support ticket investigations covering identity, Microsoft 365, Exchange Online, Windows endpoints, hybrid identity and structured escalation." name="description"/>
+<link href="../style.css" rel="stylesheet"/>
+<style>
+    .ticket-grid,
+    .category-grid,
+    .support-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      margin: 24px 0 42px;
+    }
+
+    .ticket-card,
+    .category-card,
+    .support-card {
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+    }
+
+    .ticket-card h3,
+    .category-card h3,
+    .support-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.28rem;
+      line-height: 1.3;
+    }
+
+    .ticket-card p,
+    .category-card p,
+    .support-card p {
+      margin: 0 0 18px;
+      font-size: 1rem;
+      line-height: 1.58;
+    }
+
+    .ticket-card .btn,
+    .category-card .btn,
+    .support-card .btn {
+      margin-top: auto;
+      align-self: flex-start;
+    }
+
+    .ticket-code,
+    .card-label {
+      display: inline-block;
+      margin-bottom: 10px;
+      color: #475569;
+      font-size: 0.86rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .section-intro {
+      max-width: 920px;
+      font-size: 1.08rem;
+      line-height: 1.65;
+    }
+
+    .footer a {
+      color: inherit;
+    }
+  </style>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo">
+<a href="../index.html">Kristian Nietzold</a>
+</h1>
+<nav aria-label="Main navigation"><a href="../index.html">Home</a><a href="../microsoft-infrastructure/index.html">Microsoft Infrastructure</a><a href="index.html">Service Desk</a><a href="../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>Service Desk Portfolio</h2>
+<p>
+          ServiceNow-based ticket investigations covering first-line
+          triage, Microsoft support troubleshooting, escalation judgement,
+          technical validation and clear resolution documentation.
+        </p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Ticket Investigations</h2>
+<p class="section-intro">
+        Completed investigations across identity, Microsoft 365, Exchange
+        Online, user lifecycle, hybrid administration and Windows endpoints.
+      </p>
+<div class="ticket-grid">
+<article class="ticket-card">
+<span class="ticket-code">TS-001 · Identity and access</span>
+<h3>Forgotten password and locked account</h3>
+<p>
+            First-line account recovery covering identity verification,
+            password reset, account unlock, forced password change and
+            successful user sign-in validation.
+          </p>
+<a class="btn" href="tickets/ts-001-forgotten-password-and-locked-account/index.html">
+            View Ticket
+          </a>
+</article>
+<article class="ticket-card">
+<span class="ticket-code">TS-002 · MFA</span>
+<h3>Replacement phone prevents MFA sign-in</h3>
+<p>
+            Microsoft Entra MFA recovery using authentication-method review,
+            a Temporary Access Pass and successful security-information
+            re-registration.
+          </p>
+<a class="btn" href="tickets/ts-002-mfa-new-phone/index.html">
+            View Ticket
+          </a>
+</article>
+<article class="ticket-card">
+<span class="ticket-code">TS-006 · Outlook and Exchange</span>
+<h3>Shared mailbox not appearing in Outlook</h3>
+<p>
+            Shared-mailbox investigation covering permission checks, Outlook
+            behaviour, user validation and documented resolution.
+          </p>
+<a class="btn" href="tickets/ts-006-shared-mailbox-not-appearing/index.html">
+            View Ticket
+          </a>
+</article>
+<article class="ticket-card">
+<span class="ticket-code">TS-012 · Microsoft 365 Apps</span>
+<h3>Word and Outlook showing Unlicensed Product</h3>
+<p>
+            Microsoft 365 licensing investigation covering the affected user,
+            licence assignment, application status and successful activation
+            validation.
+          </p>
+<a class="btn" href="tickets/ts-012-office-unlicensed-product/index.html">
+            View Ticket
+          </a>
+</article>
+<article class="ticket-card">
+<span class="ticket-code">TS-019 · User lifecycle</span>
+<h3>Temporary Finance Assistant onboarding and offboarding</h3>
+<p>
+            Time-limited Microsoft 365 onboarding covering first-line triage,
+            least-privilege escalation, administrator-led provisioning and
+            controlled offboarding planning.
+          </p>
+<a class="btn" href="tickets/ts-019-temporary-finance-assistant-onboarding-offboarding/index.html">
+            View Ticket
+          </a>
+</article>
+<article class="ticket-card">
+<span class="ticket-code">TS-022 · Exchange permissions</span>
+<h3>Shared mailbox opens but cannot send from it</h3>
+<p>
+            First-line diagnosis identified missing Send As permission,
+            documented the escalation boundary and validated successful mail
+            delivery after the privileged fix.
+          </p>
+<a class="btn" href="tickets/ts-022-shared-mailbox-cannot-send-from/index.html">
+            View Ticket
+          </a>
+</article>
+<article class="ticket-card">
+<span class="ticket-code">TS-023 · Email security</span>
+<h3>Supplier email quarantined as phishing</h3>
+<p>
+            Quarantine investigation covering message details, sender
+            authentication, controlled release, user communication and
+            post-test rule cleanup.
+          </p>
+<a class="btn" href="tickets/ts-023-supplier-email-quarantined-phishing/index.html">
+            View Ticket
+          </a>
+</article>
+<article class="ticket-card">
+<span class="ticket-code">TS-031 · Hybrid identity</span>
+<h3>Duplicate Chloe Bennett account after Entra Connect pilot sync</h3>
+<p>
+            Hybrid identity investigation covering duplicate cloud and
+            synchronised objects, source-of-authority checks, cleanup and
+            successful directory synchronisation.
+          </p>
+<a class="btn" href="tickets/ts-031-servicenow-chloe-duplicate-identity-cleanup/index.html">
+            View Ticket
+          </a>
+</article>
+<article class="ticket-card">
+<span class="ticket-code">TS-033 · Windows endpoint support</span>
+<h3>Mapped drives and printers missing after sign-in</h3>
+<p>
+            Windows support investigation covering user and group membership,
+            policy processing, mapped resources, privileged escalation and
+            post-fix validation.
+          </p>
+<a class="btn" href="tickets/ts-033-mapped-drives-printers/index.html">
+            View Ticket
+          </a>
+</article>
+</div>
+<h2>Browse by Support Area</h2>
+<p class="section-intro">
+        Related scenarios are grouped by support area for easier browsing.
+      </p>
+<div class="category-grid">
+<article class="category-card">
+<span class="card-label">Support area</span>
+<h3>Identity, MFA and User Lifecycle</h3>
+<p>
+            Passwords, account access, MFA recovery, onboarding, user lifecycle
+            and hybrid identity support.
+          </p>
+<a class="btn" href="ticket-sections/identity-mfa-user-lifecycle/index.html">
+            Open Section
+          </a>
+</article>
+<article class="category-card">
+<span class="card-label">Support area</span>
+<h3>Outlook, Exchange and Microsoft 365 Apps</h3>
+<p>
+            Shared mailboxes, Exchange permissions, Outlook behaviour,
+            licensing and Microsoft 365 desktop applications.
+          </p>
+<a class="btn" href="ticket-sections/outlook-exchange-m365-apps/index.html">
+            Open Section
+          </a>
+</article>
+<article class="category-card">
+<span class="card-label">Support area</span>
+<h3>Teams, OneDrive and SharePoint</h3>
+<p>
+            Collaboration, file synchronisation, meeting, sharing and
+            permissions scenarios across Microsoft 365.
+          </p>
+<a class="btn" href="ticket-sections/teams-onedrive-sharepoint/index.html">
+            Open Section
+          </a>
+</article>
+<article class="category-card">
+<span class="card-label">Support area</span>
+<h3>Endpoint, VPN, Printing and Security</h3>
+<p>
+            Windows endpoints, mapped resources, VPN, printers, device
+            compliance and user-reported security incidents.
+          </p>
+<a class="btn" href="ticket-sections/endpoint-vpn-printing-security/index.html">
+            Open Section
+          </a>
+</article>
+</div>
+<h2>Service Desk Environment and Methodology</h2>
+<div class="support-grid">
+<article class="support-card">
+<span class="card-label">Environment setup</span>
+<h3>Service Desk Foundation</h3>
+<p>
+            ServiceNow queue design, resolver and caller records, Active
+            Directory delegation, account-support permissions and the incident
+            category model used throughout the ticket investigations.
+          </p>
+<a class="btn" href="sd-00-service-desk-foundation-setup/index.html">
+            View Foundation Setup
+          </a>
+</article>
+<article class="support-card">
+<span class="card-label">Working method</span>
+<h3>Triage and Escalation Methodology</h3>
+<p>
+            The impact, urgency and priority model used across the scenarios,
+            together with documentation standards, resolver roles and
+            escalation boundaries.
+          </p>
+<a class="btn" href="methodology/index.html">
+            View Methodology
+          </a>
+</article>
+</div>
+<div class="summary">
+<h2>Technical Evidence</h2>
+<ul>
+<li>Structured first-line triage and evidence gathering.</li>
+<li>Microsoft 365, identity, Exchange and Windows troubleshooting.</li>
+<li>Clear distinction between first-line fixes and privileged escalation.</li>
+<li>ServiceNow work notes, user communication and resolution documentation.</li>
+<li>Technical validation before ticket closure.</li>
+</ul>
+</div>
+</section>
+</main>
+
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer></body>
+</html>

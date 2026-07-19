@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lab 06 - MFA, Password Reset and Licensing</title>
+<link href="../../style.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../index.html">Home</a><a href="../index.html">Microsoft Infrastructure</a><a href="../../service-desk/index.html">Service Desk</a><a href="../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>Lab 06: MFA, Password Reset and Licensing</h2>
+<p>Validated the Nietz Ltd Microsoft 365 account-security baseline across Office 365 E5 licensing, MFA pilot scope, authentication methods, user security information, Self-Service Password Reset readiness and Entra sign-in evidence.</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Overview</h2>
+<p>In this lab, I built on the Microsoft 365 user administration work completed in Lab 05. I reviewed the Office 365 E5 licensing baseline for the existing <code>@nietz.co.uk</code> cloud identities, validated user-level licence assignment, checked the controlled MFA pilot scope, confirmed available authentication methods, reviewed Self-Service Password Reset readiness, and validated Chloe Bennett's security information and sign-in logs.</p>
+<p>This lab keeps the same Nietz Ltd environment established across Labs 01-05: on-premises Active Directory uses <code>corp.nietz.co.uk</code>, while Microsoft 365 user sign-in uses <code>nietz.co.uk</code>. Hybrid identity is still planned for Lab 12 and was not configured in this lab.</p>
+<h2>Objective</h2>
+<p>The objective was to produce clean build evidence for Microsoft 365 account security and licensing readiness before moving into Exchange Online and Outlook. The lab validated Office 365 E5 licence usage, user-level licence assignment, pilot group targeting, authentication method availability, user-side MFA/security information, Self-Service Password Reset readiness, and successful OfficeHome sign-in events.</p>
+<h2>Environment</h2>
+<table>
+<tr><th>Component</th><th>Value</th></tr>
+<tr><td>Company</td><td>Nietz Ltd</td></tr>
+<tr><td>On-premises AD Domain</td><td>corp.nietz.co.uk</td></tr>
+<tr><td>NetBIOS Name</td><td>CORP</td></tr>
+<tr><td>Microsoft 365 / Tenant Domain</td><td>nietz.co.uk</td></tr>
+<tr><td>Tenant Admin</td><td>admin@nietz.co.uk - setup/global admin, intentionally unlicensed</td></tr>
+<tr><td>Daily Admin</td><td>k.nietzold@nietz.co.uk - licensed daily administrator</td></tr>
+<tr><td>Primary Validation User</td><td>c.bennett@nietz.co.uk</td></tr>
+<tr><td>Pilot Group</td><td>GRP_CA_Pilot</td></tr>
+<tr><td>Previous Lab Dependency</td><td>Lab 05: Microsoft 365 User Admin</td></tr>
+</table>
+<h2>Configuration</h2>
+<div class="section-block">
+<h3>1. Office 365 E5 Licensing Baseline</h3>
+<p>I reviewed the Office 365 E5 licensing baseline before applying account security checks. This confirmed assigned licence usage and validated that the core Nietz Ltd user accounts, including Mia Taylor, were present with the correct <code>@nietz.co.uk</code> primary email format.</p>
+<figure class="lab-figure">
+<img alt="Office 365 E5 licensing baseline showing assigned users including Mia Taylor" src="screenshots/06-01-licensing-baseline-before-review.png" width="2938" height="1668"/>
+<figcaption><span class="figure-label">Figure 1</span>Office 365 E5 licensing baseline reviewed, showing assigned users and correct <code>@nietz.co.uk</code> email format.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Licensing baseline checks are important before troubleshooting or configuring Microsoft 365 services because licence state affects mailbox availability, Microsoft 365 apps, Teams, SharePoint, OneDrive, and later service testing.</div>
+</div>
+<div class="section-block">
+<h3>2. User-Level Licence Assignment</h3>
+<p>I opened Chloe Bennett's user record and confirmed that the Office 365 E5 licence was assigned with the United Kingdom usage location set.</p>
+<figure class="lab-figure">
+<img alt="Chloe Bennett Licenses and apps page showing Office 365 E5 assigned" src="screenshots/06-02-licence-assignment-validation.png" width="1288" height="1678"/>
+<figcaption><span class="figure-label">Figure 2</span>Office 365 E5 licence assignment validated for Chloe Bennett.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> User-level licence checks are common Microsoft 365 support tasks because licence state affects mailbox availability, Microsoft 365 apps, Teams, SharePoint, OneDrive, and later service testing.</div>
+</div>
+<div class="section-block">
+<h3>3. MFA Pilot Scope</h3>
+<p>I confirmed that <code>GRP_CA_Pilot</code> contained the controlled pilot users <code>c.bennett@nietz.co.uk</code> and <code>k.nietzold@nietz.co.uk</code>.</p>
+<figure class="lab-figure">
+<img alt="GRP_CA_Pilot showing Chloe Bennett and Kristian Nietzold as members" src="screenshots/06-03-mfa-pilot-scope.png" width="2897" height="1137"/>
+<figcaption><span class="figure-label">Figure 3</span><code>GRP_CA_Pilot</code> confirmed with Chloe Bennett and Kristian Nietzold as pilot members.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Piloting identity controls against a small group reduces lockout risk and creates a safe foundation for later Conditional Access and Intune policy work.</div>
+</div>
+<div class="section-block">
+<h3>4. Authentication Method Policies</h3>
+<p>I reviewed the Authentication methods policy page and confirmed which sign-in methods were enabled or disabled in the tenant.</p>
+<figure class="lab-figure">
+<img alt="Authentication methods policies showing enabled and disabled authentication methods" src="screenshots/06-04-authentication-methods-mfa.png" width="2296" height="1462"/>
+<figcaption><span class="figure-label">Figure 4</span>Authentication methods reviewed, including Microsoft Authenticator, Temporary Access Pass, Software OATH tokens, and Email OTP availability.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Authentication method visibility is important for MFA readiness and user support. This lab reviewed available methods only; it did not create or enforce Conditional Access policies.</div>
+</div>
+<div class="section-block">
+<h3>5. Password Reset Readiness Review</h3>
+<p>I reviewed Self-Service Password Reset and confirmed that full SSPR rollout required Premium licensing or an eligible trial before it could be configured for the intended scope.</p>
+<figure class="lab-figure">
+<img alt="Self-Service Password Reset page showing Premium trial requirement" src="screenshots/06-05-password-reset-readiness-review.png" width="3070" height="1659"/>
+<figcaption><span class="figure-label">Figure 5</span>Self-Service Password Reset reviewed and deferred until Premium/Business Premium licensing is active.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Identifying licensing limitations is a realistic Microsoft 365 administration task. Full SSPR configuration will be revisited after the appropriate Business Premium or Entra Premium licensing is available.</div>
+</div>
+<div class="section-block">
+<h3>6. User Security Information</h3>
+<p>I validated Chloe Bennett's user-side security information and confirmed that an authenticator app method was registered for sign-in.</p>
+<figure class="lab-figure">
+<img alt="Chloe Bennett Security info page showing password and authenticator app methods" src="screenshots/06-06-mfa-registration-status.png" width="2798" height="1389"/>
+<figcaption><span class="figure-label">Figure 6</span>Chloe Bennett's security information confirmed an authenticator app registered for sign-in.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Security info checks are directly relevant to helpdesk work because users often need support with changed phones, authenticator registration, missing methods, or repeated MFA prompts.</div>
+</div>
+<div class="section-block">
+<h3>7. Entra Sign-In Log Validation</h3>
+<p>I filtered Entra sign-in events for Chloe Bennett and confirmed successful OfficeHome sign-ins after the licence and authentication readiness checks.</p>
+<figure class="lab-figure">
+<img alt="Entra sign-in events filtered to successful OfficeHome sign-ins for Chloe Bennett" src="screenshots/06-07-sign-in-log-validation.png" width="2809" height="1083"/>
+<figcaption><span class="figure-label">Figure 7</span>Entra sign-in events confirmed successful OfficeHome sign-ins for Chloe Bennett.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Sign-in logs provide admin-side evidence of successful user access and are a key tool for Microsoft 365 helpdesk and identity troubleshooting.</div>
+</div>
+<h2>Validation</h2>
+<p>The lab was validated when the Office 365 E5 licensing baseline showed the expected assigned users, Chloe Bennett's Office 365 E5 licence was confirmed, <code>GRP_CA_Pilot</code> contained the intended pilot users, authentication methods were reviewed, Chloe Bennett's security information showed an authenticator app method, and Entra sign-in events showed successful OfficeHome access.</p>
+<p>Self-Service Password Reset was reviewed but not configured because the tenant prompted for Premium licensing. This was recorded as a deferred item for a later Business Premium or Entra Premium-enabled phase.</p>
+<h2>Key Technical Outcomes</h2>
+<p>This lab demonstrated the relationship between licence assignment, pilot group targeting, authentication method availability, user security information, Self-Service Password Reset readiness, and sign-in log evidence.</p>
+<p>It also preserved a safe pilot approach so later Entra ID, Conditional Access, Intune, Exchange, and Outlook labs can build on controlled users and groups rather than broad tenant-wide changes.</p>
+<div class="summary">
+<h2>Summary</h2>
+<ul>
+<li>I reviewed the Office 365 E5 licensing baseline for the core Nietz Ltd users.</li>
+<li>I validated Office 365 E5 assignment for Chloe Bennett.</li>
+<li>I confirmed the <code>GRP_CA_Pilot</code> group contained the intended pilot users.</li>
+<li>I reviewed tenant authentication method policies for MFA readiness.</li>
+<li>I reviewed Self-Service Password Reset and deferred full setup until Premium licensing is active.</li>
+<li>I confirmed Chloe Bennett had an authenticator app registered in Security info.</li>
+<li>I validated successful OfficeHome sign-ins in Entra sign-in events.</li>
+<li>I left the tenant ready for Lab 07: Exchange Online.</li>
+</ul>
+</div><div class="page-navigation"><a class="btn" href="../05-microsoft-365-user-admin/index.html">← Previous Lab</a><a class="btn" href="../index.html">Back to Microsoft Infrastructure</a><a class="btn" href="../07-exchange-online/index.html">Next Lab →</a></div>
+</section>
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer>
+</body>
+</html>

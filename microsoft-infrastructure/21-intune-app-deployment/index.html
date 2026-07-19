@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lab 21 - Intune Application Deployment and Microsoft 365 Apps</title>
+<link href="../../style.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../index.html">Home</a><a href="../index.html">Microsoft Infrastructure</a><a href="../../service-desk/index.html">Service Desk</a><a href="../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>Lab 21: Intune Application Deployment and Microsoft 365 Apps</h2>
+<p>Used Microsoft Intune to deploy Company Portal and Microsoft 365 Apps as required software, publish Adobe Acrobat Reader and Microsoft PowerToys for self-service installation, and validate availability, installation status and licensed Word access.</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Overview</h2>
+<p>This lab applies two common Intune application-delivery models. Core software was assigned as <strong>Required</strong> for automatic installation, while approved non-essential applications were assigned as <strong>Available for enrolled devices</strong> through Company Portal.</p>
+<p>The deployment used separate pilot groups for user-targeted and device-targeted assignments. Company Portal, Adobe Acrobat Reader and PowerToys were scoped through the user pilot group. Microsoft 365 Apps was assigned to the managed Windows pilot device group so the productivity suite formed part of the device baseline.</p>
+<h2>Objective</h2>
+<p>The objective was to configure, assign and validate a practical Intune application catalogue for a managed Windows endpoint. The lab covered required deployment, user self-service, featured applications, system and user installation contexts, Microsoft 365 Apps configuration, deployment monitoring and user-side licence validation.</p>
+<h2>Environment</h2>
+<table>
+<tr><th>Component</th><th>Value</th></tr>
+<tr><td>Company</td><td>Nietz Ltd</td></tr>
+<tr><td>Tenant Domain</td><td>nietz.co.uk</td></tr>
+<tr><td>Management Platform</td><td>Microsoft Intune</td></tr>
+<tr><td>Managed Endpoint</td><td>CL2</td></tr>
+<tr><td>Assigned User</td><td>Chloe Bennett — <code>c.bennett@nietz.co.uk</code></td></tr>
+<tr><td>User Pilot Group</td><td><code>GRP_Intune_Pilot</code></td></tr>
+<tr><td>Windows Device Pilot Group</td><td><code>GRP_Intune_Windows_Pilot_Devices</code></td></tr>
+<tr><td>Required Store Application</td><td>Company Portal</td></tr>
+<tr><td>Available Applications</td><td>Adobe Acrobat Reader DC and Microsoft PowerToys</td></tr>
+<tr><td>Required Productivity Suite</td><td>Microsoft 365 Apps</td></tr>
+</table>
+<h2>Configuration and Evidence</h2>
+<div class="section-block">
+<h3>1. Windows Application Baseline</h3>
+<p>I opened the Windows applications area in Intune before creating the new deployments. This established the starting point for the lab.</p>
+<figure class="lab-figure">
+<img alt="Intune Windows apps list before the new application deployments" src="screenshots/21-01-windows-apps-before-deployment.png" width="3222" height="1599"/>
+<figcaption><span class="figure-label">Figure 1</span>Windows applications view before the Lab 21 deployments were added.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>2. Company Portal Application Configuration</h3>
+<p>I selected Company Portal from Microsoft Store app (new). The application used the UWP installer type and System install behaviour so it could be delivered as a managed corporate application.</p>
+<figure class="lab-figure">
+<img alt="Company Portal application information in Intune" src="screenshots/21-02-company-portal-app-information.png" width="1962" height="1691"/>
+<figcaption><span class="figure-label">Figure 2</span>Company Portal selected from Microsoft Store app (new) with System install behaviour.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>3. Company Portal Required Assignment</h3>
+<p>I assigned Company Portal as <strong>Required</strong> to <code>GRP_Intune_Pilot</code>. Members of the user pilot group therefore received Company Portal automatically rather than installing it manually.</p>
+<figure class="lab-figure">
+<img alt="Company Portal required assignment to the Intune pilot group" src="screenshots/21-03-company-portal-required-assignment.png" width="3184" height="1695"/>
+<figcaption><span class="figure-label">Figure 3</span>Company Portal assigned as Required to the Intune user pilot group.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>4. Company Portal Review</h3>
+<p>I reviewed the application metadata, System installation context and required pilot-group assignment before creation.</p>
+<figure class="lab-figure">
+<img alt="Company Portal review and create summary" src="screenshots/21-04-company-portal-review-and-create.png" width="1554" height="1721"/>
+<figcaption><span class="figure-label">Figure 4</span>Company Portal review summary confirming the application and Required assignment.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>5. Company Portal Deployment Created</h3>
+<p>I created the Company Portal deployment. The initial overview showed the application object before endpoint reporting had populated.</p>
+<figure class="lab-figure">
+<img alt="Company Portal application overview after creation" src="screenshots/21-05-company-portal-created.png" width="1631" height="1693"/>
+<figcaption><span class="figure-label">Figure 5</span>Company Portal deployment created in Intune.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>6. Adobe Acrobat Reader Application Configuration</h3>
+<p>I added Adobe Acrobat Reader DC from Microsoft Store app (new). The Win32 application used System install behaviour, the Productivity category and the Featured application setting.</p>
+<figure class="lab-figure">
+<img alt="Adobe Acrobat Reader DC application information in Intune" src="screenshots/21-06-adobe-acrobat-app-information.png" width="1564" height="1720"/>
+<figcaption><span class="figure-label">Figure 6</span>Adobe Acrobat Reader configured as a featured Productivity application.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>7. Adobe Self-Service Assignment</h3>
+<p>I assigned Adobe as <strong>Available for enrolled devices</strong> to <code>GRP_Intune_Pilot</code>. This made the approved PDF reader available for user-initiated installation from Company Portal.</p>
+<figure class="lab-figure">
+<img alt="Adobe Acrobat Reader available assignment to the Intune pilot group" src="screenshots/21-07-adobe-available-assignment.png" width="3359" height="1703"/>
+<figcaption><span class="figure-label">Figure 7</span>Adobe assigned as an available self-service application for the pilot users.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>8. Adobe Review</h3>
+<p>I reviewed the Win32 application metadata, System install behaviour, featured setting and available assignment before creating the Adobe deployment.</p>
+<figure class="lab-figure">
+<img alt="Adobe Acrobat Reader review and create summary" src="screenshots/21-08-adobe-review-and-create.png" width="1460" height="1728"/>
+<figcaption><span class="figure-label">Figure 8</span>Adobe review summary confirming the available pilot-group assignment.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>9. Microsoft PowerToys Application Configuration</h3>
+<p>I added Microsoft PowerToys as a second approved self-service application. It used the Win32 installer type, User install behaviour and the Productivity category.</p>
+<figure class="lab-figure">
+<img alt="Microsoft PowerToys application information in Intune" src="screenshots/21-09-powertoys-app-information.png" width="1577" height="1735"/>
+<figcaption><span class="figure-label">Figure 9</span>Microsoft PowerToys configured as a standard Productivity application using User install behaviour.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>10. PowerToys Self-Service Assignment</h3>
+<p>I assigned PowerToys as <strong>Available for enrolled devices</strong> to <code>GRP_Intune_Pilot</code>, allowing pilot users to choose whether to install the utility.</p>
+<figure class="lab-figure">
+<img alt="Microsoft PowerToys available assignment to the Intune pilot group" src="screenshots/21-10-powertoys-available-assignment.png" width="3373" height="1714"/>
+<figcaption><span class="figure-label">Figure 10</span>PowerToys assigned as an available application for the Intune pilot users.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>11. PowerToys Review</h3>
+<p>I reviewed the Microsoft publisher details, User installation context, Productivity category and available assignment before creation.</p>
+<figure class="lab-figure">
+<img alt="Microsoft PowerToys review and create summary" src="screenshots/21-11-powertoys-review-and-create.png" width="1464" height="1730"/>
+<figcaption><span class="figure-label">Figure 11</span>PowerToys review summary confirming the available pilot-group assignment.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>12. Microsoft 365 Apps Suite Information</h3>
+<p>I created a dedicated Microsoft 365 Apps deployment for Windows 10 and later. The suite was categorised as Productivity and was not promoted as a featured optional application because it would be installed automatically.</p>
+<figure class="lab-figure">
+<img alt="Microsoft 365 Apps suite information in Intune" src="screenshots/21-12-microsoft-365-app-suite-information.png" width="1582" height="1715"/>
+<figcaption><span class="figure-label">Figure 12</span>Microsoft 365 Apps suite information configured in Intune.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>13. Microsoft 365 Apps Suite Configuration</h3>
+<p>I selected Excel, OneNote, Outlook, PowerPoint, Teams and Word. The deployment used 64-bit architecture, Office Open XML formats, Monthly Enterprise Channel and the latest available build. Existing Office versions were set to be removed, shared computer activation was disabled, licence terms were accepted, and the retired Microsoft Search in Bing background service was not installed.</p>
+<figure class="lab-figure">
+<img alt="Microsoft 365 Apps suite configuration settings" src="screenshots/21-13-microsoft-365-app-suite-configuration.png" width="1642" height="1716"/>
+<figcaption><span class="figure-label">Figure 13</span>Microsoft 365 Apps configured with six selected applications, 64-bit architecture and Monthly Enterprise Channel.</figcaption>
+</figure>
+<div class="callout"><strong>Configuration:</strong> No additional Office language was selected, leaving the deployment aligned with the endpoint language configuration.</div>
+</div>
+<div class="section-block">
+<h3>14. Microsoft 365 Apps Required Device Assignment</h3>
+<p>I assigned Microsoft 365 Apps as <strong>Required</strong> to <code>GRP_Intune_Windows_Pilot_Devices</code>. Device targeting made Office part of the managed Windows baseline rather than an optional user catalogue item.</p>
+<figure class="lab-figure">
+<img alt="Microsoft 365 Apps required assignment to the Windows pilot device group" src="screenshots/21-14-microsoft-365-required-device-assignment.png" width="2675" height="1716"/>
+<figcaption><span class="figure-label">Figure 14</span>Microsoft 365 Apps assigned as Required to the Windows pilot device group.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>15. Microsoft 365 Apps Review</h3>
+<p>I reviewed the selected applications, architecture, update channel, version controls, activation settings and required device-group assignment before creating the suite.</p>
+<figure class="lab-figure">
+<img alt="Microsoft 365 Apps review and create summary" src="screenshots/21-15-microsoft-365-review-and-create.png" width="1505" height="1715"/>
+<figcaption><span class="figure-label">Figure 15</span>Microsoft 365 Apps review summary confirming the suite settings and required device assignment.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>16. Microsoft 365 Apps Deployment Created</h3>
+<p>I created the Microsoft 365 Apps deployment. The initial overview showed the application object before the managed endpoint had reported its installation result.</p>
+<figure class="lab-figure">
+<img alt="Microsoft 365 Apps overview immediately after creation" src="screenshots/21-16-microsoft-365-app-created.png" width="1639" height="1732"/>
+<figcaption><span class="figure-label">Figure 16</span>Microsoft 365 Apps deployment created and ready for endpoint processing.</figcaption>
+</figure>
+</div>
+<h2>Validation</h2>
+<div class="section-block">
+<h3>17. Company Portal Installed and Connected on CL2</h3>
+<p>I opened Company Portal on CL2 and confirmed that the managed device could access Nietz Ltd company resources. The relative check-in label confirms recent device communication without exposing an exact calendar date or clock time.</p>
+<figure class="lab-figure">
+<img alt="Company Portal running on CL2 with access to Nietz Ltd company resources" src="screenshots/21-17-company-portal-installed-on-cl2.png" width="2048" height="578"/>
+<figcaption><span class="figure-label">Figure 17</span>Company Portal running on CL2 and confirming access to company resources.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>18. Approved Applications Available in Company Portal</h3>
+<p>I opened Company Portal as Chloe Bennett and confirmed that Adobe Acrobat Reader DC and Microsoft PowerToys were published in the application catalogue.</p>
+<figure class="lab-figure">
+<img alt="Adobe Acrobat Reader and Microsoft PowerToys available in Company Portal" src="screenshots/21-18-company-portal-approved-apps-available.png" width="1500" height="650"/>
+<figcaption><span class="figure-label">Figure 18</span>Adobe Acrobat Reader and Microsoft PowerToys available to the pilot user in Company Portal.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>19. Microsoft 365 Apps Installed on CL2</h3>
+<p>I checked the Intune device installation report and confirmed that CL2 reported the Microsoft 365 Apps deployment as <strong>Installed</strong> for Chloe Bennett.</p>
+<figure class="lab-figure">
+<img alt="CL2 Microsoft 365 Apps device installation status shown as Installed" src="screenshots/21-19-microsoft-365-device-install-status.png" width="2670" height="872"/>
+<figcaption><span class="figure-label">Figure 19</span>Intune device install status confirming Microsoft 365 Apps installed successfully on CL2.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>20. Microsoft 365 Applications Visible on CL2</h3>
+<p>I confirmed from the Windows application list that the deployed Office applications, including Word, PowerPoint, Outlook, OneNote and Excel, were available on CL2.</p>
+<figure class="lab-figure">
+<img alt="Microsoft 365 applications visible in Windows on CL2" src="screenshots/21-20-microsoft-365-apps-visible-on-cl2.png" width="1552" height="1259"/>
+<figcaption><span class="figure-label">Figure 20</span>Microsoft 365 desktop applications visible on the managed Windows endpoint.</figcaption>
+</figure>
+</div>
+<div class="section-block">
+<h3>21. Word Licence and Connected Services Validation</h3>
+<p>I opened Word and confirmed that Chloe Bennett was signed in with her Nietz Ltd account. Word recognised the Microsoft 365 Apps for business subscription, and OneDrive and SharePoint services for Nietz Ltd were connected.</p>
+<figure class="lab-figure">
+<img alt="Word account page showing Chloe Bennett and Microsoft 365 Apps for business" src="screenshots/21-21-word-licensed-for-chloe.png" width="3219" height="1651"/>
+<figcaption><span class="figure-label">Figure 21</span>Word licensed for Chloe Bennett with Nietz Ltd cloud services connected.</figcaption>
+</figure>
+</div>
+<p>The validation confirmed four distinct outcomes: Company Portal was installed and connected on CL2, approved optional applications were available to the pilot user, Microsoft 365 Apps installed automatically on the targeted device, and Word opened under the assigned user’s licensed account.</p>
+<h2>Key Technical Outcomes</h2>
+<ul>
+<li>Deployed Company Portal as a required Microsoft Store application.</li>
+<li>Published Adobe Acrobat Reader as a featured self-service application.</li>
+<li>Published Microsoft PowerToys as a standard self-service application.</li>
+<li>Used both System and User installation behaviours for appropriate application types.</li>
+<li>Separated user-targeted optional applications from a device-targeted required productivity suite.</li>
+<li>Configured Microsoft 365 Apps with six selected applications, 64-bit architecture and Monthly Enterprise Channel.</li>
+<li>Confirmed successful Microsoft 365 Apps installation on CL2 through Intune reporting.</li>
+<li>Validated licensed Word access and connected Nietz Ltd cloud services for Chloe Bennett.</li>
+</ul>
+<div class="summary"><h2>Summary</h2><ul><li>Configured Company Portal as a required application for pilot users.</li><li>Published Adobe Acrobat Reader and Microsoft PowerToys as approved self-service applications.</li><li>Configured Microsoft 365 Apps as a required device-targeted deployment for the Windows pilot group.</li><li>Separated user-targeted optional software from device-targeted core productivity applications.</li><li>Validated Company Portal availability, successful installation on CL2 and licensed Microsoft 365 application access for Chloe Bennett.</li></ul></div><div class="page-navigation"><a class="btn" href="../20-intune-device-restrictions-baseline/index.html">← Previous Lab</a><a class="btn" href="../index.html">Back to Microsoft Infrastructure</a><a class="btn" href="../22-intune-rbac-scope-tags/index.html">Next Lab →</a></div>
+</section>
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lab 16 - Hybrid Entra Join and Intune Enrolment</title>
+<link href="../../style.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../index.html">Home</a><a href="../index.html">Microsoft Infrastructure</a><a href="../../service-desk/index.html">Service Desk</a><a href="../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>Lab 16: Hybrid Entra Join and Intune Enrolment</h2>
+<p>Converted an existing domain-joined Windows client into a hybrid Microsoft Entra joined, Intune-managed endpoint by removing a stale workplace registration, configuring Hybrid Join, applying an auto-enrolment GPO and validating the final device state.</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Overview</h2>
+<p>In this lab, I extended the endpoint management pilot from the cloud-native device in Lab 15 to an existing on-premises domain-joined Windows client. <code>CL1</code> represented a traditional corporate workstation already joined to <code>corp.nietz.co.uk</code>.</p>
+<p>Before configuring Hybrid Join, I found and removed an old Microsoft Entra registered workplace state for CL1. I then moved the on-premises computer object into the Hybrid Pilot device OU, configured the Hybrid Join service connection point through Microsoft Entra Connect, and used Group Policy to trigger automatic Intune enrolment.</p>
+<h2>Objective</h2>
+<p>The objective was to prove that an existing on-premises domain-joined Windows device can be brought under Microsoft Entra ID and Microsoft Intune management without rebuilding it as a cloud-native device.</p>
+<h2>Environment</h2>
+<table>
+<tr><th>Component</th><th>Value</th></tr>
+<tr><td>Company</td><td>Nietz Ltd</td></tr>
+<tr><td>On-premises AD domain</td><td><code>corp.nietz.co.uk</code></td></tr>
+<tr><td>Microsoft 365 / Entra domain</td><td><code>nietz.co.uk</code></td></tr>
+<tr><td>Domain controller</td><td><code>DC1</code></td></tr>
+<tr><td>Entra Connect server</td><td><code>SYNC1</code></td></tr>
+<tr><td>Client device</td><td><code>CL1</code></td></tr>
+<tr><td>Assigned user</td><td>Emily Wilson</td></tr>
+<tr><td>Assigned user UPN</td><td><code>e.wilson@nietz.co.uk</code></td></tr>
+<tr><td>Pilot device OU</td><td><code>OU=Devices,OU=Hybrid Pilot,OU=Nietz Ltd</code></td></tr>
+<tr><td>Intune pilot group</td><td><code>GRP_Intune_Pilot</code></td></tr>
+<tr><td>Intune auto-enrolment GPO</td><td><code>GPO_Intune_Auto_Enrollment_Hybrid_Pilot</code></td></tr>
+<tr><td>Final device join type</td><td>Microsoft Entra hybrid joined</td></tr>
+<tr><td>Management platform</td><td>Microsoft Intune</td></tr>
+<tr><td>Previous lab dependency</td><td>Lab 15: Cloud-Native Entra Join and Intune Auto-Enrolment</td></tr>
+<tr><td>Next lab dependency</td><td>Lab 17: Device Compliance Policy Pilot</td></tr>
+</table>
+<h2>Configuration</h2>
+<div class="section-block">
+<h3>1. CL1 Starting State Reviewed</h3>
+<p>I signed in to CL1 as Emily Wilson and reviewed the local device registration state using <code>dsregcmd /status</code>.</p>
+<figure class="lab-figure">
+<img alt="PowerShell on CL1 showing AzureAdJoined No, DomainJoined Yes, WorkplaceJoined Yes and AD Configuration Test failed" src="screenshots/16-01-cl1-precheck-domain-device-state.png" width="3817" height="1176"/>
+<figcaption><span class="figure-label">Figure 1</span>CL1 starting as a domain-joined device with a stale workplace registration.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The pre-check showed that CL1 was domain joined but not hybrid joined. The existing workplace registration explained why an old Entra registered record existed.</div>
+</div>
+<div class="section-block">
+<h3>2. Existing Entra Registered Record Identified</h3>
+<p>I searched Microsoft Entra ID for CL1 and confirmed that the device existed only as a Microsoft Entra registered device owned by Emily Wilson, with no Intune management.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Entra devices list showing CL1 as Microsoft Entra registered with owner Emily Wilson and MDM None" src="screenshots/16-02-entra-cl1-existing-registered-record.png" width="2721" height="759"/>
+<figcaption><span class="figure-label">Figure 2</span>Stale CL1 Microsoft Entra registered record identified.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> A Microsoft Entra registered device is not the same as a hybrid joined and Intune-managed corporate endpoint.</div>
+</div>
+<div class="section-block">
+<h3>3. Workplace Registration Removed from CL1</h3>
+<p>I removed the work or school account registration from CL1 and rechecked the local device state.</p>
+<figure class="lab-figure">
+<img alt="PowerShell on CL1 showing AzureAdJoined No, DomainJoined Yes and WorkplaceJoined No" src="screenshots/16-03-cl1-workplace-registration-removed.png" width="2750" height="580"/>
+<figcaption><span class="figure-label">Figure 3</span>Workplace registration removed while keeping CL1 domain joined.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This cleared the user-driven workplace registration before creating the proper hybrid joined device record.</div>
+</div>
+<div class="section-block">
+<h3>4. Stale Entra Device Record Deleted</h3>
+<p>I deleted the stale Microsoft Entra registered CL1 device record and confirmed that CL1 no longer appeared in the Entra device search.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Entra devices search for CL1 showing no results" src="screenshots/16-04-entra-stale-cl1-registration-deleted.png" width="2877" height="821"/>
+<figcaption><span class="figure-label">Figure 4</span>Stale CL1 Entra registered record removed.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Removing the stale cloud record prevented confusion between an old registered device and the new hybrid joined device object.</div>
+</div>
+<div class="section-block">
+<h3>5. CL1 Computer Object Confirmed in Active Directory</h3>
+<p>I confirmed that CL1 still existed as an on-premises Active Directory computer object before moving it into the pilot device OU.</p>
+<figure class="lab-figure">
+<img alt="Active Directory Users and Computers showing CL1 in the Computers container before the move" src="screenshots/16-05-ad-cl1-computer-object-confirmed.png" width="2533" height="1019"/>
+<figcaption><span class="figure-label">Figure 5</span>CL1 confirmed as an on-premises AD computer object.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Hybrid Join and GPO targeting depend on the on-premises AD computer object, not only the cloud device record.</div>
+</div>
+<div class="section-block">
+<h3>6. CL1 Moved to the Hybrid Pilot Devices OU</h3>
+<p>I moved the CL1 computer object into the dedicated Hybrid Pilot Devices OU.</p>
+<figure class="lab-figure">
+<img alt="Active Directory Users and Computers showing CL1 inside Nietz Ltd Hybrid Pilot Devices OU" src="screenshots/16-06-ad-cl1-moved-to-hybrid-pilot-devices-ou.png" width="2205" height="1018"/>
+<figcaption><span class="figure-label">Figure 6</span>CL1 moved into the Hybrid Pilot Devices OU.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The pilot OU gave a controlled rollout boundary for hybrid device configuration and Intune enrolment policy.</div>
+</div>
+<div class="section-block">
+<h3>7. Hybrid Join Device Type Selected</h3>
+<p>On SYNC1, I used Microsoft Entra Connect to configure Hybrid Microsoft Entra ID Join for Windows 10 or later domain-joined devices.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Entra Connect wizard showing Windows 10 or later domain-joined devices selected" src="screenshots/16-07-entra-connect-hybrid-join-os-selection.png" width="2183" height="1528"/>
+<figcaption><span class="figure-label">Figure 7</span>Windows 10 or later domain-joined devices selected for Hybrid Join.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> CL1 is a modern Windows client, so the Windows 10 or later Hybrid Join option was the correct path.</div>
+</div>
+<div class="section-block">
+<h3>8. Hybrid Join SCP Configured</h3>
+<p>I configured the service connection point for the <code>corp.nietz.co.uk</code> forest using the on-premises enterprise administrator credential.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Entra Connect SCP configuration showing forest corp.nietz.co.uk and authentication service Microsoft Entra ID" src="screenshots/16-08-entra-connect-hybrid-join-scp-configuration.png" width="2187" height="1517"/>
+<figcaption><span class="figure-label">Figure 8</span>Hybrid Join service connection point configured for the AD forest.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The SCP allows domain-joined Windows clients to discover the correct Microsoft Entra tenant for Hybrid Join registration.</div>
+</div>
+<div class="section-block">
+<h3>9. Hybrid Join Configuration Completed</h3>
+<p>I completed the Microsoft Entra Connect wizard and confirmed that the Hybrid Join configuration task completed successfully.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Entra Connect wizard showing Hybrid Microsoft Entra ID Join configuration completed successfully" src="screenshots/16-09-entra-connect-hybrid-join-configured.png" width="2168" height="1491"/>
+<figcaption><span class="figure-label">Figure 9</span>Hybrid Microsoft Entra ID Join configuration completed successfully.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The wizard also displayed a TPM hardening recommendation for SYNC1. This was noted as a later server hardening task and did not block Hybrid Join configuration.</div>
+</div>
+<div class="section-block">
+<h3>10. AD Connect Delta Sync Completed</h3>
+<p>I ran a delta synchronization from SYNC1 after configuring Hybrid Join.</p>
+<figure class="lab-figure">
+<img alt="PowerShell on SYNC1 showing Start-ADSyncSyncCycle delta result Success and scheduler enabled" src="screenshots/16-10-adsync-delta-sync-after-hybrid-join-config.png" width="1539" height="1162"/>
+<figcaption><span class="figure-label">Figure 10</span>AD Connect delta sync completed after Hybrid Join configuration.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> A delta sync pushed the pilot device and configuration state through the existing Entra Connect synchronisation path.</div>
+</div>
+<div class="section-block">
+<h3>11. CL1 Hybrid Join Confirmed Locally</h3>
+<p>I checked CL1 again with <code>dsregcmd /status</code> and confirmed that it was both domain joined and Microsoft Entra joined.</p>
+<figure class="lab-figure">
+<img alt="PowerShell on CL1 showing AzureAdJoined Yes, DomainJoined Yes and WorkplaceJoined No" src="screenshots/16-11-cl1-hybrid-entra-join-confirmed.png" width="3823" height="680"/>
+<figcaption><span class="figure-label">Figure 11</span>CL1 confirmed locally as Microsoft Entra hybrid joined.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Hybrid Join is confirmed when a domain-joined client reports both <code>AzureAdJoined : YES</code> and <code>DomainJoined : YES</code>.</div>
+</div>
+<div class="section-block">
+<h3>12. Entra Hybrid Joined Device Record Confirmed</h3>
+<p>I searched Microsoft Entra ID and confirmed that CL1 now appeared as a Microsoft Entra hybrid joined device.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Entra devices list showing CL1 as Microsoft Entra hybrid joined with MDM None before Intune enrolment" src="screenshots/16-12-entra-cl1-hybrid-joined-device-record.png" width="2495" height="705"/>
+<figcaption><span class="figure-label">Figure 12</span>CL1 shown in Entra as a hybrid joined device before Intune enrolment.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> At this stage Hybrid Join was complete, but Intune enrolment had not yet been triggered.</div>
+</div>
+<div class="section-block">
+<h3>13. Emily Wilson Confirmed in Intune Pilot Group</h3>
+<p>I confirmed that Emily Wilson was a member of <code>GRP_Intune_Pilot</code>, the group used for Intune automatic enrolment scope.</p>
+<figure class="lab-figure">
+<img alt="GRP_Intune_Pilot membership showing Emily Wilson as a member" src="screenshots/16-13-grp-intune-pilot-emily-member.png" width="2510" height="1051"/>
+<figcaption><span class="figure-label">Figure 13</span>Emily Wilson confirmed as a member of the Intune pilot group.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The signed-in user must be in the targeted MDM enrolment scope for user credential-based automatic enrolment.</div>
+</div>
+<div class="section-block">
+<h3>14. Emily Wilson Licence Confirmed</h3>
+<p>I confirmed that Emily Wilson had Microsoft 365 Business Premium assigned.</p>
+<figure class="lab-figure">
+<img alt="Microsoft 365 admin center licence page showing Microsoft 365 Business Premium assigned to Emily Wilson" src="screenshots/16-14-emily-intune-licence.png" width="2258" height="1665"/>
+<figcaption><span class="figure-label">Figure 14</span>Microsoft 365 Business Premium assigned to Emily Wilson.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Emily required an Intune-capable licence for automatic device enrolment and management.</div>
+</div>
+<div class="section-block">
+<h3>15. Intune Auto-Enrolment GPO Configured</h3>
+<p>I configured a Group Policy setting to enable automatic MDM enrolment using the default Microsoft Entra credentials.</p>
+<figure class="lab-figure">
+<img alt="Group Policy setting showing automatic MDM enrolment enabled using User Credential" src="screenshots/16-15-gpo-intune-auto-enrolment-configured.png" width="1663" height="1576"/>
+<figcaption><span class="figure-label">Figure 15</span>Automatic MDM enrolment enabled with user credentials.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The policy instructs hybrid joined Windows clients to enrol into Intune using the signed-in user's Entra credentials.</div>
+</div>
+<div class="section-block">
+<h3>16. Intune Auto-Enrolment GPO Linked</h3>
+<p>I linked <code>GPO_Intune_Auto_Enrollment_Hybrid_Pilot</code> to the Hybrid Pilot Devices OU where CL1 was located.</p>
+<figure class="lab-figure">
+<img alt="Group Policy Management showing GPO_Intune_Auto_Enrollment_Hybrid_Pilot linked to the Hybrid Pilot Devices OU" src="screenshots/16-16-gpo-linked-to-hybrid-pilot-devices-ou.png" width="3791" height="1768"/>
+<figcaption><span class="figure-label">Figure 16</span>Intune auto-enrolment GPO linked to the Hybrid Pilot Devices OU.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Linking the GPO to the pilot OU ensures the setting applies to CL1 without applying it to every domain computer.</div>
+</div>
+<div class="section-block">
+<h3>17. CL1 Group Policy Application Validated</h3>
+<p>I updated Group Policy on CL1 and confirmed that the Intune auto-enrolment GPO applied to the computer object.</p>
+<figure class="lab-figure">
+<img alt="PowerShell on CL1 showing gpupdate success and GPO_Intune_Auto_Enrollment_Hybrid_Pilot in applied Group Policy Objects" src="screenshots/16-17-cl1-gpupdate-and-gpresult-intune-gpo.png" width="3808" height="1989"/>
+<figcaption><span class="figure-label">Figure 17</span>CL1 applied the Intune auto-enrolment Group Policy.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This confirms that policy targeting worked from the client side, not just that the GPO existed in Group Policy Management.</div>
+</div>
+<div class="section-block">
+<h3>18. CL1 MDM Enrolment State Confirmed Locally</h3>
+<p>After restart and user sign-in, I checked <code>dsregcmd /status</code> and confirmed that CL1 had populated Intune MDM URLs and an Azure AD PRT.</p>
+<figure class="lab-figure">
+<img alt="PowerShell on CL1 showing AzureAdJoined Yes, DomainJoined Yes, populated MDM URLs and AzureAdPrt Yes" src="screenshots/16-18-cl1-dsregcmd-hybrid-joined-mdm-state.png" width="2743" height="958"/>
+<figcaption><span class="figure-label">Figure 18</span>CL1 local state showing Hybrid Join, MDM URLs and Azure AD PRT.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Populated MDM URLs confirm that the device discovered Intune as the configured MDM provider for enrolment.</div>
+</div>
+<div class="section-block">
+<h3>19. CL1 Confirmed in Intune Windows Devices</h3>
+<p>I reviewed the Intune Windows devices list and confirmed that CL1 was managed by Intune, corporate owned, compliant, assigned to Emily Wilson and hybrid joined.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Intune Windows devices list showing CL1 managed by Intune, corporate owned, compliant, primary user e.wilson@nietz.co.uk and Microsoft Entra hybrid joined" src="screenshots/16-19-intune-cl1-managed-device.png" width="3333" height="822"/>
+<figcaption><span class="figure-label">Figure 19</span>CL1 visible in Intune as a managed, corporate and compliant hybrid joined Windows device.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This is the main Intune validation for the lab because it confirms management, ownership, compliance, primary user and join type in one view.</div>
+</div>
+<div class="section-block">
+<h3>20. CL1 Intune Device Overview Confirmed</h3>
+<p>I opened the CL1 Intune device overview and confirmed the device badges, primary user, Intune device name, manufacturer, operating system and last check-in details.</p>
+<figure class="lab-figure">
+<img alt="Intune CL1 device overview showing Compliant Corporate Intune badges, primary user Emily Wilson, virtual machine model, Intune device name, manufacturer Microsoft Corporation and OS Windows" src="screenshots/16-20-intune-cl1-device-overview.png" width="3337" height="840"/>
+<figcaption><span class="figure-label">Figure 20</span>CL1 Intune overview showing managed state and Emily Wilson as primary user.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The overview provides the support-friendly endpoint summary that a helpdesk or endpoint administrator would use during investigation.</div>
+</div>
+<div class="section-block">
+<h3>21. Entra Device Record Updated with Intune Management</h3>
+<p>I returned to Microsoft Entra ID and confirmed that the CL1 device record now showed Emily Wilson as the owner, Microsoft Intune as the MDM provider and a compliant state.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Entra devices list showing CL1 with owner Emily Wilson, MDM Microsoft Intune and compliant Yes" src="screenshots/16-21-entra-cl1-hybrid-joined-mdm-intune.png" width="2854" height="700"/>
+<figcaption><span class="figure-label">Figure 21</span>CL1 Entra record updated with Microsoft Intune MDM and compliant state.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This closes the loop by showing that Microsoft Entra ID now reflects the hybrid joined device as Intune managed.</div>
+</div>
+<h2>Validation</h2>
+<p>The lab was validated when <code>CL1</code> showed <code>AzureAdJoined : YES</code> and <code>DomainJoined : YES</code> locally, Microsoft Entra ID showed the device as Microsoft Entra hybrid joined, the Intune automatic enrolment GPO applied to the CL1 computer object, <code>dsregcmd</code> showed populated MDM URLs and <code>AzureAdPrt : YES</code>, and Intune showed CL1 as managed, corporate owned, compliant and assigned to Emily Wilson.</p>
+<p>Custom Windows compliance policy design was intentionally handled in Lab 17 so the Hybrid Join and enrolment evidence remained separate from the compliance-policy rollout. The Entra Connect TPM hardening recommendation for SYNC1 was also noted for a later server hardening task.</p>
+<h2>Key Technical Outcomes</h2>
+<p>This lab demonstrated stale device registration cleanup, controlled Hybrid Entra Join rollout, SCP configuration through Entra Connect, AD Connect delta sync validation, OU-based Group Policy targeting, automatic MDM enrolment, Azure AD PRT validation and tenant-side Entra and Intune verification.</p>
+<p>The final result is that Nietz Ltd now has two endpoint baselines: <code>CL2</code> from Lab 15 as a cloud-native Microsoft Entra joined device, and <code>CL1</code> as an existing domain-joined device brought under Microsoft Entra ID and Intune management.</p>
+<div class="summary">
+<h2>Summary</h2>
+<ul>
+<li>I identified and removed the stale CL1 workplace registration and old Entra registered device record.</li>
+<li>I moved CL1 into the dedicated Hybrid Pilot Devices OU.</li>
+<li>I configured Hybrid Microsoft Entra ID Join through Microsoft Entra Connect.</li>
+<li>I ran an AD Connect delta sync after configuring the service connection point.</li>
+<li>I confirmed CL1 became both domain joined and Microsoft Entra joined.</li>
+<li>I confirmed Emily Wilson was licensed and in the Intune pilot group.</li>
+<li>I configured and applied a Group Policy for automatic MDM enrolment.</li>
+<li>I confirmed CL1 enrolled into Intune as a corporate, compliant, hybrid joined Windows device.</li>
+</ul>
+</div><div class="page-navigation"><a class="btn" href="../15-cloud-native-entra-join-intune-enrolment/index.html">← Previous Lab</a><a class="btn" href="../index.html">Back to Microsoft Infrastructure</a><a class="btn" href="../17-device-compliance-policy-pilot/index.html">Next Lab →</a></div>
+</section>
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer>
+</body>
+</html>

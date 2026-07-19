@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Microsoft Infrastructure, Microsoft 365 and Cloud Administration Portfolio</title>
+<link href="../style.css" rel="stylesheet"/>
+<style>
+    .intro-grid,
+    .phase-grid,
+    .roadmap-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      margin: 24px 0 42px;
+    }
+
+    .evidence-card,
+    .phase-card,
+    .roadmap-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+    }
+
+    .evidence-card h3,
+    .phase-card h3,
+    .roadmap-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.3rem;
+      line-height: 1.25;
+    }
+
+    .evidence-card p,
+    .phase-card p,
+    .roadmap-card p {
+      margin: 0 0 18px;
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+
+    .phase-meta {
+      margin: 0 0 18px;
+      padding: 0;
+      list-style: none;
+      color: #334155;
+      font-size: 0.98rem;
+      line-height: 1.55;
+    }
+
+    .phase-meta li {
+      margin-bottom: 4px;
+    }
+
+    .section-intro {
+      max-width: 920px;
+      font-size: 1.08rem;
+      line-height: 1.65;
+    }
+
+    .roadmap-card {
+      background: #f8fafc;
+    }
+
+    .roadmap-card p {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo">
+<a href="../index.html">Kristian Nietzold</a>
+</h1>
+<nav aria-label="Main navigation"><a href="../index.html">Home</a><a href="index.html">Microsoft Infrastructure</a><a href="../service-desk/index.html">Service Desk</a><a href="../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>Microsoft Infrastructure, Microsoft 365 and Cloud Administration</h2>
+<p>
+        A staged business environment following Nietz Ltd from on-premises
+        Active Directory into Microsoft 365, Microsoft Entra ID, hybrid identity
+        and Microsoft Intune endpoint management.
+      </p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Technical Evidence</h2>
+<p class="section-intro">
+      This portfolio is built as a continuing business environment rather than
+      a collection of isolated screenshots. Each phase adds practical evidence
+      relevant to Microsoft support, managed service provider operations, cloud
+      administration and technical troubleshooting.
+    </p>
+<div class="intro-grid">
+<div class="evidence-card">
+<h3>Windows and Active Directory Support</h3>
+<p>
+          Domain controller deployment, DNS, domain join, Active Directory
+          users and groups, file shares, permissions and Group Policy.
+        </p>
+</div>
+<div class="evidence-card">
+<h3>Microsoft 365 Support</h3>
+<p>
+          Cloud users, licensing, Exchange Online, Outlook, Teams, SharePoint
+          and OneDrive administration and collaboration support.
+        </p>
+</div>
+<div class="evidence-card">
+<h3>Identity and Endpoint Support</h3>
+<p>
+          Microsoft Entra administration, delegated roles, MFA, hybrid identity,
+          Intune enrolment, compliance, application deployment and Windows Update
+          management.
+        </p>
+</div>
+</div>
+<h2>Portfolio Phases</h2>
+<p class="section-intro">
+      Each phase page groups completed labs by support area. Open a phase to
+      view its individual lab pages, implementation evidence and validation
+      summaries.
+    </p>
+<div class="phase-grid">
+<div class="phase-card">
+<h3>Phase 1: On-Premises Windows Support Foundation</h3>
+<p>
+          Core support evidence for Active Directory, DNS, domain join, users,
+          groups, file shares and Group Policy.
+        </p>
+<ul class="phase-meta">
+<li><strong>Labs:</strong> 01–04</li>
+<li><strong>Focus:</strong> Windows Server, AD DS, DNS, GPO and file access</li>
+</ul>
+<a class="btn" href="phases/phase-1-on-prem-foundation.html">
+          View Phase 1 Labs
+        </a>
+</div>
+<div class="phase-card">
+<h3>Phase 2: Microsoft 365 Support Foundation</h3>
+<p>
+          Cloud administration and collaboration evidence across users,
+          licensing, mail, Teams, SharePoint and OneDrive.
+        </p>
+<ul class="phase-meta">
+<li><strong>Labs:</strong> 05–10</li>
+<li><strong>Focus:</strong> Microsoft 365, Exchange Online, Outlook, Teams, SharePoint and OneDrive</li>
+</ul>
+<a class="btn" href="phases/phase-2-microsoft-365-support.html">
+          View Phase 2 Labs
+        </a>
+</div>
+<div class="phase-card">
+<h3>Phase 3: Microsoft Entra and Hybrid Identity</h3>
+<p>
+          Modern identity and hybrid administration evidence covering delegated
+          access, authentication, directory synchronisation and device identity.
+        </p>
+<ul class="phase-meta">
+<li><strong>Labs:</strong> 11–14</li>
+<li><strong>Focus:</strong> Entra roles, MFA, hybrid identity and Microsoft Entra Connect</li>
+</ul>
+<a class="btn" href="phases/phase-3-entra-identity-support.html">
+          View Phase 3 Labs
+        </a>
+</div>
+<div class="phase-card">
+<h3>Phase 4: Endpoint Management</h3>
+<p>
+          Microsoft Intune and Windows endpoint-management evidence covering
+          enrolment, compliance, security, application delivery, delegated
+          administration and update management.
+        </p>
+<ul class="phase-meta">
+<li><strong>Labs:</strong> 15–25</li>
+<li><strong>Focus:</strong> Intune, compliance, Conditional Access, apps, RBAC, Edge security and Windows Update</li>
+</ul>
+<a class="btn" href="phases/phase-4-endpoint-management.html">
+          View Phase 4 Labs
+        </a>
+</div>
+</div>
+<h2>Development Roadmap</h2>
+<p class="section-intro">
+      Future portfolio development will extend the same Nietz Ltd environment
+      into additional Microsoft security, collaboration, Azure and automation
+      workloads. These areas will be added as public phases once completed
+      evidence is available.
+    </p>
+<div class="roadmap-grid">
+<div class="roadmap-card">
+<h3>Security, Compliance and Governance</h3>
+<p>
+          Microsoft Defender, Microsoft Purview, Compliance Manager, sensitivity
+          labels, retention, data loss prevention and identity governance.
+        </p>
+</div>
+<div class="roadmap-card">
+<h3>Microsoft 365 Services and Collaboration</h3>
+<p>
+          Deeper Exchange Online, Teams, SharePoint, OneDrive, guest access,
+          external sharing and service administration.
+        </p>
+</div>
+<div class="roadmap-card">
+<h3>Azure Infrastructure and Automation</h3>
+<p>
+          Azure networking, virtual machines, storage, RBAC, policy, monitoring,
+          backup and administrative automation with PowerShell and Microsoft Graph.
+        </p>
+</div>
+</div>
+<h2>Related Evidence</h2>
+<p class="section-intro">
+      Clean Microsoft build labs are kept separate from incident write-ups.
+      The Service Desk section contains ticket handling, triage, root-cause
+      analysis, remediation, validation and escalation evidence.
+    </p>
+<p>
+<a class="btn" href="../service-desk/index.html">
+        View Service Desk Ticket Evidence
+      </a>
+</p>
+</section>
+
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer>
+</body>
+</html>

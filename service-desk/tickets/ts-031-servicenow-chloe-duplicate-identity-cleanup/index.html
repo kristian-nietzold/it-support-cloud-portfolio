@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TS-031 - Duplicate Chloe Bennett account after Entra Connect pilot sync</title>
+<link href="../../../style.css" rel="stylesheet"/>
+<style id="ticket-image-aspect-ratio">
+figure img,
+.lab-figure img {
+  height: auto;
+}
+</style>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../../index.html">Home</a><a href="../../../microsoft-infrastructure/index.html">Microsoft Infrastructure</a><a href="../../index.html">Service Desk</a><a href="../../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>TS-031: Duplicate Chloe Bennett account after Entra Connect pilot sync</h2>
+<p>Resolved a hybrid identity conflict where an existing cloud-only Chloe Bennett account did not join to the matching on-premises Active Directory identity during the Microsoft Entra Connect pilot.</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Scenario</h2>
+<p>During the Microsoft Entra Connect hybrid identity pilot, Kate Jones synced successfully from on-premises Active Directory to Microsoft Entra ID. During validation, two Chloe Bennett accounts were identified: the existing production cloud account <code>c.bennett@nietz.co.uk</code> and a newly synced duplicate account <code>c.bennett7067@nietzltd.onmicrosoft.com</code>.</p>
+<p>The target outcome was to keep the production account, remove the duplicate synced object, and allow the correct Chloe Bennett account to become the hybrid identity linked to the on-premises AD user.</p>
+<div class="callout"><strong>Priority reasoning:</strong> Impact was set to <strong>3 - Low</strong> because the issue affected one user account in a pilot. Urgency was set to <strong>2 - Medium</strong> because the duplicate identity could cause access, licensing and sign-in confusion if left unresolved. Under the priority matrix, Low impact plus Medium urgency gives <strong>4 - Low</strong>.</div>
+<h2>ServiceNow Ticket</h2><p>The incident was aligned to the affected hybrid identity service for consistent service ownership and reporting:</p><ul><li><strong>Service:</strong> Identity &amp; Access Management</li><li><strong>Service offering:</strong> Hybrid Identity</li><li><strong>Configuration item:</strong> Entra Connect</li></ul>
+<figure class="lab-figure">
+<img alt="ServiceNow incident INC0010074 opened for duplicate Chloe Bennett account after Microsoft Entra Connect pilot sync" src="screenshots/TS-031-01-servicenow-incident-opened.png" width="3776" height="1430"/>
+<figcaption><span class="figure-label">Figure 1</span>ServiceNow incident opened for a duplicate Chloe Bennett account identified after the Microsoft Entra Connect pilot sync.</figcaption>
+</figure>
+<h2>Investigation</h2>
+<p>I confirmed that two Chloe Bennett accounts existed in Microsoft Entra ID. The production account <code>c.bennett@nietz.co.uk</code> was still cloud-only, while the duplicate account <code>c.bennett7067@nietzltd.onmicrosoft.com</code> was synced from the on-premises domain.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Entra users list showing cloud-only Chloe Bennett account and synced duplicate Chloe Bennett account" src="screenshots/TS-031-02-duplicate-chloe-accounts-identified.png" width="2614" height="821"/>
+<figcaption><span class="figure-label">Figure 2</span>Two Chloe Bennett accounts were present: the production cloud account was not synced, and the duplicate account was synced from <code>corp.nietz.co.uk</code>.</figcaption>
+</figure>
+<p>I then verified the on-premises AD account. The user logon name was already set to <code>c.bennett@nietz.co.uk</code> and the pre-Windows 2000 logon name was <code>CORP\c.bennett</code>, so the visible UPN and SAM account name were not the cause of the mismatch.</p>
+<figure class="lab-figure">
+<img alt="Active Directory Users and Computers showing Chloe Bennett user logon name c.bennett at nietz.co.uk and SAM account c.bennett" src="screenshots/TS-031-03-ad-user-account-verified.png" width="992" height="1380"/>
+<figcaption><span class="figure-label">Figure 3</span>The on-premises AD Chloe Bennett account had the expected UPN and SAM account name.</figcaption>
+</figure>
+<figure class="lab-figure">
+<img alt="PowerShell showing Set-ADSyncScheduler SyncCycleEnabled false and Get-ADSyncScheduler with SyncCycleEnabled false" src="screenshots/TS-031-04-sync-scheduler-paused.png" width="1615" height="828"/>
+<figcaption><span class="figure-label">Figure 4</span>The Entra Connect scheduler was paused before remediation so the account state could be corrected cleanly.</figcaption>
+</figure>
+<p>To prevent further half-finished changes while troubleshooting the hybrid identity issue, I temporarily paused the Entra Connect sync scheduler.</p>
+
+<p>The key finding was that the production cloud account had Microsoft Entra administrative role assignments. Chloe Bennett had <strong>Service Support Administrator</strong> assigned directly and <strong>Helpdesk Administrator</strong> through the <code>CLOUD_Helpdesk_UserAdmins</code> group. That explained why the existing privileged cloud account needed to be cleaned up before attempting the soft-match again.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Entra assigned roles page showing Chloe Bennett with Helpdesk Administrator and Service Support Administrator roles" src="screenshots/TS-031-05-production-chloe-admin-roles-before-removal.png" width="3006" height="750"/>
+<figcaption><span class="figure-label">Figure 5</span>The production Chloe Bennett account had administrative roles before the soft-match remediation.</figcaption>
+</figure>
+<figure class="lab-figure">
+<img alt="Microsoft Entra assigned roles page showing no directory roles assigned for Chloe Bennett" src="screenshots/TS-031-06-admin-roles-removed-before-soft-match.png" width="1631" height="688"/>
+<figcaption><span class="figure-label">Figure 6</span>The production Chloe Bennett account showed no directory roles assigned before the soft-match remediation continued.</figcaption>
+</figure>
+<figure class="lab-figure">
+<img alt="Active Directory Users and Computers showing Kate Jones remaining in the Hybrid Pilot Users OU after Chloe Bennett was moved out of scope" src="screenshots/TS-031-07-chloe-moved-out-of-sync-ou.png" width="1742" height="1020"/>
+<figcaption><span class="figure-label">Figure 7</span>Chloe Bennett was moved out of the synced users OU, leaving only Kate Jones in the Hybrid Pilot users scope.</figcaption>
+</figure>
+<figure class="lab-figure">
+<img alt="PowerShell showing Set-ADSyncScheduler SyncCycleEnabled true and Start-ADSyncSyncCycle PolicyType Delta success" src="screenshots/TS-031-08-delta-sync-run-after-removing-from-scope.png" width="1622" height="563"/>
+<figcaption><span class="figure-label">Figure 8</span>A delta sync was run after removing Chloe Bennett from the synced OU scope.</figcaption>
+</figure>
+<figure class="lab-figure">
+<img alt="Microsoft Entra users list showing only one active Chloe Bennett account after duplicate removal" src="screenshots/TS-031-09-duplicate-removed-from-active-users.png" width="2611" height="859"/>
+<figcaption><span class="figure-label">Figure 9</span>The duplicate account was no longer visible in active users after it was removed from sync scope.</figcaption>
+</figure>
+<h2>Fix Applied</h2>
+<p>I removed the administrative role assignments from the production cloud account before retrying the join. This reduced the risk of a privileged cloud-only identity being joined incorrectly while the duplicate synced object still existed.</p>
+
+<p>I moved the on-premises Chloe Bennett account out of the synced Hybrid Pilot users OU. This removed the synced duplicate object from scope so Entra Connect could remove it from active users.</p>
+
+<p>I re-enabled the scheduler and ran a delta sync so Entra Connect could process the scope change.</p>
+
+<p>After the sync, only the production Chloe Bennett account remained in active users. The duplicate synced account had been removed from the active users list.</p>
+
+<p>I then selected the deleted duplicate account for permanent deletion. This cleared the conflicting duplicate object before the on-premises Chloe Bennett account was placed back into sync scope.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Entra Deleted users page showing the deleted Chloe Bennett duplicate selected for permanent deletion" src="screenshots/TS-031-10-duplicate-selected-for-permanent-deletion.png" width="2389" height="747"/>
+<figcaption><span class="figure-label">Figure 10</span>The deleted duplicate Chloe Bennett account was selected for permanent deletion from Deleted users.</figcaption>
+</figure>
+<figure class="lab-figure">
+<img alt="Active Directory Users and Computers showing Chloe Bennett and Kate Jones in the Hybrid Pilot Users OU" src="screenshots/TS-031-11-chloe-moved-back-into-sync-ou.png" width="1762" height="1023"/>
+<figcaption><span class="figure-label">Figure 11</span>Chloe Bennett was moved back into the synced Hybrid Pilot users OU after the duplicate was cleared.</figcaption>
+</figure>
+<figure class="lab-figure">
+<img alt="PowerShell showing Start-ADSyncSyncCycle PolicyType Delta success after soft-match remediation" src="screenshots/TS-031-12-delta-sync-run-after-soft-match-remediation.png" width="1600" height="376"/>
+<figcaption><span class="figure-label">Figure 12</span>A second delta sync was run after the soft-match remediation steps were completed.</figcaption>
+</figure>
+<p>With the duplicate object removed, I moved the on-premises Chloe Bennett account back into the Hybrid Pilot users OU.</p>
+
+<p>I ran another delta sync to process the corrected account state and allow the existing production cloud account to join to the on-premises AD object.</p>
+
+<h2>Validation</h2>
+<p>I validated the result in Microsoft Entra ID. Only one Chloe Bennett account remained, the user principal name was <code>c.bennett@nietz.co.uk</code>, on-premises sync was enabled, the SAM account was <code>c.bennett</code>, and the on-premises domain was <code>corp.nietz.co.uk</code>.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Entra users list showing one Chloe Bennett account with on-premises sync enabled and SAM account c.bennett" src="screenshots/TS-031-13-production-account-synced-confirmed.png" width="2788" height="915"/>
+<figcaption><span class="figure-label">Figure 13</span>The production Chloe Bennett account was successfully linked to the on-premises AD account and showed <strong>On-premises sync enabled: Yes</strong>.</figcaption>
+</figure>
+<p>After confirming the identity issue was resolved, I restored the intended helpdesk admin group membership so the production account had the required access again.</p>
+<figure class="lab-figure">
+<img alt="Microsoft Entra group CLOUD Helpdesk UserAdmins members showing Chloe Bennett and Daniel Smith" src="screenshots/TS-031-14-helpdesk-admin-group-membership-restored.png" width="1835" height="937"/>
+<figcaption><span class="figure-label">Figure 14</span>The <code>CLOUD_Helpdesk_UserAdmins</code> group membership was restored after the identity was corrected.</figcaption>
+</figure>
+<h2>Resolution</h2>
+<p>The ServiceNow incident was resolved after the duplicate identity was removed, the production account was confirmed as the synchronized account, and the required group membership was restored.</p>
+<figure class="lab-figure">
+<img alt="ServiceNow incident INC0010074 showing resolved state after Chloe Bennett duplicate identity remediation" src="screenshots/TS-031-15-servicenow-incident-resolved.png" width="3762" height="1597"/>
+<figcaption><span class="figure-label">Figure 15</span>Incident <code>INC0010074</code> was resolved after the duplicate Chloe Bennett account was remediated and the production account was validated.</figcaption>
+</figure>
+<div class="summary">
+<h2>Summary</h2>
+<ul>
+<li>Resolved a P4 Low Microsoft Entra ID incident involving a duplicate Chloe Bennett account after the pilot sync.</li>
+<li>I confirmed the production cloud account and the duplicate synced account in Microsoft Entra ID.</li>
+<li>I verified the on-premises AD account UPN and SAM account name before making changes.</li>
+<li>I paused the Entra Connect scheduler to prevent further automatic sync changes during remediation.</li>
+<li>I identified administrative role assignments on the production cloud account as the key blocker to a clean soft-match.</li>
+<li>I removed the admin role assignments, removed the duplicate from sync scope, and cleared the deleted duplicate account.</li>
+<li>I moved the on-premises account back into the synced OU and ran a delta sync.</li>
+<li>I validated that the production account <code>c.bennett@nietz.co.uk</code> became the synchronized identity.</li>
+<li>I restored the intended helpdesk admin group membership and resolved the ServiceNow incident.</li>
+</ul>
+</div><div class="page-navigation"><a class="btn" href="../ts-022-shared-mailbox-cannot-send-from/index.html">← Previous Ticket</a><a class="btn" href="../../index.html">Back to Service Desk</a><a class="btn" href="../ts-033-mapped-drives-printers/index.html">Next Ticket →</a></div>
+</section>
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer></body>
+</html>

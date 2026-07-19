@@ -1,0 +1,20 @@
+Import-Module ActiveDirectory
+
+$User = "k.jones"
+
+Write-Host "=== TS-033 BREAK SCRIPT ===" -ForegroundColor Cyan
+Write-Host "Removing $User from Sales drive and HQ printer groups..." -ForegroundColor Yellow
+
+Remove-ADGroupMember -Identity "GG_SALES_RW" -Members $User -Confirm:$false -ErrorAction SilentlyContinue
+Remove-ADGroupMember -Identity "GG_PRN_HQ" -Members $User -Confirm:$false -ErrorAction SilentlyContinue
+
+Write-Host "`nCurrent support/access group membership for ${User}:" -ForegroundColor Cyan
+
+Get-ADPrincipalGroupMembership $User |
+Where-Object {
+    $_.Name -like "GG_*" -or
+    $_.Name -like "GRP_*"
+} |
+Select-Object Name |
+Sort-Object Name |
+Format-Table -AutoSize

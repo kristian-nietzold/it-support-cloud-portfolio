@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lab 18 - Conditional Access Pilot</title>
+<link href="../../style.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../index.html">Home</a><a href="../index.html">Microsoft Infrastructure</a><a href="../../service-desk/index.html">Service Desk</a><a href="../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>Lab 18: Conditional Access Pilot</h2>
+<p>Created a report-only Conditional Access pilot that used Intune compliance as an access signal, targeted Microsoft cloud resources for the Windows pilot group and validated the expected results for compliant and unmanaged devices.</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Overview</h2>
+<p>Lab 17 established a Windows compliance policy for the Intune pilot devices. This lab used that compliance result in Microsoft Entra Conditional Access so the pilot could evaluate compliant-device access decisions before any live enforcement was applied.</p>
+<p>The policy remained in <strong>Report-only</strong> mode throughout the lab. This allowed the access impact to be validated safely in Entra sign-in logs without blocking pilot users or risking an administrator lockout.</p>
+<h2>Objective</h2>
+<p>The objective was to create and validate <code>CA001 - Require compliant device for pilot users</code>, a pilot Conditional Access policy that applies to <code>GRP_Intune_Pilot</code>, targets all Microsoft cloud resources, applies to Windows device platforms, and requires the device to be marked as compliant.</p>
+<h2>Environment</h2>
+<table>
+<tr><th>Component</th><th>Value</th></tr>
+<tr><td>Company</td><td>Nietz Ltd</td></tr>
+<tr><td>Microsoft 365 / Entra domain</td><td><code>nietz.co.uk</code></td></tr>
+<tr><td>On-premises AD domain</td><td><code>corp.nietz.co.uk</code></td></tr>
+<tr><td>Conditional Access policy</td><td><code>CA001 - Require compliant device for pilot users</code></td></tr>
+<tr><td>Policy state</td><td>Report-only</td></tr>
+<tr><td>Pilot group</td><td><code>GRP_Intune_Pilot</code></td></tr>
+<tr><td>Pilot user</td><td>Chloe Bennett - <code>c.bennett@nietz.co.uk</code></td></tr>
+<tr><td>Compliant test device</td><td><code>CL2</code> - Microsoft Entra joined and Intune compliant</td></tr>
+<tr><td>Unmanaged test device</td><td>Windows home PC browser session</td></tr>
+<tr><td>Target resources</td><td>All resources, formerly All cloud apps</td></tr>
+<tr><td>Device platform scope</td><td>Windows</td></tr>
+<tr><td>Grant control</td><td>Require device to be marked as compliant</td></tr>
+<tr><td>Previous lab dependency</td><td>Lab 17: Device Compliance Policy Pilot</td></tr>
+</table>
+<h2>Configuration</h2>
+<div class="section-block">
+<h3>1. Conditional Access Starting Point</h3>
+<p>I confirmed the Conditional Access policies area before adding the new pilot policy. This provided a clean baseline for the user-created Conditional Access policy introduced in this lab.</p>
+<figure class="lab-figure">
+<img alt="Conditional Access policies page before CA001 was created" src="screenshots/18-01-conditional-access-policies-before.png" width="2196" height="1265"/>
+<figcaption><span class="figure-label">Figure 1</span>Conditional Access policies page before the new pilot policy was created.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Capturing the starting point made the later policy creation evidence clear and avoided confusing the new pilot policy with pre-existing rules.</div>
+</div>
+<div class="section-block">
+<h3>2. Pilot Policy Summary</h3>
+<p>I created <code>CA001 - Require compliant device for pilot users</code> and assigned it to <code>GRP_Intune_Pilot</code>. The policy targeted all Microsoft cloud resources and stayed in Report-only mode for controlled evaluation.</p>
+<figure class="lab-figure">
+<img alt="CA001 policy summary showing pilot group, all resources and report-only state" src="screenshots/18-02-ca001-policy-summary-report-only.png" width="1249" height="1535"/>
+<figcaption><span class="figure-label">Figure 2</span>CA001 configured for the Intune pilot group, all resources, one condition, one grant control and Report-only state.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Report-only mode allowed the policy impact to be measured through sign-in logs before enforcement was enabled.</div>
+</div>
+<div class="section-block">
+<h3>3. Windows Platform Scope</h3>
+<p>I scoped the device platform condition to Windows only. This matched the current pilot estate, where both the compliant CL2 device and the unmanaged test device were Windows devices.</p>
+<figure class="lab-figure">
+<img alt="Device platforms condition configured for Windows only" src="screenshots/18-03-ca001-device-platforms-windows-pilot-scope.png" width="584" height="1058"/>
+<figcaption><span class="figure-label">Figure 3</span>Device platform condition configured for Windows pilot sign-ins.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Platform scoping kept the pilot aligned to the Windows endpoint rollout and avoided mixing mobile or non-Windows access controls into this lab.</div>
+</div>
+<div class="section-block">
+<h3>4. Compliant Device Grant Control</h3>
+<p>I configured the grant control to require the device to be marked as compliant. I did not combine this with MFA, hybrid join, approved client app, app protection, or risk controls in this pilot lab.</p>
+<figure class="lab-figure">
+<img alt="Grant control requiring device to be marked as compliant" src="screenshots/18-04-ca001-grant-require-compliant-device.png" width="588" height="1699"/>
+<figcaption><span class="figure-label">Figure 4</span>Grant control configured to require an Intune-compliant device.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Using one grant control made the test result clear: access would depend on whether the device had a compliant state from Intune.</div>
+</div>
+<div class="section-block">
+<h3>5. Report-only Policy Creation</h3>
+<p>I created the CA001 policy and confirmed it appeared in the Conditional Access policy list with a Report-only state.</p>
+<figure class="lab-figure">
+<img alt="CA001 policy listed as report-only" src="screenshots/18-05-ca001-policy-created-report-only.png" width="2526" height="1125"/>
+<figcaption><span class="figure-label">Figure 5</span>CA001 created as a user-managed Conditional Access policy in Report-only mode.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The policy was deliberately not enabled for enforcement. The lab validated expected impact without blocking access.</div>
+</div>
+<h2>Validation</h2>
+<div class="section-block">
+<h3>1. Compliant Device Sign-in</h3>
+<p>I signed in as Chloe Bennett from <code>CL2</code>, the cloud-native Microsoft Entra joined and Intune-compliant Windows pilot device.</p>
+<figure class="lab-figure">
+<img alt="Chloe Bennett signed in to My Apps from CL2" src="screenshots/18-06-chloe-cl2-compliant-device-signin.png" width="3742" height="1275"/>
+<figcaption><span class="figure-label">Figure 6</span>Chloe Bennett signed in to the My Apps portal from the compliant CL2 device.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This generated a real Chloe Bennett sign-in event that could be evaluated against the Report-only Conditional Access policy.</div>
+</div>
+<div class="section-block">
+<h3>2. Compliant Device Report-only Success</h3>
+<p>I reviewed the Chloe Bennett sign-in event in Microsoft Entra sign-in logs and confirmed that CA001 evaluated successfully for the compliant CL2 device. The grant controls were satisfied.</p>
+<figure class="lab-figure">
+<img alt="Report-only success for Chloe Bennett sign-in from CL2" src="screenshots/18-07-cl2-report-only-compliant-device-success.png" width="1420" height="1723"/>
+<figcaption><span class="figure-label">Figure 7</span>Report-only result showing CA001 success and satisfied grant controls for the compliant CL2 sign-in.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> The successful Report-only result proved that the Lab 17 compliance policy produced a usable access signal for Conditional Access.</div>
+</div>
+<div class="section-block">
+<h3>3. Unmanaged Device Report-only Failure</h3>
+<p>I reviewed a Chloe Bennett sign-in from an unmanaged Windows home PC browser session and confirmed that CA001 would have failed access if the policy had been enforced. The device appeared as unknown and the compliant-device grant control was not satisfied.</p>
+<figure class="lab-figure">
+<img alt="Report-only failure for Chloe Bennett sign-in from unmanaged home PC" src="screenshots/18-08-home-pc-report-only-unmanaged-device-failure.png" width="1352" height="1702"/>
+<figcaption><span class="figure-label">Figure 8</span>Report-only result showing CA001 failure for the unmanaged Windows sign-in because the grant controls were not satisfied.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This confirmed the intended policy behaviour: managed and compliant Windows devices would satisfy the policy, while unmanaged Windows browser sessions would not.</div>
+</div>
+<h2>Key Technical Outcomes</h2>
+<p>This lab demonstrated how Microsoft Entra Conditional Access can use Intune compliance as an access control signal. I configured a pilot policy, scoped it to a controlled group, limited it to Windows devices, used a compliant-device grant control, and validated the expected access impact through Report-only sign-in log evidence.</p>
+<div class="summary">
+<h2>Summary</h2>
+<ul>
+<li>I created <code>CA001 - Require compliant device for pilot users</code>.</li>
+<li>I assigned the policy to <code>GRP_Intune_Pilot</code>.</li>
+<li>I targeted all Microsoft cloud resources and scoped the pilot to Windows device platforms.</li>
+<li>I configured the grant control to require the device to be marked as compliant.</li>
+<li>I kept the policy in Report-only mode to avoid enforcement risk.</li>
+<li>I validated that Chloe Bennett on compliant device <code>CL2</code> satisfied the policy.</li>
+<li>I validated that an unmanaged Windows home PC sign-in would fail the compliant-device requirement if enforcement was enabled.</li>
+</ul>
+</div><div class="page-navigation"><a class="btn" href="../17-device-compliance-policy-pilot/index.html">← Previous Lab</a><a class="btn" href="../index.html">Back to Microsoft Infrastructure</a><a class="btn" href="../19-intune-configuration-profiles/index.html">Next Lab →</a></div>
+</section>
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer>
+</body>
+</html>

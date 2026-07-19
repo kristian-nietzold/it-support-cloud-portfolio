@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lab 09 - Microsoft Teams Collaboration</title>
+<link href="../../style.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo"><a href="../../index.html">Kristian Nietzold</a></h1>
+<nav aria-label="Main navigation"><a href="../../index.html">Home</a><a href="../index.html">Microsoft Infrastructure</a><a href="../../service-desk/index.html">Service Desk</a><a href="../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>Lab 09: Microsoft Teams Collaboration</h2>
+<p>Configured Microsoft Teams collaboration for Nietz Ltd through a private helpdesk workspace and a separate organisation-wide announcements team, validating membership, channel posts and shared files.</p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Overview</h2>
+<p>In this lab, I extended the Microsoft 365 environment into Microsoft Teams collaboration. I used the existing Nietz Ltd users and created a private IT Helpdesk Team for restricted support collaboration.</p>
+<p>I also created a separate Company Announcements Team as an org-wide communication workspace. This kept the support collaboration model separate from broad company updates.</p>
+<p>This lab focuses on Teams as the user-facing collaboration layer. The deeper SharePoint and OneDrive file collaboration work is handled in the next lab.</p>
+<h2>Objective</h2>
+<p>The objective was to create a controlled Teams workspace, configure owners and members, validate a standard support channel, confirm file collaboration through the Shared area, and prove access from standard user accounts.</p>
+<h2>Environment</h2>
+<table>
+<tr><th>Component</th><th>Value</th></tr>
+<tr><td>Company</td><td>Nietz Ltd</td></tr>
+<tr><td>On-premises AD domain</td><td>corp.nietz.co.uk</td></tr>
+<tr><td>Microsoft 365 / tenant domain</td><td>nietz.co.uk</td></tr>
+<tr><td>Daily administrator</td><td>k.nietzold@nietz.co.uk</td></tr>
+<tr><td>Primary Team</td><td>IT Helpdesk</td></tr>
+<tr><td>Primary Team privacy</td><td>Private</td></tr>
+<tr><td>Primary Team owner</td><td>k.nietzold@nietz.co.uk</td></tr>
+<tr><td>Primary Team members</td><td>c.bennett@nietz.co.uk, l.johnson@nietz.co.uk</td></tr>
+<tr><td>Support channel</td><td>Tickets</td></tr>
+<tr><td>Member validation user</td><td>c.bennett@nietz.co.uk</td></tr>
+<tr><td>Org-wide Team</td><td>Company Announcements</td></tr>
+<tr><td>Org-wide validation user</td><td>e.wilson@nietz.co.uk</td></tr>
+<tr><td>Previous lab dependency</td><td>Lab 08: External Mail Flow and DNS Records</td></tr>
+<tr><td>Next lab dependency</td><td>Lab 10: SharePoint and OneDrive File Collaboration</td></tr>
+</table>
+<h2>Configuration</h2>
+<div class="section-block">
+<h3>1. Private Helpdesk Team Created</h3>
+<p>I created the <code>IT Helpdesk</code> Team as a private workspace for helpdesk collaboration.</p>
+<figure class="lab-figure">
+<img alt="IT Helpdesk Team created in the Microsoft Teams admin center" src="screenshots/09-01-helpdesk-team-created.png" width="2955" height="1236"/>
+<figcaption><span class="figure-label">Figure 1</span>IT Helpdesk Team created as an active private Team.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> A private Team is suitable for helpdesk collaboration because access is controlled through Team membership rather than being open to the whole organisation.</div>
+</div>
+<div class="section-block">
+<h3>2. Team Privacy and Settings Confirmed</h3>
+<p>I reviewed the Team settings and confirmed that the IT Helpdesk workspace was configured as a private Team.</p>
+<figure class="lab-figure">
+<img alt="IT Helpdesk Team settings showing private Team configuration" src="screenshots/09-02-helpdesk-team-settings-and-privacy.png" width="1874" height="1588"/>
+<figcaption><span class="figure-label">Figure 2</span>IT Helpdesk privacy and member permissions confirmed.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Settings validation confirms that the Team was not just created, but configured as a controlled workspace with private membership.</div>
+</div>
+<div class="section-block">
+<h3>3. Team Owners and Members Configured</h3>
+<p>I configured Kristian Nietzold as the Team owner and added Chloe Bennett and Lee Johnson as members.</p>
+<figure class="lab-figure">
+<img alt="IT Helpdesk Team showing Chloe Bennett and Lee Johnson as members and Kristian Nietzold as owner" src="screenshots/09-03-helpdesk-team-owners-and-members.png" width="2952" height="1672"/>
+<figcaption><span class="figure-label">Figure 3</span>Owner and member access configured for the IT Helpdesk Team.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Teams access is membership-based, so owner and member validation proves that the correct users were granted access to the private workspace.</div>
+</div>
+<div class="section-block">
+<h3>4. Standard Tickets Channel Created</h3>
+<p>I created a standard <code>Tickets</code> channel inside the IT Helpdesk Team for ticket discussion and support updates.</p>
+<figure class="lab-figure">
+<img alt="IT Helpdesk Team showing the Tickets standard channel" src="screenshots/09-04-helpdesk-standard-channel-created.png" width="1637" height="1230"/>
+<figcaption><span class="figure-label">Figure 4</span>Tickets standard channel created inside IT Helpdesk.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Channels organise Team conversations and provide a clear location for support-specific collaboration.</div>
+</div>
+<div class="section-block">
+<h3>5. Channel Post Created</h3>
+<p>I posted a Lab 09 validation message in the Tickets channel to confirm that the channel was usable for helpdesk conversation.</p>
+<figure class="lab-figure">
+<img alt="Lab 09 validation post created in the IT Helpdesk Tickets channel" src="screenshots/09-05-helpdesk-channel-post-created.png" width="3609" height="1049"/>
+<figcaption><span class="figure-label">Figure 5</span>Validation post created in the Tickets channel.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> A channel post validates the user-facing Teams experience instead of only proving the admin-side configuration.</div>
+</div>
+<div class="section-block">
+<h3>6. Test File Uploaded to Shared Area</h3>
+<p>I uploaded <code>Lab09-Teams-Test-File.docx</code> to the Tickets channel Shared area to validate Teams file collaboration.</p>
+<figure class="lab-figure">
+<img alt="Lab09 Teams test file uploaded to the IT Helpdesk Tickets Shared area" src="screenshots/09-06-test-file-uploaded-to-team-files.png" width="2559" height="1044"/>
+<figcaption><span class="figure-label">Figure 6</span>Test file uploaded to the Tickets channel Shared area.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Teams channel files are backed by SharePoint, but this screenshot focuses on the Teams user experience. Detailed SharePoint and OneDrive validation is handled in the next lab.</div>
+</div>
+<div class="section-block">
+<h3>7. Member User Team Access Validated</h3>
+<p>I signed in as Chloe Bennett and confirmed that a standard member could access the private IT Helpdesk Team and the Tickets channel.</p>
+<figure class="lab-figure">
+<img alt="Chloe Bennett accessing the IT Helpdesk Tickets channel in Microsoft Teams" src="screenshots/09-07-member-user-team-access.png" width="3637" height="1253"/>
+<figcaption><span class="figure-label">Figure 7</span>Member user access to the private IT Helpdesk Team validated.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> Member-side validation proves that the access configuration worked from the perspective of a normal licensed user.</div>
+</div>
+<div class="section-block">
+<h3>8. Member User File Access Validated</h3>
+<p>I confirmed that Chloe Bennett could access the uploaded test file from the Tickets channel Shared area.</p>
+<figure class="lab-figure">
+<img alt="Chloe Bennett accessing the uploaded Lab09 Teams test file in the Tickets channel Shared area" src="screenshots/09-08-member-user-file-access.png" width="2506" height="1119"/>
+<figcaption><span class="figure-label">Figure 8</span>Member user file access validated from the Teams Shared area.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> File access validation links Team membership to practical collaboration, showing that the member can reach shared content, not just see the Team name.</div>
+</div>
+<div class="section-block">
+<h3>9. Org-Wide Announcements Team Validated</h3>
+<p>I created the <code>Company Announcements</code> Team as an org-wide communication workspace and validated access as Emily Wilson.</p>
+<figure class="lab-figure">
+<img alt="Emily Wilson accessing the Company Announcements org-wide Team in Microsoft Teams" src="screenshots/09-09-company-announcements-team-created.png" width="3637" height="1146"/>
+<figcaption><span class="figure-label">Figure 9</span>Company Announcements org-wide Team validated with a standard user.</figcaption>
+</figure>
+<div class="callout"><strong>Context:</strong> This provides a second Teams model: IT Helpdesk for restricted support collaboration and Company Announcements for broad company-wide communication.</div>
+</div>
+<h2>Validation</h2>
+<p>The lab was validated when the private <code>IT Helpdesk</code> Team existed, privacy was confirmed, ownership and membership were assigned, the <code>Tickets</code> channel was available, a channel post was created, a test file was uploaded, and Chloe Bennett could access both the channel and shared file.</p>
+<p>The supporting org-wide validation was completed when Emily Wilson could access the <code>Company Announcements</code> Team and view the announcement post.</p>
+<h2>Key Technical Outcomes</h2>
+<p>This lab demonstrated how Teams workspaces are controlled through privacy, ownership, membership, channels, posts and user-side validation.</p>
+<p>It also showed the difference between a restricted private Team for support collaboration and an org-wide Team for broad internal communication.</p>
+<div class="summary">
+<h2>Summary</h2>
+<ul>
+<li>I created the private <code>IT Helpdesk</code> Team for restricted helpdesk collaboration.</li>
+<li>I configured Kristian Nietzold as owner and added Chloe Bennett and Lee Johnson as members.</li>
+<li>I created the <code>Tickets</code> standard channel for support discussion.</li>
+<li>I validated channel posting and uploaded a test file to the channel Shared area.</li>
+<li>I confirmed that Chloe Bennett could access the Team, channel and shared file.</li>
+<li>I created and validated the org-wide <code>Company Announcements</code> Team with Emily Wilson.</li>
+</ul>
+</div><div class="page-navigation"><a class="btn" href="../08-external-mail-flow-dns-records/index.html">← Previous Lab</a><a class="btn" href="../index.html">Back to Microsoft Infrastructure</a><a class="btn" href="../10-sharepoint-onedrive-file-collaboration/index.html">Next Lab →</a></div>
+</section>
+</main>
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer>
+</body>
+</html>

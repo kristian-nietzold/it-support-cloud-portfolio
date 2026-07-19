@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Service Desk Methodology – Kristian Nietzold</title>
+<meta content="The impact, urgency, priority, evidence and escalation methodology used across Kristian Nietzold's Service Desk ticket investigations." name="description"/>
+<link href="../../style.css" rel="stylesheet"/>
+<style>
+    .method-table {
+      width: 100%;
+      margin-bottom: 34px;
+    }
+
+    .method-table th:first-child,
+    .method-table td:first-child {
+      width: 1%;
+      white-space: nowrap;
+    }
+
+    .priority-matrix th:nth-child(-n+3),
+    .priority-matrix td:nth-child(-n+3) {
+      width: 1%;
+      white-space: nowrap;
+    }
+
+    .method-intro {
+      max-width: 920px;
+      font-size: 1.08rem;
+      line-height: 1.65;
+    }
+
+    .method-card {
+      max-width: 950px;
+      margin: 22px 0 36px;
+      padding: 22px;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(15, 23, 42, 0.05);
+    }
+
+    .method-card h3 {
+      margin-top: 0;
+    }
+
+    .footer a {
+      color: inherit;
+    }
+  </style>
+</head>
+<body>
+<header class="navbar">
+<div class="container">
+<h1 class="logo">
+<a href="../../index.html">Kristian Nietzold</a>
+</h1>
+<nav aria-label="Main navigation"><a href="../../index.html">Home</a><a href="../../microsoft-infrastructure/index.html">Microsoft Infrastructure</a><a href="../index.html">Service Desk</a><a href="../../google-workspace/index.html">Google Workspace</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<h2>Service Desk Methodology</h2>
+<p>
+          The consistent triage, priority, evidence and escalation framework
+          used across the ServiceNow ticket investigations.
+        </p>
+</div>
+</section>
+<section class="content-modern">
+<h2>Evidence Standard</h2>
+<p class="method-intro">
+        Each ticket write-up follows a consistent support workflow so that the
+        investigation is understandable, repeatable and linked to a clear
+        business outcome.
+      </p>
+<div class="method-card">
+<ul>
+<li>User report and business impact.</li>
+<li>Initial classification and priority.</li>
+<li>Checks completed and evidence gathered.</li>
+<li>Root cause or most likely cause.</li>
+<li>First-line fix or justified escalation decision.</li>
+<li>User-side and administrative validation.</li>
+<li>Work notes, communication and resolution outcome.</li>
+</ul>
+</div>
+<h2>Impact and Urgency Model</h2>
+<p>
+        The ticket scenarios use an ITIL-aligned model based on common IT
+        service-management practice. Impact measures how widely the issue
+        affects the organisation. Urgency measures how quickly action is
+        required. Priority is determined from their combination using the documented
+        service-management model.
+      </p>
+<h3>Impact definitions</h3>
+<table class="method-table">
+<thead>
+<tr>
+<th>Impact</th>
+<th>Working definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 - High</td>
+<td>
+              Whole organisation, major service, multiple departments,
+              executive user, serious security risk or a business-critical
+              service unavailable.
+            </td>
+</tr>
+<tr>
+<td>2 - Medium</td>
+<td>
+              A team, department, multiple users or an important business
+              function is affected.
+            </td>
+</tr>
+<tr>
+<td>3 - Low</td>
+<td>
+              A single user, minor issue, available workaround, routine request
+              or limited business impact.
+            </td>
+</tr>
+</tbody>
+</table>
+<h3>Urgency definitions</h3>
+<table class="method-table">
+<thead>
+<tr>
+<th>Urgency</th>
+<th>Working definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 - High</td>
+<td>
+              Work stopped, no workaround, active security risk, same-day
+              deadline or a business-critical function is blocked.
+            </td>
+</tr>
+<tr>
+<td>2 - Medium</td>
+<td>
+              Work is degraded, a workaround exists, same-day attention is
+              useful or the user can partly continue.
+            </td>
+</tr>
+<tr>
+<td>3 - Low</td>
+<td>
+              Planned request, information request, minor inconvenience or work
+              that can safely wait.
+            </td>
+</tr>
+</tbody>
+</table>
+<h2>Priority Matrix</h2>
+<table class="method-table priority-matrix">
+<thead>
+<tr>
+<th>Impact</th>
+<th>Urgency</th>
+<th>Priority</th>
+<th>Example use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 - High</td>
+<td>1 - High</td>
+<td>1 - Critical</td>
+<td>Major outage or confirmed serious security incident.</td>
+</tr>
+<tr>
+<td>1 - High</td>
+<td>2 - Medium</td>
+<td>2 - High</td>
+<td>Major service degraded with a partial workaround.</td>
+</tr>
+<tr>
+<td>1 - High</td>
+<td>3 - Low</td>
+<td>3 - Moderate</td>
+<td>Large-scope issue without an immediate deadline.</td>
+</tr>
+<tr>
+<td>2 - Medium</td>
+<td>1 - High</td>
+<td>2 - High</td>
+<td>A department or multiple users are blocked.</td>
+</tr>
+<tr>
+<td>2 - Medium</td>
+<td>2 - Medium</td>
+<td>3 - Moderate</td>
+<td>A team issue where work is degraded but continuing.</td>
+</tr>
+<tr>
+<td>2 - Medium</td>
+<td>3 - Low</td>
+<td>4 - Low</td>
+<td>A low-urgency departmental request.</td>
+</tr>
+<tr>
+<td>3 - Low</td>
+<td>1 - High</td>
+<td>3 - Moderate</td>
+<td>A single user is fully blocked, such as a locked account.</td>
+</tr>
+<tr>
+<td>3 - Low</td>
+<td>2 - Medium</td>
+<td>4 - Low</td>
+<td>A single-user issue with an available workaround.</td>
+</tr>
+<tr>
+<td>3 - Low</td>
+<td>3 - Low</td>
+<td>4 - Low</td>
+<td>A routine planned request or minor issue.</td>
+</tr>
+</tbody>
+</table>
+<h2>First-Line Priority Guidance</h2>
+<table class="method-table">
+<thead>
+<tr>
+<th>Priority</th>
+<th>Use in the ticket investigations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 - Critical</td>
+<td>
+              Used only for major outages, severe organisation-wide impact or a
+              confirmed serious security incident. First line records and
+              escalates immediately, applying a direct fix only when it is safe
+              and within scope.
+            </td>
+</tr>
+<tr>
+<td>2 - High</td>
+<td>
+              Used for department-level or multi-user disruption, urgent
+              business-function issues or high-risk security events. First line
+              investigates promptly and escalates when required.
+            </td>
+</tr>
+<tr>
+<td>3 - Moderate</td>
+<td>
+              Used for a blocked individual user or medium-impact issue. First
+              line normally owns the investigation and escalates only where the
+              fix requires additional privilege or specialist knowledge.
+            </td>
+</tr>
+<tr>
+<td>4 - Low</td>
+<td>
+              Used for routine requests, minor faults, issues with workarounds
+              and planned user or device administration.
+            </td>
+</tr>
+</tbody>
+</table>
+<h2>Resolver and Escalation Model</h2>
+<p>
+        Fictional resolver identities are used to demonstrate first-line
+        ownership, secondary support and controlled escalation boundaries.
+      </p>
+<table class="method-table">
+<thead>
+<tr>
+<th>Resolver</th>
+<th>Role</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chloe Bennett</td>
+<td>Service Desk Analyst</td>
+<td>Main first-line resolver for routine support tickets.</td>
+</tr>
+<tr>
+<td>Daniel Smith</td>
+<td>IT Support Technician</td>
+<td>Secondary first-line resolver for queue work.</td>
+</tr>
+<tr>
+<td>Kristian Nietzold</td>
+<td>IT Administrator</td>
+<td>
+              Escalation resolver for privileged, higher-risk or
+              administrator-only changes.
+            </td>
+</tr>
+</tbody>
+</table>
+<div class="summary">
+<h2>Summary</h2>
+<ul>
+<li>Impact and urgency are assessed separately.</li>
+<li>Priority reflects the combined business effect and required response.</li>
+<li>First line retains ownership while escalating only the privileged task.</li>
+<li>Every resolution requires technical or user-side validation.</li>
+<li>Work notes document actions, decisions and hand-offs clearly.</li>
+</ul>
+</div>
+<a class="btn" href="../index.html">Back to Service Desk</a>
+</section>
+</main>
+
+<footer class="footer"><div class="container"><p>© 2026 Kristian Nietzold · IT Support &amp; Cloud Administration · <a href="mailto:kris.nietzold@gmail.com">Contact</a></p></div></footer></body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Workspace 01 - Domain and Email Configuration</title>
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    .navbar nav .nav-disabled { color: #bdbdbd; margin-left: 24px; font-size: 16px; cursor: default; }
+    .content-modern img { max-width: 760px; width: 100%; display: block; margin: 24px auto 8px; border-radius: 8px; border: 1px solid #ddd; background: white; }
+  </style>
+</head>
+<body>
+<header class="navbar">
+  <div class="container">
+    <h1 class="logo"><a href="../../index.html">Kristian Nietzold</a></h1>
+    <nav>
+      <a href="../../index.html">Home</a>
+      <a href="../../microsoft-infrastructure/index.html">Microsoft Infrastructure</a>
+      <a href="../../service-desk/index.html">Service Desk</a>
+      <span class="nav-disabled">Networking</span>
+      <a href="../index.html">Google Workspace</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="hero">
+  <div class="container">
+    <h2>Google Workspace 01: Domain and Email Configuration</h2>
+    <p>Domain verification, DNS evidence and Gmail activation.</p>
+  </div>
+</section>
+<section class="content-modern">
+  <div class="callout"><strong>Context:</strong> This Google Workspace lab extends the same SaaS administration environment across identity, access, collaboration and security controls.</div>
+  <h1>01. Domain &amp; Email Configuration</h1>
+<p>Configured a custom domain for Google Workspace, including DNS verification and secure email delivery.</p>
+<hr />
+<h2>Domain Verification</h2>
+<p>Domain ownership was verified using a DNS record provided by Google Workspace.</p>
+<p><img src="screenshots/01-01-google-verification-code.png" alt="Google verification" width="1398" height="1464"/></p>
+<p>A CNAME verification record was added in Cloudflare DNS using the values supplied by Google.</p>
+<p><img src="screenshots/01-02-cloudflare-cname-record.png" alt="Cloudflare CNAME record" width="2673" height="933"/></p>
+<p>After DNS propagation, the domain was successfully verified in Google Admin Console.</p>
+<p><img src="screenshots/01-03-domain-verified.png" alt="Domain verified" width="2505" height="525"/></p>
+<p>This process:</p>
+<ul>
+<li>Confirms ownership of the custom domain</li>
+<li>Enables Google Workspace services for the domain</li>
+<li>Provides a reliable DNS-based verification method</li>
+</ul>
+<hr />
+<h2>Gmail Activation</h2>
+<p>Once the domain was verified, Gmail was enabled for users on the domain.</p>
+<p><img src="screenshots/01-04-gmail-activation-prompt.png" alt="Gmail activation prompt" width="1386" height="1122"/></p>
+<p>After activation, Gmail showed as enabled in the Admin console.</p>
+<p><img src="screenshots/01-05-gmail-activated.png" alt="Gmail activated" width="3432" height="1203"/></p>
+<p>This step:</p>
+<ul>
+<li>Enables hosted email for the domain</li>
+<li>Allows users to send and receive mail through Google Workspace</li>
+<li>Prepares the environment for mail routing and authentication</li>
+</ul>
+<hr />
+<h2>MX Records (Mail Routing)</h2>
+<p>Mail routing was configured in Cloudflare by creating an MX record pointing to Google’s mail servers.</p>
+<p><img src="screenshots/01-06-mx-record-cloudflare.png" alt="MX record in Cloudflare" width="2670" height="1092"/></p>
+<p>This ensures:</p>
+<ul>
+<li>Inbound email is routed to Google Workspace</li>
+<li>Mail delivery for the domain is operational</li>
+</ul>
+<hr />
+<h2>SPF (Sender Policy Framework)</h2>
+<p>An SPF TXT record was configured in Cloudflare to define which mail servers are authorised to send email on behalf of the domain.</p>
+<p><img src="screenshots/01-07-spf-record.png" alt="SPF record" width="3432" height="1203"/></p>
+<p>Configured value:</p>
+<p><code>v=spf1 include:_spf.google.com ~all</code></p>
+<p>This helps:</p>
+<ul>
+<li>Reduce spoofing risk</li>
+<li>Improve message trust</li>
+<li>Support downstream DMARC validation</li>
+</ul>
+<hr />
+<h2>DKIM (DomainKeys Identified Mail)</h2>
+<p>A DKIM key was generated in the Google Admin console for the domain.</p>
+<p><img src="screenshots/01-08-dkim-generate-google.png" alt="DKIM record generation" width="3453" height="1482"/></p>
+<p>The DKIM TXT record was then added in Cloudflare DNS.</p>
+<p><img src="screenshots/01-09-dkim-txt-cloudflare.png" alt="DKIM TXT record in Cloudflare" width="3258" height="1521"/></p>
+<p>After propagation and activation, email authentication checks confirmed successful DKIM signing.</p>
+<p><img src="screenshots/01-10-email-authentication-pass.png" alt="Email authentication pass" width="3030" height="1257"/></p>
+<p>This provides:</p>
+<ul>
+<li>Cryptographic validation of outgoing mail</li>
+<li>Improved deliverability</li>
+<li>Stronger protection against email tampering</li>
+</ul>
+<hr />
+<h2>DMARC (Domain-based Message Authentication, Reporting and Conformance)</h2>
+<p>A DMARC TXT record was added to define how authentication failures should be handled and reported.</p>
+<p><img src="screenshots/01-11-dmarc-record.png" alt="DMARC record" width="2526" height="972"/></p>
+<p>This provides:</p>
+<ul>
+<li>Visibility into SPF and DKIM alignment</li>
+<li>Reporting on authentication failures</li>
+<li>A foundation for stricter anti-spoofing enforcement later</li>
+</ul>
+<hr />
+<h2>Summary</h2>
+<p>This configuration established a secure and functional Google Workspace email environment by combining:</p>
+<ul>
+<li>DNS-based domain verification</li>
+<li>Gmail activation</li>
+<li>MX-based mail routing</li>
+<li>SPF configuration</li>
+<li>DKIM signing</li>
+<li>DMARC policy enforcement</li>
+</ul>
+<p>Together, these controls provide a production-ready baseline for secure email delivery and domain protection.</p>
+
+  <p>
+    <a href="../index.html" class="btn">&larr; Back to Google Workspace</a>
+  </p>
+</section>
+</main>
+</body>
+</html>
