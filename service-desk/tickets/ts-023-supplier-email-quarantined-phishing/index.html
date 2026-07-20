@@ -8,6 +8,7 @@
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
+
 <header class="navbar">
   <div class="container">
     <p class="logo"><a href="../../../index.html">Kristian Nietzold</a></p>
@@ -20,107 +21,164 @@
     </nav>
   </div>
 </header>
+
 <main id="main-content" tabindex="-1">
 
 <section class="hero">
   <div class="container">
     <h1>TS-023: Supplier email quarantined as phishing</h1>
-    <p>Reviewed and released an expected supplier email that Microsoft 365 had quarantined as high-confidence phishing, completing sender-authentication and message-detail checks before delivery.</p>
+    <p>Investigated a missing supplier email, identified a first-line Microsoft Defender permissions boundary, escalated the security review, released the validated message and completed controlled cleanup.</p>
   </div>
 </section>
 
 <section class="content-modern">
-  <h2>Scenario</h2>
-  <p>Sam Jackson reported that an expected supplier email had not arrived in his mailbox. Because the missing message related to an external supplier and was suspected to have been filtered, I treated the ticket as a security and phishing review issue rather than a normal Outlook delivery fault.</p>
 
-  <div class="callout"><strong>Priority reasoning:</strong> Impact was set to <strong>3 - Low</strong> because only one user was affected. Urgency was set to <strong>2 - Medium</strong> because the user could continue working, but same-day review of the missing supplier email was useful. Under the priority matrix, Low impact plus Medium urgency gives <strong>4 - Low</strong>.</div>
+  <h2>Scenario</h2>
+  <p>Sam Jackson reported that an expected supplier email had not arrived. Initial checks suggested that the message might have been quarantined as phishing, so the incident was handled as an email-security investigation rather than a standard Outlook delivery fault.</p>
+
+  <div class="callout">
+    <strong>Ticket ownership:</strong> Chloe Bennett handled the first-line investigation and customer communication. When the Service Desk account could not access organisation-wide quarantine data, the incident was escalated to Kristian Nietzold for the privileged Microsoft Defender review and release action.
+  </div>
+
 
   <h2>ServiceNow Ticket</h2>
-  <p>The incident was logged as a single-user security issue and assigned to the Service Desk. I set the category to <strong>Security</strong>, the subcategory to <strong>Phishing</strong>, impact to <strong>3 - Low</strong>, urgency to <strong>2 - Medium</strong>, and priority to <strong>4 - Low</strong>.</p>
+  <p>The incident was logged for Sam Jackson and assigned to Chloe Bennett in the Service Desk. It was classified as <strong>Security &gt; Phishing</strong>, with <strong>Email Security</strong> as the service, <strong>Phishing Investigation</strong> as the service offering and <strong>Defender for Office 365</strong> as the configuration item.</p>
 
   <figure class="lab-figure">
-    <a class="screenshot-link" href="screenshots/TS-023-01-ticket-opened.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: ServiceNow incident TS-023 opened for Sam Jackson as a Security phishing ticket with Low impact, Medium urgency and P4 priority (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/TS-023-01-ticket-opened.png" alt="ServiceNow incident TS-023 opened for Sam Jackson as a Security phishing ticket with Low impact, Medium urgency and P4 priority" width="3814" height="960"></a>
-    <figcaption><span class="figure-label">Figure 1</span>ServiceNow incident opened for Sam Jackson with the Security category, Phishing subcategory, Low impact, Medium urgency and P4 Low priority.</figcaption>
+    <a class="screenshot-link" href="screenshots/ts-023-01-ticket-opened.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: ServiceNow incident opened for Sam Jackson with Security and Phishing classification, Email Security service, Phishing Investigation offering and Defender for Office 365 configuration item (opens in a new tab)" title="Open full-size screenshot">
+      <img src="screenshots/ts-023-01-ticket-opened.png" alt="ServiceNow incident opened for Sam Jackson with Security and Phishing classification, Email Security service, Phishing Investigation offering and Defender for Office 365 configuration item" width="2048" height="733">
+    </a>
+    <figcaption><span class="figure-label">Figure 1</span>Incident opened with the correct security classification, service, service offering, configuration item and first-line assignment.</figcaption>
   </figure>
 
-  <h2>Investigation</h2>
-  <p>To safely generate a quarantined message in the lab without using real phishing content, I created a temporary Exchange Online mail flow rule. The rule matched a controlled test subject and set the spam confidence level to <strong>9</strong>, causing the test supplier email to be handled by the anti-spam policy.</p>
+  <h2>Controlled Test Setup</h2>
+  <p>To reproduce the issue safely without using malicious content, a temporary Exchange Online mail flow rule matched a unique test subject and set the spam confidence level to <strong>9</strong>. This forced only the controlled test message through the anti-spam quarantine workflow.</p>
 
   <figure class="lab-figure">
-    <a class="screenshot-link" href="screenshots/TS-023-02-mail-flow-rule-created.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Exchange Online mail flow rule LAB-TS-023-Quarantine-Test enabled and configured to set SCL to 9 for the test subject (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/TS-023-02-mail-flow-rule-created.png" alt="Exchange Online mail flow rule LAB-TS-023-Quarantine-Test enabled and configured to set SCL to 9 for the test subject" width="3823" height="960"></a>
-    <figcaption><span class="figure-label">Figure 2</span>Temporary mail flow rule created for the lab test. The rule matched the controlled subject and set the spam confidence level to 9.</figcaption>
+    <a class="screenshot-link" href="screenshots/ts-023-02-mail-flow-rule-created.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Temporary Exchange Online rule matching the TS-023 quarantine test subject and setting SCL to 9 (opens in a new tab)" title="Open full-size screenshot">
+      <img src="screenshots/ts-023-02-mail-flow-rule-created.png" alt="Temporary Exchange Online rule matching the TS-023 quarantine test subject and setting the spam confidence level to 9" width="1955" height="1289">
+    </a>
+    <figcaption><span class="figure-label">Figure 2</span>Temporary mail flow rule used to generate a controlled and repeatable quarantine event.</figcaption>
   </figure>
 
-  <p>I then checked the Microsoft Defender quarantine queue. The expected test email was present in quarantine for <code>s.jackson@nietz.co.uk</code>, with the release status showing <strong>Needs review</strong>.</p>
+  <h2>First-Line Investigation</h2>
+  <p>Chloe accessed Microsoft Defender and opened the quarantine page. The portal itself was available, but the Service Desk account displayed zero items and no organisation-wide quarantine data. Sam Jackson's message therefore could not be located or reviewed using Chloe's permissions.</p>
 
   <figure class="lab-figure">
-    <a class="screenshot-link" href="screenshots/TS-023-03-quarantine-search.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Microsoft Defender quarantine page showing the TS-023 test email quarantined for Sam Jackson with release status Needs review (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/TS-023-03-quarantine-search.png" alt="Microsoft Defender quarantine page showing the TS-023 test email quarantined for Sam Jackson with release status Needs review" width="2845" height="860"></a>
-    <figcaption><span class="figure-label">Figure 3</span>Microsoft Defender quarantine showed the supplier test email quarantined for Sam Jackson and awaiting review.</figcaption>
+    <a class="screenshot-link" href="screenshots/ts-023-03-chloe-no-quarantine-visibility.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Chloe Bennett's Defender quarantine view showing zero items and no data available (opens in a new tab)" title="Open full-size screenshot">
+      <img src="screenshots/ts-023-03-chloe-no-quarantine-visibility.png" alt="Microsoft Defender quarantine page under Chloe Bennett's account showing zero items and no data available" width="2048" height="606">
+    </a>
+    <figcaption><span class="figure-label">Figure 3</span>Chloe confirmed a genuine first-line permissions boundary: the Defender portal was accessible, but organisation-wide quarantine data was not visible.</figcaption>
   </figure>
 
-  <p>I opened the quarantined message details and reviewed the classification and delivery information. The message was classified as <strong>High Confidence Phish</strong>, blocked by the anti-spam policy, and remained in quarantine.</p>
+  <h2>Escalation</h2>
+  <p>Chloe documented the access limitation in ServiceNow and reassigned incident <strong>INC0010081</strong> to Kristian Nietzold for privileged security review and any required release action. The incident remained in progress during the escalation.</p>
 
   <figure class="lab-figure">
-    <a class="screenshot-link" href="screenshots/TS-023-04a-message-quarantine-details.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Quarantine details showing High Confidence Phish, anti-spam policy, blocked delivery action and quarantine location (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/TS-023-04a-message-quarantine-details.png" alt="Quarantine details showing High Confidence Phish, anti-spam policy, blocked delivery action and quarantine location" width="1163" height="1688"></a>
-    <figcaption><span class="figure-label">Figure 4</span>Message details showed High Confidence Phish, anti-spam policy handling, blocked delivery action and quarantine as the delivery location.</figcaption>
+    <a class="screenshot-link" href="screenshots/ts-023-04-chloe-escalates-to-security-admin.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Chloe Bennett's ServiceNow work note documenting the quarantine visibility limitation and escalation to Kristian Nietzold (opens in a new tab)" title="Open full-size screenshot">
+      <img src="screenshots/ts-023-04-chloe-escalates-to-security-admin.png" alt="ServiceNow activity showing Chloe Bennett documenting that no organisation-wide quarantine data was visible and assigning the incident to Kristian Nietzold" width="2048" height="482">
+    </a>
+    <figcaption><span class="figure-label">Figure 4</span>Chloe recorded the permissions limitation and escalated the incident to Kristian Nietzold.</figcaption>
   </figure>
 
-  <p>Before releasing the email, I reviewed sender and authentication details. The message showed inbound delivery from the external sender, with SPF, DKIM, DMARC and composite authentication passing. The lab message contained no URLs or attachments.</p>
+  <h2>Privileged Security Investigation</h2>
+  <p>Signed in with the administrator account, Kristian could see the quarantined message. The queue showed the expected supplier test email for Sam Jackson with the release status <strong>Needs review</strong> and the quarantine reason <strong>High Confidence Phish</strong>.</p>
 
   <figure class="lab-figure">
-    <a class="screenshot-link" href="screenshots/TS-023-04b-message-sender-authentication.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Email details showing sender, recipient, inbound directionality and authentication results passing SPF DKIM DMARC and composite authentication (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/TS-023-04b-message-sender-authentication.png" alt="Email details showing sender, recipient, inbound directionality and authentication results passing SPF DKIM DMARC and composite authentication" width="1153" height="1660"></a>
-    <figcaption><span class="figure-label">Figure 5</span>Sender and authentication details were reviewed before release. SPF, DKIM, DMARC and composite authentication passed.</figcaption>
+    <a class="screenshot-link" href="screenshots/ts-023-05-kristian-locates-quarantined-message.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Kristian Nietzold's Defender quarantine view showing the supplier test message for Sam Jackson (opens in a new tab)" title="Open full-size screenshot">
+      <img src="screenshots/ts-023-05-kristian-locates-quarantined-message.png" alt="Microsoft Defender quarantine under Kristian Nietzold's account showing the TS-023 supplier invoice test message for Sam Jackson with Needs review status" width="2048" height="653">
+    </a>
+    <figcaption><span class="figure-label">Figure 5</span>Kristian located the quarantined supplier message after the first-line escalation.</figcaption>
+  </figure>
+
+  <p>The message details confirmed that it had been classified as <strong>High Confidence Phish</strong>, handled by the default anti-spam policy and had not yet been released to the recipient.</p>
+
+  <figure class="lab-figure">
+    <a class="screenshot-link" href="screenshots/ts-023-06-message-quarantine-details.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Quarantine details showing High Confidence Phish, anti-spam policy and Sam Jackson as recipient (opens in a new tab)" title="Open full-size screenshot">
+      <img src="screenshots/ts-023-06-message-quarantine-details.png" alt="Quarantine details showing the test message as High Confidence Phish under the anti-spam policy and not yet released to Sam Jackson" width="1570" height="1417">
+    </a>
+    <figcaption><span class="figure-label">Figure 6</span>Message classification, policy handling, recipient and unreleased status were reviewed before action was taken.</figcaption>
+  </figure>
+
+  <p>Kristian then reviewed the sender-authentication results. SPF, DKIM, DMARC and composite authentication all passed. These results supported the controlled-test context, although authentication alone was not treated as proof that an email was safe.</p>
+
+  <figure class="lab-figure">
+    <a class="screenshot-link" href="screenshots/ts-023-07-sender-authentication-reviewed.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Defender authentication section showing SPF, DKIM, DMARC and composite authentication passed (opens in a new tab)" title="Open full-size screenshot">
+      <img src="screenshots/ts-023-07-sender-authentication-reviewed.png" alt="Microsoft Defender authentication results showing DMARC, DKIM, SPF and composite authentication all passed" width="1572" height="1187">
+    </a>
+    <figcaption><span class="figure-label">Figure 7</span>Sender-authentication results were reviewed alongside the known controlled test conditions.</figcaption>
   </figure>
 
   <h2>Fix Applied</h2>
-  <p>After reviewing the message details and confirming the message was expected for the user, I released the quarantined email to Sam Jackson's mailbox.</p>
+  <p>After validating the recipient, message details, authentication results and controlled test conditions, Kristian released the message to its original recipient. Microsoft Defender then changed the release status to <strong>Released</strong>.</p>
 
   <figure class="lab-figure">
-    <a class="screenshot-link" href="screenshots/TS-023-05-message-released.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Microsoft Defender quarantine showing the message release status changed to Released and released by Chloe Bennett (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/TS-023-05-message-released.png" alt="Microsoft Defender quarantine showing the message release status changed to Released and released by Chloe Bennett" width="2980" height="774"></a>
-    <figcaption><span class="figure-label">Figure 6</span>The quarantined email was released to Sam Jackson. The quarantine queue showed the release status as Released and the action recorded against Chloe Bennett.</figcaption>
+    <a class="screenshot-link" href="screenshots/ts-023-08-message-released-from-quarantine.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Defender quarantine showing the supplier test message with release status Released (opens in a new tab)" title="Open full-size screenshot">
+      <img src="screenshots/ts-023-08-message-released-from-quarantine.png" alt="Microsoft Defender quarantine showing the supplier invoice test message released to Sam Jackson" width="2048" height="616">
+    </a>
+    <figcaption><span class="figure-label">Figure 8</span>The validated message was released from quarantine to Sam Jackson's mailbox.</figcaption>
   </figure>
 
-  <h2>Validation</h2>
-  <p>I updated the user through the ServiceNow incident, advising that the expected supplier email had been released and asking the user to confirm it was visible in Outlook.</p>
+  <h2>Handover and Customer Validation</h2>
+  <p>Kristian documented the Defender investigation, successful authentication checks and release action in ServiceNow. The incident was then reassigned to Chloe for customer confirmation and closure.</p>
 
   <figure class="lab-figure">
-    <a class="screenshot-link" href="screenshots/TS-023-06-user-updated.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: ServiceNow customer-visible comment advising Sam Jackson that the supplier email was released to his mailbox (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/TS-023-06-user-updated.png" alt="ServiceNow customer-visible comment advising Sam Jackson that the supplier email was released to his mailbox" width="3801" height="603"></a>
-    <figcaption><span class="figure-label">Figure 7</span>Customer-visible update added to the ticket, advising Sam Jackson that the supplier email had been released to his mailbox.</figcaption>
+    <a class="screenshot-link" href="screenshots/ts-023-09-returned-to-service-desk.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Kristian Nietzold's ServiceNow work note documenting the Defender investigation and reassignment to Chloe Bennett (opens in a new tab)" title="Open full-size screenshot">
+      <img src="screenshots/ts-023-09-returned-to-service-desk.png" alt="ServiceNow activity showing Kristian Nietzold documenting the quarantine investigation, release and assignment back to Chloe Bennett" width="2048" height="911">
+    </a>
+    <figcaption><span class="figure-label">Figure 9</span>The privileged work was documented and the incident was returned to the Service Desk.</figcaption>
+  </figure>
+
+  <p>Chloe sent a customer-visible update advising Sam that the message had been reviewed and released, then asked him to confirm that it was visible in Outlook.</p>
+
+  <figure class="lab-figure">
+    <a class="screenshot-link" href="screenshots/ts-023-10-customer-update.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Chloe Bennett's customer-visible ServiceNow comment asking Sam Jackson to confirm receipt of the released message (opens in a new tab)" title="Open full-size screenshot">
+      <img src="screenshots/ts-023-10-customer-update.png" alt="ServiceNow customer-visible comment from Chloe Bennett advising Sam Jackson that the supplier email was released and requesting confirmation" width="2048" height="326">
+    </a>
+    <figcaption><span class="figure-label">Figure 10</span>Chloe updated the caller and requested confirmation that the released supplier email had arrived.</figcaption>
+  </figure>
+
+  <h2>Cleanup</h2>
+  <p>After testing was complete, the temporary Exchange Online rule was disabled successfully. This prevented future messages using the controlled subject from being forced into quarantine and returned mail flow to its normal state.</p>
+
+  <figure class="lab-figure">
+    <a class="screenshot-link" href="screenshots/ts-023-11-temporary-rule-disabled.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Exchange Online rule LAB-TS-023-Quarantine-Test disabled successfully after the lab (opens in a new tab)" title="Open full-size screenshot">
+      <img src="screenshots/ts-023-11-temporary-rule-disabled.png" alt="Exchange Online showing the LAB-TS-023-Quarantine-Test rule disabled with a successful status update message" width="1984" height="1434">
+    </a>
+    <figcaption><span class="figure-label">Figure 11</span>The controlled mail flow rule was disabled successfully after the investigation.</figcaption>
   </figure>
 
   <h2>Resolution</h2>
-  <p>The ticket was resolved with the resolution code <strong>Solution provided</strong>. The resolution notes summarised the quarantine finding, message review, authentication check, absence of URLs or attachments in the test message, release action and user update.</p>
+  <p>Sam Jackson confirmed that the supplier email had been received successfully. Chloe verified that the release had completed, recorded that no further action was required and resolved incident <strong>INC0010081</strong> using the resolution code <strong>Solution provided</strong>.</p>
 
   <figure class="lab-figure">
-    <a class="screenshot-link" href="screenshots/TS-023-07-ticket-resolved.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: ServiceNow resolution information for TS-023 showing Solution provided and resolution notes for the quarantine release (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/TS-023-07-ticket-resolved.png" alt="ServiceNow resolution information for TS-023 showing Solution provided and resolution notes for the quarantine release" width="3800" height="821"></a>
-    <figcaption><span class="figure-label">Figure 8</span>Ticket resolved with Solution provided as the resolution code and Chloe Bennett recorded as the resolver.</figcaption>
-  </figure>
-
-  <p>After completing the test, I disabled the temporary mail flow rule so future messages with the lab subject would not continue to be forced into quarantine.</p>
-
-  <figure class="lab-figure">
-    <a class="screenshot-link" href="screenshots/TS-023-08-test-rule-disabled.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Exchange Online mail flow rules page showing LAB-TS-023-Quarantine-Test disabled after the lab (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/TS-023-08-test-rule-disabled.png" alt="Exchange Online mail flow rules page showing LAB-TS-023-Quarantine-Test disabled after the lab" width="3000" height="859"></a>
-    <figcaption><span class="figure-label">Figure 9</span>Temporary lab mail flow rule disabled after testing to prevent future emails being incorrectly quarantined.</figcaption>
+    <a class="screenshot-link" href="screenshots/ts-023-12-incident-resolved.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: ServiceNow resolution information showing Chloe Bennett as resolver and Solution provided as the resolution code (opens in a new tab)" title="Open full-size screenshot">
+      <img src="screenshots/ts-023-12-incident-resolved.png" alt="ServiceNow resolution information showing Chloe Bennett as resolver, Solution provided as the resolution code and confirmation that Sam Jackson received the supplier email" width="2048" height="612">
+    </a>
+    <figcaption><span class="figure-label">Figure 12</span>Chloe resolved the incident after the caller confirmed successful receipt of the released email.</figcaption>
   </figure>
 
   <div class="summary">
     <h2>Summary</h2>
     <ul>
-      <li>Resolved a P4 Low security incident for a single user missing an expected supplier email.</li>
-      <li>I classified the ticket as <strong>Security &gt; Phishing</strong> because the message was suspected to have been filtered as malicious.</li>
-      <li>I used a controlled lab mail flow rule to safely generate a quarantined test message without sending real phishing content.</li>
-      <li>I located the message in Microsoft Defender quarantine and confirmed it was marked as <strong>High Confidence Phish</strong>.</li>
-      <li>I reviewed delivery details, sender information and authentication results before taking action.</li>
-      <li>I confirmed the test message had no URLs or attachments before release.</li>
-      <li>I released the quarantined email to Sam Jackson's mailbox and updated the user through ServiceNow.</li>
-      <li>I resolved the ticket in ServiceNow using the code <strong>Solution provided</strong>.</li>
-      <li>I disabled the temporary test rule after the lab to avoid future unintended quarantine actions.</li>
+      <li>Investigated a missing supplier email as an email-security incident.</li>
+      <li>Used a tightly scoped Exchange Online rule to create a controlled quarantine event safely.</li>
+      <li>Confirmed that the Service Desk account could access Defender but could not view organisation-wide quarantine data.</li>
+      <li>Documented the permissions boundary and escalated the incident rather than granting unnecessary first-line privileges.</li>
+      <li>Located the message with the administrator account and reviewed its classification, recipient and quarantine state.</li>
+      <li>Reviewed SPF, DKIM, DMARC and composite authentication together with the controlled test context.</li>
+      <li>Released the validated message to the original recipient and returned the incident to first line.</li>
+      <li>Updated the customer, obtained confirmation of delivery and resolved the ServiceNow incident.</li>
+      <li>Disabled the temporary mail flow rule after testing to prevent unintended future quarantine actions.</li>
     </ul>
   </div>
 
-  <p>
-    <a href="../../index.html" class="btn">&larr; Back to Service Desk</a>
-  </p>
+  <div class="page-navigation">
+  <a class="btn" href="../ts-022-shared-mailbox-cannot-send-from/index.html">&larr; Previous Ticket</a>
+  <a class="btn" href="../../index.html">Back to Service Desk</a>
+  <a class="btn" href="../ts-031-servicenow-chloe-duplicate-identity-cleanup/index.html">Next Ticket &rarr;</a>
+</div>
+
 </section>
 </main>
 </body>

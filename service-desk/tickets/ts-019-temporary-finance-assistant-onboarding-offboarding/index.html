@@ -25,87 +25,106 @@
 <section class="hero">
   <div class="container">
     <h1>TS-019: Temporary Finance Assistant onboarding and offboarding</h1>
-    <p>Coordinated a time-limited Microsoft 365 onboarding request through Service Desk triage, least-privilege escalation and administrator-led provisioning, while retaining the ticket for controlled offboarding at the end of the placement.</p>
+    <p>Coordinated the onboarding phase of a time-limited Microsoft 365 request through Service Desk triage, least-privilege escalation and administrator-led provisioning, then placed the ticket on hold for controlled offboarding after the placement.</p>
   </div>
 </section>
 
 <section class="content-modern">
   <h2>Scenario</h2>
-  <p>Mia Taylor requested a Microsoft 365 account for Tom Walker, who was joining as a Temporary Finance Assistant for two weeks of holiday cover. The Service Desk needed to create the account, assign the required Microsoft 365 licence, provide approved Finance access and ensure that the temporary access remained tracked for removal at the end of the placement.</p>
+  <p>Mia Taylor requested temporary Microsoft 365 access for Tom Walker, who was due to provide Finance Assistant holiday cover from 20 July 2026 to 31 July 2026. Tom required a member account, a Microsoft 365 Business Premium licence, an Exchange Online mailbox and Finance read/write access through <code>GG_FIN_RW</code>. No administrative roles were required.</p>
 
-  <div class="callout"><strong>Priority reasoning:</strong> Impact was set to <strong>3 - Low</strong> because the request affected one new starter. Urgency was set to <strong>2 - Medium</strong> because the account needed to be available for the employee's start date. Under the priority matrix, Low impact plus Medium urgency gives <strong>4 - Low</strong>.</div>
+  <div class="callout"><strong>Priority reasoning:</strong> Impact was set to <strong>3 - Low</strong> because the request affected one temporary employee. Urgency was set to <strong>2 - Medium</strong> because the account had to be prepared for the next working day. Under the priority matrix, Low impact plus Medium urgency produced <strong>4 - Low</strong>.</div>
 
   <h2>ServiceNow Ticket</h2>
-  <p>The request was received by email from Mia Taylor and assigned to Chloe Bennett for Service Desk fulfilment. The description recorded the temporary role, the two-week access period, the required Microsoft 365 account and the approved Finance security group.</p>
+  <p>The request was received by email and assigned to Chloe Bennett in the Service Desk. It was classified as <strong>Request / Admin &gt; Onboarding</strong> and linked to the <strong>Identity &amp; Access Management</strong> service, <strong>User Provisioning</strong> service offering and <strong>Microsoft Entra ID</strong> configuration item. The description recorded the authorised access and instructed the Service Desk to place the ticket on hold after onboarding so the same record could track scheduled offboarding.</p>
 
   <figure class="lab-figure">
-    <a class="screenshot-link" href="screenshots/TS-019-01-servicenow-incident-opened.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: ServiceNow record INC0010025 opened for temporary Finance Assistant onboarding (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/TS-019-01-servicenow-incident-opened.png" alt="ServiceNow record INC0010025 opened for temporary Finance Assistant onboarding" width="3763" height="1350"></a>
-    <figcaption><span class="figure-label">Figure 1</span>ServiceNow request opened for Tom Walker with the temporary role, required licence and approved Finance access documented.</figcaption>
+    <a class="screenshot-link" href="screenshots/ts-019-01-servicenow-incident-opened.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: ServiceNow incident INC0010025 classified for temporary Finance Assistant onboarding and offboarding (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/ts-019-01-servicenow-incident-opened.png" alt="ServiceNow incident INC0010025 classified for temporary Finance Assistant onboarding and offboarding" width="2048" height="760"></a>
+    <figcaption><span class="figure-label">Figure 1</span>The request was classified, prioritised and assigned to the Service Desk with the temporary access requirements and placement dates documented.</figcaption>
   </figure>
 
-  <h2>Investigation</h2>
-  <p>Chloe checked whether the Service Desk account could create the new user through Microsoft Entra ID. The <strong>Create new user</strong> option was unavailable, confirming that the first-line account did not have unnecessary user-administration permissions.</p>
+  <h2>Investigation and Escalation</h2>
+  <p>I first tested the request through Chloe Bennett's delegated Service Desk account. Chloe could view users in Microsoft Entra ID, but the <strong>Create new user</strong> option was unavailable. This demonstrated that internal user creation remained outside the first-line permission boundary.</p>
 
   <figure class="lab-figure">
-    <a class="screenshot-link" href="screenshots/TS-019-02-chloe-user-creation-unavailable.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Microsoft Entra admin center showing that Chloe Bennett cannot create a new internal user (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/TS-019-02-chloe-user-creation-unavailable.png" alt="Microsoft Entra admin center showing that Chloe Bennett cannot create a new internal user" width="2798" height="1635"></a>
-    <figcaption><span class="figure-label">Figure 2</span>The Service Desk account could view users but could not create a new internal user, demonstrating the intended least-privilege boundary.</figcaption>
+    <a class="screenshot-link" href="screenshots/ts-019-02-chloe-user-creation-unavailable.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Microsoft Entra admin centre showing Chloe Bennett unable to create a new internal user (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/ts-019-02-chloe-user-creation-unavailable.png" alt="Microsoft Entra admin centre showing Chloe Bennett unable to create a new internal user" width="2048" height="513"></a>
+    <figcaption><span class="figure-label">Figure 2</span>Chloe's Service Desk account could view users but could not create a new internal user, confirming the intended least-privilege boundary.</figcaption>
   </figure>
 
-  <p>User creation, licence assignment and Finance group administration were outside Chloe's delegated first-line permissions. She documented the permission boundary in the ServiceNow work notes and escalated <strong>INC0010025</strong> to <strong>Kristian Nietzold</strong>, the Microsoft 365 administrator, requesting creation of <code>t.walker@nietz.co.uk</code>, assignment of the approved Office 365 E5 licence and membership of <code>GG_FIN_RW</code>. The escalation also stated that no administrative roles were required.</p>
-
-  <h2>Fix Applied</h2>
-  <p>Kristian reviewed the authorised request and the details supplied by the Service Desk. Before creation, he confirmed Tom Walker's username as <code>t.walker@nietz.co.uk</code>, set the usage location to United Kingdom and selected the approved Office 365 E5 licence.</p>
+  <p>Chloe documented the permission limitation, recorded the authorised account, licence and Finance-access requirements, and reassigned <strong>INC0010025</strong> to Kristian Nietzold for administrator completion.</p>
 
   <figure class="lab-figure">
-    <a class="screenshot-link" href="screenshots/TS-019-02-m365-user-review-before-finish.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Microsoft 365 admin center review page for Tom Walker with Office 365 E5 licence (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/TS-019-02-m365-user-review-before-finish.png" alt="Microsoft 365 admin center review page for Tom Walker with Office 365 E5 licence" width="1991" height="1691"></a>
-    <figcaption><span class="figure-label">Figure 3</span>The user's identity, sign-in name, usage location and product licence were reviewed before the account was created.</figcaption>
+    <a class="screenshot-link" href="screenshots/ts-019-03-servicenow-escalation-documented.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: ServiceNow work note documenting escalation from Chloe Bennett to Kristian Nietzold (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/ts-019-03-servicenow-escalation-documented.png" alt="ServiceNow work note documenting escalation from Chloe Bennett to Kristian Nietzold" width="2047" height="883"></a>
+    <figcaption><span class="figure-label">Figure 3</span>The Service Desk documented the authorised requirements and reassigned the ticket to the Microsoft 365 administrator.</figcaption>
   </figure>
 
-  <p>Using the administrator account, Kristian created the user and assigned the required Office 365 E5 licence. This completed the privileged provisioning action without granting Chloe broader user-administration rights.</p>
+  <h2>Provisioning</h2>
+  <p>Using the administrator account, I prepared Tom Walker as an enabled internal member with the sign-in name <code>t.walker@nietz.co.uk</code>. The profile recorded his Finance Assistant job title, Finance department, temporary employee type, Mia Taylor as manager and United Kingdom usage location. Membership of <code>GG_FIN_RW</code> was selected while the roles field remained empty.</p>
 
   <figure class="lab-figure">
-    <a class="screenshot-link" href="screenshots/TS-019-03-m365-user-created-licence-assigned.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Microsoft 365 active users list showing Tom Walker with an Office 365 E5 licence (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/TS-019-03-m365-user-created-licence-assigned.png" alt="Microsoft 365 active users list showing Tom Walker with an Office 365 E5 licence" width="3038" height="862"></a>
-    <figcaption><span class="figure-label">Figure 4</span>Tom Walker's account was created successfully and the required Office 365 E5 licence was assigned.</figcaption>
+    <a class="screenshot-link" href="screenshots/ts-019-04-entra-user-review-before-creation.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Microsoft Entra review page for Tom Walker before user creation (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/ts-019-04-entra-user-review-before-creation.png" alt="Microsoft Entra review page for Tom Walker before user creation" width="996" height="1703"></a>
+    <figcaption><span class="figure-label">Figure 4</span>The identity, employment properties, manager, usage location and Finance group assignment were reviewed before creation, with no administrative role assigned.</figcaption>
   </figure>
 
-  <p>Kristian then added Tom to the <code>GG_FIN_RW</code> security group to provide the approved Finance read/write access. Group-based access was used instead of direct permissions so that departmental access could be administered consistently and removed cleanly during offboarding. The completed administration work was returned to Chloe for first-line validation and requester communication.</p>
+  <p>After the user was created, I assigned Microsoft 365 Business Premium. The licence was shown as active, directly assigned and providing all 53 enabled services.</p>
 
   <figure class="lab-figure">
-    <a class="screenshot-link" href="screenshots/TS-019-04-finance-access-added.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Microsoft Entra security group GG_FIN_RW showing Tom Walker as a member (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/TS-019-04-finance-access-added.png" alt="Microsoft Entra security group GG_FIN_RW showing Tom Walker as a member" width="1604" height="1594"></a>
-    <figcaption><span class="figure-label">Figure 5</span>Tom Walker was added to the approved Finance security group alongside the existing authorised members.</figcaption>
+    <a class="screenshot-link" href="screenshots/ts-019-05-m365-business-premium-licence-active.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Tom Walker with an active Microsoft 365 Business Premium licence (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/ts-019-05-m365-business-premium-licence-active.png" alt="Tom Walker with an active Microsoft 365 Business Premium licence" width="2048" height="693"></a>
+    <figcaption><span class="figure-label">Figure 5</span>Microsoft 365 Business Premium was active for Tom Walker with all included services enabled through a direct assignment.</figcaption>
   </figure>
 
-  <h2>Validation</h2>
-  <p>After the administrator completed the change, Chloe validated the result from the Service Desk side. The Microsoft 365 active-users list showed Tom Walker with the expected username and Office 365 E5 licence, while membership of <code>GG_FIN_RW</code> confirmed that the required Finance access had been provisioned.</p>
+  <p>I then verified the post-creation group state. Tom appeared as a direct member of <code>GG_FIN_RW</code>, confirming that the approved Finance read/write access had been applied through group-based access control.</p>
 
-  <p>The completed checks confirmed that the account existed with the correct username, the required Microsoft 365 licence was assigned, the approved Finance security-group membership was present and the Service Desk permission boundary had been respected.</p>
+  <figure class="lab-figure">
+    <a class="screenshot-link" href="screenshots/ts-019-06-finance-group-membership-confirmed.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: GG_FIN_RW direct members list showing Tom Walker (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/ts-019-06-finance-group-membership-confirmed.png" alt="GG_FIN_RW direct members list showing Tom Walker" width="2048" height="876"></a>
+    <figcaption><span class="figure-label">Figure 6</span>Tom Walker was confirmed as a direct member of the approved Finance security group.</figcaption>
+  </figure>
+
+  <p>The Exchange admin centre showed that licensing had provisioned a user mailbox for <code>t.walker@nietz.co.uk</code>. The mailbox was visible in the address list and had Outlook on the web and the standard Exchange client protocols available.</p>
+
+  <figure class="lab-figure">
+    <a class="screenshot-link" href="screenshots/ts-019-07-exchange-mailbox-provisioned.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Exchange admin centre showing Tom Walker's provisioned user mailbox (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/ts-019-07-exchange-mailbox-provisioned.png" alt="Exchange admin centre showing Tom Walker's provisioned user mailbox" width="1176" height="1562"></a>
+    <figcaption><span class="figure-label">Figure 7</span>The Exchange Online user mailbox was provisioned with the correct address and was available to the organisation.</figcaption>
+  </figure>
+
+  <h2>Service Desk Validation</h2>
+  <p>I recorded the completed administrator actions in ServiceNow and returned the ticket to Chloe Bennett. The hand-back confirmed the enabled account, Business Premium licence, Exchange Online mailbox, Finance group membership and absence of administrative roles.</p>
+
+  <figure class="lab-figure">
+    <a class="screenshot-link" href="screenshots/ts-019-08-servicenow-provisioning-completed-returned-to-service-desk.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: ServiceNow administrator work note and reassignment back to Chloe Bennett (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/ts-019-08-servicenow-provisioning-completed-returned-to-service-desk.png" alt="ServiceNow administrator work note and reassignment back to Chloe Bennett" width="2048" height="564"></a>
+    <figcaption><span class="figure-label">Figure 8</span>The administrator documented successful provisioning and returned the ticket to the Service Desk.</figcaption>
+  </figure>
+
+  <p>Chloe reviewed the administrator evidence, confirmed that the account was ready for Tom's start date and recorded that Mia Taylor had been informed. Because Tom had not yet started work, no advance user sign-in was required. The incident was changed from <strong>In Progress</strong> to <strong>On Hold</strong> until the final working day on 31 July 2026.</p>
+
+  <figure class="lab-figure">
+    <a class="screenshot-link" href="screenshots/ts-019-09-servicenow-onboarding-complete-on-hold.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: ServiceNow onboarding validation and state change to On Hold for scheduled offboarding (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/ts-019-09-servicenow-onboarding-complete-on-hold.png" alt="ServiceNow onboarding validation and state change to On Hold for scheduled offboarding" width="2047" height="882"></a>
+    <figcaption><span class="figure-label">Figure 9</span>The onboarding phase was reviewed by the Service Desk and the ticket was placed on hold until the scheduled offboarding date.</figcaption>
+  </figure>
 
   <h2>Current Status</h2>
-  <p>The record was reclassified as <strong>Request / Admin &gt; Onboarding</strong> and linked to the <strong>Identity &amp; Access Management</strong> service, <strong>User Provisioning</strong> service offering and <strong>Microsoft Entra ID</strong> configuration item.</p>
-
-  <p>Following validation, the ticket was assigned back to Chloe Bennett. The onboarding work was complete, but the request was placed <strong>On Hold - Awaiting Change</strong> rather than resolved because the temporary account still required controlled offboarding at the end of the two-week cover period.</p>
-
-  <figure class="lab-figure">
-    <a class="screenshot-link" href="screenshots/TS-019-05-servicenow-account-prepared-on-hold.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: ServiceNow request classified for user provisioning and placed on hold pending temporary worker offboarding (opens in a new tab)" title="Open full-size screenshot"><img src="screenshots/TS-019-05-servicenow-account-prepared-on-hold.png" alt="ServiceNow request classified for user provisioning and placed on hold pending temporary worker offboarding" width="3776" height="1354"></a>
-    <figcaption><span class="figure-label">Figure 6</span>The completed onboarding stage was documented and the request retained under Service Desk ownership for the planned offboarding action.</figcaption>
-  </figure>
+  <div class="callout"><strong>Onboarding complete; offboarding pending.</strong> The account, licence, mailbox and Finance access are provisioned, and <strong>INC0010025</strong> is on hold until 31 July 2026. The ticket will be completed after the authorised access is removed and the offboarding outcome is documented.</div>
 
   <div class="summary">
     <h2>Summary</h2>
     <ul>
-      <li>I logged and classified a time-limited onboarding request for a temporary Finance employee.</li>
-      <li>I confirmed that Chloe's Service Desk account could not perform privileged user creation, demonstrating the intended least-privilege boundary.</li>
-      <li>I documented and escalated the approved provisioning work to Kristian Nietzold, the Microsoft 365 administrator.</li>
-      <li>Kristian created <code>t.walker@nietz.co.uk</code>, assigned the Office 365 E5 licence and granted Finance access through <code>GG_FIN_RW</code>.</li>
-      <li>I returned the ticket to Chloe for first-line validation, documentation and requester communication.</li>
-      <li>I validated the account, licence and group membership after provisioning.</li>
-      <li>I updated the ServiceNow classification with the correct service, service offering and configuration item.</li>
-      <li>I retained the request under Service Desk ownership so that the temporary access remained tracked for offboarding.</li>
+      <li>I logged and classified a time-limited onboarding request with clear start and end dates.</li>
+      <li>I demonstrated the Service Desk permission boundary using Chloe Bennett's delegated account.</li>
+      <li>I documented the escalation and reassigned the privileged work to the Microsoft 365 administrator.</li>
+      <li>I created <code>t.walker@nietz.co.uk</code> as an enabled member with the correct temporary Finance profile.</li>
+      <li>I assigned Microsoft 365 Business Premium and verified the active service entitlement.</li>
+      <li>I confirmed direct membership of <code>GG_FIN_RW</code> and successful Exchange Online mailbox provisioning.</li>
+      <li>I returned the ticket to Chloe for Service Desk review and requester communication.</li>
+      <li>I placed the incident on hold so the same record can track controlled offboarding on 31 July 2026.</li>
     </ul>
   </div>
 
   <p>
-    <a href="../../index.html" class="btn">&larr; Back to Service Desk</a>
+    <div class="page-navigation">
+  <a class="btn" href="../ts-012-office-unlicensed-product/index.html">&larr; Previous Ticket</a>
+  <a class="btn" href="../../index.html">Back to Service Desk</a>
+  <a class="btn" href="../ts-022-shared-mailbox-cannot-send-from/index.html">Next Ticket &rarr;</a>
+</div>
   </p>
 </section>
 </main>
